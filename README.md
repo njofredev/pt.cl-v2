@@ -1,36 +1,30 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Policlínico Tabancura V2 🏥✨
 
-## Getting Started
+![Next.js](https://img.shields.io/badge/Next.js-14-black?style=for-the-badge&logo=next.js)
+![TypeScript](https://img.shields.io/badge/TypeScript-007ACC?style=for-the-badge&logo=typescript&logoColor=white)
+![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white)
+![Coolify](https://img.shields.io/badge/Deploy-Coolify-6366f1?style=for-the-badge)
 
-First, run the development server:
+Evolución digital de la plataforma web del **Policlínico Tabancura**. Este proyecto busca transformar la experiencia del paciente mediante una interfaz elegante, innovadora y altamente accesible, integrando procesos clínicos con tecnología de vanguardia.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+## 🚀 Características Principales
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+- **Arquitectura Moderna**: Desarrollado con Next.js 14 utilizando App Router y Server Components.
+- **Diseño de Vanguardia**: UI/UX minimalista enfocada en salud, con animaciones fluidas mediante `Framer Motion`.
+- **Accesibilidad (WCAG)**: Optimización de contrastes, navegación por teclado y etiquetas ARIA para inclusión total.
+- **Integración 'Cerebro API'**: Conexión con backend en FastAPI para gestión de presupuestos y resultados de laboratorio.
+- **Infraestructura**: Desplegado de forma autónoma mediante **Coolify** en servidores Ubuntu Server.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## 🛠️ Stack Tecnológico
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+- **Frontend**: React, Next.js, TypeScript.
+- **Estilos**: Tailwind CSS + Shadcn/ui.
+- **Animaciones**: Framer Motion.
+- **Iconografía**: Lucide React.
+- **Backend (Ecosistema)**: FastAPI (Cerebro API) & PostgreSQL.
 
-## Learn More
+## 📦 Instalación y Desarrollo
 
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+1. Clonar el repositorio:
+   ```bash
+   git clone [https://github.com/njofredev/policlinico-tabancura.git](https://github.com/njofredev/policlinico-tabancura.git)

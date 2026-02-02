@@ -1,214 +1,148 @@
-export const dynamic = 'force-dynamic';
+"use client";
 
-import { getDentistas } from '@/lib/dentalink';
-import { Button } from '@/components/ui/button';
-import { Card, CardContent } from '@/components/ui/card';
-import { Badge } from '@/components/ui/badge';
-import { Dentista } from '@/types/dentalink';
+import React from 'react';
+import { Navbar } from '@/components/Navbar';
+import { Hero } from '@/components/Hero';
+import { motion } from 'framer-motion';
 import { 
   Stethoscope, 
+  Microscope, 
   Brain, 
-  Activity, 
-  Sparkles, 
-  ArrowRight, 
+  HeartPulse, 
   MapPin, 
-  Star, 
-  CheckCircle2 
+  ChevronRight,
+  Zap,
+  Clock,
+  Phone
 } from 'lucide-react';
-import Link from 'next/link';
+import { Button } from "@/components/ui/button";
 
-export default async function HomePage() {
-  const dentistas: Dentista[] = await getDentistas();
+// Data extraída del scrapeo
+const sedesReal = [
+  {
+    nombre: "Sede Los Tribunales",
+    direccion: "Calle Los Tribunales #1268, Vitacura",
+    horario: "Lun-Vie: 09:00 - 13:00 | 14:00 - 18:30",
+    imagen: "https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?q=80&w=2070",
+    badge: "CENTRO DENTAL"
+  },
+  {
+    nombre: "Sede Vitacura",
+    direccion: "Avenida Vitacura #8620, Vitacura",
+    horario: "Lun-Vie: 08:30 - 20:00 | Sáb: 09:00 - 13:00",
+    imagen: "https://images.unsplash.com/photo-1586773860418-d3b9a8ec81a2?q=80&w=2070",
+    badge: "CENTRO MÉDICO"
+  }
+];
 
-  const services = [
-    { 
-      title: "Salud Dental", 
-      desc: "Todas las especialidades de odontología y estética dental.", 
-      icon: <Sparkles className="text-blue-600" />, 
-      color: "bg-blue-50" 
-    },
-    { 
-      title: "Salud Mental", 
-      desc: "Consultas especializadas de psicología y psiquiatría.", 
-      icon: <Brain className="text-purple-600" />, 
-      color: "bg-purple-50" 
-    },
-    { 
-      title: "Medicina General", 
-      desc: "Pediatría, kinesiología, podología y medicina familiar.", 
-      icon: <Stethoscope className="text-emerald-600" />, 
-      color: "bg-emerald-50" 
-    },
-    { 
-      title: "Kinesiología", 
-      desc: "Rehabilitación física y atención kinesiológica integral.", 
-      icon: <Activity className="text-orange-600" />, 
-      color: "bg-orange-50" 
-    }
-  ];
-
+export default function Home() {
   return (
-    <div className="flex flex-col min-h-screen">
-      
-      {/* --- HERO SECTION --- */}
-      <section className="relative min-h-[70vh] flex items-center bg-slate-50 overflow-hidden">
-        <div className="absolute inset-0 z-0">
-          <img 
-            src="https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?auto=format&fit=crop&q=80&w=2000" 
-            className="w-full h-full object-cover opacity-20" 
-            alt="Fondo Institucional"
-          />
-        </div>
-        <div className="container mx-auto px-4 relative z-10">
-          <div className="max-w-3xl">
-            <h1 className="text-5xl md:text-7xl font-black text-slate-900 leading-tight mb-6">
-              Tu salud es nuestro pulso, <br />
-              <span className="text-blue-600 italic">contigo latimos más fuerte</span>
-            </h1>
-            <p className="text-xl text-slate-700 mb-8 leading-relaxed">
-              Corporación sin fines de lucro dedicada a entregar salud de calidad con costos accesibles y convenios estratégicos.
-            </p>
-            <div className="flex flex-col sm:flex-row gap-4">
-              <Button size="lg" className="bg-blue-600 hover:bg-blue-700 h-14 px-10 text-lg font-bold rounded-full">
-                Agendar Atención Online
-              </Button>
-              <Button size="lg" variant="outline" className="h-14 px-10 text-lg rounded-full bg-white border-slate-200">
-                Ver Convenios
-              </Button>
-            </div>
+    <main className="relative min-h-screen bg-white">
+      <Navbar />
+      <Hero />
+
+      {/* Servicios Reales Scrapeados */}
+      <section id="servicios" className="py-24 bg-slate-50">
+        <div className="container mx-auto px-6 text-center">
+          <motion.div 
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            className="inline-block px-4 py-1.5 rounded-full bg-blue-100 text-blue-700 text-[11px] font-black uppercase tracking-widest mb-6"
+          >
+            Atención Especializada
+          </motion.div>
+          <h2 className="text-4xl md:text-5xl font-black text-slate-900 mb-16 tracking-tight">
+            Nuestras <span className="text-blue-600">Áreas Médicas</span>
+          </h2>
+
+          <div className="grid md:grid-cols-4 gap-6">
+            {[
+              { title: "Salud Dental", desc: "Recupera estética y funcionalidad.", icon: <HeartPulse className="text-pink-500"/>, color: "hover:border-pink-200" },
+              { title: "Salud Mental", desc: "Apoyo profesional para tu bienestar.", icon: <Brain className="text-purple-500"/>, color: "hover:border-purple-200" },
+              { title: "Medicina General", desc: "Atención integral para toda la familia.", icon: <Stethoscope className="text-blue-500"/>, color: "hover:border-blue-200" },
+              { title: "Toma de Muestras", desc: "Exámenes de sangre cercanos a tu hogar.", icon: <Microscope className="text-emerald-500"/>, color: "hover:border-emerald-200" }
+            ].map((s, i) => (
+              <motion.div 
+                key={i}
+                whileHover={{ y: -5 }}
+                className={`bg-white p-8 rounded-[2rem] border border-slate-100 shadow-sm transition-all ${s.color}`}
+              >
+                <div className="w-12 h-12 bg-slate-50 rounded-xl flex items-center justify-center mb-6">{s.icon}</div>
+                <h3 className="text-xl font-bold text-slate-900 mb-2">{s.title}</h3>
+                <p className="text-sm text-slate-500 leading-relaxed">{s.desc}</p>
+              </motion.div>
+            ))}
           </div>
         </div>
       </section>
 
-      {/* --- SECCIÓN SERVICIOS --- */}
-      <section className="py-24 bg-white">
-        <div className="container mx-auto px-4 text-center mb-16">
-          <h2 className="text-4xl font-bold text-slate-900 mb-4 italic">¿Qué servicio necesitas hoy? 💙</h2>
-          <p className="text-slate-500 text-lg">Selecciona una categoría para comenzar tu agendamiento</p>
-        </div>
-
-        <div className="container mx-auto px-4 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
-          {services.map((s, idx) => (
-            <Card key={idx} className="group hover:border-blue-500 transition-all duration-300 shadow-sm border-slate-100">
-              <CardContent className="p-10 text-center flex flex-col items-center">
-                <div className={`w-20 h-20 ${s.color} rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform`}>
-                  {s.icon}
-                </div>
-                <h3 className="font-bold text-2xl mb-3 text-slate-900">{s.title}</h3>
-                <p className="text-slate-500 mb-8 text-sm leading-relaxed">{s.desc}</p>
-                <Button variant="link" className="text-blue-600 p-0 font-bold group-hover:gap-2 transition-all">
-                  Reservar Hora <ArrowRight className="ml-2 w-4 h-4" />
-                </Button>
-              </CardContent>
-            </Card>
-          ))}
-        </div>
-      </section>
-
-      {/* --- SECCIÓN STAFF DINÁMICO (DENTALINK) --- */}
-      <section className="py-24 bg-blue-600 text-white overflow-hidden">
-        <div className="container mx-auto px-4 flex flex-col lg:flex-row gap-16 items-center">
-          <div className="lg:w-1/2">
-            <h2 className="text-4xl font-bold mb-8">Agenda con nuestros especialistas en 3 pasos</h2>
-            <div className="space-y-10">
-              <div className="flex gap-6">
-                <div className="w-12 h-12 rounded-full bg-white/20 backdrop-blur flex items-center justify-center font-bold text-xl flex-shrink-0">1</div>
-                <div>
-                  <h4 className="font-bold text-xl mb-1 text-white">Selecciona Especialidad</h4>
-                  <p className="text-blue-100 italic">Dental, salud mental o medicina general.</p>
-                </div>
-              </div>
-              <div className="flex gap-6">
-                <div className="w-12 h-12 rounded-full bg-white/20 backdrop-blur flex items-center justify-center font-bold text-xl flex-shrink-0">2</div>
-                <div>
-                  <h4 className="font-bold text-xl mb-1 text-white">Elige tu Profesional</h4>
-                  <p className="text-blue-100 italic">Contamos con un staff de excelencia esperándote.</p>
-                </div>
-              </div>
-              <div className="flex gap-6">
-                <div className="w-12 h-12 rounded-full bg-white/20 backdrop-blur flex items-center justify-center font-bold text-xl flex-shrink-0">3</div>
-                <div>
-                  <h4 className="font-bold text-xl mb-1 text-white">Confirma y Asiste</h4>
-                  <p className="text-blue-100 italic">Recibe tu recordatorio y visítanos en nuestras sedes.</p>
-                </div>
-              </div>
-            </div>
+      {/* Sedes Reales con Info Scrapeada */}
+      <section id="sedes" className="py-24">
+        <div className="container mx-auto px-6">
+          <div className="mb-12">
+            <h2 className="text-3xl font-black text-slate-900">Ubicaciones y Horarios</h2>
+            <div className="h-1.5 w-20 bg-blue-600 mt-4 rounded-full"></div>
           </div>
 
-          <div className="lg:w-1/2 w-full">
-            <div className="bg-white rounded-[2.5rem] p-10 text-slate-900 shadow-2xl shadow-blue-900/20">
-              <h3 className="text-2xl font-bold mb-8 text-center flex items-center justify-center gap-2">
-                <CheckCircle2 className="text-blue-600" /> Staff Disponible
-              </h3>
-              <div className="space-y-4 mb-10">
-                {dentistas.slice(0, 3).map((d) => (
-                  <div key={d.id} className="flex items-center gap-4 p-4 bg-slate-50 rounded-2xl border border-slate-100 hover:bg-blue-50/50 transition-colors">
-                    <div className="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center font-bold text-blue-600">
-                      {d.nombre[0]}
+          <div className="grid md:grid-cols-2 gap-10">
+            {sedesReal.map((sede, i) => (
+              <div key={i} className="group bg-white rounded-[3rem] overflow-hidden border border-slate-100 shadow-2xl transition-all hover:shadow-blue-100">
+                <div className="relative h-64 overflow-hidden">
+                  <img src={sede.imagen} alt={sede.nombre} className="object-cover w-full h-full group-hover:scale-110 transition-transform duration-700" />
+                  <div className="absolute top-6 left-6 bg-white/90 backdrop-blur px-4 py-1 rounded-full text-[10px] font-black tracking-widest text-blue-600">{sede.badge}</div>
+                </div>
+                <div className="p-10">
+                  <h3 className="text-2xl font-black text-slate-900 mb-6">{sede.nombre}</h3>
+                  <div className="space-y-4">
+                    <div className="flex items-start gap-4 text-slate-600">
+                      <MapPin size={20} className="text-blue-600 shrink-0" />
+                      <span className="text-sm font-medium">{sede.direccion}</span>
                     </div>
-                    <div>
-                      <p className="font-bold text-slate-900 leading-tight">{d.nombre} {d.apellidos}</p>
-                      <p className="text-xs text-blue-600 font-medium uppercase tracking-wider">{d.especialidad || 'Especialista'}</p>
+                    <div className="flex items-start gap-4 text-slate-600">
+                      <Clock size={20} className="text-blue-600 shrink-0" />
+                      <span className="text-sm font-medium">{sede.horario}</span>
                     </div>
                   </div>
-                ))}
+                  <Button className="w-full mt-8 bg-slate-900 hover:bg-blue-600 rounded-2xl h-14 font-bold transition-colors">
+                    Cómo llegar
+                  </Button>
+                </div>
               </div>
-              <Link href="/staff" className="block">
-                <Button className="w-full bg-blue-600 hover:bg-blue-700 h-14 text-lg font-bold rounded-xl shadow-lg shadow-blue-200">
-                  Ver Todos los Médicos
-                </Button>
-              </Link>
-            </div>
+            ))}
           </div>
         </div>
       </section>
 
-      {/* --- SECCIÓN RESEÑAS GOOGLE (Entidades corregidas) --- */}
-      <section className="py-24 bg-slate-50">
-        <div className="container mx-auto px-4">
-          <div className="flex flex-col md:flex-row items-center justify-between mb-16 gap-6 text-center md:text-left">
-            <div>
-              <h2 className="text-3xl font-bold italic mb-2 text-slate-900">Nuestros pacientes confían en nosotros</h2>
-              <p className="text-slate-500">Experiencias reales en Google Reviews</p>
+      {/* CTA con Datos de Contacto Reales */}
+      <section className="py-20 px-6">
+        <div className="container mx-auto bg-blue-600 rounded-[3rem] p-12 md:p-20 text-center text-white relative overflow-hidden shadow-2xl">
+          <h2 className="text-3xl md:text-5xl font-black mb-8">¿Dudas con tu atención?</h2>
+          <div className="flex flex-wrap justify-center gap-8">
+            <div className="flex items-center gap-3">
+              <Phone size={24} className="text-blue-200" />
+              <div className="text-left">
+                <p className="text-[10px] font-bold text-blue-200 uppercase tracking-widest">Vitacura</p>
+                <p className="font-bold">+56 2 2933 6740</p>
+              </div>
             </div>
-            <div className="flex items-center gap-2 bg-white px-6 py-3 rounded-full shadow-sm border border-slate-100">
-              <Star className="text-yellow-400 fill-yellow-400" size={20} />
-              <span className="font-bold text-slate-700 text-lg">4.8 / 5.0</span>
-              <span className="text-slate-400 text-sm">| 48 Reseñas</span>
+            <div className="flex items-center gap-3">
+              <Phone size={24} className="text-blue-200" />
+              <div className="text-left">
+                <p className="text-[10px] font-bold text-blue-200 uppercase tracking-widest">Los Tribunales</p>
+                <p className="font-bold">+56 2 2217 2635</p>
+              </div>
             </div>
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <Card className="p-8 border-none shadow-sm hover:shadow-md transition-shadow">
-              <p className="text-slate-600 italic mb-6 leading-relaxed">
-                &quot;Excelente atención de la podóloga y de Tamara. Muy preocupadas de los pacientes.&quot;
-              </p>
-              <div className="flex items-center gap-3 border-t pt-4">
-                <div className="w-10 h-10 rounded-full bg-blue-100 flex items-center justify-center font-bold text-blue-600">M</div>
-                <span className="text-sm font-black uppercase text-slate-900 tracking-tighter">Maribel D.</span>
-              </div>
-            </Card>
-            <Card className="p-8 border-none shadow-sm hover:shadow-md transition-shadow">
-              <p className="text-slate-600 italic mb-6 leading-relaxed">
-                &quot;Un lugar de profesionalismo en recepción y dentistas. Muy limpio y ordenado.&quot;
-              </p>
-              <div className="flex items-center gap-3 border-t pt-4">
-                <div className="w-10 h-10 rounded-full bg-purple-100 flex items-center justify-center font-bold text-purple-600">C</div>
-                <span className="text-sm font-black uppercase text-slate-900 tracking-tighter">Constanza J.</span>
-              </div>
-            </Card>
-            <Card className="p-8 border-none shadow-sm hover:shadow-md transition-shadow">
-              <p className="text-slate-600 italic mb-6 leading-relaxed">
-                &quot;Doctor Patricio Merino un 7. Amables y resolutivos. 100% recomendable.&quot;
-              </p>
-              <div className="flex items-center gap-3 border-t pt-4">
-                <div className="w-10 h-10 rounded-full bg-emerald-100 flex items-center justify-center font-bold text-emerald-600">F</div>
-                <span className="text-sm font-black uppercase text-slate-900 tracking-tighter">Francisca A.</span>
-              </div>
-            </Card>
-          </div>
+          <Button className="mt-12 bg-white text-blue-600 hover:bg-slate-100 rounded-full px-10 h-14 font-black shadow-xl">
+            AGENDA POR WHATSAPP
+          </Button>
+          <div className="absolute -bottom-10 -right-10 w-64 h-64 bg-white/10 rounded-full blur-3xl"></div>
         </div>
       </section>
 
-    </div>
+      <footer className="py-12 text-center text-slate-400 text-[10px] font-bold uppercase tracking-[0.2em]">
+        © {new Date().getFullYear()} POLICLÍNICO TABANCURA • Corporación sin fines de lucro
+      </footer>
+    </main>
   );
 }
