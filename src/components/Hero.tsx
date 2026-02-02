@@ -1,55 +1,60 @@
 "use client";
 import { motion } from 'framer-motion';
 import { Button } from "@/components/ui/button";
-import { ArrowRight, Activity } from 'lucide-react';
+import { Zap, ArrowRight } from 'lucide-react';
 
 export const Hero = () => {
   return (
-    <section className="relative min-h-screen flex items-center pt-20 overflow-hidden bg-slate-50">
-      {/* Elemento Decorativo Innovador */}
-      <div className="absolute top-0 right-0 -translate-y-1/4 translate-x-1/4 w-[500px] h-[500px] bg-blue-100/50 rounded-full blur-3xl" />
-      
-      <div className="container mx-auto px-6 grid md:grid-cols-2 gap-12 items-center relative z-10">
+    <section className="relative pt-32 pb-20 overflow-hidden bg-white">
+      {/* Fondo dinámico: Puedes usar un GIF médico en loop sutil aquí */}
+      <div className="absolute top-0 right-0 w-full h-full opacity-10 pointer-events-none -z-10">
+        <img 
+          src="https://i.giphy.com/media/v1.Y2lkPTc5MGI3NjExNHJqZ3R4Z3R4Z3R4Z3R4Z3R4Z3R4Z3R4Z3R4Z3R4Z3R/3o7TKVUn7iM8FMEU24/giphy.gif" 
+          className="w-full h-full object-cover"
+          alt="background pulse"
+        />
+      </div>
+
+      <div className="container mx-auto px-6 grid md:grid-cols-2 gap-12 items-center">
         <motion.div 
           initial={{ opacity: 0, x: -30 }}
           animate={{ opacity: 1, x: 0 }}
-          transition={{ duration: 0.8 }}
+          transition={{ duration: 0.6 }}
         >
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-50 text-blue-700 text-xs font-bold mb-6">
-            <Activity size={14} />
-            TECNOLOGÍA MÉDICA DE VANGUARDIA
+          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-blue-600 text-white text-[10px] font-black uppercase tracking-widest mb-8">
+            <Zap size={14} fill="currentColor" /> Agenda 100% Digital
           </div>
-          <h1 className="text-5xl md:text-7xl font-extrabold text-slate-900 leading-[1.1] mb-6">
-            Tu salud merece una <span className="text-blue-600">atención superior.</span>
+          <h1 className="text-6xl md:text-8xl font-black text-slate-900 leading-[0.9] tracking-tighter mb-8">
+            Tu salud, <br/> 
+            <span className="text-blue-600 italic">más clara.</span>
           </h1>
-          <p className="text-lg text-slate-600 mb-8 max-w-lg leading-relaxed">
-            Combinamos excelencia médica con procesos digitales ágiles. Agenda tu cita en segundos y accede a los mejores especialistas de Vitacura y Santiago Centro.
+          <p className="text-xl text-slate-500 font-medium max-w-md leading-relaxed mb-10">
+            Reserva tu hora, revisa exámenes y gestiona tu bienestar desde cualquier lugar, fácil y rápido.
           </p>
-          <div className="flex flex-col sm:flex-row gap-4">
-            <Button size="lg" className="bg-blue-600 hover:bg-blue-700 text-white text-md px-8 h-14 rounded-xl shadow-lg shadow-blue-200">
-              Agendar ahora
-              <ArrowRight className="ml-2" size={20} />
-            </Button>
-            <Button size="lg" variant="outline" className="border-slate-200 text-md px-8 h-14 rounded-xl hover:bg-white">
-              Nuestras Especialidades
-            </Button>
-          </div>
+          <Button size="lg" className="bg-blue-600 hover:bg-blue-700 text-white rounded-2xl px-10 h-16 text-lg font-bold shadow-2xl shadow-blue-200">
+            Agendar Hora Ahora
+            <ArrowRight className="ml-2" />
+          </Button>
         </motion.div>
 
+        {/* Elemento Visual de Identidad: Mockup de App */}
         <motion.div 
-          initial={{ opacity: 0, scale: 0.9 }}
+          initial={{ opacity: 0, scale: 0.8 }}
           animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 1, delay: 0.2 }}
+          transition={{ duration: 0.8, delay: 0.2 }}
           className="relative"
         >
-          {/* Aquí iría una imagen real de la clínica con bordes redondeados orgánicos */}
-          <div className="aspect-square bg-slate-200 rounded-[2rem] overflow-hidden shadow-2xl relative">
-             <div className="absolute inset-0 bg-gradient-to-tr from-blue-600/20 to-transparent z-10" />
-             <img 
-               src="https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?auto=format&fit=crop&q=80" 
-               alt="Atención médica profesional"
-               className="object-cover w-full h-full hover:scale-105 transition-transform duration-700"
-             />
+          <div className="relative z-10 bg-slate-100 rounded-[3rem] p-4 shadow-3xl border-8 border-white">
+            <img 
+              src="https://images.unsplash.com/photo-1576091160550-2173dba999ef?auto=format&fit=crop&q=80" 
+              className="rounded-[2.5rem] w-full h-auto grayscale hover:grayscale-0 transition-all duration-700"
+              alt="Innovación Médica"
+            />
+          </div>
+          {/* Badge flotante de confianza */}
+          <div className="absolute -bottom-6 -left-6 bg-white p-6 rounded-3xl shadow-2xl border border-slate-100 z-20">
+            <p className="text-3xl font-black text-blue-600">+15k</p>
+            <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Pacientes Atendidos</p>
           </div>
         </motion.div>
       </div>
