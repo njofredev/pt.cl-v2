@@ -1,16 +1,27 @@
+@import url('https://fonts.cdnfonts.com/css/google-sans');
 @import "tailwindcss";
 
 @theme {
-  /* Aquí definimos tus colores de marca para que estén disponibles en todo el proyecto */
-  --color-primary: oklch(0.586 0.253 247.07); /* Azul Médico */
-  --color-clinical-bg: oklch(0.985 0.001 106.42); /* Slate 50 aproximado */
+  /* Colores Institucionales */
+  --color-primary: #162158; /* Azul Oscuro */
+  --color-secondary: #19e4a2; /* Turquesa Vívido */
+  --color-clinical-bg: #f8fafc; /* Slate 50 aproximado */
+  
+  --font-sans: "Google Sans", "Product Sans", ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
   
   --radius-xl: 1.25rem;
   --radius-2xl: 2rem;
   --radius-3xl: 3rem;
+
+  --animate-marquee: marquee 40s linear infinite;
+  
+  @keyframes marquee {
+    from { transform: translateX(0); }
+    to { transform: translateX(calc(-50% - 1rem)); }
+  }
 }
 
-/* Configuraciones de base para Salud V2 */
+/* Configuraciones de base */
 @layer base {
   html {
     scroll-behavior: smooth;
@@ -18,14 +29,13 @@
   
   body {
     background-color: white;
-    color: var(--color-slate-900);
-    /* Optimizamos el renderizado de texto para pantallas médicas */
+    color: #1e293b; /* Slate 800 */
+    font-family: var(--font-sans);
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
   }
 }
 
-/* Clases de utilidad personalizadas (opcional) */
 @utility glass-morphism {
   background-color: rgba(255, 255, 255, 0.8);
   backdrop-filter: blur(12px);

@@ -1,53 +1,250 @@
 "use client";
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
-import { Calendar, Phone, MapPin } from 'lucide-react';
+import { 
+  Phone, 
+  MapPin, 
+  ChevronDown, 
+  Menu, 
+  X, 
+  Activity, 
+  ShieldCheck, 
+  User, 
+  HeartPulse, 
+  Brain, 
+  Stethoscope, 
+  Zap,
+  Sparkles,
+  Calculator,
+  Laptop
+} from 'lucide-react';
 import { Button } from "@/components/ui/button";
+import { motion, AnimatePresence } from 'framer-motion';
+
+const NAV_ITEMS = [
+  { name: 'Inicio', href: '/' },
+  { 
+    name: 'Nosotros', 
+    href: '#',
+    isMega: true,
+    subItems: [
+      { name: 'Quiénes Somos', href: '/nosotros', desc: 'Conoce nuestra historia y valores.', icon: <Activity className="text-secondary" /> },
+      { name: 'Misión y Visión', href: '/mision', desc: 'Nuestro compromiso con la comunidad.', icon: <ShieldCheck className="text-secondary" /> },
+      { name: 'Nuestro Equipo', href: '#buscador-profesionales', desc: 'Profesionales de primer nivel.', icon: <User className="text-secondary" /> },
+    ]
+  },
+  { 
+    name: 'Servicios', 
+    href: '#servicios',
+    isMega: true,
+    subItems: [
+      { name: 'Salud Dental', href: '/servicios/dental', desc: 'Odontología avanzada y estética.', icon: <HeartPulse className="text-secondary" /> },
+      { name: 'Salud Mental', href: '/servicios/mental', desc: 'Apoyo psicológico y psiquiátrico.', icon: <Brain className="text-secondary" /> },
+      { name: 'Medicina General', href: '/servicios/medicina', desc: 'Tu salud primaria en buenas manos.', icon: <Stethoscope className="text-secondary" /> },
+      { name: 'Terapias Alternativas', href: '/servicios/terapias', desc: 'Bienestar integral y holístico.', icon: <Zap className="text-secondary" /> },
+    ]
+  },
+  { 
+    name: 'Tecnologías', 
+    href: '#',
+    isMega: true,
+    highlight: true,
+    subItems: [
+      { name: 'Validador Mi Vita', href: '#mivita', desc: 'Verifica tus beneficios exclusivos.', icon: <Sparkles className="text-secondary" /> },
+      { name: 'Cotizador Digital', href: '#', desc: 'Presupuestos de exámenes al instante.', icon: <Calculator className="text-secondary" /> },
+      { name: 'Intranet Pacientes', href: '#', desc: 'Tus resultados médicos en línea.', icon: <Laptop className="text-secondary" /> },
+    ]
+  },
+  { name: 'Contacto', href: '#contacto' },
+];
 
 export const Navbar = () => {
   const [isScrolled, setIsScrolled] = useState(false);
+  const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   useEffect(() => {
-    // Handler optimizado con throttle natural del navegador
     const handleScroll = () => {
       const offset = window.scrollY;
-      if (offset > 20 && !isScrolled) setIsScrolled(true);
-      if (offset <= 20 && isScrolled) setIsScrolled(false);
+      setIsScrolled(offset > 20);
     };
     window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
-  }, [isScrolled]);
+  }, []);
 
   return (
-    <nav className="fixed top-0 w-full z-50 will-change-transform">
-      {/* Top Bar - Se mantiene estática para evitar saltos visuales */}
-      <div className={`bg-blue-600 text-white py-1.5 transition-opacity duration-300 ${isScrolled ? 'opacity-0 h-0 overflow-hidden' : 'opacity-100'}`}>
+    <nav className="fixed top-0 w-full z-50">
+      {/* Top Bar - Color Institucional Azul Oscuro */}
+      <div className={`bg-primary text-white transition-all duration-300 ${isScrolled ? 'h-0 opacity-0 overflow-hidden py-0' : 'py-1.5 opacity-100'}`}>
         <div className="container mx-auto px-6 flex justify-between text-[10px] font-bold uppercase tracking-wider">
-          <span className="flex items-center gap-2"><MapPin size={12}/> Vitacura / Santiago Centro</span>
-          <span className="flex items-center gap-2"><Phone size={12}/> Central: +56 2 2933 6740</span>
+          <div className="flex gap-4">
+            <span className="flex items-center gap-2"><MapPin size={12} className="text-secondary"/> Los Tribunales #1268</span>
+            <span className="flex items-center gap-2"><MapPin size={12} className="text-secondary"/> Av. Vitacura #8620</span>
+          </div>
+          <span className="flex items-center gap-2"><Phone size={12} className="text-secondary"/> Central: +56 2 2933 6740</span>
         </div>
       </div>
 
-      {/* Main Nav - Sólido para máximo rendimiento de scroll */}
-      <div className={`transition-all duration-200 ${
-        isScrolled ? 'bg-white shadow-lg py-3' : 'bg-white/95 py-5'
+      {/* Main Nav */}
+      <div className={`transition-all duration-300 ${
+        isScrolled ? 'bg-white shadow-xl py-2' : 'bg-white/95 backdrop-blur-sm py-4'
       }`}>
         <div className="container mx-auto px-6 flex justify-between items-center">
-          <Link href="/" className="flex flex-col">
-            <span className="text-xl font-black tracking-tighter text-slate-900 leading-none">
-              POLICLÍNICO<span className="text-blue-600">TABANCURA</span>
-            </span>
+          <div className="flex items-center lg:gap-16">
+            <Link href="/" className="flex items-center group shrink-0">
+            <img 
+              src="/logo.svg" 
+              alt="Policlínico Tabancura" 
+              className="h-14 md:h-16 w-auto drop-shadow-sm group-hover:scale-105 transition-transform duration-300" 
+            />
           </Link>
+
           
-          <div className="hidden lg:flex items-center space-x-8 text-[11px] font-black uppercase tracking-widest text-slate-500">
-            <Link href="#servicios" className="hover:text-blue-600 transition-colors">Servicios</Link>
-            <Link href="#sedes" className="hover:text-blue-600 transition-colors">Sedes</Link>
-            <Button className="bg-blue-600 hover:bg-blue-700 text-white rounded-full px-6 font-bold text-[11px]">
-              RESERVAR HORA
-            </Button>
+          {/* Desktop Menu */}
+          <div 
+            className="hidden lg:flex items-center space-x-1 text-[11px] font-bold uppercase tracking-widest text-slate-500 relative"
+            onMouseLeave={() => setActiveDropdown(null)}
+          >
+            {NAV_ITEMS.map((item) => (
+              <div 
+                key={item.name} 
+                className="px-4 py-2"
+                onMouseEnter={() => setActiveDropdown(item.name)}
+              >
+                <Link 
+                  href={item.href} 
+                  className={`flex items-center gap-1.5 transition-colors ${
+                    (item as any).highlight 
+                      ? 'border border-secondary text-secondary hover:bg-secondary hover:text-primary px-4 py-1.5 rounded-full font-bold' 
+                      : `hover:text-secondary ${activeDropdown === item.name ? 'text-secondary' : ''}`
+                  }`}
+                >
+                  {(item as any).highlight && <Sparkles size={14} className="mr-1" />}
+                  {item.name}
+                  {item.subItems && <ChevronDown size={12} className={`transition-transform duration-200 ${activeDropdown === item.name ? 'rotate-180' : ''}`} />}
+                </Link>
+              </div>
+            ))}
+
+            <AnimatePresence>
+              {activeDropdown && NAV_ITEMS.find(i => i.name === activeDropdown)?.subItems && (
+                <motion.div
+                  layoutId="mega-menu-container"
+                  initial={{ opacity: 0, y: 10, scale: 0.98 }}
+                  animate={{ 
+                    opacity: 1, 
+                    y: 0, 
+                    scale: 1,
+                    left: activeDropdown === 'Nosotros' ? '0%' : activeDropdown === 'Servicios' ? '10%' : '0%'
+                  }}
+                  exit={{ opacity: 0, y: 10, scale: 0.98 }}
+                  transition={{ duration: 0.4, ease: [0.23, 1, 0.32, 1] }}
+                  onMouseEnter={() => setActiveDropdown(activeDropdown)}
+                  onMouseLeave={() => setActiveDropdown(null)}
+                  className="absolute top-full mt-4 w-[750px] z-50 shadow-[0_40px_100px_rgba(0,0,0,0.18)] rounded-[3rem] border border-slate-100 bg-white overflow-hidden origin-top"
+                >
+                  <div className="p-8 pb-4">
+                    <motion.div
+                      key={activeDropdown}
+                      initial={{ opacity: 0 }}
+                      animate={{ opacity: 1 }}
+                      transition={{ duration: 0.3 }}
+                      className="grid grid-cols-2 gap-4"
+                    >
+                      {NAV_ITEMS.find(i => i.name === activeDropdown)?.subItems?.map((sub) => (
+                        <Link
+                          key={sub.name}
+                          href={sub.href}
+                          className="group/sub flex items-start gap-5 p-6 rounded-[2rem] transition-all hover:bg-slate-50 border border-transparent hover:border-slate-100"
+                        >
+                          {sub.icon && (
+                            <div className="w-14 h-14 bg-white rounded-2xl flex items-center justify-center shadow-sm group-hover/sub:shadow-md group-hover/sub:scale-110 transition-all shrink-0">
+                              {sub.icon}
+                            </div>
+                          )}
+                          <div className="flex flex-col pt-1">
+                            <span className="text-[13px] font-bold text-primary group-hover/sub:text-secondary transition-colors uppercase tracking-wider">
+                              {sub.name}
+                            </span>
+                            {sub.desc && (
+                              <span className="text-[11px] text-slate-400 font-medium leading-snug mt-2 opacity-80 group-hover/sub:opacity-100 transition-opacity">
+                                {sub.desc}
+                              </span>
+                            )}
+                          </div>
+                        </Link>
+                      ))}
+                    </motion.div>
+                  </div>
+                  
+
+                </motion.div>
+              )}
+            </AnimatePresence>
+
+            </div>
+          </div>
+
+          <div className="flex items-center gap-4">
+            <div className="hidden lg:block">
+              <Button className="bg-primary hover:bg-primary/90 text-white rounded-full px-8 h-11 font-bold text-[11px] shadow-xl shadow-primary/20 transition-all hover:scale-105 active:scale-95">
+                RESERVAR HORA
+              </Button>
+            </div>
+
+            {/* Mobile Toggle */}
+            <button 
+              className="lg:hidden p-2 text-slate-900"
+              onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+            >
+              {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
+            </button>
           </div>
         </div>
       </div>
+
+      {/* Mobile Menu */}
+      <AnimatePresence>
+        {isMobileMenuOpen && (
+          <motion.div
+            initial={{ opacity: 0, height: 0 }}
+            animate={{ opacity: 1, height: 'auto' }}
+            exit={{ opacity: 0, height: 0 }}
+            className="lg:hidden bg-white border-b border-slate-100 overflow-hidden"
+          >
+            <div className="container mx-auto px-6 py-8 flex flex-col gap-6">
+              {NAV_ITEMS.map((item) => (
+                <div key={item.name} className="space-y-4">
+                  <Link 
+                    href={item.href} 
+                    className="text-lg font-black text-slate-900"
+                    onClick={() => !item.subItems && setIsMobileMenuOpen(false)}
+                  >
+                    {item.name}
+                  </Link>
+                  {item.subItems && (
+                    <div className="pl-4 flex flex-col gap-4 border-l-2 border-slate-100">
+                      {item.subItems.map((sub) => (
+                        <Link
+                          key={sub.name}
+                          href={sub.href}
+                          className="text-sm font-bold text-slate-500 hover:text-secondary"
+                          onClick={() => setIsMobileMenuOpen(false)}
+                        >
+                          {sub.name}
+                        </Link>
+                      ))}
+                    </div>
+                  )}
+                </div>
+              ))}
+              <Button className="w-full bg-primary h-14 rounded-2xl font-bold text-white shadow-xl shadow-primary/20">
+                RESERVAR HORA
+              </Button>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </nav>
   );
 };
