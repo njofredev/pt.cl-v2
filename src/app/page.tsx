@@ -226,7 +226,7 @@ export default function Home() {
             ].map((item, i) => (
               <div key={i} className="text-center group">
                 <div className="w-20 h-20 bg-white rounded-3xl shadow-sm border border-slate-100 flex items-center justify-center mx-auto mb-8 group-hover:scale-110 group-hover:shadow-md transition-all duration-500">
-                  {React.cloneElement(item.icon as any, { size: 36 })}
+                  {React.cloneElement(item.icon as React.ReactElement<any>, { size: 36 })}
                 </div>
                 <h4 className="text-xl font-bold text-primary mb-4">{item.title}</h4>
                 <p className="text-slate-500 font-medium leading-relaxed">{item.desc}</p>

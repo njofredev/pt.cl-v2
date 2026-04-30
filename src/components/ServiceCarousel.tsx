@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useRef, useState, useEffect } from "react";
-import { motion, useAnimationFrame, useMotionValue } from "framer-motion";
+import { motion } from "framer-motion";
 import Link from "next/link";
 import { ChevronRight, ChevronLeft } from "lucide-react";
 
@@ -19,13 +19,11 @@ const INFINITE_SERVICES = [...SERVICES, ...SERVICES, ...SERVICES];
 export function ServiceCarousel() {
   const carouselRef = useRef<HTMLDivElement>(null);
   const [isPaused, setIsPaused] = useState(false);
-  const [canScrollLeft, setCanScrollLeft] = useState(true);
-  const [canScrollRight, setCanScrollRight] = useState(true);
 
   // Lógica de Scroll Infinito sin saltos visuales
   const handleScroll = () => {
     if (!carouselRef.current) return;
-    const { scrollLeft, scrollWidth, clientWidth } = carouselRef.current;
+    const { scrollLeft, scrollWidth } = carouselRef.current;
     const singleSetWidth = scrollWidth / 3;
 
     // Si llegamos al final del tercer set, saltamos al inicio del segundo set

@@ -15,7 +15,27 @@ import {
   Info,
 } from "lucide-react";
 
-const SCHEDULE_DATA = [
+interface ServiceOption {
+  label: string;
+  link: string;
+}
+
+interface Service {
+  label: string;
+  info: string;
+  link?: string;
+  isMulti?: boolean;
+  options?: ServiceOption[];
+}
+
+interface Category {
+  id: string;
+  title: string;
+  icon: React.ReactNode;
+  services: Service[];
+}
+
+const SCHEDULE_DATA: Category[] = [
   { 
     id: "saludDental", 
     title: "Salud Dental", 
@@ -84,9 +104,9 @@ const SCHEDULE_DATA = [
 ];
 
 export function MinimalistScheduler() {
-  const [selectedCategory, setSelectedCategory] = useState<any>(null);
+  const [selectedCategory, setSelectedCategory] = useState<Category | null>(null);
 
-  const handleCategoryClick = (category: any) => {
+  const handleCategoryClick = (category: Category) => {
     if (category.id === "tomaMuestras") {
       window.open(category.services[0].link, '_blank');
     } else {
@@ -198,7 +218,7 @@ export function MinimalistScheduler() {
                 exit={{ opacity: 0, y: -10 }}
                 className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 p-4 -m-4 custom-scrollbar"
               >
-                {selectedCategory.services?.map((svc: any, idx: number) => (
+                {selectedCategory.services?.map((svc, idx) => (
                   <div key={idx} className="w-full">
                     {svc.isMulti ? (
                       <div className="p-6 rounded-[2rem] bg-slate-50 border border-slate-100 flex flex-col gap-4 min-h-[110px]">
@@ -212,7 +232,7 @@ export function MinimalistScheduler() {
                           </div>
                         </div>
                         <div className="grid grid-cols-2 gap-3">
-                          {svc.options.map((opt: any, optIdx: number) => (
+                          {svc.options?.map((opt, optIdx) => (
                             <button
                               key={optIdx}
                               onClick={() => window.open(opt.link, '_blank')}
