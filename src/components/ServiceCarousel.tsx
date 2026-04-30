@@ -37,12 +37,14 @@ export function ServiceCarousel() {
   };
 
   useEffect(() => {
-    // Posicionar el scroll en el inicio del segundo set (el medio) al montar
+    // Posicionar el scroll en el inicio del segundo set (el medio) SOLO al montar
     if (carouselRef.current) {
       const singleSetWidth = carouselRef.current.scrollWidth / 3;
       carouselRef.current.scrollLeft = singleSetWidth;
     }
+  }, []);
 
+  useEffect(() => {
     const interval = setInterval(() => {
       if (!isPaused && carouselRef.current) {
         carouselRef.current.scrollBy({ left: 1, behavior: "auto" }); // Movimiento suave y continuo

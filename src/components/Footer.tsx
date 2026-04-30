@@ -4,9 +4,9 @@ import { Activity, ShieldCheck, Instagram, Facebook, MapPin, Phone, Mail } from 
 
 export const Footer = () => {
   return (
-    <footer className="bg-primary text-white pt-24 pb-12">
+    <footer className="bg-primary text-white pt-20 md:pt-24 pb-12">
       <div className="container mx-auto px-6">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-16 mb-24">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-x-12 gap-y-16 mb-24">
           {/* Brand & Mission */}
           <div className="space-y-6">
             <Link href="/" className="flex items-center gap-3">

@@ -58,7 +58,7 @@ export const Hero = ({
   }, [images.length]);
 
   return (
-    <section className="relative pt-32 pb-20 overflow-hidden bg-white">
+    <section className="relative pt-24 md:pt-32 pb-16 md:pb-20 overflow-hidden bg-white">
       {/* Fondo sutil degradado */}
       <div className="absolute top-0 right-0 w-[800px] h-[800px] bg-secondary/5 rounded-full blur-[150px] pointer-events-none -z-10" />
 
@@ -71,14 +71,14 @@ export const Hero = ({
           <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-primary text-white text-[10px] font-bold uppercase tracking-widest mb-8">
             <BadgeIcon size={14} fill="currentColor" className="text-secondary" /> {badgeText}
           </div>
-          <h1 className="text-5xl md:text-7xl font-bold text-primary leading-[1] tracking-tighter mb-8">
+          <h1 className="text-4xl md:text-7xl font-bold text-primary leading-[1.1] md:leading-[1] tracking-tighter mb-8">
             {titlePrefix} <br />
             <span className="text-secondary">{titleHighlight}</span>
           </h1>
           <p className="text-xl text-slate-500 font-medium max-w-md leading-relaxed mb-10">
             {description}
           </p>
-          <Button size="lg" className="bg-primary hover:bg-primary/90 text-white rounded-2xl px-10 h-16 text-lg font-bold shadow-md transition-all hover:scale-105">
+          <Button size="lg" className="w-full sm:w-auto bg-primary hover:bg-primary/90 text-white rounded-2xl px-10 h-16 text-lg font-bold shadow-md transition-all hover:scale-105">
             {buttonText}
             <ArrowRight className="ml-2" />
           </Button>

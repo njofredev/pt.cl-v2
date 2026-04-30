@@ -13,6 +13,7 @@ import {
   HeartPulse, 
   Brain, 
   Stethoscope, 
+  Microscope,
   Zap,
   Sparkles,
   Calculator,
@@ -48,13 +49,15 @@ const NAV_ITEMS = [
     ]
   },
   { 
-    name: 'Tecnologías', 
+    name: 'Novedades 2026', 
     href: '#',
     isMega: true,
     highlight: true,
     subItems: [
+      { name: 'Centro Radiológico', href: '#', desc: 'Imágenes diagnósticas de alta precisión.', icon: <Activity className="text-secondary" /> },
+      { name: 'Laboratorio digital de exámenes', href: '#', desc: 'Resultados rápidos y trazabilidad digital.', icon: <Microscope className="text-secondary" /> },
       { name: 'Validador Mi Vita', href: '#mivita', desc: 'Verifica tus beneficios exclusivos.', icon: <Sparkles className="text-secondary" /> },
-      { name: 'Cotizador Digital', href: '#', desc: 'Presupuestos de exámenes al instante.', icon: <Calculator className="text-secondary" /> },
+      { name: 'Cotizador Digital', href: 'https://cotizador.policlinicotabancura.cl', desc: 'Presupuestos de exámenes al instante.', icon: <Calculator className="text-secondary" /> },
       { name: 'Intranet Pacientes', href: '#', desc: 'Tus resultados médicos en línea.', icon: <Laptop className="text-secondary" /> },
     ]
   },
@@ -158,7 +161,7 @@ export const Navbar = () => {
                     transition={{ duration: 0.4, ease: [0.23, 1, 0.32, 1] }}
                     onMouseEnter={() => setActiveDropdown(activeDropdown)}
                     onMouseLeave={() => setActiveDropdown(null)}
-                    className="absolute top-full mt-4 w-[750px] z-50 border border-slate-100 bg-white overflow-hidden origin-top"
+                    className="absolute top-full mt-4 w-[850px] z-50 border border-slate-100 bg-white rounded-[2.5rem] shadow-[0_20px_50px_rgba(0,0,0,0.08)] overflow-hidden origin-top"
                   >
                     <div className="p-8 pb-4">
                       <motion.div
@@ -221,7 +224,7 @@ export const Navbar = () => {
 
               {/* Mobile Toggle */}
               <button 
-                className="lg:hidden p-2 text-slate-900"
+                className="lg:hidden w-12 h-12 bg-slate-50 border border-slate-100 rounded-2xl flex items-center justify-center text-primary shadow-sm hover:border-secondary/20 transition-all active:scale-95"
                 onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
               >
                 {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}

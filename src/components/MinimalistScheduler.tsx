@@ -74,7 +74,7 @@ const SCHEDULE_DATA: Category[] = [
     id: "kinesiologia", 
     title: "Kinesiología", 
     icon: <Activity size={28} />, 
-    services: [{ label: "Evaluación Kine", info: "Rehabilitación física integral", link: "https://ff.healthatom.io/xxzVqR" }] 
+    services: [{ label: "Evaluación Kinesiología", info: "Rehabilitación física integral", link: "https://ff.healthatom.io/xxzVqR" }] 
   },
   { 
     id: "medicinaGeneral", 
@@ -117,12 +117,12 @@ export function MinimalistScheduler() {
   return (
     <div className="w-full bg-white rounded-[2.5rem] border border-slate-100 overflow-hidden">
       {/* Header más Compacto */}
-      <div className="border-b border-slate-100 bg-slate-50/50 px-8 py-6 relative">
+      <div className="border-b border-slate-100 bg-slate-50/50 px-4 md:px-8 py-4 md:py-6 relative">
         <div className="max-w-5xl mx-auto flex items-center justify-between">
           
-          <div className="w-40">
+          <div className="w-20 md:w-40">
             <AnimatePresence mode="wait">
-              {selectedCategory ? (
+              {selectedCategory && (
                 <motion.button 
                   key="back"
                   initial={{ opacity: 0, x: -10 }}
@@ -136,42 +136,43 @@ export function MinimalistScheduler() {
                   </div>
                   <span>Volver</span>
                 </motion.button>
-              ) : (
-                <motion.div 
-                  key="icon"
-                  initial={{ opacity: 0, x: -10 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  exit={{ opacity: 0, x: -10 }}
-                  className="w-9 h-9 rounded-xl bg-primary/10 flex items-center justify-center text-primary"
-                >
-                  <Calendar size={18} />
-                </motion.div>
               )}
             </AnimatePresence>
           </div>
 
-          <div className="flex-1 text-center">
-            <h4 className="text-xl font-bold text-primary tracking-tight">Agendar Hora</h4>
-            <div className="h-4 flex items-center justify-center mt-0.5">
-              <AnimatePresence mode="wait">
-                <motion.p 
-                  key={selectedCategory ? 'step2' : 'step1'}
-                  initial={{ opacity: 0, y: 3 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: -3 }}
-                  className="text-[10px] font-black text-slate-400 uppercase tracking-[0.2em]"
-                >
-                  {selectedCategory ? `Paso 2: ${selectedCategory.title}` : 'Paso 1: Categoría'}
-                </motion.p>
-              </AnimatePresence>
+          <div className="flex-1 flex flex-col items-center">
+            <div className="relative">
+              {/* Icono posicionado absolutamente para no desplazar el centro del texto */}
+              <div className="absolute right-full mr-4 top-1/2 -translate-y-1/2 hidden md:block">
+                <div className="w-10 h-10 rounded-xl bg-slate-50 border border-slate-100 flex items-center justify-center text-primary shadow-sm">
+                  <Calendar size={20} />
+                </div>
+              </div>
+              
+              <div className="text-center">
+                <h4 className="text-xl font-bold text-primary tracking-tight">Agendar Hora</h4>
+                <div className="h-4 flex items-center justify-center mt-0.5">
+                  <AnimatePresence mode="wait">
+                    <motion.p 
+                      key={selectedCategory ? 'step2' : 'step1'}
+                      initial={{ opacity: 0, y: 3 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      exit={{ opacity: 0, y: -3 }}
+                      className="text-[10px] font-black text-slate-400 uppercase tracking-[0.2em]"
+                    >
+                      {selectedCategory ? 'Paso 2: Servicio' : 'Paso 1: Categoría'}
+                    </motion.p>
+                  </AnimatePresence>
+                </div>
+              </div>
             </div>
           </div>
 
-          <div className="w-40 flex justify-end">
+          <div className="w-20 md:w-40 flex justify-end">
             <div className="flex items-center gap-5 border-l border-slate-200 pl-6">
               <div className="flex flex-col items-center gap-1.5">
                 <div className={`w-2.5 h-2.5 rounded-full transition-colors duration-500 ${selectedCategory ? 'bg-secondary' : 'bg-secondary/40'}`} />
-                <span className={`text-[8px] font-bold uppercase tracking-wider ${selectedCategory ? 'text-secondary' : 'text-slate-400'}`}>Selección</span>
+                <span className={`text-[8px] font-bold uppercase tracking-wider ${selectedCategory ? 'text-secondary' : 'text-slate-400'}`}>Categoría</span>
               </div>
               <div className="flex flex-col items-center gap-1.5">
                 <div className={`w-2.5 h-2.5 rounded-full transition-colors duration-500 ${selectedCategory ? 'bg-[#FF8A00]' : 'bg-slate-200'}`} />
@@ -184,7 +185,7 @@ export function MinimalistScheduler() {
       </div>
 
       {/* Contenido Principal Compacto */}
-      <div className="p-8 md:p-10 flex justify-center bg-white min-h-[300px]">
+      <div className="p-4 md:p-10 flex justify-center bg-white min-h-[300px]">
         <div className="w-full max-w-5xl">
           <AnimatePresence mode="wait">
             {!selectedCategory ? (
@@ -201,7 +202,7 @@ export function MinimalistScheduler() {
                     onClick={() => handleCategoryClick(cat)}
                     className="flex items-center gap-5 p-6 rounded-[2rem] bg-slate-50/50 hover:bg-white border border-slate-50 hover:border-primary/10 transition-all text-left group min-h-[110px]"
                   >
-                    <div className="w-13 h-13 rounded-2xl bg-white border border-slate-100 flex items-center justify-center text-primary group-hover:scale-105 transition-transform shadow-sm shrink-0">
+                    <div className="w-13 h-13 rounded-2xl bg-primary border border-primary/10 flex items-center justify-center text-secondary group-hover:scale-110 transition-transform shadow-lg shadow-primary/20 shrink-0">
                       {cat.icon}
                     </div>
                     <span className="text-xl font-bold text-slate-700 group-hover:text-primary transition-colors leading-tight">
@@ -252,8 +253,8 @@ export function MinimalistScheduler() {
                           <span className="text-xl font-bold text-slate-700">{svc.label}</span>
                           <span className="text-[10px] font-medium text-slate-400 group-hover/btn:text-secondary transition-colors">{svc.info}</span>
                         </div>
-                        <div className="w-10 h-10 rounded-full border border-slate-100 flex items-center justify-center text-secondary group-hover/btn:bg-secondary group-hover/btn:text-white transition-all shrink-0">
-                          <ChevronRight size={20} />
+                        <div className="px-6 py-2 rounded-full border border-secondary text-secondary group-hover/btn:bg-secondary group-hover/btn:text-white transition-all shrink-0 text-sm font-bold">
+                          Agendar
                         </div>
                       </button>
                     )}
@@ -262,6 +263,13 @@ export function MinimalistScheduler() {
               </motion.div>
             )}
           </AnimatePresence>
+          
+          {/* Disclaimer */}
+          <div className="mt-12 pt-8 border-t border-slate-50 text-center">
+            <p className="text-[11px] text-slate-400 font-medium leading-relaxed max-w-2xl mx-auto">
+              Seleccione una categoría y luego el servicio deseado. Posteriormente, será redirigido a nuestro sistema de agendamiento externo (Dentalink o Medilink) para finalizar su reserva según corresponda.
+            </p>
+          </div>
         </div>
       </div>
     </div>
