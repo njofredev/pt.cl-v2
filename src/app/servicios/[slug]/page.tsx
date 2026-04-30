@@ -1,6 +1,6 @@
 import React from 'react';
 import { ProfessionalFilter } from '@/components/ProfessionalFilter';
-import { Area } from '@/data/professionals';
+import { Area, getProfessionals } from '@/data/professionals';
 import { Hero, HeroProps } from '@/components/Hero';
 import { ServiceCTA, ServiceCTAProps } from '@/components/ServiceCTA';
 import { notFound } from 'next/navigation';
@@ -101,12 +101,14 @@ export default async function ServicePage({ params }: { params: Promise<{ slug: 
     notFound();
   }
 
+  const professionals = await getProfessionals();
+
   return (
     <div className="min-h-screen bg-white">
       {/* Usamos el Hero global pero con props inyectadas para la categoría */}
       <Hero {...heroProps} />
 
-      <ProfessionalFilter initialArea={area} />
+      <ProfessionalFilter initialArea={area} professionals={professionals} />
 
       {/* Inyección del CTA con color temático según la categoría */}
       {ctaProps && <ServiceCTA {...ctaProps} />}

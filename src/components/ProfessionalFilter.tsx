@@ -7,25 +7,25 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent } from "@/components/ui/card";
-import { PROFESSIONALS, AREAS, Area, Professional } from '@/data/professionals';
+import { AREAS, Area, Professional } from '@/data/professionals';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 
-export const ProfessionalFilter = ({ initialArea }: { initialArea?: Area }) => {
+export const ProfessionalFilter = ({ initialArea, professionals }: { initialArea?: Area, professionals: Professional[] }) => {
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedArea, setSelectedArea] = useState<Area | "Todas">(initialArea || "Todas");
   const [selectedSpecialty, setSelectedSpecialty] = useState<string>("Todas");
 
   const specialties = useMemo(() => {
     const relevantPros = selectedArea === "Todas" 
-      ? PROFESSIONALS 
-      : PROFESSIONALS.filter(p => p.area === selectedArea);
+      ? professionals 
+      : professionals.filter(p => p.area === selectedArea);
     
     const uniqueSpecialties = Array.from(new Set(relevantPros.map(p => p.specialty)));
     return ["Todas", ...uniqueSpecialties.sort()];
   }, [selectedArea]);
 
   const filteredProfessionals = useMemo(() => {
-    return PROFESSIONALS.filter(p => {
+    return professionals.filter(p => {
       const matchesSearch = p.name.toLowerCase().includes(searchTerm.toLowerCase()) || 
                            p.specialty.toLowerCase().includes(searchTerm.toLowerCase());
       const matchesArea = selectedArea === "Todas" || p.area === selectedArea;

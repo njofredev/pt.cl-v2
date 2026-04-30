@@ -78,7 +78,7 @@ export const Hero = ({
           <p className="text-xl text-slate-500 font-medium max-w-md leading-relaxed mb-10">
             {description}
           </p>
-          <Button size="lg" className="bg-primary hover:bg-primary/90 text-white rounded-2xl px-10 h-16 text-lg font-bold shadow-2xl shadow-primary/20 transition-all hover:scale-105">
+          <Button size="lg" className="bg-primary hover:bg-primary/90 text-white rounded-2xl px-10 h-16 text-lg font-bold shadow-md transition-all hover:scale-105">
             {buttonText}
             <ArrowRight className="ml-2" />
           </Button>
@@ -91,7 +91,7 @@ export const Hero = ({
           transition={{ duration: 0.8, delay: 0.2 }}
           className="relative"
         >
-          <div className="relative z-10 bg-slate-100 rounded-[3rem] p-4 shadow-2xl shadow-primary/5 border-8 border-white overflow-hidden aspect-[4/3]">
+          <div className="relative z-10 bg-slate-100 rounded-[3rem] p-4 shadow-lg shadow-slate-200/50 border-8 border-white overflow-hidden aspect-[4/3]">
             <AnimatePresence mode="wait">
               <motion.img
                 key={currentImageIndex}
@@ -107,7 +107,7 @@ export const Hero = ({
 
             {/* Indicador de Sucursal/Imagen Actual */}
             <div className="absolute top-8 left-8 right-8 z-20 flex justify-between items-start">
-              <div className="bg-white/90 backdrop-blur-md px-4 py-2 rounded-xl shadow-lg border border-white flex items-center gap-2">
+              <div className="bg-white/90 backdrop-blur-md px-4 py-2 rounded-xl shadow-sm border border-white flex items-center gap-2">
                 <MapPin size={16} className="text-secondary" />
                 <span className="text-[11px] font-bold text-primary tracking-widest uppercase">
                   {images[currentImageIndex].location}
@@ -128,7 +128,7 @@ export const Hero = ({
             </div>
           </div>
           {/* Badge flotante de confianza */}
-          <div className="absolute -bottom-6 -left-6 bg-white p-6 rounded-3xl shadow-2xl border border-slate-100 z-30">
+          <div className="absolute -bottom-6 -left-6 bg-white p-6 rounded-3xl shadow-lg border border-slate-100 z-30">
             <p className="text-3xl font-bold text-primary">{statsNumber}</p>
             <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">{statsLabel}</p>
           </div>

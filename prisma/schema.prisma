@@ -1,0 +1,29 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Professional {
+  id          Int      @id @default(autoincrement())
+  firstName   String   @map("Nombres:")
+  lastName    String?  @map("Apellidos:")
+  specialty   String   @map("Especialidad:")
+  area        String   @map("Área:")
+  description String?  @map("Descripción para el sitio web:")
+  education   String?  @map("Título / Universidad:")
+  sucursal    String?  @map("Sucursal:")
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  // Additional fields from the DB (optional to map them all)
+  rut         String?  @map("Rut:")
+  email       String?  @map("Correo electrónico:")
+  phone       String?  @map("Teléfono de contacto:")
+  ageGroup    String?  @map("Grupo Etario:")
+  otherTitles String?  @map("Otros títulos académicos:")
+  timestamp   String?  @map("Marca temporal")
+}
