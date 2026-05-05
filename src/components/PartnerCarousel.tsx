@@ -76,11 +76,11 @@ export function PartnerCarousel() {
         {INFINITE_PARTNERS.map((partner, i) => (
           <div
             key={i}
-            className="shrink-0 transition-all duration-500"
+            className="shrink-0 transition-all duration-700 hover:scale-150"
           >
             <img 
               src={`/logos_convenios_prevision/${partner.file}`} 
-              className="h-10 md:h-14 w-auto object-contain opacity-40 grayscale hover:opacity-100 hover:grayscale-0 transition-all duration-500 cursor-pointer" 
+              className="h-14 md:h-20 w-auto object-contain opacity-50 grayscale hover:opacity-100 hover:grayscale-0 transition-all duration-700 cursor-pointer" 
               alt={partner.name} 
             />
           </div>

@@ -108,7 +108,7 @@ export default async function ServicePage({ params }: { params: Promise<{ slug: 
       {/* Usamos el Hero global pero con props inyectadas para la categoría */}
       <Hero {...heroProps} />
 
-      <ProfessionalFilter initialArea={area} professionals={professionals} />
+      <ProfessionalFilter key={slug} initialArea={area} professionals={professionals} />
 
       {/* Inyección del CTA con color temático según la categoría */}
       {ctaProps && <ServiceCTA {...ctaProps} />}

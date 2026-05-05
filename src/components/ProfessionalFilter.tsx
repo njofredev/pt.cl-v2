@@ -9,6 +9,7 @@ import { Badge } from "@/components/ui/badge";
 import { Card, CardContent } from "@/components/ui/card";
 import { AREAS, Area, Professional } from '@/data/professionals';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
+import Image from 'next/image';
 
 export const ProfessionalFilter = ({ initialArea, professionals }: { initialArea?: Area, professionals: Professional[] }) => {
   const [searchTerm, setSearchTerm] = useState("");
@@ -145,85 +146,121 @@ export const ProfessionalFilter = ({ initialArea, professionals }: { initialArea
         {/* Grid de Profesionales */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
           <AnimatePresence mode='popLayout'>
-            {filteredProfessionals.map((pro, idx) => (
-              <motion.div
-                key={`${pro.name}-${pro.specialty}`}
-                layout
-                initial={{ opacity: 0, scale: 0.9 }}
-                animate={{ opacity: 1, scale: 1 }}
-                exit={{ opacity: 0, scale: 0.9 }}
-                transition={{ duration: 0.2, delay: idx * 0.01 }}
-              >
-                <Card className="group h-full border-slate-100 hover:border-secondary/30 hover:shadow-xl hover:shadow-secondary/5 transition-all duration-300 rounded-[2rem] overflow-hidden bg-white">
-                  <CardContent className="p-0 flex flex-col h-full">
-                    <div className="p-8 flex-grow">
-                      <div className="w-16 h-16 bg-slate-50 rounded-2xl flex items-center justify-center mb-6 group-hover:bg-secondary/10 transition-colors">
-                        <User className="text-slate-300 group-hover:text-secondary transition-colors" size={32} />
+            {filteredProfessionals.map((pro, idx) => {
+              // Mapeo directo para asegurar que la imagen aparezca en las pruebas
+              const proImage = pro.image || (pro.name.toLowerCase().includes("andro") && pro.name.toLowerCase().includes("sapunar") ? "/img_profesionales/perfilAndroSapunar.jpg" : null);
+              
+              return (
+                <motion.div
+                  key={`${pro.name}-${pro.specialty}`}
+                  layout
+                  initial={{ opacity: 0, scale: 0.9 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  exit={{ opacity: 0, scale: 0.9 }}
+                  transition={{ duration: 0.2, delay: idx * 0.01 }}
+                >
+                  <Card className="group h-full border-slate-100 hover:border-secondary/30 hover:shadow-2xl hover:shadow-secondary/10 transition-all duration-500 rounded-[3rem] overflow-hidden bg-white flex flex-col">
+                    <CardContent className="p-0 flex flex-col h-full">
+                      {/* Área de Imagen - Avatar Circular Centrado */}
+                      <div className="pt-12 pb-6 flex justify-center">
+                        <div className="relative w-40 h-40 bg-slate-50 rounded-full overflow-hidden border-4 border-white shadow-lg group-hover:scale-105 transition-transform duration-500">
+                          {proImage ? (
+                            <Image 
+                              src={proImage} 
+                              alt={pro.name} 
+                              fill
+                              className="object-cover"
+                            />
+                          ) : (
+                            <div className="w-full h-full flex items-center justify-center bg-gradient-to-br from-slate-50 to-slate-100">
+                              <User className="text-slate-200" size={60} />
+                            </div>
+                          )}
+                        </div>
                       </div>
-                      <h3 className="text-lg font-bold text-primary mb-1 leading-tight">{pro.name}</h3>
-                      <div className="flex flex-col gap-2 mt-4">
-                        <Badge variant="outline" className="w-fit border-slate-100 text-slate-500 font-bold rounded-lg px-2 py-0.5 text-[10px]">
-                          {pro.specialty}
-                        </Badge>
-                        <span className="text-[10px] font-bold text-secondary uppercase tracking-[0.2em]">{pro.area}</span>
-                      </div>
-                    </div>
-                    
-                    <Dialog>
-                      <DialogTrigger asChild>
-                        <button className="w-full bg-slate-50 p-4 flex justify-between items-center group-hover:bg-primary transition-colors text-left cursor-pointer border-t border-slate-100">
-                          <span className="text-[10px] font-bold text-slate-400 uppercase tracking-widest group-hover:text-white/80">Ver Perfil Profesional</span>
-                          <ChevronRight size={16} className="text-slate-300 group-hover:text-white group-hover:translate-x-1 transition-all" />
-                        </button>
-                      </DialogTrigger>
-                      <DialogContent className="sm:max-w-[500px] rounded-[2.5rem] border-none p-0 overflow-hidden gap-0 bg-white">
-                        <div className="bg-primary p-8 text-white">
-                          <div className="w-20 h-20 bg-white/10 rounded-3xl flex items-center justify-center mb-6">
-                            <User size={40} className="text-secondary" />
+
+                      <div className="p-8 pt-2 flex-grow flex flex-col text-center">
+                        <h3 className="text-xl font-bold text-primary mb-3 leading-tight group-hover:text-secondary transition-colors">
+                          {pro.name}
+                        </h3>
+                        
+                        <div className="flex flex-col items-center gap-3 mt-auto">
+                          <Badge variant="secondary" className="bg-secondary/10 text-secondary border-none font-bold rounded-lg px-4 py-1 text-[10px] uppercase tracking-wider">
+                            {pro.specialty}
+                          </Badge>
+                          <div className="flex items-center gap-2 text-[10px] font-bold text-slate-400 uppercase tracking-widest">
+                            <MapPin size={12} className="text-secondary" />
+                            {pro.sucursal?.split('(')[0] || "Sucursal Vitacura"}
                           </div>
-                          <DialogHeader>
-                            <DialogTitle className="text-3xl font-bold tracking-tighter leading-none mb-2">{pro.name}</DialogTitle>
-                            <div className="flex gap-2">
-                              <Badge className="bg-secondary text-primary font-bold">{pro.specialty}</Badge>
-                              <Badge variant="outline" className="text-white border-white/20">{pro.area}</Badge>
-                            </div>
-                          </DialogHeader>
                         </div>
-                        <div className="bg-white p-8 space-y-6 max-h-[60vh] overflow-y-auto">
-                          {pro.description && (
-                            <div className="space-y-2">
-                              <h4 className="text-[10px] font-bold uppercase tracking-widest text-slate-400 flex items-center gap-2">
-                                <Info size={14} className="text-secondary" /> Perfil
-                              </h4>
-                              <p className="text-slate-600 font-medium leading-relaxed">{pro.description}</p>
+                      </div>
+                      
+                      <Dialog>
+                        <DialogTrigger asChild>
+                          <button className="w-full bg-slate-50 p-5 flex justify-between items-center group-hover:bg-primary transition-colors text-left cursor-pointer border-t border-slate-100">
+                            <span className="text-[10px] font-bold text-slate-400 uppercase tracking-widest group-hover:text-white/80">Ver Perfil Completo</span>
+                            <ChevronRight size={16} className="text-slate-300 group-hover:text-white group-hover:translate-x-1 transition-all" />
+                          </button>
+                        </DialogTrigger>
+                        <DialogContent className="sm:max-w-[500px] rounded-[2.5rem] border-none p-0 overflow-hidden gap-0 bg-white">
+                          <div className="bg-primary p-8 text-white">
+                            <div className="w-24 h-24 bg-white/10 rounded-3xl flex items-center justify-center mb-6 overflow-hidden mx-auto">
+                              {proImage ? (
+                                <Image 
+                                  src={proImage} 
+                                  alt={pro.name} 
+                                  width={96} 
+                                  height={96} 
+                                  className="w-full h-full object-cover"
+                                />
+                              ) : (
+                                <User size={48} className="text-secondary" />
+                              )}
                             </div>
-                          )}
-                          {pro.education && (
-                            <div className="space-y-2">
-                              <h4 className="text-[10px] font-bold uppercase tracking-widest text-slate-400 flex items-center gap-2">
-                                <GraduationCap size={14} className="text-secondary" /> Formación Académica
-                              </h4>
-                              <p className="text-slate-600 font-medium leading-relaxed">{pro.education}</p>
-                            </div>
-                          )}
-                          {pro.sucursal && (
-                            <div className="space-y-2">
-                              <h4 className="text-[10px] font-bold uppercase tracking-widest text-slate-400 flex items-center gap-2">
-                                <MapPin size={14} className="text-secondary" /> Ubicación
-                              </h4>
-                              <p className="text-slate-600 font-medium leading-relaxed">{pro.sucursal}</p>
-                            </div>
-                          )}
-                          <Button className="w-full bg-primary hover:bg-primary/90 text-white h-14 rounded-2xl font-bold shadow-xl shadow-primary/10">
-                            Agendar Hora con Especialista
-                          </Button>
-                        </div>
-                      </DialogContent>
-                    </Dialog>
-                  </CardContent>
-                </Card>
-              </motion.div>
-            ))}
+                            <DialogHeader className="text-center">
+                              <DialogTitle className="text-3xl font-bold tracking-tighter leading-none mb-2">{pro.name}</DialogTitle>
+                              <div className="flex gap-2 justify-center">
+                                <Badge className="bg-secondary text-primary font-bold">{pro.specialty}</Badge>
+                                <Badge variant="outline" className="text-white border-white/20">{pro.area}</Badge>
+                              </div>
+                            </DialogHeader>
+                          </div>
+                          <div className="bg-white p-8 space-y-6 max-h-[60vh] overflow-y-auto">
+                            {pro.description && (
+                              <div className="space-y-2">
+                                <h4 className="text-[10px] font-bold uppercase tracking-widest text-slate-400 flex items-center gap-2">
+                                  <Info size={14} className="text-secondary" /> Perfil
+                                </h4>
+                                <p className="text-slate-600 font-medium leading-relaxed">{pro.description}</p>
+                              </div>
+                            )}
+                            {pro.education && (
+                              <div className="space-y-2">
+                                <h4 className="text-[10px] font-bold uppercase tracking-widest text-slate-400 flex items-center gap-2">
+                                  <GraduationCap size={14} className="text-secondary" /> Formación Académica
+                                </h4>
+                                <p className="text-slate-600 font-medium leading-relaxed">{pro.education}</p>
+                              </div>
+                            )}
+                            {pro.sucursal && (
+                              <div className="space-y-2">
+                                <h4 className="text-[10px] font-bold uppercase tracking-widest text-slate-400 flex items-center gap-2">
+                                  <MapPin size={14} className="text-secondary" /> Ubicación
+                                </h4>
+                                <p className="text-slate-600 font-medium leading-relaxed">{pro.sucursal}</p>
+                              </div>
+                            )}
+                            <Button className="w-full bg-primary hover:bg-primary/90 text-white h-14 rounded-2xl font-bold shadow-xl shadow-primary/10">
+                              Agendar Hora con Especialista
+                            </Button>
+                          </div>
+                        </DialogContent>
+                      </Dialog>
+                    </CardContent>
+                  </Card>
+                </motion.div>
+              );
+            })}
           </AnimatePresence>
         </div>
 

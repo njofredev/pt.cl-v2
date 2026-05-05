@@ -80,7 +80,7 @@ export const Footer = () => {
         <div className="pt-12 border-t border-white/10 flex flex-col md:flex-row justify-between items-center gap-8">
           <div className="flex items-center gap-8">
             <div className="flex items-center gap-2 text-slate-400 text-[10px] font-bold uppercase tracking-widest">
-              <Activity size={14} className="text-secondary" /> Sistema Cerebro v2
+              <Activity size={14} className="text-secondary" /> Hecho en Policlínico Tabancura con ❤️
             </div>
             <div className="flex items-center gap-2 text-slate-400 text-[10px] font-bold uppercase tracking-widest">
               <ShieldCheck size={14} className="text-secondary" /> Certificación de Calidad
@@ -88,7 +88,7 @@ export const Footer = () => {
           </div>
 
           <p className="text-slate-600 text-[10px] font-bold uppercase tracking-[0.4em]">
-            © {new Date().getFullYear()} POLICLÍNICO TABANCURA • TECNOLOGÍA AL SERVICIO DE LA VIDA
+            © {new Date().getFullYear()} POLICLÍNICO TABANCURA • Tu Salud es nuestra prioridad.
           </p>
         </div>
       </div>

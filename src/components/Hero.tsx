@@ -31,18 +31,20 @@ export interface HeroProps {
 }
 
 const DEFAULT_IMAGES = [
-  { src: '/sucursal_tribunales.webp', alt: 'Sucursal Tribunales', location: 'Los Tribunales #1268' },
-  { src: '/sucursal_vitacura.webp', alt: 'Sucursal Vitacura', location: 'Av. Vitacura #8620' }
+  { src: '/Sucursales/sucursal_tribunales.webp', alt: 'Sucursal Tribunales', location: 'Los Tribunales #1268' },
+  { src: '/Sucursales/sucursal_vitacura.webp', alt: 'Sucursal Vitacura', location: 'Av. Vitacura #8620' },
+  { src: '/Sucursales/sucursal_tribunales2.webp', alt: 'Sucursal Tribunales 2', location: 'Los Tribunales #1268' },
+  { src: '/Sucursales/sucursal_vitacura2.webp', alt: 'Sucursal Vitacura 2', location: 'Av. Vitacura #8620' }
 ];
 
 export const Hero = ({
   badgeText = "Agenda 100% Digital",
   badgeIconName = "zap",
   titlePrefix = "Tu salud, ",
-  titleHighlight = "es nuestra prioridad.",
+  titleHighlight = "nuestra prioridad.",
   description = "Reserva tu hora, revisa exámenes y gestiona tu bienestar desde cualquier lugar, fácil y rápido.",
-  buttonText = "Agendar Hora Ahora",
-  statsNumber = "+15k",
+  buttonText = "Agendar una Cita",
+  statsNumber = "+10k",
   statsLabel = "Pacientes Atendidos",
   images = DEFAULT_IMAGES
 }: HeroProps) => {

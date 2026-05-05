@@ -8,6 +8,7 @@ export interface Professional {
   description?: string | null;
   education?: string | null;
   sucursal?: string | null;
+  image?: string | null;
 }
 
 export const AREAS = [
@@ -25,7 +26,7 @@ export const PROFESSIONALS: Professional[] = [
   { id: 2, name: "Dr. Carlos Rodríguez", specialty: "Endodoncia", area: "Salud Dental", sucursal: "Vitacura", description: "Experto en tratamientos de conducto y rehabilitación." },
   { id: 3, name: "Ps. Roberto Muñoz", specialty: "Psicología Clínica", area: "Salud Mental", sucursal: "Los Tribunales", description: "Especialista en terapia de adultos y parejas." },
   { id: 4, name: "Dra. Laura Venegas", specialty: "Psiquiatría Adultos", area: "Salud Mental", sucursal: "Vitacura", description: "Atención especializada en trastornos del ánimo y ansiedad." },
-  { id: 5, name: "Dr. Mario Pavez", specialty: "Medicina General", area: "Medicina General", sucursal: "Vitacura", description: "Atención primaria integral y medicina familiar." },
+  { id: 5, name: "Andro Sapunar Rodríguez", specialty: "Kinesiología", area: "Medicina General", sucursal: "Vitacura", description: "Kinesiólogo enfocado en bienestar y rehabilitación física.", image: "/img_profesionales/perfilAndroSapunar.jpg" },
   { id: 6, name: "Dr. Juan Pérez", specialty: "Kinesiología", area: "Medicina General", sucursal: "Los Tribunales", description: "Rehabilitación física y deportiva." },
   { id: 7, name: "Sra. Carmen Gloria", specialty: "Masoterapia", area: "Terapias Alternativas", sucursal: "Vitacura", description: "Masajes descontracturantes y relajación." },
   { id: 8, name: "Dr. Miguel Ángel", specialty: "Biomagnetismo", area: "Terapias Alternativas", sucursal: "Los Tribunales", description: "Terapia de imanes para el equilibrio integral." },
@@ -40,15 +41,28 @@ export async function getProfessionals(): Promise<Professional[]> {
 
     if (dbProfessionals && dbProfessionals.length > 0) {
       // Mapeamos los campos reales de la DB al formato de la interfaz Professional
-      return dbProfessionals.map((p) => ({
-        id: p.id,
-        name: `${p.firstName} ${p.lastName || ''}`.trim(),
-        specialty: p.specialty,
-        area: p.area,
-        description: p.description,
-        education: p.education,
-        sucursal: p.sucursal
-      }));
+      return dbProfessionals.map((p) => {
+        const name = `${p.firstName} ${p.lastName || ''}`.trim();
+        let image = null;
+        
+        // Mapeo manual de imágenes para pruebas
+        const lowerName = name.toLowerCase();
+        if (lowerName.includes("andro") && lowerName.includes("sapunar")) {
+          image = "/img_profesionales/perfilAndroSapunar.jpg";
+          console.log(`Matched image for: ${name} -> ${image}`);
+        }
+
+        return {
+          id: p.id,
+          name,
+          specialty: p.specialty,
+          area: p.area,
+          description: p.description,
+          education: p.education,
+          sucursal: p.sucursal,
+          image
+        };
+      });
     }
     
     return PROFESSIONALS;

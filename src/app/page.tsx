@@ -5,6 +5,7 @@ import { Hero } from '@/components/Hero';
 import { MinimalistScheduler } from '@/components/MinimalistScheduler';
 import { PartnerCarousel } from '@/components/PartnerCarousel';
 import { ServiceCarousel } from '@/components/ServiceCarousel';
+import { Branches } from '@/components/Branches';
 import { motion } from 'framer-motion';
 import Link from 'next/link';
 import {
@@ -146,65 +147,8 @@ export default function Home() {
         </div>
       </section>
 
-      {/* 5. DASHBOARD DE PACIENTE (Bento Style) */}
-      <section className="py-24">
-        <div className="container mx-auto px-6">
-          <div className="bg-primary rounded-[2.5rem] md:rounded-[4rem] p-8 md:p-24 text-white relative overflow-hidden">
-            <div className="grid lg:grid-cols-2 gap-20 items-center relative z-10">
-              <div>
-                <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/10 text-secondary text-[11px] font-bold uppercase tracking-widest mb-8 border border-white/5">
-                  <LayoutDashboard size={14} /> Sistema Cerebro v2
-                </div>
-                <h2 className="text-4xl md:text-6xl font-bold mb-8 leading-[0.9] tracking-tighter">
-                  Tus resultados, <br /> <span className="text-secondary">al instante.</span>
-                </h2>
-                <p className="text-slate-300 text-xl mb-12 leading-relaxed font-medium max-w-xl">
-                  Hemos desarrollado una plataforma digital única para que accedas a tus exámenes, recetas médicas y presupuestos sin filas ni esperas.
-                </p>
-                <div className="flex flex-col sm:flex-row gap-6">
-                  <Button className="bg-secondary hover:bg-secondary/90 text-primary rounded-2xl px-10 h-16 font-bold transition-all hover:scale-105 active:scale-95">
-                    Acceso Pacientes
-                  </Button>
-                  <Button variant="outline" className="border-white/20 text-white hover:bg-white/10 rounded-2xl px-10 h-16 font-bold transition-all">
-                    ¿Cómo funciona?
-                  </Button>
-                </div>
-              </div>
-              <div className="relative group">
-                <motion.div
-                  initial={{ opacity: 0, x: 50 }}
-                  whileInView={{ opacity: 1, x: 0 }}
-                  transition={{ duration: 0.8 }}
-                  className="rounded-[2.5rem] border-[12px] border-white/5 overflow-hidden relative"
-                >
-                  <img src="https://images.unsplash.com/photo-1576091160550-2173dba999ef?q=80&w=1200" className="w-full aspect-[4/3] object-cover grayscale hover:grayscale-0 transition-all duration-1000" alt="Dashboard preview" />
-                  <div className="absolute inset-0 bg-gradient-to-t from-primary/60 to-transparent" />
-                </motion.div>
-
-                {/* Floating elements for "Cerebro" system feel */}
-                <motion.div
-                  animate={{ y: [0, -10, 0] }}
-                  transition={{ duration: 4, repeat: Infinity }}
-                  className="absolute -top-10 -right-10 bg-white/10 backdrop-blur-xl p-6 rounded-3xl border border-white/10"
-                >
-                  <Activity className="text-secondary" size={32} />
-                </motion.div>
-
-                <motion.div
-                  animate={{ y: [0, 10, 0] }}
-                  transition={{ duration: 5, repeat: Infinity }}
-                  className="absolute -bottom-10 -left-10 bg-secondary p-6 rounded-3xl"
-                >
-                  <HeartPulse className="text-primary" size={32} />
-                </motion.div>
-              </div>
-            </div>
-            {/* Background Orbs */}
-            <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-secondary/10 rounded-full blur-[150px]" />
-            <div className="absolute bottom-0 left-0 w-[400px] h-[400px] bg-blue-500/10 rounded-full blur-[120px]" />
-          </div>
-        </div>
-      </section>
+      {/* 5. NUESTRAS SUCURSALES (Modern Style) */}
+      <Branches />
 
     </main>
   );

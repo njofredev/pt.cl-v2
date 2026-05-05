@@ -4,6 +4,8 @@ import Link from 'next/link';
 import { 
   Phone, 
   MapPin, 
+  Mail, 
+  MessageCircle, 
   ChevronDown, 
   Menu, 
   X, 
@@ -81,7 +83,7 @@ export const Navbar = () => {
 
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
-      if ((e.metaKey || e.ctrlKey) && e.key === "k") {
+      if (e.altKey && e.key === "k") {
         e.preventDefault();
         setIsSearchOpen(true);
       }
@@ -94,14 +96,47 @@ export const Navbar = () => {
     <>
       <SearchModal isOpen={isSearchOpen} onClose={() => setIsSearchOpen(false)} />
       <nav className="fixed top-0 w-full z-50">
-        {/* Top Bar - Color Institucional Azul Oscuro */}
-        <div className={`bg-primary text-white transition-all duration-300 ${isScrolled ? 'h-0 opacity-0 overflow-hidden py-0' : 'py-1.5 opacity-100'}`}>
-          <div className="container mx-auto px-6 flex justify-between text-[10px] font-bold uppercase tracking-wider">
-            <div className="flex gap-4">
-              <span className="flex items-center gap-2"><MapPin size={12} className="text-secondary"/> Los Tribunales #1268</span>
-              <span className="flex items-center gap-2"><MapPin size={12} className="text-secondary"/> Av. Vitacura #8620</span>
+        <div className={`bg-primary text-white transition-all duration-300 ${isScrolled ? 'py-1' : 'py-2'} border-b border-white/5`}>
+          <div className="container mx-auto px-6 flex flex-wrap justify-between items-center gap-y-2 text-[9px] md:text-[10px] font-bold uppercase tracking-[0.15em]">
+            <div className="flex flex-wrap gap-4 md:gap-8">
+              <a 
+                href="https://www.google.com/maps/search/?api=1&query=Calle+Los+Tribunales+1268+Vitacura" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="flex items-center gap-2 hover:text-secondary transition-colors group"
+              >
+                <MapPin size={12} className="text-secondary group-hover:scale-110 transition-transform"/> 
+                LOS TRIBUNALES #1268
+              </a>
+              <a 
+                href="https://www.google.com/maps/search/?api=1&query=Avenida+Vitacura+8620+Vitacura" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="flex items-center gap-2 hover:text-secondary transition-colors group"
+              >
+                <MapPin size={12} className="text-secondary group-hover:scale-110 transition-transform"/> 
+                AV. VITACURA #8620
+              </a>
             </div>
-            <span className="flex items-center gap-2"><Phone size={12} className="text-secondary"/> Central: +56 2 2933 6740</span>
+            
+            <div className="flex flex-wrap gap-4 md:gap-8 items-center">
+              <a 
+                href="https://wa.me/56966187736" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="flex items-center gap-2 hover:text-secondary transition-colors group"
+              >
+                <MessageCircle size={12} className="text-secondary group-hover:scale-110 transition-transform"/> 
+                WHATSAPP
+              </a>
+              <a 
+                href="tel:+56229336740" 
+                className="flex items-center gap-2 hover:text-secondary transition-colors group"
+              >
+                <Phone size={12} className="text-secondary group-hover:scale-110 transition-transform"/> 
+                CENTRAL: +56 2 2933 6740
+              </a>
+            </div>
           </div>
         </div>
 
@@ -212,7 +247,7 @@ export const Navbar = () => {
                 <Search size={16} className="text-slate-400 group-hover:text-secondary transition-colors" />
                 <span className="text-[10px] font-bold text-slate-400 uppercase tracking-widest mr-2">Buscar...</span>
                 <div className="flex items-center gap-1 px-1.5 py-0.5 bg-white border border-slate-100 rounded-md text-[9px] font-black text-slate-300">
-                  <Command size={8} /> K
+                  <span className="text-[8px]">ALT</span> K
                 </div>
               </button>
 
