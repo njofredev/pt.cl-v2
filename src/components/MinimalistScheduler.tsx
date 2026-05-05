@@ -120,7 +120,7 @@ export function MinimalistScheduler() {
       <div className="border-b border-slate-100 bg-slate-50/50 px-4 md:px-8 py-4 md:py-6 relative">
         <div className="max-w-5xl mx-auto flex items-center justify-between">
           
-          <div className="w-20 md:w-40">
+          <div className="w-auto sm:w-40">
             <AnimatePresence mode="wait">
               {selectedCategory && (
                 <motion.button 
@@ -168,15 +168,15 @@ export function MinimalistScheduler() {
             </div>
           </div>
 
-          <div className="w-20 md:w-40 flex justify-end">
-            <div className="flex items-center gap-5 border-l border-slate-200 pl-6">
-              <div className="flex flex-col items-center gap-1.5">
+          <div className="w-auto sm:w-40 flex justify-end">
+            <div className="flex items-center gap-3 sm:gap-5 border-l border-slate-200 pl-4 sm:pl-6">
+              <div className="flex flex-col items-center gap-1">
                 <div className={`w-2.5 h-2.5 rounded-full transition-colors duration-500 ${selectedCategory ? 'bg-secondary' : 'bg-secondary/40'}`} />
-                <span className={`text-[8px] font-bold uppercase tracking-wider ${selectedCategory ? 'text-secondary' : 'text-slate-400'}`}>Categoría</span>
+                <span className={`text-[8px] font-bold uppercase tracking-wider hidden sm:inline ${selectedCategory ? 'text-secondary' : 'text-slate-400'}`}>Categoría</span>
               </div>
-              <div className="flex flex-col items-center gap-1.5">
+              <div className="flex flex-col items-center gap-1">
                 <div className={`w-2.5 h-2.5 rounded-full transition-colors duration-500 ${selectedCategory ? 'bg-[#FF8A00]' : 'bg-slate-200'}`} />
-                <span className={`text-[8px] font-bold uppercase tracking-wider ${selectedCategory ? 'text-[#FF8A00]' : 'text-slate-400'}`}>Servicio</span>
+                <span className={`text-[8px] font-bold uppercase tracking-wider hidden sm:inline ${selectedCategory ? 'text-[#FF8A00]' : 'text-slate-400'}`}>Servicio</span>
               </div>
             </div>
           </div>

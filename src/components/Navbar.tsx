@@ -97,8 +97,8 @@ export const Navbar = () => {
       <SearchModal isOpen={isSearchOpen} onClose={() => setIsSearchOpen(false)} />
       <nav className="fixed top-0 w-full z-50">
         <div className={`bg-primary text-white transition-all duration-300 ${isScrolled ? 'py-1' : 'py-2'} border-b border-white/5`}>
-          <div className="container mx-auto px-6 flex flex-wrap justify-between items-center gap-y-2 text-[9px] md:text-[10px] font-bold uppercase tracking-[0.15em]">
-            <div className="flex flex-wrap gap-4 md:gap-8">
+          <div className="container mx-auto px-6 flex flex-col md:flex-row justify-center md:justify-between items-center gap-y-2 text-[8px] sm:text-[9px] md:text-[10px] font-bold uppercase tracking-[0.15em] text-center md:text-left">
+            <div className="flex flex-wrap gap-x-4 gap-y-1 justify-center md:justify-start">
               <a 
                 href="https://www.google.com/maps/search/?api=1&query=Calle+Los+Tribunales+1268+Vitacura" 
                 target="_blank" 
@@ -119,7 +119,7 @@ export const Navbar = () => {
               </a>
             </div>
             
-            <div className="flex flex-wrap gap-4 md:gap-8 items-center">
+            <div className="flex flex-wrap gap-x-4 gap-y-1 justify-center md:justify-end items-center">
               <a 
                 href="https://wa.me/56966187736" 
                 target="_blank" 
@@ -275,9 +275,9 @@ export const Navbar = () => {
               initial={{ opacity: 0, height: 0 }}
               animate={{ opacity: 1, height: 'auto' }}
               exit={{ opacity: 0, height: 0 }}
-              className="lg:hidden bg-white border-b border-slate-100 overflow-hidden"
+              className="lg:hidden bg-white border-b border-slate-100 overflow-y-auto max-h-[calc(100vh-130px)] hide-scrollbar"
             >
-              <div className="container mx-auto px-6 py-8 flex flex-col gap-6">
+              <div className="container mx-auto px-6 py-8 pb-16 flex flex-col gap-6">
                 {NAV_ITEMS.map((item) => (
                   <div key={item.name} className="space-y-4">
                     <Link 

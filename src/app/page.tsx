@@ -88,7 +88,7 @@ export default function Home() {
         <div className="absolute bottom-0 left-0 w-[600px] h-[600px] bg-primary/5 rounded-full blur-3xl -mb-64 -ml-64 pointer-events-none" />
 
         <div className="container mx-auto px-6 relative z-10">
-          <div className="bg-white rounded-[2.5rem] md:rounded-[4rem] border border-slate-100 p-8 md:p-20 shadow-[0_10px_60px_rgba(0,0,0,0.02)]">
+          <div className="bg-white rounded-[2rem] sm:rounded-[2.5rem] md:rounded-[4rem] border border-slate-100 p-6 sm:p-8 md:p-20 shadow-[0_10px_60px_rgba(0,0,0,0.02)]">
             <div className="grid lg:grid-cols-2 gap-16 items-center">
 
               {/* Columna Izquierda: Contexto */}
@@ -96,7 +96,7 @@ export default function Home() {
                 <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-secondary/10 text-secondary text-[11px] font-bold uppercase tracking-widest mb-8">
                   <ShieldCheck size={14} /> ¡Atención vecinos de Vitacura!
                 </div>
-                <h2 className="text-4xl md:text-5xl font-bold text-primary mb-6 leading-tight tracking-tighter">
+                <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-primary mb-6 leading-tight tracking-tighter">
                   Valida tus descuentos con <br />
                   <span className="text-secondary">Tarjeta Mi Vita.</span>
                 </h2>
@@ -118,7 +118,7 @@ export default function Home() {
               {/* Columna Derecha: Iframe del Validador */}
               <div className="relative">
                 <div className="absolute inset-0 bg-gradient-to-tr from-secondary/20 to-primary/5 rounded-[3rem] transform rotate-3 scale-105 transition-transform duration-700 hover:rotate-6" />
-                <div className="relative bg-white rounded-[2.5rem] overflow-hidden border border-slate-100 h-[520px] w-full flex flex-col">
+                <div className="relative bg-white rounded-[2.5rem] overflow-hidden border border-slate-100 h-[440px] sm:h-[520px] w-full flex flex-col">
                   {/* Falso header de navegador para estilo nativo */}
                   <div className="bg-slate-50 border-b border-slate-100 p-4 flex items-center gap-2">
                     <div className="flex gap-1.5">

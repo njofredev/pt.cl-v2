@@ -55,7 +55,7 @@ export const Branches = () => {
   return (
     <section className="py-24 bg-white">
       <div className="container mx-auto px-6">
-        <div className="bg-primary rounded-[2.5rem] md:rounded-[4rem] p-8 md:p-20 text-white relative overflow-hidden shadow-2xl">
+        <div className="bg-primary rounded-[2rem] sm:rounded-[2.5rem] md:rounded-[4rem] p-6 sm:p-8 md:p-20 text-white relative overflow-hidden shadow-2xl">
           {/* Background Orbs */}
           <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-secondary/10 rounded-full blur-[150px] -z-0" />
           <div className="absolute bottom-0 left-0 w-[400px] h-[400px] bg-blue-500/10 rounded-full blur-[120px] -z-0" />
@@ -76,7 +76,7 @@ export const Branches = () => {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: 0.1 }}
-                className="text-4xl md:text-6xl font-bold mb-8 leading-[0.9] tracking-tighter"
+                className="text-3xl sm:text-4xl md:text-6xl font-bold mb-8 leading-[0.9] tracking-tighter"
               >
                 Conoce nuestros centros <br /> 
                 <span className="text-secondary">médicos y dentales.</span>
@@ -101,7 +101,7 @@ export const Branches = () => {
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
                   transition={{ delay: index * 0.2 }}
-                  className="group relative bg-white/5 backdrop-blur-sm rounded-[2rem] border border-white/10 p-6 md:p-8 hover:bg-white/[0.08] transition-all duration-500 overflow-hidden flex flex-col"
+                  className="group relative bg-white/5 backdrop-blur-sm rounded-[2rem] border border-white/10 p-5 sm:p-6 md:p-8 hover:bg-white/[0.08] transition-all duration-500 overflow-hidden flex flex-col"
                 >
                   <div className="flex flex-col h-full">
                     {/* Header: Icon + Name/Address + Map Link */}
@@ -131,7 +131,7 @@ export const Branches = () => {
                     </div>
 
                     {/* Image Area */}
-                    <div className="relative group/img w-full h-[260px] mb-8">
+                    <div className="relative group/img w-full h-[180px] sm:h-[260px] mb-8">
                       <div className="absolute inset-0 bg-gradient-to-t from-primary/60 to-transparent z-10 rounded-2xl opacity-40 group-hover/img:opacity-10 transition-opacity" />
                       <img 
                         src={branch.image} 

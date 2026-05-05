@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useMemo } from 'react';
+import React, { useState, useMemo, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Search, User, ChevronRight, Filter, X, Info, GraduationCap, MapPin } from 'lucide-react';
 import { Input } from "@/components/ui/input";
@@ -15,18 +15,27 @@ export const ProfessionalFilter = ({ initialArea, professionals }: { initialArea
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedArea, setSelectedArea] = useState<Area | "Todas">(initialArea || "Todas");
   const [selectedSpecialty, setSelectedSpecialty] = useState<string>("Todas");
+  const [shuffledProfessionals, setShuffledProfessionals] = useState<Professional[]>([]);
+
+  useEffect(() => {
+    // Barajar aleatoriamente los profesionales al cargar en el cliente (evita Hydration Mismatch)
+    const shuffled = [...professionals].sort(() => Math.random() - 0.5);
+    setShuffledProfessionals(shuffled);
+  }, [professionals]);
+
+  const activeProfessionals = shuffledProfessionals.length > 0 ? shuffledProfessionals : professionals;
 
   const specialties = useMemo(() => {
     const relevantPros = selectedArea === "Todas" 
-      ? professionals 
-      : professionals.filter(p => p.area === selectedArea);
+      ? activeProfessionals 
+      : activeProfessionals.filter(p => p.area === selectedArea);
     
     const uniqueSpecialties = Array.from(new Set(relevantPros.map(p => p.specialty)));
     return ["Todas", ...uniqueSpecialties.sort()];
-  }, [selectedArea]);
+  }, [selectedArea, activeProfessionals]);
 
   const filteredProfessionals = useMemo(() => {
-    return professionals.filter(p => {
+    return activeProfessionals.filter(p => {
       const matchesSearch = p.name.toLowerCase().includes(searchTerm.toLowerCase()) || 
                            p.specialty.toLowerCase().includes(searchTerm.toLowerCase());
       const matchesArea = selectedArea === "Todas" || p.area === selectedArea;
@@ -34,7 +43,7 @@ export const ProfessionalFilter = ({ initialArea, professionals }: { initialArea
       
       return matchesSearch && matchesArea && matchesSpecialty;
     });
-  }, [searchTerm, selectedArea, selectedSpecialty]);
+  }, [searchTerm, selectedArea, selectedSpecialty, activeProfessionals]);
 
   const areaLabel = useMemo(() => {
     if (!initialArea) return "Médico";
