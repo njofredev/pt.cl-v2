@@ -86,7 +86,7 @@ export default function Home() {
         </div>
       </section>
       {/* 4. VALIDADOR MI VITA */}
-      <section className="py-16 relative overflow-hidden bg-white dark:bg-transparent">
+      <section id="mivita" className="py-16 relative overflow-hidden bg-white dark:bg-transparent scroll-mt-24">
 
 
         <div className="container mx-auto px-6 relative z-10">
@@ -158,7 +158,9 @@ export default function Home() {
       </section>
 
       {/* 5. NUESTRAS SUCURSALES (Modern Style) */}
-      <Branches />
+      <div id="sucursales" className="scroll-mt-24">
+        <Branches />
+      </div>
 
     </main>
   );
