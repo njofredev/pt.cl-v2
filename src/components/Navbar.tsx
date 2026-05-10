@@ -308,7 +308,7 @@ export const Navbar = () => {
                 <Search size={16} className="text-slate-400 group-hover:text-secondary transition-colors" />
                 <span className="text-[10px] font-bold text-slate-400 uppercase tracking-widest mr-2">Buscar...</span>
                 <div className="flex items-center gap-1 px-1.5 py-0.5 bg-white dark:bg-slate-800 border border-slate-100 dark:border-slate-700 rounded-md text-[9px] font-black text-slate-300">
-                  <span className="text-[8px]">ALT</span> K
+                  <span className="text-[8px]">ALT</span> + K
                 </div>
               </button>
 
