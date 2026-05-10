@@ -32,7 +32,7 @@ export default function Home() {
   return (
     <main className="relative min-h-screen bg-white dark:bg-transparent antialiased overflow-x-hidden transition-colors duration-300">
       {/* 1. HERO SECTION DINÁMICO */}
-      <Hero />
+      <Hero isInlineIcon={true} />
 
       <section className="py-8 bg-white dark:bg-transparent">
         <div className="container mx-auto px-6">

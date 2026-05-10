@@ -36,6 +36,7 @@ export interface HeroProps {
   images?: HeroImage[];
   floatingIconName?: keyof typeof ICON_MAP;
   floatingIconBg?: string;
+  isInlineIcon?: boolean;
 }
 
 const DEFAULT_IMAGES = [
@@ -56,7 +57,8 @@ export const Hero = ({
   statsLabel = "Pacientes Atendidos",
   images = DEFAULT_IMAGES,
   floatingIconName = "calendar",
-  floatingIconBg = "bg-secondary"
+  floatingIconBg = "bg-secondary",
+  isInlineIcon = false
 }: HeroProps) => {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
 
@@ -98,14 +100,17 @@ export const Hero = ({
             }}
           >
             {/* Cuerpo del Botón principal con Degradado Premium */}
-            <div className="bg-gradient-to-r from-primary to-[#1e3a8a] text-white px-8 sm:px-12 h-16 flex items-center rounded-full text-sm sm:text-lg font-black tracking-tight shadow-xl shadow-black/10 transition-all duration-500 transform group-hover:-translate-y-1 group-active:scale-95 relative z-10 whitespace-nowrap">
+            <div className="bg-gradient-to-r from-primary to-[#1e3a8a] text-white px-8 sm:px-12 h-16 flex items-center justify-center gap-3 rounded-full text-sm sm:text-lg font-black tracking-tight shadow-xl shadow-black/10 transition-all duration-500 transform group-hover:-translate-y-1 group-active:scale-95 relative z-10 whitespace-nowrap">
+              {isInlineIcon && <FloatingIcon size={22} strokeWidth={2.5} className="opacity-90 group-hover:scale-110 transition-transform" />}
               {buttonText}
             </div>
 
-            {/* Icono Badge Flotante en la Esquina Superior Derecha */}
-            <div className={`absolute -top-3 -right-3 w-12 h-12 ${floatingIconBg} rounded-full flex items-center justify-center text-white shadow-lg transition-all duration-500 transform group-hover:-translate-y-1 group-hover:rotate-[-15deg] group-hover:scale-110 group-active:scale-95 z-20 border-4 border-white dark:border-slate-950`}>
-              <FloatingIcon size={20} strokeWidth={2.5} />
-            </div>
+            {/* Icono Badge Flotante en la Esquina Superior Derecha (Solo si NO es Inline) */}
+            {!isInlineIcon && (
+              <div className={`absolute -top-3 -right-3 w-12 h-12 ${floatingIconBg} rounded-full flex items-center justify-center text-white shadow-lg transition-all duration-500 transform group-hover:-translate-y-1 group-hover:rotate-[-15deg] group-hover:scale-110 group-active:scale-95 z-20 border-4 border-white dark:border-slate-950`}>
+                <FloatingIcon size={20} strokeWidth={2.5} />
+              </div>
+            )}
           </div>
         </motion.div>
 
