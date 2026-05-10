@@ -69,6 +69,15 @@ function InfiniteScrollRow({
   const [startX, setStartX] = useState(0);
   const [scrollLeftStart, setScrollLeftStart] = useState(0);
 
+  const handleMouseEnter = () => {
+    setIsPaused(true);
+  };
+
+  const handleMouseLeave = () => {
+    setIsDragging(false);
+    setIsPaused(false);
+  };
+
   const handleMouseDown = (e: React.MouseEvent) => {
     if (!scrollRef.current) return;
     setIsPaused(true);
@@ -77,15 +86,9 @@ function InfiniteScrollRow({
     setScrollLeftStart(scrollRef.current.scrollLeft);
   };
 
-  const handleMouseLeave = () => {
-    setIsDragging(false);
-    if (!isDragging) setIsPaused(false); 
-  };
-
   const handleMouseUp = () => {
     setIsDragging(false);
-    // Dejamos una pausa de 2 seg antes de reanudar el auto-scroll para que el usuario lea
-    setTimeout(() => setIsPaused(false), 2000);
+    // Se mantiene pausado porque el mouse sigue sobre el elemento (handleMouseEnter)
   };
 
   const handleMouseMove = (e: React.MouseEvent) => {
@@ -161,6 +164,7 @@ function InfiniteScrollRow({
       <div
         ref={scrollRef}
         onScroll={handleScroll}
+        onMouseEnter={handleMouseEnter}
         onMouseDown={handleMouseDown}
         onMouseLeave={handleMouseLeave}
         onMouseUp={handleMouseUp}
@@ -178,7 +182,7 @@ function InfiniteScrollRow({
           return (
             <motion.div
               key={i}
-              whileHover={{ scale: 1.02, y: -3 }}
+              whileHover={{ scale: 1.05, y: -5 }}
               className={`w-[280px] shrink-0 group/card p-5 rounded-2xl bg-white dark:bg-slate-900 border border-slate-100 dark:border-slate-800 transition-all duration-300 relative overflow-hidden flex flex-col justify-between shadow-sm hover:shadow-md ${colors.hoverBorder}`}
             >
               <div>
