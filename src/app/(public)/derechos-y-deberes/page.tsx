@@ -2,7 +2,7 @@
 
 import React from 'react';
 import { motion } from 'framer-motion';
-import { CheckCircle2, Info, ShieldCheck, Users, BookOpen, Scale, SmilePlus, Brain, Stethoscope, Leaf, ChevronRight } from 'lucide-react';
+import { CheckCircle2, Info, ShieldCheck, Users, BookOpen, Scale, SmilePlus, Brain, Stethoscope, Leaf, ChevronLeft, ChevronRight } from 'lucide-react';
 import Link from 'next/link';
 
 const DERECHOS = [
@@ -173,9 +173,29 @@ export default function DerechosDeberesPage() {
           <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-primary/5 text-primary dark:text-white text-[10px] font-black uppercase tracking-widest mb-4">
             Nuestra Oferta Médica
           </div>
-          <h2 className="text-3xl md:text-4xl font-black text-slate-900 dark:text-white tracking-tight mb-10">
-            Explora Todos Nuestros Servicios
-          </h2>
+          <div className="flex items-center justify-center gap-4 md:gap-8 max-w-5xl mx-auto mb-10">
+            <Link href="/nosotros" className="hidden md:flex items-center gap-2 text-[11px] font-bold uppercase tracking-wider text-slate-400 dark:text-slate-500 hover:text-secondary transition-colors shrink-0">
+              <ChevronLeft size={14} /> Quiénes Somos
+            </Link>
+
+            <h2 className="text-3xl md:text-4xl font-black text-slate-900 dark:text-white tracking-tight">
+              Explora Todos Nuestros Servicios
+            </h2>
+
+            <Link href="/#sucursales" className="hidden md:flex items-center gap-2 text-[11px] font-bold uppercase tracking-wider text-slate-400 dark:text-slate-500 hover:text-secondary transition-colors shrink-0">
+              Sucursales <ChevronRight size={14} />
+            </Link>
+          </div>
+
+          {/* Mobile alternative links simple */}
+          <div className="flex md:hidden items-center justify-between w-full px-4 mb-8 text-[10px] font-bold uppercase tracking-wider">
+            <Link href="/nosotros" className="flex items-center gap-1 text-slate-400 dark:text-slate-500">
+              <ChevronLeft size={12} /> Quiénes Somos
+            </Link>
+            <Link href="/#sucursales" className="flex items-center gap-1 text-slate-400 dark:text-slate-500">
+              Sucursales <ChevronRight size={12} />
+            </Link>
+          </div>
           
           <div className="flex flex-wrap items-center justify-center gap-3 md:gap-4 max-w-5xl mx-auto">
             {[

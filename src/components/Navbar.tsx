@@ -154,6 +154,19 @@ export const Navbar = () => {
     }
   };
 
+  const handleAnchorClick = (e: React.MouseEvent, href: string) => {
+    if (href.includes('#')) {
+      const id = href.split('#')[1];
+      const el = document.getElementById(id);
+      if (el) {
+        e.preventDefault();
+        el.scrollIntoView({ behavior: 'smooth' });
+        setActiveDropdown(null);
+        setIsMobileMenuOpen(false);
+      }
+    }
+  };
+
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
       if (e.altKey && e.key === "k") {
@@ -314,7 +327,10 @@ export const Navbar = () => {
                   >
                     <Link
                       href={item.href}
-                      onClick={item.href === '/' ? scrollToTop : undefined}
+                      onClick={(e) => {
+                        if (item.href === '/') scrollToTop(e);
+                        else handleAnchorClick(e, item.href);
+                      }}
                       className={`flex items-center gap-1.5 transition-colors ${(item as any).highlight
                         ? 'border border-secondary text-secondary hover:bg-secondary hover:text-primary px-4 py-1.5 rounded-full font-bold'
                         : `hover:text-secondary ${activeDropdown === item.name ? 'text-secondary' : ''}`
@@ -358,6 +374,7 @@ export const Navbar = () => {
                             <Link
                               key={sub.name}
                               href={sub.href}
+                              onClick={(e) => handleAnchorClick(e, sub.href)}
                               target={sub.href.startsWith('http') ? "_blank" : undefined}
                               rel={sub.href.startsWith('http') ? "noopener noreferrer" : undefined}
                               className="group/sub flex items-start gap-5 p-6 rounded-[2rem] transition-all hover:bg-slate-50 dark:hover:bg-slate-900 border border-transparent hover:border-slate-100 dark:hover:border-slate-800"
@@ -473,7 +490,10 @@ export const Navbar = () => {
                         className="block text-lg font-black text-slate-900 dark:text-slate-100 text-right"
                         onClick={(e) => {
                           if (item.href === '/') scrollToTop(e);
-                          else setIsMobileMenuOpen(false);
+                          else {
+                            handleAnchorClick(e, item.href);
+                            setIsMobileMenuOpen(false);
+                          }
                         }}
                       >
                         {item.name}
@@ -496,7 +516,10 @@ export const Navbar = () => {
                               target={sub.href.startsWith('http') ? "_blank" : undefined}
                               rel={sub.href.startsWith('http') ? "noopener noreferrer" : undefined}
                               className="text-sm font-bold text-slate-500 hover:text-secondary text-right"
-                              onClick={() => setIsMobileMenuOpen(false)}
+                              onClick={(e) => {
+                                handleAnchorClick(e, sub.href);
+                                setIsMobileMenuOpen(false);
+                              }}
                             >
                               {sub.name}
                             </Link>
