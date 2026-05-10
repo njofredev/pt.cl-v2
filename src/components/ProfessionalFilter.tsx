@@ -310,16 +310,16 @@ export const ProfessionalFilter = ({ initialArea, professionals }: { initialArea
           <motion.div 
             initial={{ opacity: 0 }} 
             animate={{ opacity: 1 }}
-            className="text-center py-24 bg-white rounded-[3rem] border border-dashed border-slate-200"
+            className="text-center py-24 bg-white dark:bg-slate-900 rounded-[3rem] border border-dashed border-slate-200 dark:border-slate-800"
           >
-            <div className="w-20 h-20 bg-slate-50 rounded-full flex items-center justify-center mx-auto mb-6">
-              <Filter className="text-slate-300" size={32} />
+            <div className="w-20 h-20 bg-slate-50 dark:bg-slate-800 rounded-full flex items-center justify-center mx-auto mb-6">
+              <Filter className="text-slate-300 dark:text-slate-500" size={32} />
             </div>
-            <h3 className="text-xl font-bold text-primary mb-2">No encontramos resultados</h3>
-            <p className="text-slate-500 font-medium">Intenta ajustando los filtros o el término de búsqueda.</p>
+            <h3 className="text-xl font-bold text-primary dark:text-white mb-2">No encontramos resultados</h3>
+            <p className="text-slate-500 dark:text-slate-400 font-medium">Intenta ajustando los filtros o el término de búsqueda.</p>
             <Button 
               variant="outline" 
-              className="mt-8 rounded-full border-slate-200"
+              className="mt-8 rounded-full border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800"
               onClick={() => {
                 setSearchTerm("");
                 setSelectedArea(initialArea || "Todas");

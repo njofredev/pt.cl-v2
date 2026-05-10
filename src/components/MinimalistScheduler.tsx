@@ -315,14 +315,16 @@ export function MinimalistScheduler({ initialCategoryId }: { initialCategoryId?:
                     ) : (
                       <button
                         onClick={() => window.open(svc.link, '_blank')}
-                        className="w-full flex flex-col sm:flex-row items-center sm:justify-between p-4 sm:p-6 rounded-[1.5rem] sm:rounded-[2rem] border border-slate-100 dark:border-slate-800 hover:border-secondary/20 dark:hover:border-secondary/40 bg-slate-50/50 dark:bg-slate-950/50 hover:bg-white dark:hover:bg-slate-800 transition-all text-center sm:text-left group/btn min-h-[120px] sm:min-h-[110px] gap-2 sm:gap-4 justify-center"
+                        className="w-full p-4 sm:p-6 rounded-[1.5rem] sm:rounded-[2rem] border border-slate-100 dark:border-slate-800 hover:border-secondary/20 dark:hover:border-secondary/40 bg-slate-50/50 dark:bg-slate-950/50 hover:bg-white dark:hover:bg-slate-900 transition-all group/btn min-h-[120px] sm:min-h-[110px] flex flex-col justify-between gap-4"
                       >
-                        <div className="flex flex-col gap-1 items-center sm:items-start w-full">
-                          <span className="text-sm sm:text-xl font-bold text-slate-700 dark:text-slate-200 leading-tight">{svc.label}</span>
-                          <span className="text-[9px] sm:text-[10px] font-medium text-slate-400 dark:text-slate-500 group-hover/btn:text-secondary transition-colors leading-tight line-clamp-2 sm:line-clamp-none">{svc.info}</span>
+                        <div className="flex flex-col gap-1 items-start text-left w-full">
+                          <span className="text-sm sm:text-xl font-bold text-slate-700 dark:text-slate-200 leading-tight group-hover/btn:text-secondary transition-colors">{svc.label}</span>
+                          <span className="text-[9px] sm:text-[10px] font-medium text-slate-400 dark:text-slate-500 transition-colors leading-tight line-clamp-2 sm:line-clamp-none">{svc.info}</span>
                         </div>
-                        <div className="mt-1 sm:mt-0 px-4 py-1.5 sm:px-6 sm:py-2 rounded-full border border-secondary text-secondary group-hover/btn:bg-secondary group-hover/btn:text-white transition-all shrink-0 text-[10px] sm:text-sm font-bold uppercase tracking-wider leading-none">
-                          Agendar
+                        <div className="w-full mt-auto pt-1">
+                          <div className="w-full py-2.5 rounded-full border border-secondary/40 bg-white dark:bg-slate-800 text-secondary group-hover/btn:bg-secondary group-hover/btn:text-white dark:hover:text-slate-900 transition-all text-[10px] sm:text-[11px] font-bold uppercase tracking-wider leading-none text-center shadow-sm">
+                            Agendar
+                          </div>
                         </div>
                       </button>
                     )}
