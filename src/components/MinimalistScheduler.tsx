@@ -101,14 +101,14 @@ const SCHEDULE_DATA: Category[] = [
     icon: <SmilePlus size={26} strokeWidth={1.5} />,
     color: 'cyan',
     services: [
-      { label: "Diagnóstico", info: "Evaluación inicial y presupuesto", link: "https://ff.healthatom.io/drrRF5" },
-      { label: "Urgencia", info: "Atención inmediata por dolor", link: "https://ff.healthatom.io/ULnJPR" },
-      { label: "Limpieza", info: "Profilaxis y eliminación de sarro", link: "https://ff.healthatom.io/tlmKaf" },
-      { label: "Frenillos", info: "Ortodoncia adultos y niños", link: "https://ff.healthatom.io/FGrUIj" },
-      { label: "Niños", info: "Odontopediatría especializada", link: "https://ff.healthatom.io/hzazOC" },
-      { label: "Blanqueamiento", info: "Estética dental avanzada", link: "https://ff.healthatom.io/0RW6UD" },
-      { label: "Especialidad", info: "Endodoncia, Implantes, Prótesis", link: "https://ff.healthatom.io/fesVZO" },
-      { label: "TTM", info: "Dolor orofacial y bruxismo", link: "https://ff.healthatom.io/Ifb484" }
+      { label: "Diagnóstico Dental", info: "Evaluación inicial y presupuesto", link: "https://ff.healthatom.io/drrRF5" },
+      { label: "Urgencia Dental", info: "Atención inmediata por dolor", link: "https://ff.healthatom.io/ULnJPR" },
+      { label: "Limpieza Dental", info: "Profilaxis y eliminación de sarro", link: "https://ff.healthatom.io/tlmKaf" },
+      { label: "Evaluación Frenillos", info: "Ortodoncia adultos y niños", link: "https://ff.healthatom.io/FGrUIj" },
+      { label: "Cuidado Dental Niños", info: "Odontopediatría especializada", link: "https://ff.healthatom.io/hzazOC" },
+      { label: "Blanqueamiento Dental", info: "Estética dental avanzada", link: "https://ff.healthatom.io/0RW6UD" },
+      { label: "Consulta Especialidad", info: "Endodoncia, Implantes, Prótesis", link: "https://ff.healthatom.io/fesVZO" },
+      { label: "Evaluación TTM", info: "Dolor orofacial y bruxismo", link: "https://ff.healthatom.io/Ifb484" }
     ]
   },
   {
@@ -118,7 +118,7 @@ const SCHEDULE_DATA: Category[] = [
     color: 'purple',
     services: [
       {
-        label: "Psicología",
+        label: "Atención Psicología",
         info: "Atención individual y parejas",
         isMulti: true,
         options: [
@@ -126,9 +126,9 @@ const SCHEDULE_DATA: Category[] = [
           { label: "Teleconsulta", link: "https://ff.healthatom.io/7c4geA" }
         ]
       },
-      { label: "Psiquiatría", info: "Control médico especializado", link: "https://ff.healthatom.io/SeOkpO" },
-      { label: "Fonoaudiología", info: "Lenguaje y deglución", link: "https://ff.healthatom.io/nTp5kE" },
-      { label: "Psicopedagogía", info: "Dificultades de aprendizaje", link: "https://ff.healthatom.io/rIxNId" }
+      { label: "Consulta Psiquiatría", info: "Control médico especializado", link: "https://ff.healthatom.io/SeOkpO" },
+      { label: "Atención Fonoaudiología", info: "Lenguaje y deglución", link: "https://ff.healthatom.io/nTp5kE" },
+      { label: "Consulta Psicopedagogía", info: "Dificultades de aprendizaje", link: "https://ff.healthatom.io/rIxNId" }
     ]
   },
   {
@@ -164,7 +164,7 @@ const SCHEDULE_DATA: Category[] = [
     title: "Toma de Muestras",
     icon: <Microscope size={26} strokeWidth={1.5} />,
     color: 'rose',
-    services: [{ label: "Laboratorio", info: "Resultados rápidos en 24h", link: "https://ff.healthatom.io/FKV7ZY" }]
+    services: [{ label: "Exámenes de Laboratorio", info: "Resultados rápidos en 24h", link: "https://ff.healthatom.io/FKV7ZY" }]
   }
 ];
 
