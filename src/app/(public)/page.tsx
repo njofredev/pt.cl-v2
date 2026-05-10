@@ -66,7 +66,7 @@ export default function Home() {
                 <HeartPulse size={14} fill="currentColor" className="text-secondary shrink-0" /> Servicios Médicos
               </div>
               <h2 className="text-4xl md:text-6xl font-bold text-primary dark:text-white tracking-tighter leading-[0.9] mb-8">
-                Innovación en cada <br /> <span className="text-secondary">especialidad.</span>
+                Innovación en cada <br /> <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary via-teal-500 to-secondary">especialidad.</span>
               </h2>
               <p className="text-xl md:text-2xl text-slate-500 dark:text-slate-400 font-medium max-w-2xl leading-relaxed">Equipos de vanguardia y especialistas de primer nivel en un solo lugar.</p>
             </div>
@@ -90,7 +90,7 @@ export default function Home() {
                 </div>
                 <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-primary dark:text-white mb-6 leading-tight tracking-tighter">
                   Valida tus descuentos con <br />
-                  <span className="text-secondary">Tarjeta Mi Vita.</span>
+                  <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary via-teal-500 to-secondary">Tarjeta Mi Vita.</span>
                 </h2>
                 <p className="text-lg text-slate-500 dark:text-slate-400 font-medium leading-relaxed mb-10">
                   Accede a valores preferenciales en tus atenciones médicas y dentales. Ingresa tu RUT a continuación y verifica tu estado de convenio vigente al instante.

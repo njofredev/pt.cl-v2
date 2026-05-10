@@ -260,7 +260,7 @@ export const ProfessionalFilter = ({ initialArea, professionals }: { initialArea
             </div>
           )}
           <h2 className="text-3xl md:text-5xl font-bold text-primary dark:text-slate-50 tracking-tighter mb-4">
-            Nuestro Equipo <span className="text-secondary">{areaLabel}</span>
+            Nuestro Equipo <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary via-teal-500 to-secondary">{areaLabel}</span>
           </h2>
           <p className="text-slate-500 dark:text-slate-400 max-w-2xl mx-auto font-medium">
             Encuentra al especialista adecuado para tu cuidado entre más de 60 profesionales de la salud.

@@ -113,7 +113,7 @@ export const GoogleReviews = () => {
               <span className="text-[11px] font-bold uppercase tracking-widest text-slate-400 dark:text-slate-500">Reseñas Verificadas</span>
             </div>
             <h2 className="text-3xl md:text-5xl font-bold text-primary dark:text-white tracking-tighter leading-[0.9] mb-6">
-              Tu opinión nos importa. <br /><span className="text-secondary">Experiencias reales.</span>
+              Tu opinión nos importa. <br /><span className="text-transparent bg-clip-text bg-gradient-to-r from-primary via-teal-500 to-secondary">Experiencias reales.</span>
             </h2>
             
             {/* Selector de Sucursales */}
