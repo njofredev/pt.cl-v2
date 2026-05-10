@@ -129,15 +129,29 @@ function InfiniteScrollRow({
     }
   }, []);
 
+  const [effectiveSpeed, setEffectiveSpeed] = useState(speed);
+
+  useEffect(() => {
+    const handleResize = () => {
+      if (typeof window !== "undefined") {
+        // Consideramos móvil menos de 768px y reducimos la velocidad significativamente
+        setEffectiveSpeed(window.innerWidth < 768 ? speed * 0.4 : speed);
+      }
+    };
+    handleResize();
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, [speed]);
+
   useEffect(() => {
     const interval = setInterval(() => {
       if (!isPaused && scrollRef.current) {
-        const scrollValue = direction === "right" ? speed : -speed;
+        const scrollValue = direction === "right" ? effectiveSpeed : -effectiveSpeed;
         scrollRef.current.scrollBy({ left: scrollValue, behavior: "auto" });
       }
     }, 20);
     return () => clearInterval(interval);
-  }, [isPaused, speed, direction]);
+  }, [isPaused, effectiveSpeed, direction]);
 
   return (
     <div
@@ -212,7 +226,7 @@ export function ServiceCarousel() {
             Nuestras Especialidades
           </h4>
         </div>
-        <InfiniteScrollRow items={INFINITE_SERVICES} speed={1} direction="right" />
+        <InfiniteScrollRow items={INFINITE_SERVICES} speed={0.8} direction="right" />
       </div>
 
       {/* Fila 2: Modalidades (A la izquierda) */}
@@ -222,7 +236,7 @@ export function ServiceCarousel() {
             Modalidades de Atención y Pagos
           </h4>
         </div>
-        <InfiniteScrollRow items={INFINITE_MODALITIES} speed={1} direction="left" />
+        <InfiniteScrollRow items={INFINITE_MODALITIES} speed={0.8} direction="left" />
       </div>
 
     </div>
