@@ -100,18 +100,20 @@ export const Hero = ({
           className="relative"
         >
           <div className="relative z-10 bg-slate-100 dark:bg-slate-900 rounded-[3rem] p-4 shadow-lg shadow-slate-200/50 dark:shadow-none border-8 border-white dark:border-slate-900 overflow-hidden aspect-[4/3]">
-            <AnimatePresence mode="wait">
-              <motion.img
-                key={currentImageIndex}
-                src={images[currentImageIndex].src}
-                alt={images[currentImageIndex].alt}
-                initial={{ opacity: 0, scale: 1.05 }}
-                animate={{ opacity: 1, scale: 1 }}
-                exit={{ opacity: 0 }}
-                transition={{ duration: 1.2, ease: "easeInOut" }}
-                className="rounded-[2.5rem] w-full h-full object-cover absolute inset-0 p-4"
-              />
-            </AnimatePresence>
+            <div className="relative w-full h-full rounded-[2.5rem] overflow-hidden">
+              <AnimatePresence initial={false}>
+                <motion.img
+                  key={currentImageIndex}
+                  src={images[currentImageIndex].src}
+                  alt={images[currentImageIndex].alt}
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  exit={{ opacity: 0 }}
+                  transition={{ duration: 0.8, ease: "easeInOut" }}
+                  className="w-full h-full object-cover absolute inset-0"
+                />
+              </AnimatePresence>
+            </div>
 
             {/* Indicador de Sucursal/Imagen Actual */}
             <div className="absolute top-8 left-8 right-8 z-20 flex justify-between items-start">
