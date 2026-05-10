@@ -420,7 +420,7 @@ export const Navbar = () => {
                   className="bg-gradient-to-r from-primary to-[#1e3a8a] text-white rounded-full px-8 h-11 font-bold text-[11px] tracking-widest transition-all hover:scale-105 hover:shadow-xl active:scale-95 cursor-pointer shadow-lg shadow-black/10 border-0"
                   onClick={scrollToScheduler}
                 >
-                  RESERVAR HORA
+                  RESERVAR HORA <Calendar size={14} className="ml-2 shrink-0 opacity-90" />
                 </Button>
               </div>
 
@@ -526,7 +526,7 @@ export const Navbar = () => {
                   className="w-full bg-primary h-14 rounded-2xl font-bold text-white mt-2 cursor-pointer"
                   onClick={scrollToScheduler}
                 >
-                  RESERVAR HORA
+                  RESERVAR HORA <Calendar size={16} className="ml-2 shrink-0" />
                 </Button>
               </div>
             </motion.div>
