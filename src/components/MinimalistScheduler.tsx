@@ -313,7 +313,7 @@ export function MinimalistScheduler({ initialCategoryId }: { initialCategoryId?:
                           <span className="text-sm sm:text-xl font-bold text-slate-700 dark:text-slate-200 leading-tight">{svc.label}</span>
                           <span className="text-[9px] sm:text-[10px] font-medium text-slate-400 dark:text-slate-500 transition-colors leading-tight">{svc.info}</span>
                         </div>
-                        <div className="grid grid-cols-2 gap-2 w-full mt-1">
+                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 w-full mt-1">
                           {svc.options?.map((opt, optIdx) => (
                             <button
                               key={optIdx}
