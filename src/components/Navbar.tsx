@@ -51,8 +51,7 @@ const NAV_ITEMS = [
     subItems: [
       { name: 'Quiénes Somos', href: '/nosotros', desc: 'Conoce nuestra historia y valores.', icon: <Activity className="text-blue-500" /> },
       { name: 'Derechos y Deberes', href: '/derechos-y-deberes', desc: 'Conoce tus derechos y responsabilidades.', icon: <FileText className="text-emerald-500" /> },
-      { name: 'Misión y Visión', href: '/nosotros#mision', desc: 'Nuestro compromiso con la comunidad.', icon: <ShieldCheck className="text-indigo-500" /> },
-      { name: 'Nuestro Equipo', href: '/nosotros#equipo', desc: 'Profesionales de primer nivel.', icon: <User className="text-teal-500" /> },
+      { name: 'Nuestras Sucursales', href: '/#sucursales', desc: 'Ubícanos y conoce nuestros horarios.', icon: <MapPin className="text-amber-500" /> },
     ]
   },
   {
@@ -79,7 +78,7 @@ const NAV_ITEMS = [
       { name: 'Resultados de Exámenes', href: 'http://190.215.215.125:9091/Pacientes.aspx', desc: 'Consulta y descarga de reportes.', icon: <FileText className="text-cyan-600" /> },
     ]
   },
-  { name: 'Sucursales', href: '/#sucursales' },
+
 ];
 
 const TikTokIcon = ({ size = 12, className = "" }: { size?: number, className?: string }) => (
