@@ -137,8 +137,8 @@ function InfiniteScrollRow({
   useEffect(() => {
     const handleResize = () => {
       if (typeof window !== "undefined") {
-        // Consideramos móvil menos de 768px y reducimos la velocidad significativamente
-        setEffectiveSpeed(window.innerWidth < 768 ? speed * 0.4 : speed);
+        // Ajustamos la velocidad para móvil, algo más moderado que antes pero que se note el movimiento
+        setEffectiveSpeed(window.innerWidth < 768 ? speed * 0.75 : speed);
       }
     };
     handleResize();
@@ -230,7 +230,7 @@ export function ServiceCarousel() {
             Nuestras Especialidades
           </h4>
         </div>
-        <InfiniteScrollRow items={INFINITE_SERVICES} speed={0.8} direction="right" />
+        <InfiniteScrollRow items={INFINITE_SERVICES} speed={0.9} direction="right" />
       </div>
 
       {/* Fila 2: Modalidades (A la izquierda) */}
@@ -240,7 +240,7 @@ export function ServiceCarousel() {
             Modalidades de Atención y Pagos
           </h4>
         </div>
-        <InfiniteScrollRow items={INFINITE_MODALITIES} speed={0.8} direction="left" />
+        <InfiniteScrollRow items={INFINITE_MODALITIES} speed={0.9} direction="left" />
       </div>
 
     </div>
