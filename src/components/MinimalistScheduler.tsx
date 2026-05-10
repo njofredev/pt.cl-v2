@@ -234,14 +234,14 @@ export function MinimalistScheduler({ initialCategoryId }: { initialCategoryId?:
 
               <div className="text-center">
                 <h4 className="text-xl font-bold text-primary dark:text-white tracking-tight">Agendar Hora</h4>
-                <div className="h-4 flex items-center justify-center mt-0.5">
+                <div className="flex items-center justify-center mt-1.5 sm:mt-2">
                   <AnimatePresence mode="wait">
                     <motion.p
                       key={selectedCategory ? 'step2' : 'step1'}
                       initial={{ opacity: 0, y: 3 }}
                       animate={{ opacity: 1, y: 0 }}
                       exit={{ opacity: 0, y: -3 }}
-                      className="text-[10px] font-black text-slate-400 uppercase tracking-[0.2em]"
+                      className="text-[9px] sm:text-[10px] font-black text-slate-400 uppercase tracking-[0.2em] leading-relaxed text-center"
                     >
                       {selectedCategory ? 'Paso 2: Servicio' : 'Paso 1: Selecciona una Categoría'}
                     </motion.p>
