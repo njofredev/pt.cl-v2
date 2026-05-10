@@ -6,7 +6,7 @@ import {
   Users, Target, Award, CheckCircle2, 
   Calendar, Building, Stethoscope, Sparkles,
   ArrowRight, ArrowUp, ChevronDown, Clock, History, Heart,
-  SmilePlus, Brain, Leaf, Microscope, ChevronRight
+  SmilePlus, Brain, Leaf, ChevronRight
 } from 'lucide-react';
 import Link from 'next/link';
 import { Button } from "@/components/ui/button";
@@ -388,22 +388,7 @@ export default function NosotrosPage() {
               </Link>
             ))}
             
-            {/* Link especial para laboratorio */}
-            <Link 
-              href="/laboratorio"
-              className="group flex items-center gap-3 px-5 py-3 rounded-2xl bg-white dark:bg-slate-900/60 border border-slate-100 dark:border-white/10 shadow-sm hover:shadow-md hover:-translate-y-0.5 transition-all duration-300"
-            >
-              <div className="w-10 h-10 rounded-xl flex items-center justify-center shrink-0 text-rose-500 bg-rose-500/10 group-hover:scale-110 transition-transform duration-300">
-                <Microscope size={20} />
-              </div>
-              <div className="text-left pr-2">
-                <span className="block text-[10px] font-bold text-slate-400 dark:text-slate-500 uppercase tracking-wider leading-none mb-0.5">Diagnóstico</span>
-                <span className="block text-sm md:text-base font-bold text-slate-800 dark:text-slate-200 leading-tight">
-                  Laboratorio de Exámenes
-                </span>
-              </div>
-              <ChevronRight size={16} className="text-slate-300 dark:text-slate-600 group-hover:text-primary dark:group-hover:text-secondary group-hover:translate-x-0.5 transition-all ml-1" />
-            </Link>
+
           </div>
         </div>
       </section>
