@@ -2,7 +2,7 @@
 
 import React, { useState, useMemo, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Search, User, ChevronRight, Filter, X, Info, GraduationCap, MapPin, Sparkles, SmilePlus, Brain, Stethoscope, Leaf } from 'lucide-react';
+import { Search, User, ChevronRight, ChevronDown, Filter, X, Info, GraduationCap, MapPin, Sparkles, SmilePlus, Brain, Stethoscope, Leaf } from 'lucide-react';
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -10,6 +10,73 @@ import { Card, CardContent } from "@/components/ui/card";
 import { AREAS, Area, Professional } from '@/data/professionals';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import Image from 'next/image';
+
+const CustomSelect = ({ 
+  value, 
+  onChange, 
+  options, 
+  placeholder 
+}: { 
+  value: string, 
+  onChange: (val: string) => void, 
+  options: {label: string, value: string}[],
+  placeholder?: string 
+}) => {
+  const [isOpen, setIsOpen] = useState(false);
+  const ref = React.useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const clickOutside = (e: MouseEvent) => {
+      if (ref.current && !ref.current.contains(e.target as Node)) setIsOpen(false);
+    };
+    document.addEventListener('mousedown', clickOutside);
+    return () => document.removeEventListener('mousedown', clickOutside);
+  }, []);
+
+  const activeOption = options.find(o => o.value === value) || options[0];
+
+  return (
+    <div className="relative w-full" ref={ref}>
+      <button
+        type="button"
+        onClick={() => setIsOpen(!isOpen)}
+        className="w-full h-14 flex items-center justify-between rounded-2xl border border-slate-100 dark:border-slate-800 bg-slate-50 dark:bg-slate-950 px-5 text-slate-900 dark:text-slate-100 font-bold hover:border-secondary/30 dark:hover:border-secondary/30 transition-all cursor-pointer focus:outline-none focus:ring-2 focus:ring-secondary/20"
+      >
+        <span className="truncate text-sm sm:text-base">{activeOption?.label || placeholder}</span>
+        <ChevronDown size={16} className={`text-slate-400 shrink-0 transition-transform duration-300 ${isOpen ? 'rotate-180' : ''}`} />
+      </button>
+      <AnimatePresence>
+        {isOpen && (
+          <motion.div
+            initial={{ opacity: 0, y: 5, scale: 0.98 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            exit={{ opacity: 0, y: 5, scale: 0.98 }}
+            transition={{ duration: 0.2 }}
+            className="absolute z-[100] top-full mt-2 w-full max-h-60 overflow-y-auto bg-white dark:bg-slate-900 border border-slate-100 dark:border-slate-800 rounded-2xl shadow-2xl shadow-black/10 p-2 backdrop-blur-xl custom-scrollbar"
+          >
+            {options.map((opt) => (
+              <button
+                key={opt.value}
+                type="button"
+                className={`w-full text-left px-4 py-3 rounded-xl text-sm font-medium transition-colors mb-0.5 last:mb-0 cursor-pointer ${
+                  value === opt.value 
+                    ? 'bg-primary/5 dark:bg-white/10 text-primary dark:text-white font-bold' 
+                    : 'text-slate-600 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800/80 hover:text-primary dark:hover:text-white'
+                }`}
+                onClick={() => {
+                  onChange(opt.value);
+                  setIsOpen(false);
+                }}
+              >
+                {opt.label}
+              </button>
+            ))}
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </div>
+  );
+};
 
 export const ProfessionalFilter = ({ initialArea, professionals }: { initialArea?: Area, professionals: Professional[] }) => {
   const [searchTerm, setSearchTerm] = useState("");
@@ -115,49 +182,42 @@ export const ProfessionalFilter = ({ initialArea, professionals }: { initialArea
             {!initialArea && (
               <div className="space-y-2">
                 <label className="text-[10px] font-bold uppercase tracking-widest text-slate-400 dark:text-slate-500 ml-2">Área</label>
-                <select 
-                  className="w-full h-14 rounded-2xl border-slate-100 dark:border-slate-800 bg-slate-50 dark:bg-slate-950 px-4 text-primary dark:text-slate-100 font-bold focus:outline-none focus:ring-2 focus:ring-secondary/20 appearance-none cursor-pointer"
+                <CustomSelect 
                   value={selectedArea}
-                  onChange={(e) => {
-                    setSelectedArea(e.target.value as Area | "Todas");
+                  onChange={(val) => {
+                    setSelectedArea(val as Area | "Todas");
                     setSelectedSpecialty("Todas");
                   }}
-                >
-                  <option value="Todas">Todas las Áreas</option>
-                  {AREAS.map(area => (
-                    <option key={area} value={area}>{area}</option>
-                  ))}
-                </select>
+                  options={[
+                    { label: "Todas las Áreas", value: "Todas" },
+                    ...AREAS.map(a => ({ label: a, value: a }))
+                  ]}
+                />
               </div>
             )}
 
             <div className="space-y-2">
               <label className="text-[10px] font-bold uppercase tracking-widest text-slate-400 dark:text-slate-500 ml-2">Sucursal</label>
-              <select 
-                className="w-full h-14 rounded-2xl border-slate-100 dark:border-slate-800 bg-slate-50 dark:bg-slate-950 px-4 text-primary dark:text-slate-100 font-bold focus:outline-none focus:ring-2 focus:ring-secondary/20 appearance-none cursor-pointer"
+              <CustomSelect 
                 value={selectedSucursal}
-                onChange={(e) => setSelectedSucursal(e.target.value)}
-              >
-                {sucursales.map(suc => (
-                  <option key={suc} value={suc}>
-                    {suc === "Todas" ? "Todas las Sucursales" : suc}
-                  </option>
-                ))}
-              </select>
+                onChange={(val) => setSelectedSucursal(val)}
+                options={sucursales.map(suc => ({
+                  label: suc === "Todas" ? "Todas las Sucursales" : suc,
+                  value: suc
+                }))}
+              />
             </div>
 
             <div className="space-y-2">
               <label className="text-[10px] font-bold uppercase tracking-widest text-slate-400 dark:text-slate-500 ml-2">Especialidad</label>
-              <select 
-                className="w-full h-14 rounded-2xl border-slate-100 dark:border-slate-800 bg-slate-50 dark:bg-slate-950 px-4 text-primary dark:text-slate-100 font-bold focus:outline-none focus:ring-2 focus:ring-secondary/20 appearance-none cursor-pointer"
+              <CustomSelect 
                 value={selectedSpecialty}
-                onChange={(e) => setSelectedSpecialty(e.target.value)}
-                disabled={specialties.length <= 1}
-              >
-                {specialties.map(spec => (
-                  <option key={spec} value={spec}>{spec}</option>
-                ))}
-              </select>
+                onChange={(val) => setSelectedSpecialty(val)}
+                options={specialties.map(spec => ({
+                  label: spec === "Todas" ? "Todas las Especialidades" : spec,
+                  value: spec
+                }))}
+              />
             </div>
           </div>
 
