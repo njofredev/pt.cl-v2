@@ -171,7 +171,20 @@ const SCHEDULE_DATA: Category[] = [
 export function MinimalistScheduler({ initialCategoryId }: { initialCategoryId?: string }) {
   const [selectedCategory, setSelectedCategory] = useState<Category | null>(() => {
     if (initialCategoryId) {
-      return SCHEDULE_DATA.find(c => c.id === initialCategoryId) || null;
+      const base = SCHEDULE_DATA.find(c => c.id === initialCategoryId);
+      if (!base) return null;
+
+      // Si estamos en Medicina General, inyectamos el servicio de Kinesiología para esta vista
+      if (initialCategoryId === 'medicinaGeneral') {
+        const kine = SCHEDULE_DATA.find(c => c.id === 'kinesiologia');
+        if (kine) {
+          return {
+            ...base,
+            services: [...base.services, ...kine.services]
+          };
+        }
+      }
+      return base;
     }
     return null;
   });
