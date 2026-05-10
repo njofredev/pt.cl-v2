@@ -63,6 +63,47 @@ function InfiniteScrollRow({
 }) {
   const scrollRef = useRef<HTMLDivElement>(null);
   const [isPaused, setIsPaused] = useState(false);
+  
+  // Drag to scroll state for Mouse
+  const [isDragging, setIsDragging] = useState(false);
+  const [startX, setStartX] = useState(0);
+  const [scrollLeftStart, setScrollLeftStart] = useState(0);
+
+  const handleMouseDown = (e: React.MouseEvent) => {
+    if (!scrollRef.current) return;
+    setIsPaused(true);
+    setIsDragging(true);
+    setStartX(e.pageX - scrollRef.current.offsetLeft);
+    setScrollLeftStart(scrollRef.current.scrollLeft);
+  };
+
+  const handleMouseLeave = () => {
+    setIsDragging(false);
+    if (!isDragging) setIsPaused(false); 
+  };
+
+  const handleMouseUp = () => {
+    setIsDragging(false);
+    // Dejamos una pausa de 2 seg antes de reanudar el auto-scroll para que el usuario lea
+    setTimeout(() => setIsPaused(false), 2000);
+  };
+
+  const handleMouseMove = (e: React.MouseEvent) => {
+    if (!isDragging || !scrollRef.current) return;
+    e.preventDefault();
+    const x = e.pageX - scrollRef.current.offsetLeft;
+    const walk = (x - startX) * 1.5; // Scroll speed scalar
+    scrollRef.current.scrollLeft = scrollLeftStart - walk;
+  };
+
+  const handleTouchStart = () => {
+    setIsPaused(true);
+  };
+
+  const handleTouchEnd = () => {
+    // Pausa extendida en móvil después de soltar para leer tranquilo
+    setTimeout(() => setIsPaused(false), 3000);
+  };
 
   const handleScroll = () => {
     if (!scrollRef.current) return;
@@ -101,15 +142,21 @@ function InfiniteScrollRow({
   return (
     <div
       className="relative w-full group py-2 [mask-image:linear-gradient(to_right,transparent,black_10%,black_90%,transparent)]"
-      onMouseEnter={() => setIsPaused(true)}
-      onMouseLeave={() => setIsPaused(false)}
     >
 
       <div
         ref={scrollRef}
         onScroll={handleScroll}
-        className="flex gap-4 overflow-x-auto hide-scrollbar px-6 select-none py-3"
-        style={{ scrollBehavior: 'auto' }}
+        onMouseDown={handleMouseDown}
+        onMouseLeave={handleMouseLeave}
+        onMouseUp={handleMouseUp}
+        onMouseMove={handleMouseMove}
+        onTouchStart={handleTouchStart}
+        onTouchEnd={handleTouchEnd}
+        className={`flex gap-4 overflow-x-auto hide-scrollbar px-6 py-3 select-none ${
+          isDragging ? 'cursor-grabbing' : 'cursor-grab'
+        }`}
+        style={{ scrollBehavior: isDragging ? 'auto' : 'auto' }}
       >
         {items.map((s, i) => {
           const colors = COLOR_MAP[s.color || 'secondary'];
