@@ -25,7 +25,9 @@ const SLUG_TO_HERO: Record<string, HeroProps> = {
       { src: '/generated/dental_hero.png', alt: 'Clínica Dental Premium', location: 'Policlínico Tabancura' },
     ],
     statsNumber: "+5k",
-    statsLabel: "Sonrisas Sanas"
+    statsLabel: "Sonrisas Sanas",
+    floatingIconName: 'smilePlus',
+    floatingIconBg: 'bg-cyan-500'
   },
   'mental': {
     badgeText: "Especialidad Psicológica",
@@ -37,7 +39,9 @@ const SLUG_TO_HERO: Record<string, HeroProps> = {
       { src: '/generated/mental_hero.png', alt: 'Terapia Psicológica Especializada', location: 'Espacio de Confianza' },
     ],
     statsNumber: "+2k",
-    statsLabel: "Pacientes Apoyados"
+    statsLabel: "Pacientes Apoyados",
+    floatingIconName: 'brain',
+    floatingIconBg: 'bg-purple-500'
   },
   'medicina': {
     badgeText: "Atención Primaria",
@@ -49,7 +53,9 @@ const SLUG_TO_HERO: Record<string, HeroProps> = {
       { src: '/generated/medicina_hero.png', alt: 'Atención Médica Integral', location: 'Box Médico Central' },
     ],
     statsNumber: "+8k",
-    statsLabel: "Atenciones Anuales"
+    statsLabel: "Atenciones Anuales",
+    floatingIconName: 'stethoscope',
+    floatingIconBg: 'bg-blue-500'
   },
   'terapias': {
     badgeText: "Bienestar Integral",
@@ -60,7 +66,9 @@ const SLUG_TO_HERO: Record<string, HeroProps> = {
     images: [
       { src: '/generated/terapias_hero.png', alt: 'Terapias de Bienestar', location: 'Sala de Armonía' },
     ],
-    statsLabel: "Sesiones Realizadas"
+    statsLabel: "Sesiones Realizadas",
+    floatingIconName: 'leaf',
+    floatingIconBg: 'bg-green-500'
   }
 };
 

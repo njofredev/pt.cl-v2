@@ -2,7 +2,7 @@
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Button } from "@/components/ui/button";
-import { Zap, CalendarDays, MapPin, Activity, HeartPulse, Sparkles, Brain } from 'lucide-react';
+import { Zap, CalendarDays, MapPin, Activity, HeartPulse, Sparkles, Brain, SmilePlus, Stethoscope, Leaf, Microscope, Accessibility } from 'lucide-react';
 
 const ICON_MAP = {
   zap: Zap,
@@ -10,6 +10,12 @@ const ICON_MAP = {
   brain: Brain,
   heartPulse: HeartPulse,
   activity: Activity,
+  smilePlus: SmilePlus,
+  stethoscope: Stethoscope,
+  leaf: Leaf,
+  microscope: Microscope,
+  accessibility: Accessibility,
+  calendar: CalendarDays,
 };
 
 export interface HeroImage {
@@ -28,6 +34,8 @@ export interface HeroProps {
   statsNumber?: string;
   statsLabel?: string;
   images?: HeroImage[];
+  floatingIconName?: keyof typeof ICON_MAP;
+  floatingIconBg?: string;
 }
 
 const DEFAULT_IMAGES = [
@@ -46,11 +54,14 @@ export const Hero = ({
   buttonText = "Tu bienestar comienza aquí",
   statsNumber = "+10k",
   statsLabel = "Pacientes Atendidos",
-  images = DEFAULT_IMAGES
+  images = DEFAULT_IMAGES,
+  floatingIconName = "calendar",
+  floatingIconBg = "bg-secondary"
 }: HeroProps) => {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
 
   const BadgeIcon = ICON_MAP[badgeIconName] || Zap;
+  const FloatingIcon = ICON_MAP[floatingIconName] || CalendarDays;
 
   useEffect(() => {
     const timer = setInterval(() => {
@@ -92,8 +103,8 @@ export const Hero = ({
             </div>
 
             {/* Icono Badge Flotante en la Esquina Superior Derecha */}
-            <div className="absolute -top-3 -right-3 w-12 h-12 bg-secondary rounded-full flex items-center justify-center text-primary shadow-lg transition-all duration-500 transform group-hover:-translate-y-1 group-hover:rotate-[-15deg] group-hover:scale-110 group-active:scale-95 z-20 border-4 border-white dark:border-slate-950">
-              <CalendarDays size={20} strokeWidth={2.5} />
+            <div className={`absolute -top-3 -right-3 w-12 h-12 ${floatingIconBg} rounded-full flex items-center justify-center text-white shadow-lg transition-all duration-500 transform group-hover:-translate-y-1 group-hover:rotate-[-15deg] group-hover:scale-110 group-active:scale-95 z-20 border-4 border-white dark:border-slate-950`}>
+              <FloatingIcon size={20} strokeWidth={2.5} />
             </div>
           </div>
         </motion.div>
