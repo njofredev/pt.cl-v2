@@ -153,6 +153,7 @@ function InfiniteScrollRow({
         onMouseMove={handleMouseMove}
         onTouchStart={handleTouchStart}
         onTouchEnd={handleTouchEnd}
+        onTouchCancel={handleTouchEnd}
         className={`flex gap-4 overflow-x-auto hide-scrollbar px-6 py-3 select-none ${
           isDragging ? 'cursor-grabbing' : 'cursor-grab'
         }`}
@@ -211,7 +212,7 @@ export function ServiceCarousel() {
             Nuestras Especialidades
           </h4>
         </div>
-        <InfiniteScrollRow items={INFINITE_SERVICES} speed={0.9} direction="right" />
+        <InfiniteScrollRow items={INFINITE_SERVICES} speed={1} direction="right" />
       </div>
 
       {/* Fila 2: Modalidades (A la izquierda) */}
@@ -221,7 +222,7 @@ export function ServiceCarousel() {
             Modalidades de Atención y Pagos
           </h4>
         </div>
-        <InfiniteScrollRow items={INFINITE_MODALITIES} speed={0.9} direction="left" />
+        <InfiniteScrollRow items={INFINITE_MODALITIES} speed={1} direction="left" />
       </div>
 
     </div>

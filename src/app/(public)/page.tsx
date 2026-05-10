@@ -4,6 +4,7 @@ import { MinimalistScheduler } from '@/components/MinimalistScheduler';
 import { PartnerCarousel } from '@/components/PartnerCarousel';
 import { ServiceCarousel } from '@/components/ServiceCarousel';
 import { Branches } from '@/components/Branches';
+import { GoogleReviews } from '@/components/GoogleReviews';
 import Link from 'next/link';
 import {
   Stethoscope,
@@ -94,12 +95,12 @@ export default function Home() {
                 <p className="text-lg text-slate-500 dark:text-slate-400 font-medium leading-relaxed mb-10">
                   Accede a valores preferenciales en tus atenciones médicas y dentales. Ingresa tu RUT a continuación y verifica tu estado de convenio vigente al instante.
                 </p>
-                <div className="grid grid-cols-2 gap-6">
-                  <div className="group flex items-center gap-4 bg-slate-50 dark:bg-slate-900 p-4 rounded-2xl border border-slate-100 dark:border-slate-800 hover:bg-slate-100 dark:hover:bg-slate-800/80 transition-all cursor-pointer">
+                <div className="grid grid-cols-2 gap-3 sm:gap-6">
+                  <div className="group flex items-center gap-2 sm:gap-4 bg-slate-50 dark:bg-slate-900 p-3 sm:p-4 rounded-2xl border border-slate-100 dark:border-slate-800 hover:bg-slate-100 dark:hover:bg-slate-800/80 transition-all cursor-pointer">
                     <div className="w-12 h-12 bg-white dark:bg-slate-950 border border-slate-100 dark:border-slate-800 rounded-xl shadow-sm flex items-center justify-center font-black text-secondary text-xl group-hover:scale-110 group-hover:-translate-y-2 transition-all duration-300">25%</div>
                     <span className="text-[11px] font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider leading-tight">Sobre el<br />arancel general</span>
                   </div>
-                  <div className="group flex items-center gap-4 bg-slate-50 dark:bg-slate-900 p-4 rounded-2xl border border-slate-100 dark:border-slate-800 hover:bg-slate-100 dark:hover:bg-slate-800/80 transition-all cursor-pointer">
+                  <div className="group flex items-center gap-2 sm:gap-4 bg-slate-50 dark:bg-slate-900 p-3 sm:p-4 rounded-2xl border border-slate-100 dark:border-slate-800 hover:bg-slate-100 dark:hover:bg-slate-800/80 transition-all cursor-pointer">
                     <div className="relative w-12 h-12 flex items-center justify-center shrink-0">
                       <div className="absolute w-7 h-7 bg-white dark:bg-slate-950 border border-slate-100 dark:border-slate-800 rounded-lg shadow-sm flex items-center justify-center text-secondary/40 -translate-x-2.5 -translate-y-1.5 -rotate-12 group-hover:-translate-y-5 group-hover:-rotate-[20deg] group-hover:scale-110 transition-all duration-300"><Microscope size={14} /></div>
                       <div className="absolute w-7 h-7 bg-white dark:bg-slate-950 border border-slate-100 dark:border-slate-800 rounded-lg shadow-sm flex items-center justify-center text-secondary/40 translate-x-2.5 -translate-y-1.5 rotate-12 group-hover:-translate-y-5 group-hover:rotate-[20deg] group-hover:scale-110 transition-all duration-300"><Brain size={14} /></div>
@@ -113,7 +114,7 @@ export default function Home() {
               {/* Columna Derecha: Iframe del Validador */}
               <div className="relative">
                 <div className="absolute inset-0 bg-gradient-to-tr from-secondary/20 to-primary/5 rounded-[3rem] transform rotate-3 scale-105 transition-transform duration-700 hover:rotate-6" />
-                <div className="relative bg-[#121e42] rounded-[2.5rem] overflow-hidden border border-slate-100 dark:border-slate-800 h-[440px] sm:h-[520px] w-full flex flex-col">
+                <div className="relative bg-[#121e42] rounded-[2.5rem] overflow-hidden border border-slate-100 dark:border-slate-800 h-[580px] sm:h-[520px] w-full flex flex-col">
                   {/* Falso header de navegador para estilo nativo */}
                   <div className="bg-[#0d1630] border-b border-[#1e316b] p-4 flex items-center gap-2">
                     <div className="flex gap-1.5">
@@ -145,6 +146,9 @@ export default function Home() {
           </div>
         </div>
       </section>
+      
+      {/* BLOQUE RESEÑAS DE GOOGLE */}
+      <GoogleReviews />
 
       {/* 5. NUESTRAS SUCURSALES (Modern Style) */}
       <div id="sucursales" className="scroll-mt-24">

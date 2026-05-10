@@ -21,6 +21,21 @@
     from { transform: translateX(0); }
     to { transform: translateX(calc(-50% - 1rem)); }
   }
+
+  @keyframes sparkleAnim {
+    0% { opacity: 0; transform: translate(0, 0) scale(0.5); }
+    30% { opacity: 0.9; }
+    70% { opacity: 0.9; }
+    100% { opacity: 0; transform: translate(25px, -35px) scale(0.5); }
+  }
+
+  @keyframes pulse-slow {
+    0%, 100% { opacity: 0.4; transform: scale(1); }
+    50% { opacity: 0.6; transform: scale(1.08); }
+  }
+
+  --animate-sparkle: sparkleAnim linear infinite;
+  --animate-pulse-slow: pulse-slow 12s ease-in-out infinite;
 }
 
 /* Configuraciones de base */

@@ -21,7 +21,7 @@ const SLUG_TO_HERO: Record<string, HeroProps> = {
     badgeText: "Especialidad Odontológica",
     badgeIconName: 'sparkles',
     titlePrefix: "Salud",
-    titleHighlight: "Dental.",
+    titleHighlight: "Dental",
     description: "Contamos con los mejores especialistas de la zona en salud dental, con tecnología de vanguardia y atención personalizada.",
     images: [
       { src: '/generated/dental_hero.png', alt: 'Clínica Dental Premium', location: 'Policlínico Tabancura' },
@@ -30,14 +30,15 @@ const SLUG_TO_HERO: Record<string, HeroProps> = {
     statsLabel: "Sonrisas Sanas",
     floatingIconName: 'smilePlus',
     floatingIconBg: 'bg-cyan-500',
-    secondaryButtonText: "Conoce Nuestro Equipo",
+    buttonText: "Agenda aquí",
+    secondaryButtonText: "Nuestro Equipo",
     secondaryButtonAnchorId: "equipo"
   },
   'mental': {
     badgeText: "Especialidad Psicológica",
     badgeIconName: 'brain',
     titlePrefix: "Salud",
-    titleHighlight: "Mental.",
+    titleHighlight: "Mental",
     description: "Acompañamiento psicológico y psiquiátrico con enfoque humano y profesional para tu bienestar integral.",
     images: [
       { src: '/generated/mental_hero.png', alt: 'Terapia Psicológica Especializada', location: 'Espacio de Confianza' },
@@ -46,14 +47,15 @@ const SLUG_TO_HERO: Record<string, HeroProps> = {
     statsLabel: "Pacientes Apoyados",
     floatingIconName: 'brain',
     floatingIconBg: 'bg-purple-500',
-    secondaryButtonText: "Conoce Nuestro Equipo",
+    buttonText: "Agenda aquí",
+    secondaryButtonText: "Nuestro Equipo",
     secondaryButtonAnchorId: "equipo"
   },
   'medicina': {
     badgeText: "Atención Primaria",
     badgeIconName: 'heartPulse',
     titlePrefix: "Medicina",
-    titleHighlight: "General.",
+    titleHighlight: "General",
     description: "Atención primaria integral para toda tu familia con diagnósticos precisos y derivación oportuna.",
     images: [
       { src: '/generated/medicina_hero.png', alt: 'Atención Médica Integral', location: 'Box Médico Central' },
@@ -62,14 +64,15 @@ const SLUG_TO_HERO: Record<string, HeroProps> = {
     statsLabel: "Atenciones Anuales",
     floatingIconName: 'stethoscope',
     floatingIconBg: 'bg-blue-500',
-    secondaryButtonText: "Conoce Nuestro Equipo",
+    buttonText: "Agenda aquí",
+    secondaryButtonText: "Nuestro Equipo",
     secondaryButtonAnchorId: "equipo"
   },
   'terapias': {
     badgeText: "Bienestar Integral",
     badgeIconName: 'activity',
     titlePrefix: "Terapias",
-    titleHighlight: "Complementarias.",
+    titleHighlight: "Complementarias",
     description: "Enfoque holístico para tu salud con profesionales certificados en diversas disciplinas complementarias.",
     images: [
       { src: '/generated/terapias_hero.png', alt: 'Terapias de Bienestar', location: 'Sala de Armonía' },
@@ -77,7 +80,8 @@ const SLUG_TO_HERO: Record<string, HeroProps> = {
     statsLabel: "Sesiones Realizadas",
     floatingIconName: 'leaf',
     floatingIconBg: 'bg-green-500',
-    secondaryButtonText: "Conoce Nuestro Equipo",
+    buttonText: "Agenda aquí",
+    secondaryButtonText: "Nuestro Equipo",
     secondaryButtonAnchorId: "equipo"
   }
 };
@@ -143,9 +147,7 @@ export default async function ServicePage({ params }: { params: Promise<{ slug: 
       {/* Usamos el Hero global pero con props inyectadas para la categoría */}
       <Hero {...heroProps} />
       
-      <div id="equipo" className="scroll-mt-32">
-        <ProfessionalFilter key={slug} initialArea={area} professionals={professionals} />
-      </div>
+      <ProfessionalFilter key={slug} initialArea={area} professionals={professionals} />
 
       <div id="agendar" className="container mx-auto px-6 pb-20 pt-10 scroll-mt-28">
         <div className="max-w-5xl mx-auto">

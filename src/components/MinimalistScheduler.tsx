@@ -333,7 +333,7 @@ export function MinimalistScheduler({ initialCategoryId }: { initialCategoryId?:
                   {selectedCategory.services?.map((svc, idx) => (
                     <div key={idx} className="w-full">
                       {svc.isMulti ? (
-                        <div className="p-4 sm:p-6 rounded-[1.5rem] sm:rounded-[2rem] bg-slate-50 dark:bg-slate-950 border border-slate-200/80 dark:border-slate-800 flex flex-col gap-4 min-h-[120px] sm:min-h-[110px] w-full justify-between shadow-sm shadow-slate-200/20">
+                        <div className="p-4 sm:p-6 rounded-[1.5rem] sm:rounded-[2rem] bg-slate-50 dark:bg-slate-950 border border-slate-200/80 dark:border-slate-800 flex flex-col gap-4 min-h-[120px] sm:min-h-[110px] w-full h-full justify-between shadow-sm shadow-slate-200/20">
                           <div className="flex flex-col gap-1 items-center sm:items-start w-full">
                             <span className="text-sm sm:text-xl font-bold text-slate-700 dark:text-slate-200 leading-tight">{svc.label}</span>
                             <span className="text-[9px] sm:text-[10px] font-medium text-slate-400 dark:text-slate-500 transition-colors leading-tight">{svc.info}</span>
@@ -353,7 +353,7 @@ export function MinimalistScheduler({ initialCategoryId }: { initialCategoryId?:
                       ) : (
                         <button
                           onClick={() => window.open(svc.link, '_blank')}
-                          className="w-full p-4 sm:p-6 rounded-[1.5rem] sm:rounded-[2rem] border border-slate-200/80 dark:border-slate-800 hover:border-secondary/20 dark:hover:border-secondary/40 bg-slate-50/50 dark:bg-slate-950/50 hover:bg-white dark:hover:bg-slate-900 transition-all group/btn min-h-[120px] sm:min-h-[110px] flex flex-col justify-between gap-4 shadow-sm shadow-slate-200/40 dark:shadow-none hover:shadow-xl hover:shadow-slate-200/50 dark:hover:shadow-none hover:-translate-y-0.5"
+                          className="w-full h-full p-4 sm:p-6 rounded-[1.5rem] sm:rounded-[2rem] border border-slate-200/80 dark:border-slate-800 hover:border-secondary/20 dark:hover:border-secondary/40 bg-slate-50/50 dark:bg-slate-950/50 hover:bg-white dark:hover:bg-slate-900 transition-all group/btn min-h-[120px] sm:min-h-[110px] flex flex-col justify-between gap-4 shadow-sm shadow-slate-200/40 dark:shadow-none hover:shadow-xl hover:shadow-slate-200/50 dark:hover:shadow-none hover:-translate-y-0.5"
                         >
                           <div className="flex flex-col gap-1 items-start text-left w-full">
                             <span className="text-sm sm:text-xl font-bold text-slate-700 dark:text-slate-200 leading-tight group-hover/btn:text-secondary transition-colors">{svc.label}</span>
@@ -373,7 +373,8 @@ export function MinimalistScheduler({ initialCategoryId }: { initialCategoryId?:
             </AnimatePresence>
 
             {/* Disclaimer */}
-            <div className="mt-12 pt-8 border-t border-slate-50 text-center">
+            <div className="mt-12 pt-8 text-center flex flex-col items-center">
+              <div className="w-24 h-px bg-slate-100 dark:bg-slate-800/50 mb-8"></div>
               <p className="text-[11px] text-slate-400 font-medium leading-relaxed max-w-2xl mx-auto">
                 Seleccione una categoría y luego el servicio deseado. Posteriormente, será redirigido a nuestro sistema de agendamiento externo (Dentalink o Medilink) para finalizar su reserva según corresponda.
               </p>

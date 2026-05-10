@@ -2,7 +2,7 @@
 
 import React, { useState, useMemo, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Search, User, ChevronRight, ChevronDown, Filter, X, Info, GraduationCap, MapPin, Sparkles, SmilePlus, Brain, Stethoscope, Leaf, CalendarDays } from 'lucide-react';
+import { Search, User, ChevronRight, ChevronDown, Filter, X, Info, GraduationCap, MapPin, Sparkles, SmilePlus, Brain, Stethoscope, Leaf, CalendarDays, Video } from 'lucide-react';
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -10,6 +10,39 @@ import { Card, CardContent } from "@/components/ui/card";
 import { AREAS, Area, Professional } from '@/data/professionals';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger, DialogClose } from "@/components/ui/dialog";
 import Image from 'next/image';
+import { Activity, Bone, Scissors, Ear, Smile, Users, ShieldAlert, Pill, Footprints, Baby, Syringe, ShieldPlus, Hand, Zap } from 'lucide-react';
+
+// Base de datos visual de descripciones e iconos para especialidades por área
+const SPECIALTY_METADATA: Record<string, { description: string, icon: any }> = {
+  // Salud Dental
+  'Odontología General': { description: "Diagnóstico integral y prevención para mantener tu sonrisa sana todos los días.", icon: Smile },
+  'Implantología': { description: "Restauración permanente de piezas dentales con prótesis seguras sobre implantes.", icon: Sparkles },
+  'Ortodoncia': { description: "Alineación dental y corrección de mordida para una estética y funcionalidad perfecta.", icon: SmilePlus },
+  'Endodoncia': { description: "Tratamiento especializado del conducto para salvar piezas dentales dañadas.", icon: Pill },
+  'Periodoncia': { description: "Cuidado, tratamiento y prevención de enfermedades en las encías y tejidos.", icon: Activity },
+  'Rehabilitación Oral': { description: "Recuperación estética y funcional de la boca mediante prótesis avanzadas.", icon: ShieldPlus },
+  'Odontopediatría': { description: "Atención odontológica delicada y enfocada en la salud bucal de los niños.", icon: Baby },
+  'Trastornos Temporomandibulares': { description: "Diagnóstico y alivio del dolor de la articulación mandibular y el bruxismo.", icon: ShieldAlert },
+  'Radiología': { description: "Diagnóstico por imagen de alta precisión para guiar tus tratamientos.", icon: Search },
+  'Cirugía, Implantología': { description: "Intervenciones quirúrgicas maxilofaciales y colocación de implantes.", icon: Scissors },
+  
+  // Salud Mental
+  'Psicología': { description: "Acompañamiento terapéutico para gestionar tus emociones y potenciar tu bienestar.", icon: Brain },
+  'Psiquiatría': { description: "Diagnóstico médico especializado y tratamiento farmacológico de la salud mental.", icon: Pill },
+  'Psicopedagogía': { description: "Orientación y potenciación de los procesos de aprendizaje infantil y juvenil.", icon: Users },
+  'Fonoaudiología': { description: "Terapia integral en la comunicación, el lenguaje, el habla y la deglución.", icon: Ear },
+
+  // Medicina General
+  'Medicina': { description: "Atención médica primaria de confianza, chequeos y derivaciones preventivas.", icon: Stethoscope },
+  'Pediatría': { description: "Cuidado integral y seguimiento del crecimiento de los más pequeños.", icon: Baby },
+  'Kinesiología': { description: "Rehabilitación física motora, respiratoria y recuperación muscular integral.", icon: Activity },
+  'Enfermería': { description: "Atención clínica, administración de tratamientos y curaciones ambulatorias.", icon: Syringe },
+  'Podología': { description: "Cuidado profesional y tratamiento preventivo para la salud de tus pies.", icon: Footprints },
+
+  // Terapias
+  'Masoterapia': { description: "Técnicas manuales enfocadas en aliviar contracturas, tensiones y relajar el cuerpo.", icon: Hand },
+  'Biomagnetismo': { description: "Terapia alternativa con imanes para equilibrar la energía del organismo.", icon: Zap },
+};
 
 const CustomSelect = ({ 
   value, 
@@ -104,6 +137,23 @@ export const ProfessionalFilter = ({ initialArea, professionals }: { initialArea
     return ["Todas", ...uniqueSpecialties.sort()];
   }, [selectedArea, activeProfessionals]);
 
+  const specialtiesForGrid = useMemo(() => {
+    // Solo mostramos la grilla si hay un área específica seleccionada
+    if (selectedArea === "Todas") return [];
+    
+    // Obtenemos las especialidades actuales filtradas, quitando "Todas"
+    const currentSpecs = specialties.filter(s => s !== "Todas");
+    
+    return currentSpecs.map(spec => {
+      const info = SPECIALTY_METADATA[spec] || { description: "Atención experta enfocada en tu recuperación y bienestar integral.", icon: Activity };
+      return {
+        name: spec,
+        description: info.description,
+        Icon: info.icon
+      };
+    });
+  }, [specialties, selectedArea]);
+
   const filteredProfessionals = useMemo(() => {
     return activeProfessionals.filter(p => {
       const matchesSearch = p.name.toLowerCase().includes(searchTerm.toLowerCase()) || 
@@ -123,6 +173,15 @@ export const ProfessionalFilter = ({ initialArea, professionals }: { initialArea
       return matchesSearch && matchesArea && matchesSpecialty && matchesSucursal;
     });
   }, [searchTerm, selectedArea, selectedSpecialty, selectedSucursal, activeProfessionals]);
+
+  const handleSpecialtyClick = (specName: string) => {
+    setSelectedSpecialty(specName);
+    // Scroll suave hacia la zona de filtros/resultados para que el usuario note el cambio
+    const el = document.getElementById('controles-filtro');
+    if (el) {
+      el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  };
 
   const areaLabel = useMemo(() => {
     if (!initialArea) return "Médico";
@@ -147,9 +206,54 @@ export const ProfessionalFilter = ({ initialArea, professionals }: { initialArea
   }, [initialArea]);
 
   return (
-    <section id="buscador-profesionales" className="py-24 bg-slate-50/50 dark:bg-slate-950 transition-colors">
+    <section id="buscador-profesionales" className="pt-0 pb-24 bg-slate-50/50 dark:bg-slate-950 transition-colors">
       <div className="container mx-auto px-6">
-        <div className="text-center mb-16 flex flex-col items-center">
+        {/* Grilla de Especialidades del Área (Solo se muestra en vistas de área) */}
+        {specialtiesForGrid.length > 0 && (
+          <div className="-mt-8 relative z-10 mb-16 border-b border-slate-100 dark:border-white/5 pb-16">
+            <span className="inline-flex items-center gap-2 px-3 py-1 rounded-lg bg-slate-100 dark:bg-white/5 text-[10px] font-black uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 mb-6 ml-1 border border-slate-200 dark:border-white/5 shadow-sm">
+              Nuestras Especialidades
+            </span>
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
+              {specialtiesForGrid.map((item, idx) => {
+                const Icon = item.Icon;
+                const isSelected = selectedSpecialty === item.name;
+                
+                return (
+                  <motion.div
+                    key={item.name}
+                    initial={{ opacity: 0, y: 10 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ delay: idx * 0.03 }}
+                    onClick={() => handleSpecialtyClick(item.name)}
+                    className={`group cursor-pointer relative p-4 rounded-2xl border transition-all duration-300 flex flex-col h-full hover:-translate-y-0.5 ${
+                      isSelected 
+                        ? 'bg-primary text-white border-primary shadow-lg shadow-primary/10' 
+                        : 'bg-white dark:bg-slate-900 border-slate-100 dark:border-slate-800 hover:shadow-md hover:border-secondary/40 shadow-sm dark:shadow-none'
+                    }`}
+                  >
+                    <div className="flex items-center gap-3 mb-2.5">
+                      <div className={`w-8 h-8 rounded-xl flex items-center justify-center shrink-0 transition-colors ${
+                        isSelected ? 'bg-white/10 text-secondary' : 'bg-secondary/10 text-secondary group-hover:bg-secondary group-hover:text-white'
+                      }`}>
+                        <Icon size={16} strokeWidth={2} />
+                      </div>
+                      <h4 className={`font-bold text-[13px] sm:text-sm leading-tight tracking-tight ${isSelected ? 'text-white' : 'text-slate-900 dark:text-white group-hover:text-secondary'}`}>
+                        {item.name}
+                      </h4>
+                    </div>
+                    <p className={`text-[11px] leading-relaxed font-medium line-clamp-2 ${isSelected ? 'text-white/80' : 'text-slate-500 dark:text-slate-400'}`}>
+                      {item.description}
+                    </p>
+                  </motion.div>
+                );
+              })}
+            </div>
+          </div>
+        )}
+
+        <div id="equipo" className="scroll-mt-32 text-center mb-10 flex flex-col items-center">
           {AreaIcon && (
             <div className="w-16 h-16 rounded-full bg-white dark:bg-slate-900 shadow-xl shadow-primary/5 dark:shadow-none border border-slate-100 dark:border-slate-800 flex items-center justify-center mb-6 transform hover:scale-110 transition-all duration-500">
               {AreaIcon}
@@ -164,7 +268,7 @@ export const ProfessionalFilter = ({ initialArea, professionals }: { initialArea
         </div>
 
         {/* Barra de Filtros */}
-        <div className="bg-white dark:bg-slate-900 p-6 rounded-[2rem] shadow-xl shadow-primary/5 dark:shadow-none border border-slate-100 dark:border-slate-800 mb-12">
+        <div id="controles-filtro" className="scroll-mt-32 bg-white dark:bg-slate-900 p-6 rounded-[2rem] shadow-xl shadow-primary/5 dark:shadow-none border border-slate-100 dark:border-slate-800 mb-12">
           <div className={`grid gap-6 items-end ${initialArea ? 'lg:grid-cols-3' : 'lg:grid-cols-4'}`}>
             <div className="lg:col-span-1 space-y-2">
               <label className="text-[10px] font-bold uppercase tracking-widest text-slate-400 dark:text-slate-500 ml-2">Buscar Profesional o Especialidad</label>
@@ -249,7 +353,7 @@ export const ProfessionalFilter = ({ initialArea, professionals }: { initialArea
               <Button 
                 variant="ghost" 
                 size="sm" 
-                className="text-[10px] font-bold uppercase tracking-widest hover:bg-transparent hover:text-red-500 transition-colors"
+                className="text-[10px] font-black uppercase tracking-widest text-red-500 dark:text-red-400 hover:bg-red-50 dark:hover:bg-red-900/20 hover:text-red-600 transition-colors flex items-center gap-1.5"
                 onClick={() => {
                   setSearchTerm("");
                   setSelectedArea(initialArea || "Todas");
@@ -257,6 +361,7 @@ export const ProfessionalFilter = ({ initialArea, professionals }: { initialArea
                   setSelectedSucursal("Todas");
                 }}
               >
+                <X size={12} className="shrink-0" />
                 Limpiar Todo
               </Button>
               </div>
@@ -270,6 +375,10 @@ export const ProfessionalFilter = ({ initialArea, professionals }: { initialArea
             {filteredProfessionals.map((pro, idx) => {
               // Mapeo directo para asegurar que la imagen aparezca en las pruebas
               const proImage = pro.image;
+              const lowerSuc = pro.sucursal?.toLowerCase() || "";
+              const hasTele = lowerSuc.includes("teleconsulta");
+              // Se considera presencial si menciona "sucursal", "vitacura" o "tribunales"
+              const hasPresencial = lowerSuc.includes("sucursal") || lowerSuc.includes("vitacura") || lowerSuc.includes("tribunales") || lowerSuc.includes("casa");
               
               return (
                 <motion.div
@@ -309,9 +418,17 @@ export const ProfessionalFilter = ({ initialArea, professionals }: { initialArea
                           <div className="inline-flex items-center gap-1.5 px-4 py-1.5 rounded-full bg-white dark:bg-slate-800 border border-slate-200/60 dark:border-slate-700 text-slate-700 dark:text-slate-200 text-[10px] font-bold uppercase tracking-widest shrink-0 shadow-sm shadow-slate-200/30 dark:shadow-none">
                             <Sparkles size={12} fill="currentColor" className="text-secondary shrink-0" /> {pro.specialty}
                           </div>
-                          <div className="flex items-center gap-2 text-[10px] font-bold text-slate-400 dark:text-slate-500 uppercase tracking-widest">
-                            <MapPin size={12} className="text-secondary" />
-                            {pro.sucursal?.split('(')[0] || "Sucursal Vitacura"}
+                          <div className="flex flex-wrap justify-center gap-1.5 items-center">
+                            {hasPresencial && (
+                              <div className="inline-flex items-center gap-1 px-2 py-0.5 rounded bg-slate-100 dark:bg-white/5 text-[9px] font-black text-slate-600 dark:text-slate-300 uppercase tracking-widest border border-slate-200/50 dark:border-white/5">
+                                <MapPin size={10} className="text-secondary shrink-0" /> Presencial
+                              </div>
+                            )}
+                            {hasTele && (
+                              <div className="inline-flex items-center gap-1 px-2 py-0.5 rounded bg-blue-50 dark:bg-blue-900/20 text-[9px] font-black text-blue-600 dark:text-blue-300 uppercase tracking-widest border border-blue-200/50 dark:border-blue-800/50">
+                                <Video size={10} className="shrink-0" /> Teleconsulta
+                              </div>
+                            )}
                           </div>
                           
                           {pro.ageGroup && (
@@ -363,6 +480,18 @@ export const ProfessionalFilter = ({ initialArea, professionals }: { initialArea
                               <div className="flex gap-2 justify-center">
                                 <Badge className="bg-secondary text-primary font-bold">{pro.specialty}</Badge>
                                 <Badge variant="outline" className="text-white border-white/20">{pro.area}</Badge>
+                              </div>
+                              <div className="flex gap-1.5 justify-center mt-2">
+                                {hasPresencial && (
+                                  <Badge variant="secondary" className="bg-white/10 text-white hover:bg-white/20 border-none flex items-center gap-1 text-[9px] font-bold uppercase tracking-wider">
+                                    <MapPin size={10} className="opacity-70" /> Presencial
+                                  </Badge>
+                                )}
+                                {hasTele && (
+                                  <Badge variant="secondary" className="bg-indigo-500/30 text-indigo-50 hover:bg-indigo-500/40 border-none flex items-center gap-1 text-[9px] font-bold uppercase tracking-wider">
+                                    <Video size={10} className="opacity-70" /> Teleconsulta
+                                  </Badge>
+                                )}
                               </div>
                               {pro.ageGroup && (
                                 <div className="flex flex-wrap justify-center gap-1.5 mt-4">

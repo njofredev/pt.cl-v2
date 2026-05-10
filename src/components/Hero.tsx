@@ -53,7 +53,7 @@ export const Hero = ({
   badgeText = "Agenda 100% Digital",
   badgeIconName = "zap",
   titlePrefix = "Tu salud, ",
-  titleHighlight = "nuestra prioridad.",
+  titleHighlight = "nuestra prioridad",
   description = "Reserva tu hora, revisa exámenes y gestiona tu bienestar desde cualquier lugar, fácil y rápido.",
   buttonText = "Tu bienestar comienza aquí",
   statsNumber = "+10k",
@@ -78,7 +78,7 @@ export const Hero = ({
   }, [images.length]);
 
   return (
-    <section className="relative pt-52 md:pt-44 pb-16 md:pb-20 overflow-hidden bg-transparent dark:bg-transparent transition-colors duration-300">
+    <section className="relative pt-64 md:pt-44 pb-16 md:pb-20 overflow-hidden bg-transparent dark:bg-transparent transition-colors duration-300">
 
 
       <div className="container mx-auto px-6 grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
@@ -97,55 +97,54 @@ export const Hero = ({
           <p className="text-xl text-slate-500 dark:text-slate-400 font-medium max-w-md leading-relaxed mb-10">
             {description}
           </p>
-          <div
-            className="relative inline-flex cursor-pointer select-none group"
-            onClick={() => {
-              const el = document.getElementById('agendar');
-              if (el) el.scrollIntoView({ behavior: 'smooth' });
-            }}
-          >
-            {/* Cuerpo del Botón principal con Degradado Premium */}
-            <div className="bg-gradient-to-r from-primary to-[#1e3a8a] text-white pl-8 pr-14 sm:px-12 h-16 flex items-center justify-center gap-4 rounded-full text-sm sm:text-lg font-black tracking-tight shadow-xl shadow-black/10 transition-all duration-500 transform group-hover:-translate-y-1 group-active:scale-95 relative z-10 whitespace-nowrap">
-              {buttonText}
-              {isInlineIcon && (
-                <div className={`w-10 h-10 rounded-full ${floatingIconBg} flex items-center justify-center text-primary shadow-sm shrink-0 group-hover:scale-110 group-hover:rotate-[10deg] transition-transform duration-500 mr-[-12px] ml-1`}>
-                  <FloatingIcon size={18} strokeWidth={2.5} />
+          <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4 flex-wrap">
+            <div
+              className="relative inline-flex cursor-pointer select-none group"
+              onClick={() => {
+                const el = document.getElementById('agendar');
+                if (el) el.scrollIntoView({ behavior: 'smooth' });
+              }}
+            >
+              {/* Cuerpo del Botón principal con Degradado Premium */}
+              <div className="bg-gradient-to-r from-primary to-[#1e3a8a] text-white pl-8 pr-14 sm:px-12 h-16 flex items-center justify-center gap-4 rounded-full text-sm sm:text-lg font-black tracking-tight shadow-xl shadow-black/10 transition-all duration-500 transform group-hover:-translate-y-1 group-active:scale-95 relative z-10 whitespace-nowrap">
+                {buttonText}
+                {isInlineIcon && (
+                  <div className={`w-10 h-10 rounded-full ${floatingIconBg} flex items-center justify-center text-primary shadow-sm shrink-0 group-hover:scale-110 group-hover:rotate-[10deg] transition-transform duration-500 mr-[-12px] ml-1`}>
+                    <FloatingIcon size={18} strokeWidth={2.5} />
+                  </div>
+                )}
+              </div>
+
+              {/* Icono Badge Flotante en la Esquina Superior Derecha (Solo si NO es Inline) */}
+              {!isInlineIcon && (
+                <div className={`absolute -top-2 -right-2 sm:-top-3 sm:-right-3 w-10 h-10 sm:w-12 sm:h-12 ${floatingIconBg} rounded-full flex items-center justify-center text-white shadow-lg transition-all duration-500 transform group-hover:-translate-y-1 group-hover:rotate-[-15deg] group-hover:scale-110 group-active:scale-95 z-20 border-4 border-white dark:border-slate-950`}>
+                  <FloatingIcon className="w-4 h-4 sm:w-5 sm:h-5" strokeWidth={2.5} />
                 </div>
               )}
             </div>
 
-            {/* Icono Badge Flotante en la Esquina Superior Derecha (Solo si NO es Inline) */}
-            {!isInlineIcon && (
-              <div className={`absolute -top-2 -right-2 sm:-top-3 sm:-right-3 w-10 h-10 sm:w-12 sm:h-12 ${floatingIconBg} rounded-full flex items-center justify-center text-white shadow-lg transition-all duration-500 transform group-hover:-translate-y-1 group-hover:rotate-[-15deg] group-hover:scale-110 group-active:scale-95 z-20 border-4 border-white dark:border-slate-950`}>
-                <FloatingIcon className="w-4 h-4 sm:w-5 sm:h-5" strokeWidth={2.5} />
+            {/* Botón Secundario Condicional */}
+            {secondaryButtonText && (
+              <div className="relative inline-flex select-none group/sec">
+                <button
+                  onClick={() => {
+                    if (secondaryButtonAnchorId) {
+                      const el = document.getElementById(secondaryButtonAnchorId);
+                      if (el) el.scrollIntoView({ behavior: 'smooth' });
+                    }
+                  }}
+                  className="h-16 inline-flex items-center justify-center gap-3 px-12 rounded-full border-2 border-slate-200 dark:border-white/10 bg-transparent dark:bg-white/5 text-slate-700 dark:text-slate-100 text-sm sm:text-lg font-black tracking-tight shadow-sm hover:bg-slate-50 dark:hover:bg-white/10 hover:border-primary/20 dark:hover:border-white/20 transition-all duration-500 transform group-hover/sec:-translate-y-1 group-active/sec:scale-95 select-none whitespace-nowrap cursor-pointer"
+                >
+                  <span>{secondaryButtonText}</span>
+                </button>
+                
+                {/* Icono Badge Flotante Secundario */}
+                <div className="absolute -top-2 -right-2 sm:-top-3 sm:-right-3 w-10 h-10 sm:w-12 sm:h-12 bg-slate-800 dark:bg-slate-700 rounded-full flex items-center justify-center text-white shadow-lg transition-all duration-500 transform group-hover/sec:-translate-y-1 group-hover/sec:rotate-[15deg] group-hover/sec:scale-110 group-active/sec:scale-95 z-20 border-4 border-white dark:border-slate-950 border-solid">
+                  <Users className="w-4 h-4 sm:w-5 sm:h-5 text-secondary" strokeWidth={2.5} />
+                </div>
               </div>
             )}
           </div>
-
-          {/* Botón Secundario Condicional debajo del principal */}
-          {secondaryButtonText && (
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ delay: 0.4 }}
-              className="mt-4 flex"
-            >
-              <button
-                onClick={() => {
-                  if (secondaryButtonAnchorId) {
-                    const el = document.getElementById(secondaryButtonAnchorId);
-                    if (el) el.scrollIntoView({ behavior: 'smooth' });
-                  }
-                }}
-                className="inline-flex items-center gap-3 px-6 py-3 rounded-full border border-slate-200 dark:border-slate-800 text-slate-500 dark:text-slate-400 font-bold text-xs uppercase tracking-widest hover:bg-slate-50 dark:hover:bg-slate-800 hover:text-primary dark:hover:text-white transition-all duration-300 select-none"
-              >
-                <div className="w-8 h-8 rounded-full bg-slate-100 dark:bg-slate-700/50 flex items-center justify-center shrink-0">
-                  <Users size={14} className="opacity-80" />
-                </div>
-                <span className="relative top-[0.5px]">{secondaryButtonText}</span>
-              </button>
-            </motion.div>
-          )}
         </motion.div>
 
         {/* Elemento Visual de Identidad: Slider de Sucursales / Especialidad */}
@@ -166,7 +165,7 @@ export const Hero = ({
                   transition={{ duration: 1.5, ease: "easeInOut" }}
                   className="absolute inset-0 w-full h-full"
                 >
-                  <Image 
+                  <Image
                     src={images[currentImageIndex].src}
                     alt={images[currentImageIndex].alt}
                     fill

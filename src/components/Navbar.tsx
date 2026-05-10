@@ -88,6 +88,14 @@ const TikTokIcon = ({ size = 12, className = "" }: { size?: number, className?: 
   </svg>
 );
 
+const SOCIAL_PHRASES = [
+  "Comunidad 🤝",
+  "Búscanos 🔍",
+  "Visítanos 📍",
+  "Súmate 🚀",
+  "Hola 👋"
+];
+
 export const Navbar = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
@@ -98,10 +106,15 @@ export const Navbar = () => {
   const { theme, setTheme } = useTheme();
   const [mounted, setMounted] = useState(false);
   const [currentTime, setCurrentTime] = useState<Date | null>(null);
+  const [socialPhraseIndex, setSocialPhraseIndex] = useState(0);
 
   useEffect(() => {
     setMounted(true);
     setCurrentTime(new Date());
+
+    const rotateInterval = setInterval(() => {
+      setSocialPhraseIndex(prev => (prev + 1) % SOCIAL_PHRASES.length);
+    }, 3500);
 
     const timeInterval = setInterval(() => {
       setCurrentTime(new Date());
@@ -115,6 +128,7 @@ export const Navbar = () => {
     return () => {
       window.removeEventListener('scroll', handleScroll);
       clearInterval(timeInterval);
+      clearInterval(rotateInterval);
     };
   }, []);
 
@@ -246,7 +260,20 @@ export const Navbar = () => {
               <div className="h-3 w-[1px] bg-white/20 hidden md:block mx-1" />
 
               <div className="flex items-center gap-3 text-white/80">
-                <span className="hidden sm:inline text-[7.5px] sm:text-[9px] md:text-[10px] opacity-60 tracking-widest font-bold">SÍGUENOS!:</span>
+                <div className="hidden sm:flex relative items-center h-4 min-w-[95px] overflow-hidden">
+                  <AnimatePresence mode="wait">
+                    <motion.span 
+                      key={socialPhraseIndex}
+                      initial={{ opacity: 0, y: 10 }}
+                      animate={{ opacity: 0.6, y: 0 }}
+                      exit={{ opacity: 0, y: -10 }}
+                      transition={{ duration: 0.3, ease: "easeOut" }}
+                      className="absolute left-0 text-[7.5px] sm:text-[9px] md:text-[10px] tracking-widest font-bold uppercase flex items-center gap-1 whitespace-nowrap"
+                    >
+                      {SOCIAL_PHRASES[socialPhraseIndex]}
+                    </motion.span>
+                  </AnimatePresence>
+                </div>
                 <a href="https://www.instagram.com/politabancura/" target="_blank" rel="noopener noreferrer" className="hover:text-secondary transition-colors transform hover:scale-110">
                   <Instagram size={14} />
                 </a>
@@ -316,11 +343,13 @@ export const Navbar = () => {
                       transition={{ duration: 0.4, ease: [0.23, 1, 0.32, 1] }}
                       onMouseEnter={() => setActiveDropdown(activeDropdown)}
                       onMouseLeave={() => setActiveDropdown(null)}
-                      className="absolute top-full mt-4 w-[850px] z-50 border border-slate-100 dark:border-slate-800 bg-white dark:bg-slate-950 rounded-[2.5rem] shadow-[0_20px_50px_rgba(0,0,0,0.08)] dark:shadow-none overflow-hidden origin-top"
+                      className="absolute top-full pt-6 w-[850px] z-50 origin-top cursor-default"
                     >
-                      <div className="p-8 pb-4">
-                        <motion.div
-                          key={activeDropdown}
+                      {/* Sub-contenedor con los estilos visuales reales */}
+                      <div className="border border-slate-100 dark:border-slate-800 bg-white dark:bg-slate-950 rounded-[2.5rem] shadow-[0_20px_50px_rgba(0,0,0,0.08)] dark:shadow-none overflow-hidden">
+                        <div className="p-8 pb-4">
+                          <motion.div
+                            key={activeDropdown}
                           initial={{ opacity: 0 }}
                           animate={{ opacity: 1 }}
                           transition={{ duration: 0.3 }}
@@ -353,8 +382,9 @@ export const Navbar = () => {
                           ))}
                         </motion.div>
                       </div>
-                    </motion.div>
-                  )}
+                    </div>
+                  </motion.div>
+                )}
                 </AnimatePresence>
 
               </div>

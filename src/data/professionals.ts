@@ -28,7 +28,7 @@ export const PROFESSIONALS: Professional[] = [
   { id: 2, name: "Dr. Carlos Rodríguez", specialty: "Endodoncia", area: "Salud Dental", sucursal: "Vitacura", description: "Experto en tratamientos de conducto y rehabilitación." },
   { id: 3, name: "Ps. Roberto Muñoz", specialty: "Psicología Clínica", area: "Salud Mental", sucursal: "Los Tribunales", description: "Especialista en terapia de adultos y parejas." },
   { id: 4, name: "Dra. Laura Venegas", specialty: "Psiquiatría Adultos", area: "Salud Mental", sucursal: "Vitacura", description: "Atención especializada en trastornos del ánimo y ansiedad." },
-  { id: 5, name: "Andro Sapunar Rodríguez", specialty: "Kinesiología", area: "Medicina General", sucursal: "Vitacura", description: "Kinesiólogo enfocado en bienestar y rehabilitación física.", image: "/img_profesionales/perfilAndroSapunar.jpg", ageGroup: "Adolescentes (12 a 17 años)., Adulto - Joven (18 a 29 años)." },
+  { id: 5, name: "Andro Sapunar Rodríguez", specialty: "Kinesiología", area: "Medicina General", sucursal: "Vitacura", description: "Kinesiólogo enfocado en bienestar y rehabilitación física.", image: "/img_profesionales/perfilAndroSapunar_v2.jpg", ageGroup: "Adolescentes (12 a 17 años)., Adulto - Joven (18 a 29 años)." },
   { id: 6, name: "Dr. Juan Pérez", specialty: "Kinesiología", area: "Medicina General", sucursal: "Los Tribunales", description: "Rehabilitación física y deportiva." },
   { id: 7, name: "Sra. Carmen Gloria", specialty: "Masoterapia", area: "Terapias Complementarias", sucursal: "Vitacura", description: "Masajes descontracturantes y relajación." },
   { id: 8, name: "Dr. Miguel Ángel", specialty: "Biomagnetismo", area: "Terapias Complementarias", sucursal: "Los Tribunales", description: "Terapia de imanes para el equilibrio integral." },
@@ -55,9 +55,9 @@ export async function getProfessionals(): Promise<Professional[]> {
         
         // Mapeo manual de respaldo si la base de datos no tiene imagen explícita
         if (!image) {
-          const lowerName = name.toLowerCase();
+          const lowerName = name.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
           if (lowerName.includes("andro") && lowerName.includes("sapunar")) {
-            image = "/img_profesionales/perfilAndroSapunar.jpg";
+            image = "/img_profesionales/perfilAndroSapunar_v2.jpg";
           } else if (lowerName.includes("antonio") && lowerName.includes("alvear")) {
             image = "/img_profesionales/perfilAntonioAlvear.jpg";
           } else if (lowerName.includes("jaime") && lowerName.includes("correa")) {
@@ -82,7 +82,21 @@ export async function getProfessionals(): Promise<Professional[]> {
             image = "/img_profesionales/perfilPatricioMerino.jpg";
           } else if (lowerName.includes("pauline") && lowerName.includes("heinriksen")) {
             image = "/img_profesionales/perfilPaulineHeinriksen.jpg";
+          } else if (lowerName.includes("yamil") || (lowerName.includes("carlos") && lowerName.includes("garc"))) {
+            image = "/img_profesionales/perfilCarlosGarcia_v2.jpg";
+          } else if (lowerName.includes("charytin") || lowerName.includes("gonzalez")) {
+            // Use a stricter check just in case or combine for better accuracy
+            if (lowerName.includes("charytin")) {
+               image = "/img_profesionales/perfilCharytinGonzalez_v2.jpg";
+            }
+          } else if (lowerName.includes("pilar") && lowerName.includes("bello")) {
+            image = "/img_profesionales/perfilPilarBello_v2.jpg";
           }
+        }
+        
+        // Safety fix: re-enforcing Charytin check outside block if previous logic was too simple
+        if (!image && name.toLowerCase().includes("charytin")) {
+           image = "/img_profesionales/perfilCharytinGonzalez_v2.jpg";
         }
         
         if (image) {

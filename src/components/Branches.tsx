@@ -166,7 +166,7 @@ export const Branches = () => {
                           <img
                             src={branch.image}
                             alt={branch.name}
-                            className="w-full h-full object-cover rounded-2xl grayscale group-hover:grayscale-0 transition-all duration-700"
+                            className="w-full h-full object-cover rounded-2xl transition-all duration-500"
                           />
                           {/* Bottom-Right Button Overlay */}
                           <div className="absolute bottom-4 right-4 z-20">

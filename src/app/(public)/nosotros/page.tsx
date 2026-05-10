@@ -5,7 +5,7 @@ import { motion } from 'framer-motion';
 import { 
   Users, Target, Award, CheckCircle2, 
   Calendar, Building, Stethoscope, Sparkles,
-  ArrowRight, ChevronDown, Clock, History, Heart,
+  ArrowRight, ArrowUp, ChevronDown, Clock, History, Heart,
   SmilePlus, Brain, Leaf, Microscope, ChevronRight
 } from 'lucide-react';
 import Link from 'next/link';
@@ -72,17 +72,17 @@ export default function NosotrosPage() {
 
       {/* SECCIÓN FUNDADORAS & MISIÓN */}
       <section className="container mx-auto px-6 mb-32 relative z-10">
-        <div className="grid lg:grid-cols-12 gap-8 lg:gap-12 items-stretch">
+        <div className="flex flex-col gap-12 lg:gap-16">
           
-          {/* Card de Foto Fundadoras */}
+          {/* Card de Foto Fundadoras - Centrada Top */}
           <motion.div 
-            initial={{ opacity: 0, x: -30 }}
-            whileInView={{ opacity: 1, x: 0 }}
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="lg:col-span-7 group"
+            className="w-full max-w-4xl mx-auto group"
           >
-            <div className="relative h-full rounded-[2.5rem] bg-slate-50 dark:bg-slate-900 p-4 border border-slate-100 dark:border-white/5 overflow-hidden shadow-xl shadow-slate-200/30 dark:shadow-none transition-all hover:shadow-2xl hover:-translate-y-1 duration-500">
-              <div className="relative aspect-[16/9] lg:h-full rounded-[2rem] overflow-hidden border border-white/20">
+            <div className="relative rounded-[2.5rem] bg-slate-50 dark:bg-slate-900 p-4 border border-slate-100 dark:border-white/5 overflow-hidden shadow-xl shadow-slate-200/30 dark:shadow-none transition-all hover:shadow-2xl hover:-translate-y-1 duration-500">
+              <div className="relative aspect-[16/9] w-full rounded-[2rem] overflow-hidden border border-white/20">
                 <Image 
                   src="/imagenes_general/Fundadoras.jpg"
                   alt="Nuestras Fundadoras"
@@ -100,15 +100,15 @@ export default function NosotrosPage() {
             </div>
           </motion.div>
 
-          {/* Card de Misión & Datos */}
+          {/* Subgrid de Misión & Datos - Abajo */}
           <motion.div 
-            initial={{ opacity: 0, x: 30 }}
-            whileInView={{ opacity: 1, x: 0 }}
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="lg:col-span-5 flex flex-col gap-6"
+            className="grid grid-cols-1 lg:grid-cols-2 gap-8 max-w-6xl mx-auto w-full items-stretch"
           >
             {/* Misión Directa */}
-            <div className="flex-1 p-10 bg-primary text-white rounded-[2.5rem] shadow-xl shadow-primary/20 relative overflow-hidden group flex flex-col justify-center">
+            <div className="p-10 bg-primary text-white rounded-[2.5rem] shadow-xl shadow-primary/20 relative overflow-hidden group flex flex-col justify-center">
               <div className="absolute top-0 right-0 w-40 h-40 bg-white/5 rounded-bl-full -mr-12 -mt-12 transition-transform group-hover:scale-125 duration-700"></div>
               <div className="w-14 h-14 rounded-2xl bg-white/10 flex items-center justify-center mb-6 border border-white/10 shadow-lg">
                 <Target size={28} className="text-secondary" />
@@ -120,13 +120,20 @@ export default function NosotrosPage() {
             </div>
             
             {/* Cita de Visión Complementaria */}
-            <div className="p-8 bg-white dark:bg-slate-900/60 border border-slate-100 dark:border-white/10 rounded-[2.5rem] shadow-md shadow-slate-200/20 dark:shadow-none flex items-center gap-5">
-              <div className="w-12 h-12 rounded-full bg-secondary/10 flex items-center justify-center shrink-0 text-secondary">
-                <Award size={24} strokeWidth={2} />
+            <div className="p-8 bg-white dark:bg-slate-900/60 border border-slate-100 dark:border-white/10 rounded-[2.5rem] shadow-md shadow-slate-200/20 dark:shadow-none flex flex-col justify-center gap-6 group hover:-translate-y-1 transition-transform duration-300">
+              <div className="flex items-center gap-5">
+                <div className="w-14 h-14 rounded-full bg-secondary/10 flex items-center justify-center shrink-0 text-secondary border border-secondary/20 group-hover:scale-110 transition-transform duration-500">
+                  <Award size={28} strokeWidth={2} />
+                </div>
+                <div>
+                  <h3 className="text-xl font-black uppercase tracking-wider text-primary dark:text-slate-100 mb-1">Compromiso Social</h3>
+                  <p className="text-slate-500 dark:text-slate-400 font-medium">Valores que perduran.</p>
+                </div>
               </div>
-              <div>
-                <h3 className="text-sm font-black uppercase tracking-wider text-primary dark:text-slate-100 mb-1">Compromiso Social</h3>
-                <p className="text-xs text-slate-500 dark:text-slate-400 font-medium">Trabajamos día a día para mantener vivo el espíritu solidario de nuestras fundadoras.</p>
+              <div className="bg-slate-50 dark:bg-white/5 p-6 rounded-2xl border border-slate-100 dark:border-white/5">
+                 <p className="text-base text-slate-600 dark:text-slate-300 font-medium leading-relaxed italic">
+                   &quot;Trabajamos día a día para mantener vivo el espíritu solidario de nuestras fundadoras, asegurando un trato digno y cercano en cada consulta.&quot;
+                 </p>
               </div>
             </div>
           </motion.div>
@@ -236,16 +243,20 @@ export default function NosotrosPage() {
             
             {/* Track de Años Horizontal */}
             <div className="relative mb-12 pb-4">
-              {/* Línea de fondo constante */}
-              <div className="absolute top-1/2 left-0 w-full h-0.5 bg-slate-100 dark:bg-slate-800 -translate-y-1/2 z-0"></div>
+              {/* Línea de fondo constante - Centrada verticalmente a la altura de los nodos */}
+              <div className="absolute top-[3.5rem] left-0 w-full h-0.5 bg-slate-100 dark:bg-slate-800/50 z-0 flex items-center justify-between px-2">
+                <div className="w-2 h-2 border-l-2 border-t-2 border-secondary/40 -rotate-45 -translate-x-1 shrink-0"></div>
+                <div className="w-2 h-2 border-r-2 border-t-2 border-secondary/40 rotate-45 translate-x-1 shrink-0"></div>
+              </div>
               
               {/* Contenedor deslizable para mobile */}
               <div className="flex justify-between items-center gap-4 md:gap-6 overflow-x-auto custom-scrollbar pt-8 pb-6 px-4 relative z-10 snap-x">
                 {hitos.map((hito, index) => {
                   const isActive = index === activeHito;
+
                   return (
                     <button
-                      key={index}
+                      key={`hito-${index}`}
                       onClick={() => setActiveHito(index)}
                       className={`group flex flex-col items-center shrink-0 transition-all duration-500 outline-none focus:ring-0 snap-center`}
                     >
