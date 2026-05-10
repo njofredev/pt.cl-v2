@@ -92,7 +92,7 @@ export const Hero = ({
           </div>
           <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold text-primary dark:text-slate-50 leading-[1.1] md:leading-[1] tracking-tighter mb-6 md:mb-8">
             {titlePrefix} <br />
-            <span className="text-secondary">{titleHighlight}</span>
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary via-teal-500 to-secondary">{titleHighlight}</span>
           </h1>
           <p className="text-xl text-slate-500 dark:text-slate-400 font-medium max-w-md leading-relaxed mb-10">
             {description}

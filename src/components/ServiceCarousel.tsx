@@ -68,6 +68,7 @@ function InfiniteScrollRow({
   const [isDragging, setIsDragging] = useState(false);
   const [startX, setStartX] = useState(0);
   const [scrollLeftStart, setScrollLeftStart] = useState(0);
+  const hasMoved = useRef(false);
 
   const handleMouseEnter = () => {
     setIsPaused(true);
@@ -80,6 +81,7 @@ function InfiniteScrollRow({
 
   const handleMouseDown = (e: React.MouseEvent) => {
     if (!scrollRef.current) return;
+    hasMoved.current = false; // Reiniciamos el detector de arrastre
     setIsPaused(true);
     setIsDragging(true);
     setStartX(e.pageX - scrollRef.current.offsetLeft);
@@ -96,7 +98,20 @@ function InfiniteScrollRow({
     e.preventDefault();
     const x = e.pageX - scrollRef.current.offsetLeft;
     const walk = (x - startX) * 1.5; // Scroll speed scalar
+    
+    // Si la distancia del arrastre supera un umbral, lo consideramos 'drag' y no 'click'
+    if (Math.abs(walk) > 10) {
+      hasMoved.current = true;
+    }
+    
     scrollRef.current.scrollLeft = scrollLeftStart - walk;
+  };
+
+  const handleItemClick = (e: React.MouseEvent) => {
+    if (hasMoved.current) {
+      e.preventDefault();
+      e.stopPropagation();
+    }
   };
 
   const handleTouchStart = () => {
@@ -183,33 +198,38 @@ function InfiniteScrollRow({
             <motion.div
               key={i}
               whileHover={{ scale: 1.05, y: -5 }}
-              className={`w-[170px] md:w-[280px] h-[220px] md:h-auto shrink-0 group/card p-4 md:p-5 rounded-2xl bg-white dark:bg-slate-900 border border-slate-100 dark:border-slate-800 transition-all duration-300 relative overflow-hidden flex flex-col justify-between shadow-sm hover:shadow-md ${colors.hoverBorder}`}
+              className={`w-[170px] md:w-[280px] h-[220px] md:h-auto shrink-0 group/card rounded-2xl bg-white dark:bg-slate-900 border border-slate-100 dark:border-slate-800 transition-all duration-300 relative overflow-hidden shadow-sm hover:shadow-md ${colors.hoverBorder}`}
             >
-              <div>
-                <div className="flex flex-col md:flex-row items-start md:items-center gap-2 md:gap-3 mb-3">
-                  <div className={`w-9 h-9 md:w-10 md:h-10 shrink-0 bg-slate-50 dark:bg-slate-950 border ${colors.border} rounded-xl flex items-center justify-center shadow-sm ${colors.hoverBg} group-hover/card:border-transparent transition-all duration-300`}>
-                    <div className={`${colors.text} group-hover/card:text-white transition-colors [&>svg]:w-5 [&>svg]:h-5 md:[&>svg]:w-[22px] md:[&>svg]:h-[22px]`}>
-                      {s.icon}
-                    </div>
-                  </div>
-                  <div>
-                    <h3 className={`text-[13px] md:text-base font-bold text-primary dark:text-white group-hover/card:${colors.text} transition-colors leading-tight`}>
-                      {s.title}
-                    </h3>
-                  </div>
-                </div>
-
-                <p className="text-[11px] md:text-[12px] text-slate-500 dark:text-slate-400 font-medium leading-tight mb-4">
-                  {s.desc}
-                </p>
-              </div>
-
               <Link
                 href={s.link}
-                className={`inline-flex items-center gap-1 md:gap-2 text-[9px] md:text-[10px] font-bold text-primary dark:text-slate-300 uppercase tracking-wider group-hover/card:${colors.text} transition-all mt-auto`}
+                onClick={handleItemClick}
+                className="flex flex-col justify-between h-full w-full p-4 md:p-5 select-none cursor-pointer"
               >
-                <span>Ver detalles</span>
-                <ChevronRight size={14} className="group-hover/card:translate-x-0.5 transition-transform" />
+                <div>
+                  <div className="flex flex-col md:flex-row items-start md:items-center gap-2 md:gap-3 mb-3">
+                    <div className={`w-9 h-9 md:w-10 md:h-10 shrink-0 bg-slate-50 dark:bg-slate-950 border ${colors.border} rounded-xl flex items-center justify-center shadow-sm ${colors.hoverBg} group-hover/card:border-transparent transition-all duration-300`}>
+                      <div className={`${colors.text} group-hover/card:text-white transition-colors [&>svg]:w-5 [&>svg]:h-5 md:[&>svg]:w-[22px] md:[&>svg]:h-[22px]`}>
+                        {s.icon}
+                      </div>
+                    </div>
+                    <div>
+                      <h3 className={`text-[13px] md:text-base font-bold text-primary dark:text-white group-hover/card:${colors.text} transition-colors leading-tight`}>
+                        {s.title}
+                      </h3>
+                    </div>
+                  </div>
+
+                  <p className="text-[11px] md:text-[12px] text-slate-500 dark:text-slate-400 font-medium leading-tight mb-4">
+                    {s.desc}
+                  </p>
+                </div>
+
+                <div
+                  className={`inline-flex items-center gap-1 md:gap-2 text-[9px] md:text-[10px] font-bold text-primary dark:text-slate-300 uppercase tracking-wider group-hover/card:${colors.text} transition-all mt-auto`}
+                >
+                  <span>Ver detalles</span>
+                  <ChevronRight size={14} className="group-hover/card:translate-x-0.5 transition-transform" />
+                </div>
               </Link>
             </motion.div>
           );
