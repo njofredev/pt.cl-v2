@@ -226,16 +226,6 @@ export const GoogleReviews = () => {
         </div>
       </div>
 
-      {/* Inyectamos CSS para ocultar el scrollbar nativo en caso que falte la utility global */}
-      <style jsx global>{`
-        .hide-scrollbar::-webkit-scrollbar {
-          display: none;
-        }
-        .hide-scrollbar {
-          -ms-overflow-style: none;
-          scrollbar-width: none;
-        }
-      `}</style>
     </section>
   );
 };

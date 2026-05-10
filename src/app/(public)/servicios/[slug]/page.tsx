@@ -5,7 +5,7 @@ import { Area, getProfessionals } from '@/data/professionals';
 import { Hero, HeroProps } from '@/components/Hero';
 import { ServiceCTA, ServiceCTAProps } from '@/components/ServiceCTA';
 import { notFound } from 'next/navigation';
-import { Activity, HeartPulse, Sparkles, Brain, SmilePlus, Leaf, Stethoscope, ChevronRight } from 'lucide-react';
+import { Activity, HeartPulse, Sparkles, Brain, SmilePlus, Leaf, Stethoscope, ChevronRight, ArrowLeft } from 'lucide-react';
 import Link from 'next/link';
 import { MinimalistScheduler } from '@/components/MinimalistScheduler';
 
@@ -160,6 +160,19 @@ export default async function ServicePage({ params }: { params: Promise<{ slug: 
              </h2>
            </div>
            <MinimalistScheduler initialCategoryId={SLUG_TO_SCHEDULER_ID[slug]} />
+           
+           {/* Botón Volver al Inicio de la Categoría */}
+           <div className="mt-12 flex justify-center">
+             <Link 
+               href="#"
+               className="flex items-center gap-3 px-6 py-2.5 rounded-full bg-slate-50/50 dark:bg-slate-900/50 border border-slate-100 dark:border-slate-800 transition-all hover:scale-105 active:scale-95 cursor-pointer shadow-sm group"
+             >
+               <ArrowLeft size={16} className={`group-hover:-translate-x-1 transition-transform duration-300 ${SLUG_TO_SCHEDULER_CONFIG[slug]?.accent.split(' ')[0] || 'text-secondary'}`} />
+               <span className={`text-[11px] font-black uppercase tracking-widest ${SLUG_TO_SCHEDULER_CONFIG[slug]?.accent.split(' ')[0] || 'text-secondary'}`}>
+                 Volver al Inicio
+               </span>
+             </Link>
+           </div>
         </div>
       </div>
 
