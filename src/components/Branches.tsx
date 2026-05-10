@@ -64,7 +64,7 @@ export const Branches = () => {
   };
 
   return (
-    <section className="py-24 bg-white dark:bg-transparent transition-colors duration-300">
+    <section id="sucursales" className="py-24 bg-white dark:bg-transparent transition-colors duration-300">
       <div className="container mx-auto px-6">
         <div className="bg-primary rounded-[2rem] sm:rounded-[2.5rem] md:rounded-[4rem] p-6 sm:p-8 md:p-20 text-white relative overflow-hidden shadow-2xl">
           {/* Background Orbs */}

@@ -79,17 +79,23 @@ export const Hero = ({
           <p className="text-xl text-slate-500 dark:text-slate-400 font-medium max-w-md leading-relaxed mb-10">
             {description}
           </p>
-          <Button 
-            size="lg" 
-            className="w-full sm:w-auto bg-primary hover:bg-primary/90 text-white rounded-2xl px-10 h-16 text-lg font-bold shadow-md transition-all hover:scale-105 cursor-pointer"
+          <div 
+            className="relative inline-flex cursor-pointer select-none group"
             onClick={() => {
               const el = document.getElementById('agendar');
               if (el) el.scrollIntoView({ behavior: 'smooth' });
             }}
           >
-            {buttonText}
-            <CalendarDays className="ml-2 w-5 h-5" />
-          </Button>
+            {/* Cuerpo del Botón principal con Degradado Premium */}
+            <div className="bg-gradient-to-r from-primary via-[#112c61] to-[#083d37] text-white px-12 h-16 flex items-center rounded-full text-lg font-black tracking-tight shadow-2xl shadow-primary/20 transition-all duration-500 transform group-hover:-translate-y-1 group-active:scale-95 relative z-10 group-hover:shadow-secondary/20">
+              {buttonText}
+            </div>
+            
+            {/* Icono Badge Flotante en la Esquina Superior Derecha */}
+            <div className="absolute -top-3 -right-3 w-12 h-12 bg-secondary rounded-full flex items-center justify-center text-primary shadow-lg transition-all duration-500 transform group-hover:-translate-y-1 group-hover:rotate-[-15deg] group-hover:scale-110 group-active:scale-95 z-20 border-4 border-white dark:border-slate-950">
+              <CalendarDays size={20} strokeWidth={2.5} />
+            </div>
+          </div>
         </motion.div>
 
         {/* Elemento Visual de Identidad: Slider de Sucursales / Especialidad */}

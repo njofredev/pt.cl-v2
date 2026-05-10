@@ -72,7 +72,7 @@ const NAV_ITEMS = [
       { name: 'Cotizador Digital', href: '/novedades/cotizador', desc: 'Presupuestos de exámenes al instante.', icon: <Calculator className="text-emerald-500" /> },
     ]
   },
-  { name: 'Contacto', href: '#contacto' },
+  { name: 'Sucursales', href: '/#sucursales' },
 ];
 
 export const Navbar = () => {
