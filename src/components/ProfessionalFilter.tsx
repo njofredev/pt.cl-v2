@@ -277,8 +277,8 @@ export const ProfessionalFilter = ({ initialArea, professionals }: { initialArea
                   exit={{ opacity: 0, scale: 0.9 }}
                   transition={{ duration: 0.2, delay: idx * 0.01 }}
                 >
-                  <Card className="group h-full border-slate-100 dark:border-slate-800 hover:border-secondary/30 dark:hover:border-secondary/40 hover:shadow-2xl hover:shadow-secondary/10 transition-all duration-500 rounded-[3rem] overflow-hidden bg-white dark:bg-slate-900 flex flex-col">
-                    <CardContent className="p-0 flex flex-col h-full">
+                  <div className="group h-full border border-slate-100 dark:border-slate-800 hover:border-secondary/30 dark:hover:border-secondary/40 hover:shadow-2xl hover:shadow-secondary/10 transition-all duration-500 rounded-[3rem] overflow-hidden bg-white dark:bg-slate-900 flex flex-col">
+                    <div className="p-0 flex flex-col h-full">
                       {/* Área de Imagen - Avatar Circular Centrado */}
                       <div className="pt-12 pb-6 flex justify-center">
                         <div className="relative w-40 h-40 bg-slate-50 dark:bg-slate-950 rounded-full overflow-hidden border-4 border-white dark:border-slate-800 shadow-lg group-hover:scale-105 transition-transform duration-500">
@@ -374,8 +374,8 @@ export const ProfessionalFilter = ({ initialArea, professionals }: { initialArea
                           </div>
                         </DialogContent>
                       </Dialog>
-                    </CardContent>
-                  </Card>
+                    </div>
+                  </div>
                 </motion.div>
               );
             })}
