@@ -168,8 +168,13 @@ const SCHEDULE_DATA: Category[] = [
   }
 ];
 
-export function MinimalistScheduler() {
-  const [selectedCategory, setSelectedCategory] = useState<Category | null>(null);
+export function MinimalistScheduler({ initialCategoryId }: { initialCategoryId?: string }) {
+  const [selectedCategory, setSelectedCategory] = useState<Category | null>(() => {
+    if (initialCategoryId) {
+      return SCHEDULE_DATA.find(c => c.id === initialCategoryId) || null;
+    }
+    return null;
+  });
 
   const handleCategoryClick = (category: Category) => {
     if (category.id === "tomaMuestras") {

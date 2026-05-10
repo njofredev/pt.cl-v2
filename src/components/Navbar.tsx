@@ -292,7 +292,7 @@ export const Navbar = () => {
 
               <div className="hidden lg:block">
                 <Button 
-                  className="bg-primary hover:bg-primary/90 text-white rounded-full px-8 h-11 font-bold text-[11px] transition-all hover:scale-105 active:scale-95 cursor-pointer"
+                  className="bg-gradient-to-r from-primary to-[#1e3a8a] text-white rounded-full px-8 h-11 font-bold text-[11px] tracking-widest transition-all hover:scale-105 hover:shadow-xl active:scale-95 cursor-pointer shadow-lg shadow-black/10 border-0"
                   onClick={scrollToScheduler}
                 >
                   RESERVAR HORA
