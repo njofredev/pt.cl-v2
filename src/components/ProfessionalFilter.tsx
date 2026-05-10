@@ -2,7 +2,7 @@
 
 import React, { useState, useMemo, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Search, User, ChevronRight, Filter, X, Info, GraduationCap, MapPin, Sparkles } from 'lucide-react';
+import { Search, User, ChevronRight, Filter, X, Info, GraduationCap, MapPin, Sparkles, SmilePlus, Brain, Stethoscope, Leaf } from 'lucide-react';
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -67,11 +67,27 @@ export const ProfessionalFilter = ({ initialArea, professionals }: { initialArea
       default: return "Especialista";
     }
   }, [initialArea]);
+  
+  const AreaIcon = useMemo(() => {
+    if (!initialArea) return null;
+    switch (initialArea) {
+      case "Salud Dental": return <SmilePlus size={36} className="text-cyan-500" strokeWidth={1.5} />;
+      case "Salud Mental": return <Brain size={36} className="text-purple-500" strokeWidth={1.5} />;
+      case "Medicina General": return <Stethoscope size={36} className="text-blue-500" strokeWidth={1.5} />;
+      case "Terapias Complementarias": return <Leaf size={36} className="text-green-500" strokeWidth={1.5} />;
+      default: return null;
+    }
+  }, [initialArea]);
 
   return (
     <section id="buscador-profesionales" className="py-24 bg-slate-50/50 dark:bg-slate-950 transition-colors">
       <div className="container mx-auto px-6">
-        <div className="text-center mb-16">
+        <div className="text-center mb-16 flex flex-col items-center">
+          {AreaIcon && (
+            <div className="w-16 h-16 rounded-full bg-white dark:bg-slate-900 shadow-xl shadow-primary/5 dark:shadow-none border border-slate-100 dark:border-slate-800 flex items-center justify-center mb-6 transform hover:scale-110 transition-all duration-500">
+              {AreaIcon}
+            </div>
+          )}
           <h2 className="text-3xl md:text-5xl font-bold text-primary dark:text-slate-50 tracking-tighter mb-4">
             Nuestro Equipo <span className="text-secondary">{areaLabel}</span>
           </h2>
