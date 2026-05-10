@@ -43,7 +43,7 @@ export const Hero = ({
   titlePrefix = "Tu salud, ",
   titleHighlight = "nuestra prioridad.",
   description = "Reserva tu hora, revisa exámenes y gestiona tu bienestar desde cualquier lugar, fácil y rápido.",
-  buttonText = "Tu bienestar comienza con un paso.",
+  buttonText = "Tu bienestar comienza con un paso",
   statsNumber = "+10k",
   statsLabel = "Pacientes Atendidos",
   images = DEFAULT_IMAGES
@@ -79,7 +79,7 @@ export const Hero = ({
           <p className="text-xl text-slate-500 dark:text-slate-400 font-medium max-w-md leading-relaxed mb-10">
             {description}
           </p>
-          <div 
+          <div
             className="relative inline-flex cursor-pointer select-none group"
             onClick={() => {
               const el = document.getElementById('agendar');
@@ -90,7 +90,7 @@ export const Hero = ({
             <div className="bg-gradient-to-r from-primary to-[#1e3a8a] text-white px-8 sm:px-12 h-16 flex items-center rounded-full text-sm sm:text-lg font-black tracking-tight shadow-xl shadow-black/10 transition-all duration-500 transform group-hover:-translate-y-1 group-active:scale-95 relative z-10 whitespace-nowrap">
               {buttonText}
             </div>
-            
+
             {/* Icono Badge Flotante en la Esquina Superior Derecha */}
             <div className="absolute -top-3 -right-3 w-12 h-12 bg-secondary rounded-full flex items-center justify-center text-primary shadow-lg transition-all duration-500 transform group-hover:-translate-y-1 group-hover:rotate-[-15deg] group-hover:scale-110 group-active:scale-95 z-20 border-4 border-white dark:border-slate-950">
               <CalendarDays size={20} strokeWidth={2.5} />

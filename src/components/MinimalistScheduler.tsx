@@ -38,55 +38,55 @@ interface Category {
 }
 
 const COLOR_MAP = {
-  cyan: { 
-    text: "text-cyan-500", 
-    bg: "bg-cyan-500/10", 
-    border: "border-cyan-500/30", 
+  cyan: {
+    text: "text-cyan-500",
+    bg: "bg-cyan-500/10",
+    border: "border-cyan-500/30",
     hoverText: "group-hover:text-cyan-500",
     hoverBorder: "hover:border-cyan-500/30",
     iconBg: "bg-cyan-500/20",
     shadow: "shadow-cyan-500/20"
   },
-  purple: { 
-    text: "text-purple-500", 
-    bg: "bg-purple-500/10", 
-    border: "border-purple-500/30", 
+  purple: {
+    text: "text-purple-500",
+    bg: "bg-purple-500/10",
+    border: "border-purple-500/30",
     hoverText: "group-hover:text-purple-500",
     hoverBorder: "hover:border-purple-500/30",
     iconBg: "bg-purple-500/20",
     shadow: "shadow-purple-500/20"
   },
-  rose: { 
-    text: "text-rose-500", 
-    bg: "bg-rose-500/10", 
-    border: "border-rose-500/30", 
+  rose: {
+    text: "text-rose-500",
+    bg: "bg-rose-500/10",
+    border: "border-rose-500/30",
     hoverText: "group-hover:text-rose-500",
     hoverBorder: "hover:border-rose-500/30",
     iconBg: "bg-rose-500/20",
     shadow: "shadow-rose-500/20"
   },
-  blue: { 
-    text: "text-blue-500", 
-    bg: "bg-blue-500/10", 
-    border: "border-blue-500/30", 
+  blue: {
+    text: "text-blue-500",
+    bg: "bg-blue-500/10",
+    border: "border-blue-500/30",
     hoverText: "group-hover:text-blue-500",
     hoverBorder: "hover:border-blue-500/30",
     iconBg: "bg-blue-500/20",
     shadow: "shadow-blue-500/20"
   },
-  green: { 
-    text: "text-green-500", 
-    bg: "bg-green-500/10", 
-    border: "border-green-500/30", 
+  green: {
+    text: "text-green-500",
+    bg: "bg-green-500/10",
+    border: "border-green-500/30",
     hoverText: "group-hover:text-green-500",
     hoverBorder: "hover:border-green-500/30",
     iconBg: "bg-green-500/20",
     shadow: "shadow-green-500/20"
   },
-  orange: { 
-    text: "text-orange-500", 
-    bg: "bg-orange-500/10", 
-    border: "border-orange-500/30", 
+  orange: {
+    text: "text-orange-500",
+    bg: "bg-orange-500/10",
+    border: "border-orange-500/30",
     hoverText: "group-hover:text-orange-500",
     hoverBorder: "hover:border-orange-500/30",
     iconBg: "bg-orange-500/20",
@@ -225,7 +225,7 @@ export function MinimalistScheduler() {
                       exit={{ opacity: 0, y: -3 }}
                       className="text-[10px] font-black text-slate-400 uppercase tracking-[0.2em]"
                     >
-                      {selectedCategory ? 'Paso 2: Servicio' : 'Paso 1: Categoría'}
+                      {selectedCategory ? 'Paso 2: Servicio' : 'Paso 1: Selecciona una Categoría'}
                     </motion.p>
                   </AnimatePresence>
                 </div>
