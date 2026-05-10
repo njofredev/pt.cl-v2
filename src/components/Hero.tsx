@@ -43,7 +43,7 @@ export const Hero = ({
   titlePrefix = "Tu salud, ",
   titleHighlight = "nuestra prioridad.",
   description = "Reserva tu hora, revisa exámenes y gestiona tu bienestar desde cualquier lugar, fácil y rápido.",
-  buttonText = "Reservar hora",
+  buttonText = "Tu bienestar comienza con un paso.",
   statsNumber = "+10k",
   statsLabel = "Pacientes Atendidos",
   images = DEFAULT_IMAGES
@@ -87,7 +87,7 @@ export const Hero = ({
             }}
           >
             {/* Cuerpo del Botón principal con Degradado Premium */}
-            <div className="bg-gradient-to-r from-primary via-[#112c61] to-[#083d37] text-white px-12 h-16 flex items-center rounded-full text-lg font-black tracking-tight shadow-2xl shadow-primary/20 transition-all duration-500 transform group-hover:-translate-y-1 group-active:scale-95 relative z-10 group-hover:shadow-secondary/20">
+            <div className="bg-gradient-to-r from-primary via-[#112c61] to-[#083d37] text-white px-8 sm:px-12 h-16 flex items-center rounded-full text-sm sm:text-lg font-black tracking-tight shadow-2xl shadow-primary/20 transition-all duration-500 transform group-hover:-translate-y-1 group-active:scale-95 relative z-10 group-hover:shadow-secondary/20 whitespace-nowrap">
               {buttonText}
             </div>
             
