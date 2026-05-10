@@ -143,7 +143,7 @@ export default async function ServicePage({ params }: { params: Promise<{ slug: 
   const professionals = await getProfessionals();
 
   return (
-    <div className="min-h-screen bg-white dark:bg-slate-950 transition-colors duration-300">
+    <div id="top" className="min-h-screen bg-white dark:bg-slate-950 transition-colors duration-300">
       {/* Usamos el Hero global pero con props inyectadas para la categoría */}
       <Hero {...heroProps} />
       
@@ -164,7 +164,7 @@ export default async function ServicePage({ params }: { params: Promise<{ slug: 
            {/* Botón Volver al Inicio de la Categoría */}
            <div className="mt-12 flex justify-center">
              <Link 
-               href="#"
+               href="#top"
                className="flex items-center gap-3 px-6 py-2.5 rounded-full bg-slate-50/50 dark:bg-slate-900/50 border border-slate-100 dark:border-slate-800 transition-all hover:scale-105 active:scale-95 cursor-pointer shadow-sm group"
              >
                <ArrowLeft size={16} className={`group-hover:-translate-x-1 transition-transform duration-300 ${SLUG_TO_SCHEDULER_CONFIG[slug]?.accent.split(' ')[0] || 'text-secondary'}`} />
