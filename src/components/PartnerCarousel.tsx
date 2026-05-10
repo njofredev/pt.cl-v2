@@ -2,6 +2,7 @@
 
 import React, { useRef, useState, useEffect } from "react";
 import { motion } from "framer-motion";
+import Image from "next/image";
 
 const PARTNERS = [
   { name: 'Fonasa', file: 'fonasa.png' },
@@ -75,9 +76,11 @@ export function PartnerCarousel() {
             key={i}
             className="shrink-0 transition-all duration-700 hover:scale-150"
           >
-            <img 
+            <Image 
               src={`/logos_convenios_prevision/${partner.file}`} 
-              className="h-14 md:h-20 w-auto object-contain opacity-50 grayscale dark:invert hover:opacity-100 hover:grayscale-0 hover:invert-0 dark:hover:invert-0 transition-all duration-700 cursor-pointer dark:drop-shadow-[0_0_8px_rgba(255,255,255,0.3)]" 
+              width={180}
+              height={80}
+              className="h-14 md:h-20 w-auto object-contain opacity-50 grayscale dark:invert hover:opacity-100 hover:grayscale-0 hover:invert-0 dark:hover:invert-0 transition-all duration-700 cursor-pointer dark:drop-shadow-[0_0_3px_rgba(255,255,255,0.15)]" 
               alt={partner.name} 
             />
           </div>

@@ -6,8 +6,8 @@
 @theme {
   /* Colores Institucionales */
   --color-primary: #162158; /* Azul Oscuro */
-  --color-secondary: #19e4a2; /* Turquesa Vívido */
-  --color-clinical-bg: #f8fafc; /* Slate 50 aproximado */
+  --color-secondary: var(--color-secondary); /* Turquesa Dinámico */
+  --color-clinical-bg: #FDFBF7; /* Tono crema cálido premium */
   
   --font-sans: "Google Sans", "Product Sans", ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
   
@@ -25,6 +25,14 @@
 
 /* Configuraciones de base */
 @layer base {
+  :root {
+    --color-secondary: #38c1a5; /* Turquesa pastel sofisticado para modo claro */
+  }
+
+  .dark {
+    --color-secondary: #38c1a5; /* Igualamos al sofisticado turquesa del modo claro */
+  }
+
   html {
     scroll-behavior: smooth;
   }

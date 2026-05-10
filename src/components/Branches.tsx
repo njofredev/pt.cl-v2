@@ -64,7 +64,7 @@ export const Branches = () => {
   };
 
   return (
-    <section id="sucursales" className="py-24 bg-white dark:bg-transparent transition-colors duration-300">
+    <section id="sucursales" className="py-24 bg-transparent dark:bg-transparent transition-colors duration-300">
       <div className="container mx-auto px-6">
         <div className="bg-primary rounded-[2rem] sm:rounded-[2.5rem] md:rounded-[4rem] p-6 sm:p-8 md:p-20 text-white relative overflow-hidden shadow-2xl">
           {/* Background Orbs */}
@@ -208,7 +208,7 @@ export const Branches = () => {
 
                     {/* Contact & CTA Section */}
                     <div className="space-y-6 pt-6 border-t border-white/5 mt-auto">
-                      <div className="grid sm:grid-cols-2 gap-6">
+                      <div className="grid sm:grid-cols-[1fr_1.3fr] gap-6 sm:gap-8">
                         <div className="space-y-4">
                           <span className="block text-[11px] font-bold uppercase tracking-widest text-slate-400">Contacto Directo</span>
                           <div className="flex flex-col gap-3">
@@ -216,7 +216,7 @@ export const Branches = () => {
                               href={`tel:${branch.contact.phone.replace(/\s/g, '')}`}
                               className="flex items-center gap-3 text-[14px] md:text-[15px] font-medium text-slate-300 hover:text-white transition-colors group/link"
                             >
-                              <div className="w-8 h-8 bg-white/5 rounded-lg flex items-center justify-center group-hover/link:bg-secondary/20 transition-colors">
+                              <div className="w-8 h-8 bg-white/5 rounded-lg flex items-center justify-center group-hover/link:bg-secondary/20 transition-colors shrink-0">
                                 <Phone size={14} className="text-secondary" />
                               </div>
                               {branch.contact.phone}
@@ -227,7 +227,7 @@ export const Branches = () => {
                               rel="noopener noreferrer"
                               className="flex items-center gap-3 text-[14px] md:text-[15px] font-medium text-slate-300 hover:text-white transition-colors group/link"
                             >
-                              <div className="w-8 h-8 bg-white/5 rounded-lg flex items-center justify-center group-hover/link:bg-secondary/20 transition-colors">
+                              <div className="w-8 h-8 bg-white/5 rounded-lg flex items-center justify-center group-hover/link:bg-secondary/20 transition-colors shrink-0">
                                 <MessageCircle size={14} className="text-secondary" />
                               </div>
                               WhatsApp
@@ -243,26 +243,26 @@ export const Branches = () => {
                                 <a
                                   key={i}
                                   href={`mailto:${e.address}`}
-                                  className="flex items-center gap-3 text-[13px] md:text-[14px] font-medium text-slate-400 hover:text-white transition-colors truncate group/link"
+                                  className="flex items-start gap-3 text-[12px] md:text-[13px] font-medium text-slate-400 hover:text-white transition-colors group/link"
                                 >
-                                  <div className="w-8 h-8 bg-white/5 rounded-lg flex items-center justify-center group-hover/link:bg-secondary/20 transition-colors">
+                                  <div className="w-8 h-8 bg-white/5 rounded-lg flex items-center justify-center group-hover/link:bg-secondary/20 transition-colors shrink-0 mt-1">
                                     <Mail size={14} className="text-secondary shrink-0" />
                                   </div>
-                                  <div className="flex flex-col">
+                                  <div className="flex flex-col min-w-0 flex-1">
                                     <span className="text-white/40 text-[9px] uppercase tracking-tighter">{e.label}</span>
-                                    <span className="truncate">{e.address}</span>
+                                    <span className="break-all leading-tight">{e.address}</span>
                                   </div>
                                 </a>
                               ))
                             ) : (
                               <a
                                 href={`mailto:${branch.contact.email}`}
-                                className="flex items-center gap-3 text-[13px] md:text-[14px] font-medium text-slate-400 hover:text-white transition-colors truncate group/link"
+                                className="flex items-center gap-3 text-[12px] md:text-[13px] font-medium text-slate-400 hover:text-white transition-colors group/link"
                               >
-                                <div className="w-8 h-8 bg-white/5 rounded-lg flex items-center justify-center group-hover/link:bg-secondary/20 transition-colors">
+                                <div className="w-8 h-8 bg-white/5 rounded-lg flex items-center justify-center group-hover/link:bg-secondary/20 transition-colors shrink-0">
                                   <Mail size={14} className="text-secondary shrink-0" />
                                 </div>
-                                {branch.contact.email}
+                                <span className="break-all flex-1">{branch.contact.email}</span>
                               </a>
                             )}
                           </div>

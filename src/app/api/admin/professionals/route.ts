@@ -33,6 +33,7 @@ export async function POST(request: Request) {
         phone: data.phone,
         ageGroup: data.ageGroup,
         otherTitles: data.otherTitles,
+        imageUrl: data.imageUrl,
         timestamp: data.timestamp || new Date().toISOString(),
       }
     });

@@ -8,7 +8,7 @@ import Link from 'next/link';
 
 export default function CotizadorPage() {
   return (
-    <main className="relative min-h-screen pt-32 pb-24 flex items-center justify-center overflow-hidden">
+    <main className="relative min-h-screen pt-48 pb-24 flex items-center justify-center overflow-hidden">
       <div className="container mx-auto px-6 relative z-10">
         <div className="max-w-4xl mx-auto">
           <div className="grid md:grid-cols-2 gap-12 items-center bg-white dark:bg-slate-900/60 backdrop-blur-xl border border-slate-100 dark:border-white/10 rounded-[2.5rem] p-8 md:p-12 shadow-2xl">

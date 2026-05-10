@@ -25,5 +25,6 @@ model Professional {
   phone       String?  @map("Teléfono de contacto:")
   ageGroup    String?  @map("Grupo Etario:")
   otherTitles String?  @map("Otros títulos académicos:")
+  imageUrl    String?  @map("Imagen:")
   timestamp   String?  @map("Marca temporal")
 }

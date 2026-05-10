@@ -1,8 +1,9 @@
 "use client";
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import Image from 'next/image';
 import { Button } from "@/components/ui/button";
-import { Zap, CalendarDays, MapPin, Activity, HeartPulse, Sparkles, Brain, SmilePlus, Stethoscope, Leaf, Microscope, Accessibility } from 'lucide-react';
+import { Zap, CalendarDays, MapPin, Activity, HeartPulse, Sparkles, Brain, SmilePlus, Stethoscope, Leaf, Microscope, Accessibility, Users } from 'lucide-react';
 
 const ICON_MAP = {
   zap: Zap,
@@ -29,7 +30,7 @@ export interface HeroProps {
   badgeIconName?: keyof typeof ICON_MAP;
   titlePrefix?: string;
   titleHighlight?: string;
-  description?: string;
+  description?: React.ReactNode;
   buttonText?: string;
   statsNumber?: string;
   statsLabel?: string;
@@ -37,6 +38,8 @@ export interface HeroProps {
   floatingIconName?: keyof typeof ICON_MAP;
   floatingIconBg?: string;
   isInlineIcon?: boolean;
+  secondaryButtonText?: string;
+  secondaryButtonAnchorId?: string;
 }
 
 const DEFAULT_IMAGES = [
@@ -58,7 +61,9 @@ export const Hero = ({
   images = DEFAULT_IMAGES,
   floatingIconName = "calendar",
   floatingIconBg = "bg-secondary",
-  isInlineIcon = false
+  isInlineIcon = false,
+  secondaryButtonText,
+  secondaryButtonAnchorId
 }: HeroProps) => {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
 
@@ -73,10 +78,10 @@ export const Hero = ({
   }, [images.length]);
 
   return (
-    <section className="relative pt-44 md:pt-32 pb-16 md:pb-20 overflow-hidden bg-white dark:bg-transparent transition-colors duration-300">
+    <section className="relative pt-52 md:pt-44 pb-16 md:pb-20 overflow-hidden bg-transparent dark:bg-transparent transition-colors duration-300">
 
 
-      <div className="container mx-auto px-6 grid md:grid-cols-2 gap-12 items-center">
+      <div className="container mx-auto px-6 grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
         <motion.div
           initial={{ opacity: 0, x: -30 }}
           animate={{ opacity: 1, x: 0 }}
@@ -85,7 +90,7 @@ export const Hero = ({
           <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-primary text-white text-[10px] font-bold uppercase tracking-widest mb-8">
             <BadgeIcon size={14} fill="currentColor" className="text-secondary" /> {badgeText}
           </div>
-          <h1 className="text-4xl md:text-7xl font-bold text-primary dark:text-slate-50 leading-[1.1] md:leading-[1] tracking-tighter mb-8">
+          <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold text-primary dark:text-slate-50 leading-[1.1] md:leading-[1] tracking-tighter mb-6 md:mb-8">
             {titlePrefix} <br />
             <span className="text-secondary">{titleHighlight}</span>
           </h1>
@@ -116,6 +121,31 @@ export const Hero = ({
               </div>
             )}
           </div>
+
+          {/* Botón Secundario Condicional debajo del principal */}
+          {secondaryButtonText && (
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 0.4 }}
+              className="mt-4 flex"
+            >
+              <button
+                onClick={() => {
+                  if (secondaryButtonAnchorId) {
+                    const el = document.getElementById(secondaryButtonAnchorId);
+                    if (el) el.scrollIntoView({ behavior: 'smooth' });
+                  }
+                }}
+                className="inline-flex items-center gap-3 px-6 py-3 rounded-full border border-slate-200 dark:border-slate-800 text-slate-500 dark:text-slate-400 font-bold text-xs uppercase tracking-widest hover:bg-slate-50 dark:hover:bg-slate-800 hover:text-primary dark:hover:text-white transition-all duration-300 select-none"
+              >
+                <div className="w-8 h-8 rounded-full bg-slate-100 dark:bg-slate-700/50 flex items-center justify-center shrink-0">
+                  <Users size={14} className="opacity-80" />
+                </div>
+                <span className="relative top-[0.5px]">{secondaryButtonText}</span>
+              </button>
+            </motion.div>
+          )}
         </motion.div>
 
         {/* Elemento Visual de Identidad: Slider de Sucursales / Especialidad */}
@@ -125,19 +155,26 @@ export const Hero = ({
           transition={{ duration: 0.8, delay: 0.2 }}
           className="relative"
         >
-          <div className="relative z-10 bg-slate-100 dark:bg-slate-900 rounded-[3rem] p-4 shadow-lg shadow-slate-200/50 dark:shadow-none border-8 border-white dark:border-slate-900 overflow-hidden aspect-[4/3]">
-            <div className="relative w-full h-full rounded-[2.5rem] overflow-hidden">
+          <div className="relative z-10 bg-slate-100 dark:bg-slate-900 rounded-[2rem] sm:rounded-[3rem] p-3 sm:p-4 shadow-lg shadow-slate-200/50 dark:shadow-none border-4 sm:border-8 border-white dark:border-slate-900 overflow-hidden aspect-[4/3]">
+            <div className="relative w-full h-full rounded-[1.7rem] sm:rounded-[2.5rem] overflow-hidden">
               <AnimatePresence initial={false}>
-                <motion.img
+                <motion.div
                   key={currentImageIndex}
-                  src={images[currentImageIndex].src}
-                  alt={images[currentImageIndex].alt}
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
                   exit={{ opacity: 0 }}
                   transition={{ duration: 1.5, ease: "easeInOut" }}
-                  className="w-full h-full object-cover absolute inset-0"
-                />
+                  className="absolute inset-0 w-full h-full"
+                >
+                  <Image 
+                    src={images[currentImageIndex].src}
+                    alt={images[currentImageIndex].alt}
+                    fill
+                    priority={true}
+                    className="object-cover"
+                    sizes="(max-width: 768px) 100vw, 50vw"
+                  />
+                </motion.div>
               </AnimatePresence>
             </div>
 

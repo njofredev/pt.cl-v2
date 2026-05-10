@@ -1,12 +1,9 @@
-"use client";
-
 import React from 'react';
 import { Hero } from '@/components/Hero';
 import { MinimalistScheduler } from '@/components/MinimalistScheduler';
 import { PartnerCarousel } from '@/components/PartnerCarousel';
 import { ServiceCarousel } from '@/components/ServiceCarousel';
 import { Branches } from '@/components/Branches';
-import { motion } from 'framer-motion';
 import Link from 'next/link';
 import {
   Stethoscope,
@@ -20,21 +17,20 @@ import {
 } from 'lucide-react';
 import { Button } from "@/components/ui/button";
 
-// Variantes de animación ultra-rápidas para evitar lag
-const fadeInUp = {
-  initial: { opacity: 0, y: 15 },
-  whileInView: { opacity: 1, y: 0 },
-  viewport: { once: true, margin: "-10px" },
-  transition: { duration: 0.4, ease: "easeOut" as const }
-};
-
 export default function Home() {
   return (
-    <main className="relative min-h-screen bg-white dark:bg-transparent antialiased overflow-x-hidden transition-colors duration-300">
+    <main className="relative min-h-screen bg-transparent dark:bg-transparent antialiased overflow-x-hidden transition-colors duration-300">
       {/* 1. HERO SECTION DINÁMICO */}
-      <Hero />
+      <Hero 
+        description={
+          <>
+            En Policlínico Tabancura te acompañamos en cada etapa con especialistas de excelencia y el trato humano que tú y tu familia merecen.
+            <span className="block mt-4 font-bold text-slate-700 dark:text-white">Todo lo que necesitas, <span className="text-secondary">en un solo lugar.</span></span>
+          </>
+        }
+      />
 
-      <section className="py-8 bg-white dark:bg-transparent">
+      <section className="py-8 bg-transparent dark:bg-transparent">
         <div className="container mx-auto px-6">
           <p className="text-[10px] font-bold text-slate-400 uppercase tracking-[0.3em] text-center mb-4">
             Atención con Previsión y Convenios Directos
@@ -47,7 +43,7 @@ export default function Home() {
       <section id="servicios" className="pt-10 pb-32 relative">
         <div className="container mx-auto px-6 relative z-10">
           {/* Nueva posición CTA del Programador */}
-          <div id="agendar" className="mb-20 text-center scroll-mt-32">
+          <div id="agendar" className="mb-20 text-center scroll-mt-48">
             <div className="mb-12">
               <p className="text-lg md:text-xl font-medium text-slate-600 dark:text-slate-400 mb-2">
                 Somos una corporación <span className="text-secondary relative inline-block">sin fines de lucro.
@@ -60,14 +56,7 @@ export default function Home() {
               <p className="text-base md:text-lg text-slate-400 dark:text-slate-500 font-medium tracking-wide">Agenda en línea y obtén valores preferenciales</p>
             </div>
             
-            <motion.div 
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              className="w-full"
-            >
-              <MinimalistScheduler />
-            </motion.div>
+            <MinimalistScheduler />
           </div>
 
           <div className="flex flex-col gap-10 mb-12 py-8">
@@ -86,7 +75,7 @@ export default function Home() {
         </div>
       </section>
       {/* 4. VALIDADOR MI VITA */}
-      <section id="mivita" className="py-16 relative overflow-hidden bg-white dark:bg-transparent scroll-mt-24">
+      <section id="mivita" className="py-16 relative overflow-hidden bg-transparent dark:bg-transparent scroll-mt-24">
 
 
         <div className="container mx-auto px-6 relative z-10">

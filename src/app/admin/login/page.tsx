@@ -65,7 +65,7 @@ export default function AdminLogin() {
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 placeholder="••••••••"
-                className="h-14 rounded-2xl border-slate-200 bg-slate-50/50 focus:bg-white focus:ring-secondary/20 transition-all text-center text-lg tracking-widest"
+                className="h-14 rounded-2xl border-slate-200 bg-slate-50/50 focus:bg-white focus:ring-secondary/20 transition-all text-center text-lg tracking-widest text-slate-900"
                 required
               />
             </div>

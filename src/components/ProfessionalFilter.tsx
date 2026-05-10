@@ -2,13 +2,13 @@
 
 import React, { useState, useMemo, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Search, User, ChevronRight, ChevronDown, Filter, X, Info, GraduationCap, MapPin, Sparkles, SmilePlus, Brain, Stethoscope, Leaf } from 'lucide-react';
+import { Search, User, ChevronRight, ChevronDown, Filter, X, Info, GraduationCap, MapPin, Sparkles, SmilePlus, Brain, Stethoscope, Leaf, CalendarDays } from 'lucide-react';
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent } from "@/components/ui/card";
 import { AREAS, Area, Professional } from '@/data/professionals';
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger, DialogClose } from "@/components/ui/dialog";
 import Image from 'next/image';
 
 const CustomSelect = ({ 
@@ -222,7 +222,9 @@ export const ProfessionalFilter = ({ initialArea, professionals }: { initialArea
           </div>
 
           {(searchTerm || (!initialArea && selectedArea !== "Todas") || selectedSpecialty !== "Todas" || selectedSucursal !== "Todas") && (
-            <div className="flex flex-wrap gap-2 mt-6 pt-6 border-t border-slate-100">
+            <div className="mt-6">
+              <div className="w-32 h-px bg-gradient-to-r from-transparent via-slate-200 dark:via-slate-700 to-transparent mx-auto mb-6"></div>
+              <div className="flex flex-wrap gap-2">
               <span className="text-[10px] font-bold text-slate-400 uppercase self-center mr-2">Filtros activos:</span>
               {searchTerm && (
                 <Badge variant="secondary" className="bg-secondary/10 text-secondary border-none rounded-lg px-3 py-1 flex items-center gap-1">
@@ -257,6 +259,7 @@ export const ProfessionalFilter = ({ initialArea, professionals }: { initialArea
               >
                 Limpiar Todo
               </Button>
+              </div>
             </div>
           )}
         </div>
@@ -266,7 +269,7 @@ export const ProfessionalFilter = ({ initialArea, professionals }: { initialArea
           <AnimatePresence mode='popLayout'>
             {filteredProfessionals.map((pro, idx) => {
               // Mapeo directo para asegurar que la imagen aparezca en las pruebas
-              const proImage = pro.image || (pro.name.toLowerCase().includes("andro") && pro.name.toLowerCase().includes("sapunar") ? "/img_profesionales/perfilAndroSapunar.jpg" : null);
+              const proImage = pro.image;
               
               return (
                 <motion.div
@@ -277,7 +280,7 @@ export const ProfessionalFilter = ({ initialArea, professionals }: { initialArea
                   exit={{ opacity: 0, scale: 0.9 }}
                   transition={{ duration: 0.2, delay: idx * 0.01 }}
                 >
-                  <div className="group h-full border border-slate-100 dark:border-slate-800 hover:border-secondary/30 dark:hover:border-secondary/40 hover:shadow-2xl hover:shadow-secondary/10 transition-all duration-500 rounded-[3rem] overflow-hidden bg-white dark:bg-slate-900 flex flex-col">
+                  <div className="group h-full border border-slate-200/80 dark:border-slate-800 hover:border-secondary/30 dark:hover:border-secondary/30 shadow-md shadow-slate-200/30 dark:shadow-none hover:shadow-2xl hover:shadow-secondary/10 dark:hover:shadow-secondary/20 transition-all duration-500 rounded-[3rem] overflow-hidden bg-white dark:bg-slate-900 flex flex-col">
                     <div className="p-0 flex flex-col h-full">
                       {/* Área de Imagen - Avatar Circular Centrado */}
                       <div className="pt-12 pb-6 flex justify-center">
@@ -297,50 +300,79 @@ export const ProfessionalFilter = ({ initialArea, professionals }: { initialArea
                         </div>
                       </div>
 
-                      <div className="p-8 pt-2 flex-grow flex flex-col text-center">
-                        <h3 className="text-xl font-bold text-primary dark:text-slate-50 mb-3 leading-tight group-hover:text-secondary transition-colors">
+                      <div className="p-8 pt-2 flex-grow flex flex-col items-center text-center">
+                        <h3 className="text-xl font-bold text-primary dark:text-slate-50 mb-3 leading-tight group-hover:text-secondary dark:group-hover:text-secondary transition-colors w-full px-4">
                           {pro.name}
                         </h3>
                         
                         <div className="flex flex-col items-center gap-3 mt-auto">
-                          <div className="inline-flex items-center gap-1.5 px-4 py-1.5 rounded-full bg-primary text-white text-[10px] font-bold uppercase tracking-widest shrink-0">
+                          <div className="inline-flex items-center gap-1.5 px-4 py-1.5 rounded-full bg-white dark:bg-slate-800 border border-slate-200/60 dark:border-slate-700 text-slate-700 dark:text-slate-200 text-[10px] font-bold uppercase tracking-widest shrink-0 shadow-sm shadow-slate-200/30 dark:shadow-none">
                             <Sparkles size={12} fill="currentColor" className="text-secondary shrink-0" /> {pro.specialty}
                           </div>
                           <div className="flex items-center gap-2 text-[10px] font-bold text-slate-400 dark:text-slate-500 uppercase tracking-widest">
                             <MapPin size={12} className="text-secondary" />
                             {pro.sucursal?.split('(')[0] || "Sucursal Vitacura"}
                           </div>
+                          
+                          {pro.ageGroup && (
+                            <div className="flex flex-wrap justify-center gap-1 mt-2 pt-2 border-t border-slate-100 dark:border-white/10 w-full">
+                              {pro.ageGroup.split(',').map(s => s.replace(/\./g, '').trim()).filter(Boolean).map((age, i) => (
+                                <span key={i} className="text-[8px] font-black tracking-wider uppercase bg-secondary/10 text-secondary px-2 py-0.5 rounded-md">
+                                  {age.includes('(') ? age.split('(')[0].trim() : age}
+                                </span>
+                              ))}
+                            </div>
+                          )}
                         </div>
                       </div>
                       
-                      <Dialog>
-                        <DialogTrigger asChild>
-                          <button className="w-full bg-slate-50 dark:bg-slate-950 p-5 flex justify-between items-center group-hover:bg-primary transition-colors text-left cursor-pointer border-t border-slate-100 dark:border-slate-800">
-                            <span className="text-[10px] font-bold text-slate-400 dark:text-slate-500 uppercase tracking-widest group-hover:text-white/80">Ver Perfil Completo</span>
-                            <ChevronRight size={16} className="text-slate-300 dark:text-slate-600 group-hover:text-white group-hover:translate-x-1 transition-all" />
-                          </button>
-                        </DialogTrigger>
-                        <DialogContent className="sm:max-w-[500px] rounded-[2.5rem] border-none p-0 overflow-hidden gap-0 bg-white dark:bg-slate-900">
-                          <div className="bg-primary p-8 text-white">
-                            <div className="w-24 h-24 bg-white/10 rounded-3xl flex items-center justify-center mb-6 overflow-hidden mx-auto">
+                      <div className="w-full p-6 pt-0 pb-8 flex justify-center mt-auto">
+                        <Dialog>
+                          <DialogTrigger asChild>
+                            <button className="relative inline-flex w-full max-w-[230px] cursor-pointer select-none group/profbtn outline-none border-none bg-transparent h-12 items-center">
+                              {/* Cuerpo del Botón */}
+                              <div className="bg-none bg-white border border-slate-200/80 text-slate-600 dark:bg-gradient-to-r dark:from-primary dark:to-[#1e3a8a] dark:text-white dark:border-transparent w-full px-6 h-full flex items-center justify-center rounded-full text-[9px] font-black tracking-[0.15em] uppercase shadow-sm shadow-slate-200/30 dark:shadow-none transition-all duration-500 transform group-hover/profbtn:-translate-y-1 group-hover/profbtn:border-secondary/50 group-hover/profbtn:text-primary dark:group-hover/profbtn:text-white group-hover/profbtn:shadow-lg group-hover/profbtn:shadow-slate-200/40 dark:group-hover/profbtn:shadow-none group-active/profbtn:scale-95 relative z-10 whitespace-nowrap">
+                                Ver Perfil Completo
+                              </div>
+                              
+                              {/* Icono Badge Flotante con Lupa */}
+                              <div className="absolute -top-1.5 -right-1.5 w-8 h-8 bg-secondary rounded-full flex items-center justify-center text-primary shadow-lg transition-all duration-500 transform group-hover/profbtn:-translate-y-1.5 group-hover/profbtn:rotate-[-12deg] group-hover/profbtn:scale-110 group-active/profbtn:scale-95 z-20 border-4 border-white dark:border-slate-900">
+                                <Search className="w-3 h-3" strokeWidth={3.5} />
+                              </div>
+                            </button>
+                          </DialogTrigger>
+                        <DialogContent showCloseButton={false} className="sm:max-w-[500px] rounded-[2.5rem] border-none p-0 overflow-hidden gap-0 bg-white dark:bg-slate-900">
+                          <div className="bg-primary p-8 text-white relative">
+                            <DialogClose className="absolute top-6 right-6 p-2 text-white/70 hover:text-white hover:bg-white/10 rounded-full transition-all outline-none group cursor-pointer">
+                              <X className="w-6 h-6" />
+                            </DialogClose>
+                            <div className="relative w-24 h-24 bg-white/10 rounded-full flex items-center justify-center mb-6 overflow-hidden mx-auto border-2 border-white/20">
                               {proImage ? (
                                 <Image 
                                   src={proImage} 
                                   alt={pro.name} 
-                                  width={96} 
-                                  height={96} 
-                                  className="w-full h-full object-cover"
+                                  fill
+                                  className="object-cover"
                                 />
                               ) : (
                                 <User size={48} className="text-secondary" />
                               )}
                             </div>
                             <DialogHeader className="text-center">
-                              <DialogTitle className="text-3xl font-bold tracking-tighter leading-none mb-2">{pro.name}</DialogTitle>
+                              <DialogTitle className="text-2xl sm:text-3xl font-bold tracking-tight leading-[1.2] mb-3 text-center w-full px-2">{pro.name}</DialogTitle>
                               <div className="flex gap-2 justify-center">
                                 <Badge className="bg-secondary text-primary font-bold">{pro.specialty}</Badge>
                                 <Badge variant="outline" className="text-white border-white/20">{pro.area}</Badge>
                               </div>
+                              {pro.ageGroup && (
+                                <div className="flex flex-wrap justify-center gap-1.5 mt-4">
+                                  {pro.ageGroup.split(',').map(s => s.replace(/\./g, '').trim()).filter(Boolean).map((age, i) => (
+                                    <span key={i} className="text-[9px] font-black tracking-widest uppercase bg-white/10 text-white/90 px-2.5 py-1 rounded-lg border border-white/5 backdrop-blur-sm">
+                                      {age}
+                                    </span>
+                                  ))}
+                                </div>
+                              )}
                             </DialogHeader>
                           </div>
                           <div className="bg-white dark:bg-slate-900 p-8 space-y-6 max-h-[60vh] overflow-y-auto">
@@ -368,12 +400,28 @@ export const ProfessionalFilter = ({ initialArea, professionals }: { initialArea
                                 <p className="text-slate-600 dark:text-slate-300 font-medium leading-relaxed">{pro.sucursal}</p>
                               </div>
                             )}
-                            <Button className="w-full bg-primary hover:bg-primary/90 text-white h-14 rounded-2xl font-bold shadow-xl shadow-primary/10">
-                              Agendar Hora con Especialista
-                            </Button>
+                            
+                            {/* Helper to get first name */}
+                            {(() => {
+                              const firstName = pro.name.split(' ').filter(p => !p.includes('.')).filter(p => p.length > 0)[0] || pro.name.split(' ')[0];
+                              return (
+                                <div className="relative inline-flex w-full cursor-pointer select-none group pt-2">
+                                  {/* Cuerpo del Botón con Degradado */}
+                                  <div className="bg-gradient-to-r from-primary to-[#1e3a8a] text-white w-full px-8 h-16 flex items-center justify-center rounded-full text-base sm:text-lg font-black tracking-tight shadow-xl shadow-primary/20 transition-all duration-500 transform group-hover:-translate-y-1 group-active:scale-95 relative z-10 whitespace-nowrap">
+                                    Agendar Hora con {firstName}
+                                  </div>
+                                  
+                                  {/* Icono Badge Flotante */}
+                                  <div className="absolute top-0 -right-1 sm:-right-2 w-11 h-11 bg-secondary rounded-full flex items-center justify-center text-primary shadow-lg transition-all duration-500 transform group-hover:-translate-y-1 group-hover:rotate-[-15deg] group-hover:scale-110 group-active:scale-95 z-20 border-4 border-white dark:border-slate-900">
+                                    <CalendarDays className="w-4 h-4" strokeWidth={3} />
+                                  </div>
+                                </div>
+                              );
+                            })()}
                           </div>
                         </DialogContent>
                       </Dialog>
+                    </div>
                     </div>
                   </div>
                 </motion.div>

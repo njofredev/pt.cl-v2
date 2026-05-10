@@ -21,6 +21,7 @@ export async function PUT(request: Request, { params }: { params: Promise<{ id: 
         phone: data.phone,
         ageGroup: data.ageGroup,
         otherTitles: data.otherTitles,
+        imageUrl: data.imageUrl,
       }
     });
 

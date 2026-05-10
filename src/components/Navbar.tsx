@@ -27,13 +27,15 @@ import {
   ArrowLeft,
   Leaf,
   SmilePlus,
+  Megaphone,
   Info,
   Accessibility,
   Sun,
   Moon,
   Instagram,
   Facebook,
-  FileText
+  FileText,
+  Clock
 } from 'lucide-react';
 import { Button } from "@/components/ui/button";
 import { motion, AnimatePresence } from 'framer-motion';
@@ -48,6 +50,7 @@ const NAV_ITEMS = [
     isMega: true,
     subItems: [
       { name: 'Quiénes Somos', href: '/nosotros', desc: 'Conoce nuestra historia y valores.', icon: <Activity className="text-blue-500" /> },
+      { name: 'Derechos y Deberes', href: '/derechos-y-deberes', desc: 'Conoce tus derechos y responsabilidades.', icon: <FileText className="text-emerald-500" /> },
       { name: 'Misión y Visión', href: '/nosotros#mision', desc: 'Nuestro compromiso con la comunidad.', icon: <ShieldCheck className="text-indigo-500" /> },
       { name: 'Nuestro Equipo', href: '/nosotros#equipo', desc: 'Profesionales de primer nivel.', icon: <User className="text-teal-500" /> },
     ]
@@ -94,15 +97,25 @@ export const Navbar = () => {
 
   const { theme, setTheme } = useTheme();
   const [mounted, setMounted] = useState(false);
+  const [currentTime, setCurrentTime] = useState<Date | null>(null);
 
   useEffect(() => {
     setMounted(true);
+    setCurrentTime(new Date());
+
+    const timeInterval = setInterval(() => {
+      setCurrentTime(new Date());
+    }, 10000); // Actualizar cada 10 segundos por precisión en minutos
+
     const handleScroll = () => {
       const offset = window.scrollY;
       setIsScrolled(offset > 20);
     };
     window.addEventListener('scroll', handleScroll, { passive: true });
-    return () => window.removeEventListener('scroll', handleScroll);
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+      clearInterval(timeInterval);
+    };
   }, []);
 
   const scrollToTop = (e: React.MouseEvent) => {
@@ -115,11 +128,16 @@ export const Navbar = () => {
   };
 
   const scrollToScheduler = (e: React.MouseEvent) => {
-    if (window.location.pathname === '/') {
-      e.preventDefault();
-      const el = document.getElementById('agendar');
-      if (el) el.scrollIntoView({ behavior: 'smooth' });
+    e.preventDefault();
+    const el = document.getElementById('agendar');
+
+    if (el) {
+      // Si el elemento existe en la página actual (Home o página de Servicio), hacemos scroll suave
+      el.scrollIntoView({ behavior: 'smooth' });
       setIsMobileMenuOpen(false);
+    } else {
+      // Si estamos en otra página (ej: Nosotros), redirigimos al ancla de la home
+      window.location.href = '/#agendar';
     }
   };
 
@@ -134,13 +152,60 @@ export const Navbar = () => {
     return () => window.removeEventListener("keydown", handleKeyDown);
   }, []);
 
+  const [showPromo, setShowPromo] = useState(true);
+
   return (
     <>
       <SearchModal isOpen={isSearchOpen} onClose={() => setIsSearchOpen(false)} />
       <nav className="fixed top-0 w-full z-50">
+        <AnimatePresence>
+          {showPromo && (
+            <motion.div
+              initial={{ height: 0, opacity: 0 }}
+              animate={{ height: 'auto', opacity: 1 }}
+              exit={{ height: 0, opacity: 0 }}
+              transition={{ duration: 0.3, ease: "easeInOut" }}
+              className="bg-gradient-to-r from-sky-600 via-cyan-600 to-cyan-500 dark:from-indigo-800 dark:via-indigo-600 dark:to-indigo-500 text-white overflow-hidden relative z-[60] shadow-md border-b border-white/10"
+            >
+              <div className="container mx-auto px-4 py-2 md:py-2.5 flex items-center justify-center gap-x-2 sm:gap-x-4 text-center relative pr-28 md:pr-32">
+                <SmilePlus className="w-5 h-5 shrink-0 hidden sm:block text-yellow-200 animate-pulse" />
+                <p className="text-[9px] sm:text-[11px] md:text-xs font-bold tracking-wide flex flex-wrap items-center justify-center gap-x-1">
+                  <span className="hidden md:inline-flex items-center bg-white/20 px-2 py-0.5 rounded-full text-[9px] mr-1">
+                    <Megaphone className="w-2.5 h-2.5 mr-1 -rotate-12 shrink-0" /> PROMO LIMITADA
+                  </span>
+                  <span>Limpieza Dental Pro+: Evaluación + RX Bitewing Bilateral + Profilaxis + Fluoración por</span>
+                  <span className="text-yellow-200 text-xs sm:text-sm font-black flex items-center ml-1 underline underline-offset-2">
+                    $34.000.-
+                  </span>
+                  <span className="hidden lg:inline bg-black/10 px-2 py-0.5 rounded-full text-[8px] ml-2 border border-white/10 tracking-widest">HASTA 15 MAYO | PARA MAYORES DE 15 AÑOS</span>
+                </p>
+
+                {/* Grupo de Acciones Derecha: Agendar + Cerrar */}
+                <div className="absolute right-2 sm:right-4 top-1/2 -translate-y-1/2 flex items-center gap-x-1 sm:gap-x-2">
+                  <a
+                    href="https://ff.healthatom.io/9p2Sq9"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="bg-white text-indigo-600 px-2 sm:px-4 py-1 rounded-full text-[8px] sm:text-[10px] font-black uppercase hover:bg-indigo-50 hover:scale-105 transition-all shrink-0 shadow-sm flex items-center gap-1 active:scale-95"
+                  >
+                    Agendar <ChevronRight className="w-2.5 h-2.5 sm:w-3 sm:h-3" />
+                  </a>
+
+                  <button
+                    onClick={() => setShowPromo(false)}
+                    className="p-1 sm:p-1.5 text-white/70 hover:text-white hover:bg-white/20 rounded-full transition-colors shrink-0"
+                    aria-label="Cerrar promoción"
+                  >
+                    <X className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
+                  </button>
+                </div>
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
         <div className={`bg-primary text-white transition-all duration-300 ${isScrolled ? 'py-1' : 'py-2'} border-b border-white/5`}>
-          <div className="container mx-auto px-6 flex flex-col md:flex-row justify-center md:justify-between items-center gap-y-2 text-[8px] sm:text-[9px] md:text-[10px] font-bold uppercase tracking-[0.15em] text-center md:text-left">
-            <div className="flex flex-wrap gap-x-4 gap-y-1 justify-center md:justify-start">
+          <div className="container mx-auto px-4 md:px-6 flex flex-col lg:flex-row justify-center lg:justify-between items-center gap-y-2 py-0.5 text-[7.5px] sm:text-[9px] md:text-[10px] font-bold uppercase tracking-[0.12em] sm:tracking-[0.15em] text-center md:text-left">
+            <div className="flex flex-wrap gap-x-3 sm:gap-x-4 gap-y-1.5 justify-center lg:justify-start">
               <a
                 href="https://www.google.com/maps/search/?api=1&query=Calle+Los+Tribunales+1268+Vitacura"
                 target="_blank"
@@ -161,7 +226,7 @@ export const Navbar = () => {
               </a>
             </div>
 
-            <div className="flex flex-wrap gap-x-4 gap-y-1 justify-center md:justify-end items-center">
+            <div className="flex flex-wrap gap-x-3 sm:gap-x-4 gap-y-1.5 justify-center lg:justify-end items-center">
               <a
                 href="tel:+56222172635"
                 className="flex items-center gap-2 hover:text-secondary transition-colors group"
@@ -177,10 +242,11 @@ export const Navbar = () => {
                 <Phone size={12} className="text-secondary group-hover:scale-110 transition-transform" />
                 VITACURA: +56 2 2933 6740
               </a>
-              
+
               <div className="h-3 w-[1px] bg-white/20 hidden md:block mx-1" />
-              
+
               <div className="flex items-center gap-3 text-white/80">
+                <span className="hidden sm:inline text-[7.5px] sm:text-[9px] md:text-[10px] opacity-60 tracking-widest font-bold">SÍGUENOS!:</span>
                 <a href="https://www.instagram.com/politabancura/" target="_blank" rel="noopener noreferrer" className="hover:text-secondary transition-colors transform hover:scale-110">
                   <Instagram size={14} />
                 </a>
@@ -199,19 +265,19 @@ export const Navbar = () => {
         <div className={`transition-all duration-300 ${isScrolled ? 'bg-white dark:bg-slate-950/40 py-2' : 'bg-white/95 dark:bg-transparent backdrop-blur-sm py-4'
           } border-b border-transparent dark:border-white/5 backdrop-blur-md`}>
           <div className="container mx-auto px-6 flex justify-between items-center">
-            <div className="flex items-center lg:gap-16">
+            <div className="flex items-center xl:gap-12 gap-4">
               <Link href="/" onClick={scrollToTop} className="flex items-center group shrink-0">
                 <img
                   src="/logo.svg"
                   alt="Policlínico Tabancura"
-                  className="h-14 md:h-16 w-auto group-hover:scale-105 transition-transform duration-300"
+                  className="h-14 md:h-16 w-auto group-hover:scale-105 transition-transform duration-300 dark:brightness-0 dark:invert"
                 />
               </Link>
 
 
               {/* Desktop Menu */}
               <div
-                className="hidden lg:flex items-center space-x-1 text-[11px] font-bold uppercase tracking-widest text-slate-500 dark:text-slate-400 relative"
+                className="hidden xl:flex items-center space-x-0.5 text-[10.5px] font-bold uppercase tracking-widest text-slate-500 dark:text-slate-400 relative"
                 onMouseLeave={() => setActiveDropdown(null)}
               >
                 {NAV_ITEMS.map((item) => (
@@ -298,16 +364,19 @@ export const Navbar = () => {
               {/* Theme Toggle */}
               <button
                 onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
-                className="flex items-center justify-center w-10 h-10 rounded-2xl bg-slate-50 border border-slate-100 hover:bg-white dark:bg-slate-900 dark:border-slate-800 dark:hover:bg-slate-800 transition-all text-slate-500 dark:text-slate-400 shadow-sm active:scale-95"
-                aria-label="Toggle dark mode"
+                className="flex items-center gap-2.5 px-3 h-10 rounded-xl bg-slate-50 border border-slate-100 hover:bg-white dark:bg-slate-900 dark:border-slate-800 dark:hover:bg-slate-800 transition-all text-slate-500 dark:text-slate-400 shadow-sm active:scale-95 cursor-pointer"
+                aria-label="Cambiar tema visual"
               >
-                {mounted && theme === 'dark' ? <Sun size={18} /> : <Moon size={18} />}
+                {mounted && theme === 'dark' ? <Moon size={16} /> : <Sun size={16} />}
+                <span className="text-[9px] font-bold uppercase tracking-wider hidden lg:block leading-none relative top-[0.5px]">
+                  {mounted && theme === 'dark' ? 'Oscuro' : 'Claro'}
+                </span>
               </button>
 
               {/* Search Bar Trigger */}
               <button
                 onClick={() => setIsSearchOpen(true)}
-                className="hidden md:flex items-center gap-3 px-4 py-2 bg-slate-50 border border-slate-100 rounded-2xl hover:bg-white hover:border-secondary/20 dark:bg-slate-900 dark:border-slate-800 dark:hover:border-secondary/30 transition-all group"
+                className="hidden md:flex items-center gap-3 px-4 py-2 bg-slate-50 border border-slate-100 rounded-2xl hover:bg-white hover:border-secondary/20 dark:bg-slate-900 dark:border-slate-800 dark:hover:bg-slate-800 dark:hover:border-secondary/30 transition-all group"
               >
                 <Search size={16} className="text-slate-400 group-hover:text-secondary transition-colors" />
                 <span className="text-[10px] font-bold text-slate-400 uppercase tracking-widest mr-2">Buscar...</span>
@@ -316,8 +385,8 @@ export const Navbar = () => {
                 </div>
               </button>
 
-              <div className="hidden lg:block">
-                <Button 
+              <div className="hidden xl:block">
+                <Button
                   className="bg-gradient-to-r from-primary to-[#1e3a8a] text-white rounded-full px-8 h-11 font-bold text-[11px] tracking-widest transition-all hover:scale-105 hover:shadow-xl active:scale-95 cursor-pointer shadow-lg shadow-black/10 border-0"
                   onClick={scrollToScheduler}
                 >
@@ -328,14 +397,14 @@ export const Navbar = () => {
               {/* Mobile Search Trigger */}
               <button
                 onClick={() => setIsSearchOpen(true)}
-                className="lg:hidden w-12 h-12 bg-slate-50 border border-slate-100 dark:bg-slate-900 dark:border-slate-800 rounded-2xl flex items-center justify-center text-slate-500 dark:text-slate-400 shadow-sm hover:border-secondary/20 transition-all active:scale-95"
+                className="xl:hidden w-12 h-12 bg-slate-50 border border-slate-100 dark:bg-slate-900 dark:border-slate-800 rounded-2xl flex items-center justify-center text-slate-500 dark:text-slate-400 shadow-sm hover:border-secondary/20 transition-all active:scale-95"
               >
                 <Search size={20} />
               </button>
 
               {/* Mobile Toggle */}
               <button
-                className="lg:hidden w-12 h-12 bg-slate-50 border border-slate-100 dark:bg-slate-900 dark:border-slate-800 rounded-2xl flex items-center justify-center text-primary dark:text-white shadow-sm hover:border-secondary/20 transition-all active:scale-95"
+                className="xl:hidden w-12 h-12 bg-slate-50 border border-slate-100 dark:bg-slate-900 dark:border-slate-800 rounded-2xl flex items-center justify-center text-primary dark:text-white shadow-sm hover:border-secondary/20 transition-all active:scale-95"
                 onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
               >
                 {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
@@ -351,7 +420,7 @@ export const Navbar = () => {
               initial={{ opacity: 0, height: 0 }}
               animate={{ opacity: 1, height: 'auto' }}
               exit={{ opacity: 0, height: 0 }}
-              className="lg:hidden bg-white dark:bg-slate-950 border-b border-slate-100 dark:border-slate-900 overflow-y-auto max-h-[calc(100vh-130px)] hide-scrollbar"
+              className="xl:hidden bg-white dark:bg-slate-950 border-b border-slate-100 dark:border-slate-900 overflow-y-auto max-h-[calc(100vh-130px)] hide-scrollbar"
             >
               <div className="container mx-auto px-6 py-8 pb-16 flex flex-col gap-6 items-end">
                 {NAV_ITEMS.map((item) => (
@@ -423,7 +492,7 @@ export const Navbar = () => {
                   <Search size={18} className="text-slate-400 dark:text-slate-500 group-hover:text-secondary transition-colors" />
                 </button>
 
-                <Button 
+                <Button
                   className="w-full bg-primary h-14 rounded-2xl font-bold text-white mt-2 cursor-pointer"
                   onClick={scrollToScheduler}
                 >

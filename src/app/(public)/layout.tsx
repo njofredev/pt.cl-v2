@@ -9,14 +9,22 @@ export default function PublicLayout({
 }) {
   return (
     <div className="relative min-h-screen dark:bg-slate-950 bg-white">
-      {/* Ambient Background Effects (Vambe.ai style, Dark Mode Only) */}
-      <div className="fixed inset-0 pointer-events-none overflow-hidden hidden dark:block" style={{ zIndex: 0 }}>
-        {/* Top Left Dynamic Glow */}
-        <div className="absolute -top-[15%] -left-[15%] w-[60%] h-[65%] bg-blue-600/15 rounded-full blur-[160px]" />
-        {/* Mid Right Contrast Glow */}
-        <div className="absolute top-[20%] -right-[15%] w-[55%] h-[60%] bg-indigo-600/15 rounded-full blur-[160px]" />
-        {/* Bottom Left Subtle Deep Glow */}
-        <div className="absolute bottom-[-10%] left-[5%] w-[50%] h-[55%] bg-emerald-600/10 rounded-full blur-[180px]" />
+      {/* Background Atmospheric Engine (High-Intensity Dark Mode ONLY) */}
+      <div className="absolute top-0 inset-0 pointer-events-none overflow-hidden -z-10 select-none hidden dark:block">
+        {/* Glow Top Right (Intense Accent) */}
+        <div className="absolute -top-32 -right-32 w-[800px] h-[800px] bg-secondary/30 rounded-full blur-[160px] opacity-90" />
+        
+        {/* Glow Middle Left (Strong Dynamic Depth) */}
+        <div className="absolute top-[600px] -left-64 w-[1000px] h-[1000px] bg-primary/40 rounded-full blur-[200px] opacity-80" />
+
+        {/* Signature Visual Grid Overlay */}
+        <div className="absolute top-0 left-0 w-full h-full bg-[radial-gradient(#334155_1px,transparent_1px)] [background-size:32px_32px] opacity-[0.2] [mask-image:linear-gradient(to_bottom,white,transparent,white)]" />
+        
+        {/* Deep Dynamic Bottom Depth Accent */}
+        <div className="absolute top-[1500px] right-[-10%] w-[700px] h-[700px] bg-indigo-500/25 rounded-full blur-[160px] opacity-80" />
+        
+        {/* Submerged footer base glow */}
+        <div className="absolute bottom-0 left-[20%] w-[800px] h-[600px] bg-secondary/10 rounded-full blur-[180px]" />
       </div>
 
       <div className="relative" style={{ zIndex: 1 }}>

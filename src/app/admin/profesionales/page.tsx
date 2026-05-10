@@ -6,15 +6,30 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
 import { ProfessionalForm, ProfessionalData } from '@/components/admin/ProfessionalForm';
+import { 
+  Dialog, 
+  DialogContent, 
+  DialogDescription, 
+  DialogFooter, 
+  DialogHeader, 
+  DialogTitle 
+} from "@/components/ui/dialog";
 
 export default function AdminProfessionalsPage() {
   const [professionals, setProfessionals] = useState<ProfessionalData[]>([]);
   const [loading, setLoading] = useState(true);
   const [searchTerm, setSearchTerm] = useState("");
+  const [selectedArea, setSelectedArea] = useState("Todas");
   
-  // Modal states
+  // Extract unique areas dynamically
+  const uniqueAreas = ["Todas", ...Array.from(new Set(professionals.map(p => p.area).filter(Boolean) as string[]))];
   const [isFormOpen, setIsFormOpen] = useState(false);
   const [selectedProfessional, setSelectedProfessional] = useState<ProfessionalData | null>(null);
+
+  // Delete Confirmation States
+  const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false);
+  const [professionalToDelete, setProfessionalToDelete] = useState<ProfessionalData | null>(null);
+  const [isDeleting, setIsDeleting] = useState(false);
 
   const fetchProfessionals = async () => {
     setLoading(true);
@@ -45,29 +60,43 @@ export default function AdminProfessionalsPage() {
     setIsFormOpen(true);
   };
 
-  const handleDelete = async (id?: number) => {
-    if (!id) return;
-    if (!confirm("¿Estás seguro de que deseas eliminar a este profesional? Esta acción no se puede deshacer.")) return;
+  const handleDeleteClick = (prof: ProfessionalData) => {
+    setProfessionalToDelete(prof);
+    setIsDeleteDialogOpen(true);
+  };
 
+  const confirmDelete = async () => {
+    if (!professionalToDelete || !professionalToDelete.id) return;
+    
+    setIsDeleting(true);
     try {
-      const res = await fetch(`/api/admin/professionals/${id}`, {
+      const res = await fetch(`/api/admin/professionals/${professionalToDelete.id}`, {
         method: 'DELETE',
       });
+      
       if (res.ok) {
+        setIsDeleteDialogOpen(false);
+        setProfessionalToDelete(null);
         fetchProfessionals();
       } else {
-        alert("Error al eliminar");
+        alert("Error al intentar eliminar el registro.");
       }
     } catch (error) {
-      console.error(error);
-      alert("Error de red");
+      console.error("Delete error:", error);
+      alert("Error de red al eliminar.");
+    } finally {
+      setIsDeleting(false);
     }
   };
 
   const filteredProfessionals = professionals.filter(p => {
     const term = searchTerm.toLowerCase();
     const fullName = `${p.firstName} ${p.lastName || ''}`.toLowerCase();
-    return fullName.includes(term) || (p.specialty || '').toLowerCase().includes(term) || (p.area || '').toLowerCase().includes(term);
+    const matchesSearch = fullName.includes(term) || (p.specialty || '').toLowerCase().includes(term) || (p.area || '').toLowerCase().includes(term);
+    
+    const matchesArea = selectedArea === "Todas" || p.area === selectedArea;
+    
+    return matchesSearch && matchesArea;
   });
 
   return (
@@ -88,10 +117,26 @@ export default function AdminProfessionalsPage() {
           <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400" size={20} />
           <Input 
             placeholder="Buscar por nombre, especialidad o área..." 
-            className="pl-12 h-14 rounded-2xl bg-slate-50 border-transparent focus:bg-white transition-all text-base"
+            className="pl-12 h-14 rounded-2xl bg-slate-50 border-transparent focus:bg-white transition-all text-base text-slate-900"
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
           />
+        </div>
+
+        <div className="flex flex-wrap gap-2 mb-6">
+          {uniqueAreas.map(area => (
+            <button 
+              key={area} 
+              onClick={() => setSelectedArea(area)}
+              className={`px-4 py-2 rounded-xl text-xs font-bold transition-all border ${
+                selectedArea === area 
+                  ? "bg-primary text-white border-primary shadow-md shadow-primary/20" 
+                  : "bg-white text-slate-500 border-slate-100 hover:bg-slate-50 hover:border-slate-200"
+              }`}
+            >
+              {area}
+            </button>
+          ))}
         </div>
 
         <div className="overflow-x-auto">
@@ -139,7 +184,12 @@ export default function AdminProfessionalsPage() {
                         <Button variant="ghost" size="icon" onClick={() => handleEdit(prof)} className="h-8 w-8 text-slate-400 hover:text-primary hover:bg-primary/10 rounded-lg">
                           <Edit2 size={16} />
                         </Button>
-                        <Button variant="ghost" size="icon" onClick={() => handleDelete(prof.id)} className="h-8 w-8 text-slate-400 hover:text-red-600 hover:bg-red-50 rounded-lg">
+                        <Button 
+                          variant="ghost" 
+                          size="icon" 
+                          onClick={() => handleDeleteClick(prof)} 
+                          className="h-8 w-8 text-slate-400 hover:text-red-600 hover:bg-red-50 rounded-lg"
+                        >
                           <Trash2 size={16} />
                         </Button>
                       </div>
@@ -158,6 +208,51 @@ export default function AdminProfessionalsPage() {
         professional={selectedProfessional}
         onSuccess={fetchProfessionals}
       />
+
+      {/* Modern Delete Confirmation Modal */}
+      <Dialog open={isDeleteDialogOpen} onOpenChange={setIsDeleteDialogOpen}>
+        <DialogContent className="max-w-md bg-white rounded-3xl overflow-hidden border border-slate-100 shadow-2xl text-slate-900">
+          <DialogHeader className="flex flex-col items-center text-center pt-4">
+            <div className="w-16 h-16 bg-red-50 rounded-full flex items-center justify-center mb-4 text-red-500">
+              <AlertTriangle size={32} strokeWidth={1.5} />
+            </div>
+            <DialogTitle className="text-2xl font-bold tracking-tight text-slate-900">
+              ¿Confirmar eliminación?
+            </DialogTitle>
+            <DialogDescription className="text-base text-slate-500 mt-2">
+              Estás a punto de eliminar permanentemente a <br/>
+              <span className="font-bold text-primary">
+                {professionalToDelete?.firstName} {professionalToDelete?.lastName}
+              </span>.
+              Esta acción no se puede deshacer.
+            </DialogDescription>
+          </DialogHeader>
+          <DialogFooter className="flex flex-row sm:flex-row gap-3 sm:gap-3 mt-6 border-t border-slate-50 pt-6 bg-slate-50/50 -mx-6 px-6 -mb-6 pb-6">
+            <Button
+              variant="outline"
+              onClick={() => setIsDeleteDialogOpen(false)}
+              disabled={isDeleting}
+              className="flex-1 h-12 rounded-xl font-bold border-slate-200 text-slate-600 hover:bg-white hover:text-slate-900 hover:border-slate-300 transition-all"
+            >
+              Cancelar
+            </Button>
+            <Button
+              onClick={confirmDelete}
+              disabled={isDeleting}
+              className="flex-1 h-12 rounded-xl font-bold bg-red-600 hover:bg-red-700 text-white shadow-lg shadow-red-200 transition-all"
+            >
+              {isDeleting ? (
+                <>
+                  <Loader2 className="mr-2 h-5 w-5 animate-spin" />
+                  Eliminando...
+                </>
+              ) : (
+                'Sí, Eliminar'
+              )}
+            </Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
     </div>
   );
 }
