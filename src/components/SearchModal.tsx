@@ -22,7 +22,7 @@ const SEARCH_RESULTS: SearchResult[] = [
   { id: "p1", title: "Salud Dental", category: "Especialidades", type: "pagina", link: "/servicios/dental", icon: <HeartPulse size={20} /> },
   { id: "p2", title: "Salud Mental", category: "Especialidades", type: "pagina", link: "/servicios/mental", icon: <Brain size={20} /> },
   { id: "p3", title: "Medicina General", category: "Especialidades", type: "pagina", link: "/servicios/medicina", icon: <Stethoscope size={20} /> },
-  { id: "p4", title: "Terapias Alternativas", category: "Especialidades", type: "pagina", link: "/servicios/terapias", icon: <Zap size={20} /> },
+  { id: "p4", title: "Terapias Complementarias", category: "Especialidades", type: "pagina", link: "/servicios/terapias", icon: <Zap size={20} /> },
   
   // NOVEDADES 2026
   { id: "n1", title: "Centro Radiológico", category: "Novedades 2026", type: "servicio", link: "#", icon: <Activity size={20} /> },

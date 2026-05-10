@@ -15,7 +15,7 @@ export const AREAS = [
   "Salud Dental",
   "Salud Mental",
   "Medicina General",
-  "Terapias Alternativas",
+  "Terapias Complementarias",
 ] as const;
 
 export type Area = (typeof AREAS)[number];
@@ -28,8 +28,8 @@ export const PROFESSIONALS: Professional[] = [
   { id: 4, name: "Dra. Laura Venegas", specialty: "Psiquiatría Adultos", area: "Salud Mental", sucursal: "Vitacura", description: "Atención especializada en trastornos del ánimo y ansiedad." },
   { id: 5, name: "Andro Sapunar Rodríguez", specialty: "Kinesiología", area: "Medicina General", sucursal: "Vitacura", description: "Kinesiólogo enfocado en bienestar y rehabilitación física.", image: "/img_profesionales/perfilAndroSapunar.jpg" },
   { id: 6, name: "Dr. Juan Pérez", specialty: "Kinesiología", area: "Medicina General", sucursal: "Los Tribunales", description: "Rehabilitación física y deportiva." },
-  { id: 7, name: "Sra. Carmen Gloria", specialty: "Masoterapia", area: "Terapias Alternativas", sucursal: "Vitacura", description: "Masajes descontracturantes y relajación." },
-  { id: 8, name: "Dr. Miguel Ángel", specialty: "Biomagnetismo", area: "Terapias Alternativas", sucursal: "Los Tribunales", description: "Terapia de imanes para el equilibrio integral." },
+  { id: 7, name: "Sra. Carmen Gloria", specialty: "Masoterapia", area: "Terapias Complementarias", sucursal: "Vitacura", description: "Masajes descontracturantes y relajación." },
+  { id: 8, name: "Dr. Miguel Ángel", specialty: "Biomagnetismo", area: "Terapias Complementarias", sucursal: "Los Tribunales", description: "Terapia de imanes para el equilibrio integral." },
 ];
 
 export async function getProfessionals(): Promise<Professional[]> {

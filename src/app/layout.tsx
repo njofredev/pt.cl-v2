@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import "./globals.css";
-import { Navbar } from "@/components/Navbar";
-import { Footer } from "@/components/Footer";
+import { ThemeProvider } from "@/components/ThemeProvider";
+
 
 export const metadata: Metadata = {
   title: "Policlínico Tabancura | Salud Dental, Mental y Medicina General",
@@ -14,11 +14,16 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="es">
-      <body className="antialiased text-slate-900">
-        <Navbar />
-        <main>{children}</main>
-        <Footer />
+    <html lang="es" suppressHydrationWarning>
+      <body className="antialiased text-slate-900 bg-slate-50 dark:bg-slate-950 dark:text-slate-50 transition-colors duration-300">
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="light"
+          enableSystem
+          disableTransitionOnChange
+        >
+          {children}
+        </ThemeProvider>
       </body>
     </html>
   );

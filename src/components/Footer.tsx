@@ -4,16 +4,13 @@ import { Activity, ShieldCheck, Instagram, Facebook, MapPin, Phone, Mail } from 
 
 export const Footer = () => {
   return (
-    <footer className="bg-primary text-white pt-20 md:pt-24 pb-12">
+    <footer className="bg-primary dark:bg-transparent text-white pt-20 md:pt-24 pb-12 transition-colors duration-300">
       <div className="container mx-auto px-6">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-x-12 gap-y-16 mb-24">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-x-8 gap-y-16 mb-24">
           {/* Brand & Mission */}
           <div className="space-y-6">
             <Link href="/" className="flex items-center gap-3">
-              <img src="/logo.svg" alt="Logo" className="h-10 w-auto brightness-0 invert" />
-              <span className="text-2xl font-bold tracking-tighter text-white leading-none">
-                POLICLÍNICO<span className="text-secondary">TABANCURA</span>
-              </span>
+              <img src="/logo.svg" alt="Logo" className="h-12 w-auto brightness-0 invert" />
             </Link>
             <p className="text-slate-300 font-medium leading-relaxed">
               Tecnología y cuidado humano al servicio de tu salud. Más de 20 años innovando en medicina integral.
@@ -32,9 +29,15 @@ export const Footer = () => {
           <div>
             <h4 className="text-[10px] font-bold uppercase tracking-[0.3em] text-secondary mb-8">Institucional</h4>
             <ul className="space-y-4">
-              {['Quiénes Somos', 'Misión y Visión', 'Equipo Médico', 'Convenios', 'Preguntas Frecuentes'].map((item) => (
-                <li key={item}>
-                  <Link href="#" className="text-slate-300 hover:text-white transition-colors font-medium">{item}</Link>
+              {[
+                { name: 'Quiénes Somos', href: '/nosotros' },
+                { name: 'Misión y Visión', href: '/nosotros#mision' },
+                { name: 'Equipo Médico', href: '/nosotros#equipo' },
+                { name: 'Convenios', href: '/#convenios' },
+                { name: 'Preguntas Frecuentes', href: '#' }
+              ].map((item) => (
+                <li key={item.name}>
+                  <Link href={item.href} className="text-slate-300 hover:text-white transition-colors font-medium">{item.name}</Link>
                 </li>
               ))}
             </ul>
@@ -44,35 +47,85 @@ export const Footer = () => {
           <div>
             <h4 className="text-[10px] font-bold uppercase tracking-[0.3em] text-secondary mb-8">Servicios</h4>
             <ul className="space-y-4">
-              {['Salud Dental', 'Salud Mental', 'Medicina General', 'Terapias Alternativas', 'Toma de Muestras'].map((item) => (
-                <li key={item}>
-                  <Link href="#" className="text-slate-300 hover:text-white transition-colors font-medium">{item}</Link>
+              {[
+                { name: 'Salud Dental', href: '/servicios/dental' },
+                { name: 'Salud Mental', href: '/servicios/mental' },
+                { name: 'Medicina General', href: '/servicios/medicina' },
+                { name: 'Terapias Complementarias', href: '/servicios/terapias' },
+                { name: 'Toma de Muestras', href: '/servicios/medicina' }
+              ].map((item) => (
+                <li key={item.name}>
+                  <Link href={item.href} className="text-slate-300 hover:text-white transition-colors font-medium">{item.name}</Link>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          {/* Site Map: Novedades */}
+          <div>
+            <h4 className="text-[10px] font-bold uppercase tracking-[0.3em] text-secondary mb-8">Novedades 2026</h4>
+            <ul className="space-y-4">
+              {[
+                { name: 'Centro Radiológico', href: '/novedades/centro-radiologico' },
+                { name: 'Laboratorio Digital', href: '/novedades/laboratorio' },
+                { name: 'Cotizador Digital', href: '/novedades/cotizador' },
+                { name: 'Validador Mi Vita', href: '/#mivita' }
+              ].map((item) => (
+                <li key={item.name}>
+                  <Link href={item.href} className="text-slate-300 hover:text-white transition-colors font-medium">{item.name}</Link>
                 </li>
               ))}
             </ul>
           </div>
 
           {/* Contact Info */}
-          <div>
+          <div className="col-span-1">
             <h4 className="text-[10px] font-bold uppercase tracking-[0.3em] text-secondary mb-8">Contacto</h4>
-            <ul className="space-y-6">
-              <li className="flex gap-4">
-                <MapPin className="text-secondary shrink-0" size={20} />
-                <span className="text-slate-300 font-medium">Av. Vitacura 8620, Vitacura, Santiago</span>
-              </li>
-              <li className="flex gap-4">
-                <Phone className="text-secondary shrink-0" size={20} />
-                <span className="text-slate-300 font-medium">+56 2 2933 6740</span>
-              </li>
-              <li className="flex gap-4 items-start">
-                <Mail className="text-secondary shrink-0 mt-0.5" size={20} />
-                <div className="flex flex-col gap-2">
-                  <span className="text-slate-300 font-medium break-all">secretaria@policlinicotabancura.cl</span>
-                  <span className="text-slate-300 font-medium break-all">recepciondental@policlinicotabancura.cl</span>
-                  <span className="text-slate-300 font-medium break-all">recepcionmedica@policlinicotabancura.cl</span>
+            <div className="space-y-6">
+              
+              {/* Sucursal Vitacura */}
+              <div className="space-y-3">
+                <div className="flex items-center gap-2 mb-2">
+                  <div className="h-px w-4 bg-secondary/30"></div>
+                  <span className="text-white text-[11px] font-bold uppercase tracking-widest">Sucursal Vitacura</span>
                 </div>
-              </li>
-            </ul>
+                <a href="https://www.google.com/maps/search/?api=1&query=Avenida+Vitacura+8620+Vitacura" target="_blank" rel="noreferrer" className="flex gap-3 text-slate-300 hover:text-white transition-colors group text-sm items-start">
+                  <MapPin className="text-secondary shrink-0 mt-0.5 group-hover:scale-110 transition-transform" size={16} />
+                  <span>Av. Vitacura 8620</span>
+                </a>
+                <a href="tel:+56229336740" className="flex gap-3 text-slate-300 hover:text-white transition-colors group text-sm items-center">
+                  <Phone className="text-secondary shrink-0 group-hover:scale-110 transition-transform" size={16} />
+                  <span>+56 2 2933 6740</span>
+                </a>
+                <div className="flex items-start gap-3 pt-1 text-[12px]">
+                  <Mail className="text-secondary shrink-0 mt-0.5 opacity-70" size={15} />
+                  <div className="flex flex-col gap-1">
+                    <a href="mailto:recepciondental@policlinicotabancura.cl" className="text-slate-400 hover:text-white transition-colors break-all leading-tight">recepciondental@policlinicotabancura.cl</a>
+                    <a href="mailto:recepcionmedica@policlinicotabancura.cl" className="text-slate-400 hover:text-white transition-colors break-all leading-tight">recepcionmedica@policlinicotabancura.cl</a>
+                  </div>
+                </div>
+              </div>
+
+              {/* Sucursal Los Tribunales */}
+              <div className="space-y-3 pt-3 border-t border-white/5">
+                <div className="flex items-center gap-2 mb-2">
+                  <div className="h-px w-4 bg-secondary/30"></div>
+                  <span className="text-white text-[11px] font-bold uppercase tracking-widest">Sucursal Los Tribunales</span>
+                </div>
+                <a href="https://www.google.com/maps/search/?api=1&query=Calle+Los+Tribunales+1268+Vitacura" target="_blank" rel="noreferrer" className="flex gap-3 text-slate-300 hover:text-white transition-colors group text-sm items-start">
+                  <MapPin className="text-secondary shrink-0 mt-0.5 group-hover:scale-110 transition-transform" size={16} />
+                  <span>Calle Los Tribunales #1268</span>
+                </a>
+                <a href="tel:+56222172635" className="flex gap-3 text-slate-300 hover:text-white transition-colors group text-sm items-center">
+                  <Phone className="text-secondary shrink-0 group-hover:scale-110 transition-transform" size={16} />
+                  <span>+56 2 2217 2635</span>
+                </a>
+                <a href="mailto:secretaria@policlinicotabancura.cl" className="flex gap-3 text-[12px] text-slate-400 hover:text-white transition-colors items-center pt-1">
+                  <Mail className="text-secondary shrink-0 opacity-70" size={15} />
+                  <span className="break-all">secretaria@policlinicotabancura.cl</span>
+                </a>
+              </div>
+            </div>
           </div>
         </div>
 

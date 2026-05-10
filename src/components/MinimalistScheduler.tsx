@@ -9,10 +9,11 @@ import {
   Brain,
   Stethoscope,
   Activity,
-  HeartPulse,
+  Leaf,
   Microscope,
-  Smile,
+  SmilePlus,
   Info,
+  Accessibility
 } from "lucide-react";
 
 interface ServiceOption {
@@ -33,73 +34,137 @@ interface Category {
   title: string;
   icon: React.ReactNode;
   services: Service[];
+  color?: 'cyan' | 'purple' | 'rose' | 'blue' | 'green' | 'orange';
 }
 
+const COLOR_MAP = {
+  cyan: { 
+    text: "text-cyan-500", 
+    bg: "bg-cyan-500/10", 
+    border: "border-cyan-500/30", 
+    hoverText: "group-hover:text-cyan-500",
+    hoverBorder: "hover:border-cyan-500/30",
+    iconBg: "bg-cyan-500/20",
+    shadow: "shadow-cyan-500/20"
+  },
+  purple: { 
+    text: "text-purple-500", 
+    bg: "bg-purple-500/10", 
+    border: "border-purple-500/30", 
+    hoverText: "group-hover:text-purple-500",
+    hoverBorder: "hover:border-purple-500/30",
+    iconBg: "bg-purple-500/20",
+    shadow: "shadow-purple-500/20"
+  },
+  rose: { 
+    text: "text-rose-500", 
+    bg: "bg-rose-500/10", 
+    border: "border-rose-500/30", 
+    hoverText: "group-hover:text-rose-500",
+    hoverBorder: "hover:border-rose-500/30",
+    iconBg: "bg-rose-500/20",
+    shadow: "shadow-rose-500/20"
+  },
+  blue: { 
+    text: "text-blue-500", 
+    bg: "bg-blue-500/10", 
+    border: "border-blue-500/30", 
+    hoverText: "group-hover:text-blue-500",
+    hoverBorder: "hover:border-blue-500/30",
+    iconBg: "bg-blue-500/20",
+    shadow: "shadow-blue-500/20"
+  },
+  green: { 
+    text: "text-green-500", 
+    bg: "bg-green-500/10", 
+    border: "border-green-500/30", 
+    hoverText: "group-hover:text-green-500",
+    hoverBorder: "hover:border-green-500/30",
+    iconBg: "bg-green-500/20",
+    shadow: "shadow-green-500/20"
+  },
+  orange: { 
+    text: "text-orange-500", 
+    bg: "bg-orange-500/10", 
+    border: "border-orange-500/30", 
+    hoverText: "group-hover:text-orange-500",
+    hoverBorder: "hover:border-orange-500/30",
+    iconBg: "bg-orange-500/20",
+    shadow: "shadow-orange-500/20"
+  },
+};
+
 const SCHEDULE_DATA: Category[] = [
-  { 
-    id: "saludDental", 
-    title: "Salud Dental", 
-    icon: <Smile size={28} />, 
+  {
+    id: "saludDental",
+    title: "Salud Dental",
+    icon: <SmilePlus size={26} strokeWidth={1.5} />,
+    color: 'cyan',
     services: [
-      { label: "Diagnóstico", info: "Evaluación inicial y presupuesto", link: "https://ff.healthatom.io/drrRF5" }, 
-      { label: "Urgencia", info: "Atención inmediata por dolor", link: "https://ff.healthatom.io/ULnJPR" }, 
-      { label: "Limpieza", info: "Profilaxis y eliminación de sarro", link: "https://ff.healthatom.io/tlmKaf" }, 
-      { label: "Frenillos", info: "Ortodoncia adultos y niños", link: "https://ff.healthatom.io/FGrUIj" }, 
-      { label: "Niños", info: "Odontopediatría especializada", link: "https://ff.healthatom.io/hzazOC" }, 
-      { label: "Blanqueamiento", info: "Estética dental avanzada", link: "https://ff.healthatom.io/0RW6UD" }, 
-      { label: "Especialidad", info: "Endodoncia, Implantes, Prótesis", link: "https://ff.healthatom.io/fesVZO" }, 
+      { label: "Diagnóstico", info: "Evaluación inicial y presupuesto", link: "https://ff.healthatom.io/drrRF5" },
+      { label: "Urgencia", info: "Atención inmediata por dolor", link: "https://ff.healthatom.io/ULnJPR" },
+      { label: "Limpieza", info: "Profilaxis y eliminación de sarro", link: "https://ff.healthatom.io/tlmKaf" },
+      { label: "Frenillos", info: "Ortodoncia adultos y niños", link: "https://ff.healthatom.io/FGrUIj" },
+      { label: "Niños", info: "Odontopediatría especializada", link: "https://ff.healthatom.io/hzazOC" },
+      { label: "Blanqueamiento", info: "Estética dental avanzada", link: "https://ff.healthatom.io/0RW6UD" },
+      { label: "Especialidad", info: "Endodoncia, Implantes, Prótesis", link: "https://ff.healthatom.io/fesVZO" },
       { label: "TTM", info: "Dolor orofacial y bruxismo", link: "https://ff.healthatom.io/Ifb484" }
-    ] 
+    ]
   },
-  { 
-    id: "saludMental", 
-    title: "Salud Mental", 
-    icon: <Brain size={28} />, 
+  {
+    id: "saludMental",
+    title: "Salud Mental",
+    icon: <Brain size={26} strokeWidth={1.5} />,
+    color: 'purple',
     services: [
-      { 
-        label: "Psicología", 
+      {
+        label: "Psicología",
         info: "Atención individual y parejas",
-        isMulti: true, 
+        isMulti: true,
         options: [
-          { label: "Presencial", link: "https://ff.healthatom.io/wlP9EZ" }, 
+          { label: "Presencial", link: "https://ff.healthatom.io/wlP9EZ" },
           { label: "Teleconsulta", link: "https://ff.healthatom.io/7c4geA" }
-        ] 
-      }, 
-      { label: "Psiquiatría", info: "Control médico especializado", link: "https://ff.healthatom.io/SeOkpO" }, 
-      { label: "Fonoaudiología", info: "Lenguaje y deglución", link: "https://ff.healthatom.io/nTp5kE" }, 
+        ]
+      },
+      { label: "Psiquiatría", info: "Control médico especializado", link: "https://ff.healthatom.io/SeOkpO" },
+      { label: "Fonoaudiología", info: "Lenguaje y deglución", link: "https://ff.healthatom.io/nTp5kE" },
       { label: "Psicopedagogía", info: "Dificultades de aprendizaje", link: "https://ff.healthatom.io/rIxNId" }
-    ] 
+    ]
   },
-  { 
-    id: "kinesiologia", 
-    title: "Kinesiología", 
-    icon: <Activity size={28} />, 
-    services: [{ label: "Evaluación Kinesiología", info: "Rehabilitación física integral", link: "https://ff.healthatom.io/xxzVqR" }] 
+  {
+    id: "kinesiologia",
+    title: "Kinesiología",
+    icon: <Accessibility size={26} strokeWidth={1.5} />,
+    color: 'orange',
+    services: [{ label: "Evaluación Kinesiología", info: "Rehabilitación física integral", link: "https://ff.healthatom.io/xxzVqR" }]
   },
-  { 
-    id: "medicinaGeneral", 
-    title: "Medicina General", 
-    icon: <Stethoscope size={28} />, 
+  {
+    id: "medicinaGeneral",
+    title: "Medicina General",
+    icon: <Stethoscope size={26} strokeWidth={1.5} />,
+    color: 'blue',
     services: [
-      { label: "Consulta Médica", info: "Medicina familiar y preventiva", link: "https://ff.healthatom.io/N9Xjef" }, 
-      { label: "Enfermería", info: "Procedimientos y curaciones", link: "https://ff.healthatom.io/vEOYZh" }, 
+      { label: "Consulta Médica", info: "Medicina familiar y preventiva", link: "https://ff.healthatom.io/N9Xjef" },
+      { label: "Enfermería", info: "Procedimientos y curaciones", link: "https://ff.healthatom.io/vEOYZh" },
       { label: "Podología", info: "Cuidado clínico de pies", link: "https://ff.healthatom.io/9MdPUT" }
-    ] 
+    ]
   },
-  { 
-    id: "terapiasAlternativas", 
-    title: "Terapias Alternativas", 
-    icon: <HeartPulse size={28} />, 
+  {
+    id: "terapiasAlternativas",
+    title: "Terapias Complementarias",
+    icon: <Leaf size={26} strokeWidth={1.5} />,
+    color: 'green',
     services: [
-      { label: "Masoterapia", info: "Masajes descontracturantes", link: "https://ff.healthatom.io/B0htiL" }, 
+      { label: "Masoterapia", info: "Masajes descontracturantes", link: "https://ff.healthatom.io/B0htiL" },
       { label: "Biomagnetismo", info: "Terapia con imanes", link: "https://ff.healthatom.io/kQfeV2" }
-    ] 
+    ]
   },
-  { 
-    id: "tomaMuestras", 
-    title: "Toma de Muestras", 
-    icon: <Microscope size={28} />, 
-    services: [{ label: "Laboratorio", info: "Resultados rápidos en 24h", link: "https://ff.healthatom.io/FKV7ZY" }] 
+  {
+    id: "tomaMuestras",
+    title: "Toma de Muestras",
+    icon: <Microscope size={26} strokeWidth={1.5} />,
+    color: 'rose',
+    services: [{ label: "Laboratorio", info: "Resultados rápidos en 24h", link: "https://ff.healthatom.io/FKV7ZY" }]
   }
 ];
 
@@ -115,23 +180,23 @@ export function MinimalistScheduler() {
   };
 
   return (
-    <div className="w-full bg-white rounded-[2.5rem] border border-slate-100 overflow-hidden">
+    <div className="w-full bg-white dark:bg-slate-900 rounded-[2.5rem] border border-slate-100 dark:border-slate-800 overflow-hidden transition-colors">
       {/* Header más Compacto */}
-      <div className="border-b border-slate-100 bg-slate-50/50 px-4 md:px-8 py-4 md:py-6 relative">
+      <div className="border-b border-slate-100 dark:border-slate-800 bg-slate-50/50 dark:bg-slate-950 px-4 md:px-8 py-4 md:py-6 relative">
         <div className="max-w-5xl mx-auto flex items-center justify-between">
-          
-          <div className="w-auto sm:w-40">
+
+          <div className="w-24 sm:w-40 shrink-0">
             <AnimatePresence mode="wait">
               {selectedCategory && (
-                <motion.button 
+                <motion.button
                   key="back"
                   initial={{ opacity: 0, x: -10 }}
                   animate={{ opacity: 1, x: 0 }}
                   exit={{ opacity: 0, x: -10 }}
                   onClick={() => setSelectedCategory(null)}
-                  className="flex items-center gap-2 text-sm font-bold text-slate-400 hover:text-primary transition-all group"
+                  className="flex items-center gap-2 text-sm font-bold text-slate-400 hover:text-primary dark:hover:text-secondary transition-all group"
                 >
-                  <div className="w-9 h-9 rounded-xl bg-white border border-slate-100 flex items-center justify-center group-hover:bg-primary/10 transition-colors">
+                  <div className="w-9 h-9 rounded-xl bg-white dark:bg-slate-800 border border-slate-100 dark:border-slate-700 flex items-center justify-center group-hover:bg-primary/10 transition-colors">
                     <ArrowLeft size={16} />
                   </div>
                   <span>Volver</span>
@@ -144,16 +209,16 @@ export function MinimalistScheduler() {
             <div className="relative">
               {/* Icono posicionado absolutamente para no desplazar el centro del texto */}
               <div className="absolute right-full mr-4 top-1/2 -translate-y-1/2 hidden md:block">
-                <div className="w-10 h-10 rounded-xl bg-slate-50 border border-slate-100 flex items-center justify-center text-primary shadow-sm">
+                <div className="w-10 h-10 rounded-xl bg-slate-50 dark:bg-slate-800 border border-slate-100 dark:border-slate-700 flex items-center justify-center text-primary dark:text-slate-200 shadow-sm">
                   <Calendar size={20} />
                 </div>
               </div>
-              
+
               <div className="text-center">
-                <h4 className="text-xl font-bold text-primary tracking-tight">Agendar Hora</h4>
+                <h4 className="text-xl font-bold text-primary dark:text-white tracking-tight">Agendar Hora</h4>
                 <div className="h-4 flex items-center justify-center mt-0.5">
                   <AnimatePresence mode="wait">
-                    <motion.p 
+                    <motion.p
                       key={selectedCategory ? 'step2' : 'step1'}
                       initial={{ opacity: 0, y: 3 }}
                       animate={{ opacity: 1, y: 0 }}
@@ -168,15 +233,15 @@ export function MinimalistScheduler() {
             </div>
           </div>
 
-          <div className="w-auto sm:w-40 flex justify-end">
-            <div className="flex items-center gap-3 sm:gap-5 border-l border-slate-200 pl-4 sm:pl-6">
+          <div className="w-24 sm:w-40 flex justify-end shrink-0">
+            <div className="flex items-center gap-3 sm:gap-5 border-l border-slate-200 dark:border-slate-700 pl-4 sm:pl-6">
               <div className="flex flex-col items-center gap-1">
-                <div className={`w-2.5 h-2.5 rounded-full transition-colors duration-500 ${selectedCategory ? 'bg-secondary' : 'bg-secondary/40'}`} />
-                <span className={`text-[8px] font-bold uppercase tracking-wider hidden sm:inline ${selectedCategory ? 'text-secondary' : 'text-slate-400'}`}>Categoría</span>
+                <div className={`w-2.5 h-2.5 rounded-full transition-colors duration-500 ${selectedCategory ? 'bg-secondary' : 'bg-[#FF8A00]'}`} />
+                <span className={`text-[8px] font-bold uppercase tracking-wider hidden sm:inline ${selectedCategory ? 'text-secondary' : 'text-[#FF8A00]'}`}>Categoría</span>
               </div>
               <div className="flex flex-col items-center gap-1">
-                <div className={`w-2.5 h-2.5 rounded-full transition-colors duration-500 ${selectedCategory ? 'bg-[#FF8A00]' : 'bg-slate-200'}`} />
-                <span className={`text-[8px] font-bold uppercase tracking-wider hidden sm:inline ${selectedCategory ? 'text-[#FF8A00]' : 'text-slate-400'}`}>Servicio</span>
+                <div className={`w-2.5 h-2.5 rounded-full transition-colors duration-500 ${selectedCategory ? 'bg-[#FF8A00]' : 'bg-slate-200 dark:bg-slate-700'}`} />
+                <span className={`text-[8px] font-bold uppercase tracking-wider hidden sm:inline ${selectedCategory ? 'text-[#FF8A00]' : 'text-slate-400 dark:text-slate-500'}`}>Servicio</span>
               </div>
             </div>
           </div>
@@ -185,7 +250,7 @@ export function MinimalistScheduler() {
       </div>
 
       {/* Contenido Principal Compacto */}
-      <div className="p-4 md:p-10 flex justify-center bg-white min-h-[300px]">
+      <div className="p-4 md:p-10 flex justify-center bg-white dark:bg-slate-900 min-h-[300px]">
         <div className="w-full max-w-5xl">
           <AnimatePresence mode="wait">
             {!selectedCategory ? (
@@ -194,22 +259,25 @@ export function MinimalistScheduler() {
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: -10 }}
-                className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4"
+                className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4"
               >
-                {SCHEDULE_DATA.map((cat) => (
-                  <button
-                    key={cat.id}
-                    onClick={() => handleCategoryClick(cat)}
-                    className="flex items-center gap-5 p-6 rounded-[2rem] bg-slate-50/50 hover:bg-white border border-slate-50 hover:border-primary/10 transition-all text-left group min-h-[110px]"
-                  >
-                    <div className="w-13 h-13 rounded-2xl bg-primary border border-primary/10 flex items-center justify-center text-secondary group-hover:scale-110 transition-transform shadow-lg shadow-primary/20 shrink-0">
-                      {cat.icon}
-                    </div>
-                    <span className="text-xl font-bold text-slate-700 group-hover:text-primary transition-colors leading-tight">
-                      {cat.title}
-                    </span>
-                  </button>
-                ))}
+                {SCHEDULE_DATA.map((cat) => {
+                  const colors = COLOR_MAP[cat.color || 'blue'];
+                  return (
+                    <button
+                      key={cat.id}
+                      onClick={() => handleCategoryClick(cat)}
+                      className={`flex flex-col sm:flex-row items-center gap-3 sm:gap-5 p-4 sm:p-6 rounded-[1.5rem] sm:rounded-[2rem] bg-slate-50/50 dark:bg-slate-950/50 hover:bg-white dark:hover:bg-slate-900/80 border border-slate-100 dark:border-slate-800 transition-all text-center sm:text-left group min-h-[110px] w-full shadow-sm hover:shadow-md ${colors.hoverBorder}`}
+                    >
+                      <div className={`w-10 h-10 sm:w-14 sm:h-14 rounded-xl sm:rounded-2xl ${colors.bg} border ${colors.border} flex items-center justify-center ${colors.text} group-hover:scale-110 transition-transform shrink-0 [&>svg]:w-5 [&>svg]:h-5 sm:[&>svg]:w-[26px] sm:[&>svg]:h-[26px]`}>
+                        {cat.icon}
+                      </div>
+                      <span className={`text-sm sm:text-xl font-bold text-slate-700 dark:text-slate-200 ${colors.hoverText} transition-colors leading-tight`}>
+                        {cat.title}
+                      </span>
+                    </button>
+                  );
+                })}
               </motion.div>
             ) : (
               <motion.div
@@ -217,27 +285,22 @@ export function MinimalistScheduler() {
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: -10 }}
-                className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 p-4 -m-4 custom-scrollbar"
+                className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4 p-4 -m-4 custom-scrollbar"
               >
                 {selectedCategory.services?.map((svc, idx) => (
                   <div key={idx} className="w-full">
                     {svc.isMulti ? (
-                      <div className="p-6 rounded-[2rem] bg-slate-50 border border-slate-100 flex flex-col gap-4 min-h-[110px]">
-                        <div className="flex items-center justify-between">
-                          <span className="text-[10px] font-black text-slate-400 px-1 uppercase tracking-widest">{svc.label}</span>
-                          <div className="group relative">
-                            <Info size={16} className="text-slate-300 cursor-help" />
-                            <div className="absolute bottom-full right-0 mb-2 w-56 p-4 bg-primary text-white text-[10px] rounded-xl opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none z-50 shadow-lg">
-                              {svc.info}
-                            </div>
-                          </div>
+                      <div className="p-4 sm:p-6 rounded-[1.5rem] sm:rounded-[2rem] bg-slate-50 dark:bg-slate-950 border border-slate-100 dark:border-slate-800 flex flex-col gap-4 min-h-[120px] sm:min-h-[110px] w-full justify-between">
+                        <div className="flex flex-col gap-1 items-center sm:items-start w-full">
+                          <span className="text-sm sm:text-xl font-bold text-slate-700 dark:text-slate-200 leading-tight">{svc.label}</span>
+                          <span className="text-[9px] sm:text-[10px] font-medium text-slate-400 dark:text-slate-500 transition-colors leading-tight">{svc.info}</span>
                         </div>
-                        <div className="grid grid-cols-2 gap-3">
+                        <div className="grid grid-cols-2 gap-2 w-full mt-1">
                           {svc.options?.map((opt, optIdx) => (
                             <button
                               key={optIdx}
                               onClick={() => window.open(opt.link, '_blank')}
-                              className="text-[12px] font-bold py-4 bg-white rounded-xl border border-slate-100 text-slate-600 hover:bg-primary hover:text-white transition-all whitespace-nowrap"
+                              className="text-[10px] sm:text-[11px] font-bold py-2 bg-white dark:bg-slate-800 rounded-full border border-secondary/40 hover:border-secondary dark:border-slate-700 text-secondary hover:bg-secondary hover:text-white dark:hover:bg-secondary dark:hover:text-slate-900 transition-all whitespace-nowrap cursor-pointer text-center uppercase tracking-wider"
                             >
                               {opt.label}
                             </button>
@@ -247,13 +310,13 @@ export function MinimalistScheduler() {
                     ) : (
                       <button
                         onClick={() => window.open(svc.link, '_blank')}
-                        className="w-full flex items-center justify-between p-6 rounded-[2rem] border border-slate-100 hover:border-secondary/20 bg-slate-50/50 hover:bg-white transition-all text-left group/btn min-h-[110px]"
+                        className="w-full flex flex-col sm:flex-row items-center sm:justify-between p-4 sm:p-6 rounded-[1.5rem] sm:rounded-[2rem] border border-slate-100 dark:border-slate-800 hover:border-secondary/20 dark:hover:border-secondary/40 bg-slate-50/50 dark:bg-slate-950/50 hover:bg-white dark:hover:bg-slate-800 transition-all text-center sm:text-left group/btn min-h-[120px] sm:min-h-[110px] gap-2 sm:gap-4 justify-center"
                       >
-                        <div className="flex flex-col gap-1">
-                          <span className="text-xl font-bold text-slate-700">{svc.label}</span>
-                          <span className="text-[10px] font-medium text-slate-400 group-hover/btn:text-secondary transition-colors">{svc.info}</span>
+                        <div className="flex flex-col gap-1 items-center sm:items-start w-full">
+                          <span className="text-sm sm:text-xl font-bold text-slate-700 dark:text-slate-200 leading-tight">{svc.label}</span>
+                          <span className="text-[9px] sm:text-[10px] font-medium text-slate-400 dark:text-slate-500 group-hover/btn:text-secondary transition-colors leading-tight line-clamp-2 sm:line-clamp-none">{svc.info}</span>
                         </div>
-                        <div className="px-6 py-2 rounded-full border border-secondary text-secondary group-hover/btn:bg-secondary group-hover/btn:text-white transition-all shrink-0 text-sm font-bold">
+                        <div className="mt-1 sm:mt-0 px-4 py-1.5 sm:px-6 sm:py-2 rounded-full border border-secondary text-secondary group-hover/btn:bg-secondary group-hover/btn:text-white transition-all shrink-0 text-[10px] sm:text-sm font-bold uppercase tracking-wider leading-none">
                           Agendar
                         </div>
                       </button>
@@ -263,7 +326,7 @@ export function MinimalistScheduler() {
               </motion.div>
             )}
           </AnimatePresence>
-          
+
           {/* Disclaimer */}
           <div className="mt-12 pt-8 border-t border-slate-50 text-center">
             <p className="text-[11px] text-slate-400 font-medium leading-relaxed max-w-2xl mx-auto">

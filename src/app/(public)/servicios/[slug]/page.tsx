@@ -10,7 +10,7 @@ const SLUG_TO_AREA: Record<string, Area> = {
   'dental': 'Salud Dental',
   'mental': 'Salud Mental',
   'medicina': 'Medicina General',
-  'terapias': 'Terapias Alternativas',
+  'terapias': 'Terapias Complementarias',
 };
 
 const SLUG_TO_HERO: Record<string, HeroProps> = {
@@ -57,7 +57,7 @@ const SLUG_TO_HERO: Record<string, HeroProps> = {
     badgeText: "Bienestar Integral",
     badgeIconName: 'activity',
     titlePrefix: "Terapias",
-    titleHighlight: "Alternativas.",
+    titleHighlight: "Complementarias.",
     description: "Enfoque holístico para tu salud con profesionales certificados en diversas disciplinas complementarias.",
     images: [
       { src: 'https://images.unsplash.com/photo-1544161515-4ab6ce6db874?q=80&w=1200', alt: 'Masoterapia', location: 'Sala de Relajación' },
@@ -85,7 +85,7 @@ const SLUG_TO_CTA: Record<string, ServiceCTAProps> = {
   },
   'terapias': {
     title: "Equilibrio cuerpo y mente a tu alcance",
-    description: "Reserva tu sesión y descubre cómo nuestras terapias alternativas pueden mejorar tu calidad de vida.",
+    description: "Reserva tu sesión y descubre cómo nuestras terapias complementarias pueden mejorar tu calidad de vida.",
     themeGradient: "from-orange-500 to-amber-400",
   }
 };
@@ -104,7 +104,7 @@ export default async function ServicePage({ params }: { params: Promise<{ slug: 
   const professionals = await getProfessionals();
 
   return (
-    <div className="min-h-screen bg-white">
+    <div className="min-h-screen bg-white dark:bg-slate-950 transition-colors duration-300">
       {/* Usamos el Hero global pero con props inyectadas para la categoría */}
       <Hero {...heroProps} />
 

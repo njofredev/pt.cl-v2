@@ -58,13 +58,10 @@ export function PartnerCarousel() {
 
   return (
     <div 
-      className="relative w-full overflow-hidden py-4 group"
+      className="relative w-full overflow-hidden py-4 group [mask-image:linear-gradient(to_right,transparent,black_10%,black_90%,transparent)]"
       onMouseEnter={() => setIsPaused(true)}
       onMouseLeave={() => setIsPaused(false)}
     >
-      {/* Gradientes laterales para suavizar bordes */}
-      <div className="absolute top-0 left-0 bottom-0 w-24 bg-gradient-to-r from-white via-white/40 to-transparent z-10 pointer-events-none" />
-      <div className="absolute top-0 right-0 bottom-0 w-24 bg-gradient-to-l from-white via-white/40 to-transparent z-10 pointer-events-none" />
 
       {/* Contenedor del Carrusel */}
       <div 
@@ -80,7 +77,7 @@ export function PartnerCarousel() {
           >
             <img 
               src={`/logos_convenios_prevision/${partner.file}`} 
-              className="h-14 md:h-20 w-auto object-contain opacity-50 grayscale hover:opacity-100 hover:grayscale-0 transition-all duration-700 cursor-pointer" 
+              className="h-14 md:h-20 w-auto object-contain opacity-50 grayscale hover:opacity-100 hover:grayscale-0 dark:opacity-60 dark:invert transition-all duration-700 cursor-pointer" 
               alt={partner.name} 
             />
           </div>

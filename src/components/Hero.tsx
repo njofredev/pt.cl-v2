@@ -2,7 +2,7 @@
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Button } from "@/components/ui/button";
-import { Zap, ArrowRight, MapPin, Activity, HeartPulse, Sparkles, Brain } from 'lucide-react';
+import { Zap, CalendarDays, MapPin, Activity, HeartPulse, Sparkles, Brain } from 'lucide-react';
 
 const ICON_MAP = {
   zap: Zap,
@@ -43,7 +43,7 @@ export const Hero = ({
   titlePrefix = "Tu salud, ",
   titleHighlight = "nuestra prioridad.",
   description = "Reserva tu hora, revisa exámenes y gestiona tu bienestar desde cualquier lugar, fácil y rápido.",
-  buttonText = "Agendar una Cita",
+  buttonText = "Reservar hora",
   statsNumber = "+10k",
   statsLabel = "Pacientes Atendidos",
   images = DEFAULT_IMAGES
@@ -60,9 +60,8 @@ export const Hero = ({
   }, [images.length]);
 
   return (
-    <section className="relative pt-24 md:pt-32 pb-16 md:pb-20 overflow-hidden bg-white">
-      {/* Fondo sutil degradado */}
-      <div className="absolute top-0 right-0 w-[800px] h-[800px] bg-secondary/5 rounded-full blur-[150px] pointer-events-none -z-10" />
+    <section className="relative pt-44 md:pt-32 pb-16 md:pb-20 overflow-hidden bg-white dark:bg-transparent transition-colors duration-300">
+
 
       <div className="container mx-auto px-6 grid md:grid-cols-2 gap-12 items-center">
         <motion.div
@@ -73,16 +72,23 @@ export const Hero = ({
           <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-primary text-white text-[10px] font-bold uppercase tracking-widest mb-8">
             <BadgeIcon size={14} fill="currentColor" className="text-secondary" /> {badgeText}
           </div>
-          <h1 className="text-4xl md:text-7xl font-bold text-primary leading-[1.1] md:leading-[1] tracking-tighter mb-8">
+          <h1 className="text-4xl md:text-7xl font-bold text-primary dark:text-slate-50 leading-[1.1] md:leading-[1] tracking-tighter mb-8">
             {titlePrefix} <br />
             <span className="text-secondary">{titleHighlight}</span>
           </h1>
-          <p className="text-xl text-slate-500 font-medium max-w-md leading-relaxed mb-10">
+          <p className="text-xl text-slate-500 dark:text-slate-400 font-medium max-w-md leading-relaxed mb-10">
             {description}
           </p>
-          <Button size="lg" className="w-full sm:w-auto bg-primary hover:bg-primary/90 text-white rounded-2xl px-10 h-16 text-lg font-bold shadow-md transition-all hover:scale-105">
+          <Button 
+            size="lg" 
+            className="w-full sm:w-auto bg-primary hover:bg-primary/90 text-white rounded-2xl px-10 h-16 text-lg font-bold shadow-md transition-all hover:scale-105 cursor-pointer"
+            onClick={() => {
+              const el = document.getElementById('agendar');
+              if (el) el.scrollIntoView({ behavior: 'smooth' });
+            }}
+          >
             {buttonText}
-            <ArrowRight className="ml-2" />
+            <CalendarDays className="ml-2 w-5 h-5" />
           </Button>
         </motion.div>
 
@@ -93,7 +99,7 @@ export const Hero = ({
           transition={{ duration: 0.8, delay: 0.2 }}
           className="relative"
         >
-          <div className="relative z-10 bg-slate-100 rounded-[3rem] p-4 shadow-lg shadow-slate-200/50 border-8 border-white overflow-hidden aspect-[4/3]">
+          <div className="relative z-10 bg-slate-100 dark:bg-slate-900 rounded-[3rem] p-4 shadow-lg shadow-slate-200/50 dark:shadow-none border-8 border-white dark:border-slate-900 overflow-hidden aspect-[4/3]">
             <AnimatePresence mode="wait">
               <motion.img
                 key={currentImageIndex}
@@ -109,9 +115,9 @@ export const Hero = ({
 
             {/* Indicador de Sucursal/Imagen Actual */}
             <div className="absolute top-8 left-8 right-8 z-20 flex justify-between items-start">
-              <div className="bg-white/90 backdrop-blur-md px-4 py-2 rounded-xl shadow-sm border border-white flex items-center gap-2">
+              <div className="bg-white/90 dark:bg-slate-900/90 backdrop-blur-md px-4 py-2 rounded-xl shadow-sm border border-white dark:border-slate-800 flex items-center gap-2">
                 <MapPin size={16} className="text-secondary" />
-                <span className="text-[11px] font-bold text-primary tracking-widest uppercase">
+                <span className="text-[11px] font-bold text-primary dark:text-slate-100 tracking-widest uppercase">
                   {images[currentImageIndex].location}
                 </span>
               </div>
@@ -130,9 +136,9 @@ export const Hero = ({
             </div>
           </div>
           {/* Badge flotante de confianza */}
-          <div className="absolute -bottom-6 -left-6 bg-white p-6 rounded-3xl shadow-lg border border-slate-100 z-30">
-            <p className="text-3xl font-bold text-primary">{statsNumber}</p>
-            <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">{statsLabel}</p>
+          <div className="absolute -bottom-6 -left-6 bg-white dark:bg-slate-900 p-6 rounded-3xl shadow-lg border border-slate-100 dark:border-slate-800 z-30">
+            <p className="text-3xl font-bold text-primary dark:text-slate-50">{statsNumber}</p>
+            <p className="text-[10px] font-bold text-slate-400 dark:text-slate-500 uppercase tracking-widest">{statsLabel}</p>
           </div>
 
         </motion.div>

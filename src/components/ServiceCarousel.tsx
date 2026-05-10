@@ -3,132 +3,180 @@
 import React, { useRef, useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import Link from "next/link";
-import { ChevronRight, ChevronLeft } from "lucide-react";
+import {
+  ChevronRight,
+  SmilePlus,
+  Brain,
+  Microscope,
+  Stethoscope,
+  Leaf,
+  Building2,
+  Video,
+  Wallet,
+  CreditCard
+} from "lucide-react";
 
-const SERVICES = [
-  { title: "Salud Dental", desc: "Odontología avanzada con tecnología digital de última generación.", icon: "/ico_dental.png", link: "/servicios/dental" },
-  { title: "Salud Mental", desc: "Acompañamiento psicológico y psiquiátrico con enfoque humano.", icon: "/ico_mental.png", link: "/servicios/mental" },
-  { title: "Toma de Muestras", desc: "Laboratorio clínico con resultados rápidos y precisos en 24h.", icon: "/ico_lab.png", link: "/servicios/medicina" },
-  { title: "Medicina General", desc: "Atención integral para el cuidado primario de toda tu familia.", icon: "/ico_med_general.png", link: "/servicios/medicina" },
-  { title: "Terapias Alternativas", desc: "Enfoque holístico para tu salud con profesionales certificados.", icon: "/ico_terapias_alternativas.png", link: "/servicios/terapias" }
+interface CarouselItem {
+  title: string;
+  desc: string;
+  icon: React.ReactNode;
+  link: string;
+  color?: 'cyan' | 'purple' | 'rose' | 'blue' | 'green' | 'secondary';
+}
+
+const COLOR_MAP = {
+  cyan: { text: "text-cyan-500", bg: "bg-cyan-500/10", border: "border-cyan-500/30", hoverBorder: "group-hover/card:border-cyan-500", hoverBg: "group-hover/card:bg-cyan-500" },
+  purple: { text: "text-purple-500", bg: "bg-purple-500/10", border: "border-purple-500/30", hoverBorder: "group-hover/card:border-purple-500", hoverBg: "group-hover/card:bg-purple-500" },
+  rose: { text: "text-rose-500", bg: "bg-rose-500/10", border: "border-rose-500/30", hoverBorder: "group-hover/card:border-rose-500", hoverBg: "group-hover/card:bg-rose-500" },
+  blue: { text: "text-blue-500", bg: "bg-blue-500/10", border: "border-blue-500/30", hoverBorder: "group-hover/card:border-blue-500", hoverBg: "group-hover/card:bg-blue-500" },
+  green: { text: "text-green-500", bg: "bg-green-500/10", border: "border-green-500/30", hoverBorder: "group-hover/card:border-green-500", hoverBg: "group-hover/card:bg-green-500" },
+  secondary: { text: "text-secondary", bg: "bg-secondary/10", border: "border-secondary/30", hoverBorder: "group-hover/card:border-secondary", hoverBg: "group-hover/card:bg-secondary" },
+};
+
+const SERVICES: CarouselItem[] = [
+  { title: "Salud Dental", desc: "Odontología avanzada con tecnología.", icon: <SmilePlus size={22} />, link: "/servicios/dental", color: 'cyan' },
+  { title: "Salud Mental", desc: "Acompañamiento con enfoque humano.", icon: <Brain size={22} />, link: "/servicios/mental", color: 'purple' },
+  { title: "Toma de Muestras", desc: "Resultados rápidos y precisos en 24h.", icon: <Microscope size={22} />, link: "/servicios/medicina", color: 'rose' },
+  { title: "Medicina General", desc: "Atención integral para toda tu familia.", icon: <Stethoscope size={22} />, link: "/servicios/medicina", color: 'blue' },
+  { title: "Terapias Complementarias", desc: "Enfoque holístico para tu salud.", icon: <Leaf size={22} />, link: "/servicios/terapias", color: 'green' }
 ];
 
-// Triplicamos para asegurar que el scroll infinito sea fluido
-const INFINITE_SERVICES = [...SERVICES, ...SERVICES, ...SERVICES];
+const MODALITIES: CarouselItem[] = [
+  { title: "Atención Presencial", desc: "En nuestras sucursales de alta tecnología.", icon: <Building2 size={22} />, link: "/contacto", color: 'secondary' },
+  { title: "Teleconsulta", desc: "Consulta médica remota sin moverte de casa.", icon: <Video size={22} />, link: "https://ff.healthatom.io/7c4geA", color: 'secondary' },
+  { title: "Bono Fonasa", desc: "Facilitamos tu atención con emisión directa.", icon: <Wallet size={22} />, link: "#agendar", color: 'secondary' },
+  { title: "Bono Isapres", desc: "Amplia cobertura con tu plan de salud.", icon: <CreditCard size={22} />, link: "#agendar", color: 'secondary' },
+];
 
-export function ServiceCarousel() {
-  const carouselRef = useRef<HTMLDivElement>(null);
+// Duplicamos bastante para que no haya cortes visuales en el infinito
+const INFINITE_SERVICES = [...SERVICES, ...SERVICES, ...SERVICES, ...SERVICES, ...SERVICES, ...SERVICES, ...SERVICES, ...SERVICES];
+const INFINITE_MODALITIES = [...MODALITIES, ...MODALITIES, ...MODALITIES, ...MODALITIES, ...MODALITIES, ...MODALITIES, ...MODALITIES, ...MODALITIES];
+
+function InfiniteScrollRow({
+  items,
+  speed = 0.8,
+  direction = "right"
+}: {
+  items: CarouselItem[],
+  speed?: number,
+  direction?: "left" | "right"
+}) {
+  const scrollRef = useRef<HTMLDivElement>(null);
   const [isPaused, setIsPaused] = useState(false);
 
-  // Lógica de Scroll Infinito sin saltos visuales
   const handleScroll = () => {
-    if (!carouselRef.current) return;
-    const { scrollLeft, scrollWidth } = carouselRef.current;
-    const singleSetWidth = scrollWidth / 3;
+    if (!scrollRef.current) return;
+    const { scrollLeft, scrollWidth } = scrollRef.current;
+    const singleSetWidth = scrollWidth / 8; // Ajustado a 8 para que coincida con la nueva longitud del carrusel
 
-    // Si llegamos al final del tercer set, saltamos al inicio del segundo set
-    if (scrollLeft >= singleSetWidth * 2) {
-      carouselRef.current.scrollLeft = scrollLeft - singleSetWidth;
-    }
-    // Si llegamos al inicio del primer set, saltamos al inicio del segundo set
-    if (scrollLeft <= 0) {
-      carouselRef.current.scrollLeft = singleSetWidth;
+    if (direction === "right") {
+      if (scrollLeft >= singleSetWidth * 6) {
+        scrollRef.current.scrollLeft = singleSetWidth * 2;
+      }
+    } else {
+      if (scrollLeft <= 0) {
+        scrollRef.current.scrollLeft = singleSetWidth * 2;
+      }
     }
   };
 
   useEffect(() => {
-    // Posicionar el scroll en el inicio del segundo set (el medio) SOLO al montar
-    if (carouselRef.current) {
-      const singleSetWidth = carouselRef.current.scrollWidth / 3;
-      carouselRef.current.scrollLeft = singleSetWidth;
+    if (scrollRef.current) {
+      const { scrollWidth } = scrollRef.current;
+      // Posicionamos en un punto intermedio del track para permitir loops a ambos lados
+      scrollRef.current.scrollLeft = scrollWidth / 2;
     }
   }, []);
 
   useEffect(() => {
     const interval = setInterval(() => {
-      if (!isPaused && carouselRef.current) {
-        carouselRef.current.scrollBy({ left: 1, behavior: "auto" }); // Movimiento suave y continuo
+      if (!isPaused && scrollRef.current) {
+        const scrollValue = direction === "right" ? speed : -speed;
+        scrollRef.current.scrollBy({ left: scrollValue, behavior: "auto" });
       }
-    }, 20); // Velocidad de giro
-
+    }, 20);
     return () => clearInterval(interval);
-  }, [isPaused]);
-
-  const manualScroll = (direction: "left" | "right") => {
-    if (carouselRef.current) {
-      const scrollAmount = direction === "left" ? -400 : 400;
-      carouselRef.current.scrollBy({ left: scrollAmount, behavior: "smooth" });
-    }
-  };
+  }, [isPaused, speed, direction]);
 
   return (
-    <div 
-      className="relative w-full overflow-hidden pt-8 pb-12 -mx-6 px-6 group"
+    <div
+      className="relative w-full group py-2 [mask-image:linear-gradient(to_right,transparent,black_10%,black_90%,transparent)]"
       onMouseEnter={() => setIsPaused(true)}
       onMouseLeave={() => setIsPaused(false)}
     >
-      {/* Controles Minimalistas */}
-      <div className="absolute top-1/2 -translate-y-1/2 left-10 z-30 opacity-0 group-hover:opacity-100 transition-opacity duration-300 hidden md:block">
-        <button 
-          onClick={() => manualScroll("left")}
-          className="w-14 h-14 bg-white/80 backdrop-blur-md border border-slate-100 text-primary rounded-full flex items-center justify-center hover:bg-white hover:scale-110 hover:text-secondary transition-all cursor-pointer"
-        >
-          <ChevronLeft size={28} />
-        </button>
-      </div>
 
-      <div className="absolute top-1/2 -translate-y-1/2 right-10 z-30 opacity-0 group-hover:opacity-100 transition-opacity duration-300 hidden md:block">
-        <button 
-          onClick={() => manualScroll("right")}
-          className="w-14 h-14 bg-white/80 backdrop-blur-md border border-slate-100 text-primary rounded-full flex items-center justify-center hover:bg-white hover:scale-110 hover:text-secondary transition-all cursor-pointer"
-        >
-          <ChevronRight size={28} />
-        </button>
-      </div>
-
-      {/* Gradientes laterales */}
-      <div className="absolute top-0 left-0 bottom-0 w-32 bg-gradient-to-r from-white via-white/50 to-transparent z-20 pointer-events-none" />
-      <div className="absolute top-0 right-0 bottom-0 w-32 bg-gradient-to-l from-white via-white/50 to-transparent z-20 pointer-events-none" />
-
-      {/* Contenedor del Carrusel */}
-      <div 
-        ref={carouselRef}
+      <div
+        ref={scrollRef}
         onScroll={handleScroll}
-        className="flex gap-8 overflow-x-auto hide-scrollbar pb-10 pt-4 px-10 select-none"
+        className="flex gap-4 overflow-x-auto hide-scrollbar px-6 select-none py-3"
         style={{ scrollBehavior: 'auto' }}
       >
-        {INFINITE_SERVICES.map((s, i) => (
-          <motion.div
-            key={i}
-            whileHover={{ y: -10 }}
-            className="w-[350px] shrink-0 group/card p-10 rounded-[3.5rem] bg-white border border-slate-100 transition-all duration-500 relative overflow-hidden"
-          >
-            <div className="absolute top-0 right-0 w-40 h-40 bg-secondary/5 rounded-full -mr-20 -mt-20 group-hover/card:bg-secondary/10 group-hover/card:scale-150 transition-all duration-700" />
-            
-            <div className="relative z-10 w-20 h-20 bg-slate-50 rounded-3xl flex items-center justify-center mb-10 group-hover/card:bg-white transition-all duration-500">
-              <img src={s.icon} alt={s.title} className="w-12 h-12 object-contain" />
-            </div>
-
-            <h3 className="relative z-10 text-2xl font-bold text-primary mb-4 group-hover/card:text-secondary transition-colors">
-              {s.title}
-            </h3>
-            
-            <p className="relative z-10 text-slate-500 font-medium leading-relaxed mb-10">
-              {s.desc}
-            </p>
-
-            <Link 
-              href={s.link} 
-              className="relative z-10 inline-flex items-center gap-3 text-[12px] font-bold text-primary uppercase tracking-widest group-hover/card:text-secondary transition-all"
+        {items.map((s, i) => {
+          const colors = COLOR_MAP[s.color || 'secondary'];
+          return (
+            <motion.div
+              key={i}
+              whileHover={{ scale: 1.02, y: -3 }}
+              className={`w-[280px] shrink-0 group/card p-5 rounded-2xl bg-white dark:bg-slate-900 border border-slate-100 dark:border-slate-800 transition-all duration-300 relative overflow-hidden flex flex-col justify-between shadow-sm hover:shadow-md ${colors.hoverBorder}`}
             >
-              Ver detalles 
-              <div className="w-8 h-8 rounded-full border border-slate-100 flex items-center justify-center group-hover/card:border-secondary transition-colors">
-                <ChevronRight size={16} />
+              <div>
+                <div className="flex items-center gap-3 mb-3">
+                  <div className={`w-10 h-10 shrink-0 bg-slate-50 dark:bg-slate-950 border ${colors.border} rounded-xl flex items-center justify-center shadow-sm ${colors.hoverBg} group-hover/card:border-transparent transition-all duration-300`}>
+                    <div className={`${colors.text} group-hover/card:text-white transition-colors`}>
+                      {s.icon}
+                    </div>
+                  </div>
+                  <div>
+                    <h3 className={`text-base font-bold text-primary dark:text-white group-hover/card:${colors.text} transition-colors leading-tight`}>
+                      {s.title}
+                    </h3>
+                  </div>
+                </div>
+
+                <p className="text-[12px] text-slate-500 dark:text-slate-400 font-medium leading-tight mb-4">
+                  {s.desc}
+                </p>
               </div>
-            </Link>
-          </motion.div>
-        ))}
+
+              <Link
+                href={s.link}
+                className={`inline-flex items-center gap-2 text-[10px] font-bold text-primary dark:text-slate-300 uppercase tracking-wider group-hover/card:${colors.text} transition-all`}
+              >
+                <span>Ver detalles</span>
+                <ChevronRight size={14} className="group-hover/card:translate-x-0.5 transition-transform" />
+              </Link>
+            </motion.div>
+          );
+        })}
       </div>
+    </div>
+  );
+}
+
+export function ServiceCarousel() {
+  return (
+    <div className="flex flex-col gap-3 -mx-6 px-6 relative z-10 overflow-hidden">
+
+      {/* Fila 1: Especialidades (A la derecha) */}
+      <div className="w-full">
+        <div className="px-8 mb-1">
+          <h4 className="text-[9px] font-bold text-slate-400 dark:text-slate-500 uppercase tracking-[0.2em]">
+            Nuestras Especialidades
+          </h4>
+        </div>
+        <InfiniteScrollRow items={INFINITE_SERVICES} speed={0.9} direction="right" />
+      </div>
+
+      {/* Fila 2: Modalidades (A la izquierda) */}
+      <div className="w-full">
+        <div className="px-8 mb-1">
+          <h4 className="text-[9px] font-bold text-slate-400 dark:text-slate-500 uppercase tracking-[0.2em]">
+            Modalidades de Atención y Pagos
+          </h4>
+        </div>
+        <InfiniteScrollRow items={INFINITE_MODALITIES} speed={0.9} direction="left" />
+      </div>
+
     </div>
   );
 }
