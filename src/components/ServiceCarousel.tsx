@@ -209,7 +209,7 @@ function InfiniteScrollRow({
                 className={`inline-flex items-center gap-1 md:gap-2 text-[9px] md:text-[10px] font-bold text-primary dark:text-slate-300 uppercase tracking-wider group-hover/card:${colors.text} transition-all mt-auto`}
               >
                 <span>Ver detalles</span>
-                <ChevronRight size={12} className="group-hover/card:translate-x-0.5 transition-transform md:size-14" />
+                <ChevronRight size={14} className="group-hover/card:translate-x-0.5 transition-transform" />
               </Link>
             </motion.div>
           );
