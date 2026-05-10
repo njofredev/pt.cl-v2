@@ -32,7 +32,8 @@ import {
   Sun,
   Moon,
   Instagram,
-  Facebook
+  Facebook,
+  FileText
 } from 'lucide-react';
 import { Button } from "@/components/ui/button";
 import { motion, AnimatePresence } from 'framer-motion';
@@ -72,6 +73,7 @@ const NAV_ITEMS = [
       { name: 'Laboratorio digital de exámenes', href: '/novedades/laboratorio', desc: 'Resultados rápidos y trazabilidad digital.', icon: <Microscope className="text-rose-500" /> },
       { name: 'Validador Mi Vita', href: '/#mivita', desc: 'Verifica tus beneficios exclusivos.', icon: <Sparkles className="text-amber-500" /> },
       { name: 'Cotizador Digital', href: '/novedades/cotizador', desc: 'Presupuestos de exámenes al instante.', icon: <Calculator className="text-emerald-500" /> },
+      { name: 'Resultados de Exámenes', href: 'http://190.215.215.125:9091/Pacientes.aspx', desc: 'Consulta y descarga de reportes.', icon: <FileText className="text-cyan-600" /> },
     ]
   },
   { name: 'Sucursales', href: '/#sucursales' },
@@ -262,6 +264,8 @@ export const Navbar = () => {
                             <Link
                               key={sub.name}
                               href={sub.href}
+                              target={sub.href.startsWith('http') ? "_blank" : undefined}
+                              rel={sub.href.startsWith('http') ? "noopener noreferrer" : undefined}
                               className="group/sub flex items-start gap-5 p-6 rounded-[2rem] transition-all hover:bg-slate-50 dark:hover:bg-slate-900 border border-transparent hover:border-slate-100 dark:hover:border-slate-800"
                             >
                               {sub.icon && (
@@ -391,6 +395,8 @@ export const Navbar = () => {
                             <Link
                               key={sub.name}
                               href={sub.href}
+                              target={sub.href.startsWith('http') ? "_blank" : undefined}
+                              rel={sub.href.startsWith('http') ? "noopener noreferrer" : undefined}
                               className="text-sm font-bold text-slate-500 hover:text-secondary text-right"
                               onClick={() => setIsMobileMenuOpen(false)}
                             >
