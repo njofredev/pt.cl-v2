@@ -77,7 +77,7 @@ export function PartnerCarousel() {
           >
             <img 
               src={`/logos_convenios_prevision/${partner.file}`} 
-              className="h-14 md:h-20 w-auto object-contain transition-all duration-700 cursor-pointer opacity-100" 
+              className="h-14 md:h-20 w-auto object-contain opacity-50 grayscale hover:opacity-100 hover:grayscale-0 transition-all duration-700 cursor-pointer" 
               alt={partner.name} 
             />
           </div>
