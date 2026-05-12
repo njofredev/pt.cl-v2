@@ -209,6 +209,7 @@ export function SearchModal({ isOpen, onClose }: { isOpen: boolean; onClose: () 
                             alt={selectedPro.name} 
                             fill
                             className="object-cover"
+                            sizes="80px"
                           />
                         ) : (
                           <User size={40} className="text-secondary" />
@@ -341,7 +342,7 @@ export function SearchModal({ isOpen, onClose }: { isOpen: boolean; onClose: () 
                                   idx === selectedIndex ? "bg-secondary/10 border-secondary/20 text-secondary scale-110" : "bg-white dark:bg-slate-800 border-slate-100 dark:border-slate-700 text-primary dark:text-slate-100"
                                 }`}>
                                   {result.type === "profesional" && result.rawPro?.image ? (
-                                    <Image src={result.rawPro.image} alt={result.title} fill className="object-cover" />
+                                    <Image src={result.rawPro.image} alt={result.title} fill className="object-cover" sizes="48px" />
                                   ) : (
                                     result.icon || <Activity size={20} />
                                   )}

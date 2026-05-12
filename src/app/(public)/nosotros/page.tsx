@@ -88,6 +88,7 @@ export default function NosotrosPage() {
                   alt="Nuestras Fundadoras"
                   fill
                   className="object-cover object-center group-hover:scale-105 transition-transform duration-700 ease-out"
+                  sizes="(max-width: 1024px) 100vw, 896px"
                 />
                 {/* Overlay de nombres elegante al hover */}
                 <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-80 lg:opacity-0 lg:group-hover:opacity-100 transition-opacity duration-500 flex flex-col justify-end p-8 text-white">

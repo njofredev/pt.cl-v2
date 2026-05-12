@@ -82,6 +82,8 @@ export function PartnerCarousel() {
               height={80}
               className="h-14 md:h-20 w-auto object-contain opacity-50 grayscale dark:invert hover:opacity-100 hover:grayscale-0 hover:invert-0 dark:hover:invert-0 transition-all duration-700 cursor-pointer dark:drop-shadow-[0_0_3px_rgba(255,255,255,0.15)]" 
               alt={partner.name} 
+              style={{ width: 'auto' }}
+              priority={i < 5}
             />
           </div>
         ))}

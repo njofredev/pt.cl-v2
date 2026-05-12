@@ -400,6 +400,7 @@ export const ProfessionalFilter = ({ initialArea, professionals }: { initialArea
                               alt={pro.name} 
                               fill
                               className="object-cover"
+                              sizes="160px"
                             />
                           ) : (
                             <div className="w-full h-full flex items-center justify-center bg-gradient-to-br from-slate-50 to-slate-100 dark:from-slate-800 dark:to-slate-900">
@@ -470,6 +471,7 @@ export const ProfessionalFilter = ({ initialArea, professionals }: { initialArea
                                   alt={pro.name} 
                                   fill
                                   className="object-cover"
+                                  sizes="96px"
                                 />
                               ) : (
                                 <User size={48} className="text-secondary" />
