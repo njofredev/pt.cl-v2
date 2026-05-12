@@ -11,7 +11,66 @@ export interface Professional {
   sucursal?: string | null;
   image?: string | null;
   ageGroup?: string | null;
+  bookingLink?: string | null;
 }
+
+// Mapeo de Links de Agendamiento 2026 extraídos
+const BOOKING_LINKS: Record<string, string> = {
+  "patricia montalva": "https://ff.healthatom.io/8kqQqs",
+  "daissy mckenzie miranda": "https://ff.healthatom.io/dYM6IN",
+  "gardenia saldias ruiz": "https://ff.healthatom.io/aBHsLM",
+  "jorge ramillanca rain": "https://ff.healthatom.io/4PNuJt",
+  "patricio merino acevedo": "https://ff.healthatom.io/YaQMT1",
+  "antonio alvear munoz": "https://ff.healthatom.io/zdGDov",
+  "matias enrique navarrete": "https://ff.healthatom.io/Ifb484",
+  "trinidad sanchez ruiz": "https://ff.healthatom.io/IfAXos",
+  "macarena andrea fuenzalida calorio": "https://ff.healthatom.io/MqUzRF",
+  "daniela constanza alvarado duarte": "https://ff.healthatom.io/XjT5q5",
+  "catalina villegas lagos": "https://ff.healthatom.io/4GgpSM",
+  "caterina benapres cortes": "https://ff.healthatom.io/EbOKIl",
+  "consuelo olivares ortega": "https://ff.healthatom.io/fesVZO",
+  "maria soledad iturra lepe": "https://ff.healthatom.io/oVLztx",
+  "felipe valenzuela pinto": "https://ff.healthatom.io/675p3N",
+  "camila del puerto vergara": "https://ff.healthatom.io/tMna2S",
+  "antonia pardo ortileb": "https://ff.healthatom.io/hZYuCV",
+  "josefina maass aviles": "https://ff.healthatom.io/EnSQ6t",
+  "carmen gloria mejias matus": "https://ff.healthatom.io/ZfjZit",
+  "florencia mizala garcia": "https://ff.healthatom.io/jRD2a1",
+  "david sandoval miranda": "https://ff.healthatom.io/5mwBP8",
+  "grace martinson tejada": "https://ff.healthatom.io/Y5KtbN",
+  "sebastian ortiz mery": "https://ff.healthatom.io/c9WrpW",
+  "pauline heinriksen perez": "https://ff.healthatom.io/tsbVD2",
+  "jorge valdes albornoz": "https://ff.healthatom.io/c4ecZK",
+  "andres horst hampel aljaro": "https://ff.healthatom.io/AmOQum",
+  "loreto torres sanchez": "https://ff.healthatom.io/uCGxu3",
+  "laura herrera del real": "https://ff.healthatom.io/cRm3Lo",
+  "isabel rodriguez legrand": "https://ff.healthatom.io/I8hveE",
+  "valentina briseno ossandon": "https://ff.healthatom.io/rVsLDI",
+  "isidora luengo larrain": "https://ff.healthatom.io/61BIi9",
+  "carola poblete plaza": "https://ff.healthatom.io/iviOeD",
+  "sergio parada escobar": "https://ff.healthatom.io/qdjTyT",
+  "carla mazzarelli rodriguez": "https://ff.healthatom.io/sCAm5d",
+  "carolina fones caballero": "https://ff.healthatom.io/ydhkNa",
+  "catalina rojas campillo": "https://ff.healthatom.io/Px8mbB",
+  "teresa covarrubias correa": "https://ff.healthatom.io/D55VPQ",
+  "marcela burgos diaz": "https://ff.healthatom.io/WQN8U5",
+  "francisca cisternas lira": "https://ff.healthatom.io/tRuZjj",
+  "maria jose domenech": "https://ff.healthatom.io/eT7gSq",
+  "carola munoz olate": "https://ff.healthatom.io/a4nAja",
+  "catalina aris faundez": "https://ff.healthatom.io/PWU2jd",
+  "jaime correa dominguez": "https://ff.healthatom.io/GRHueE",
+  "pablo santa cruz guzman": "tel:+56222172635",
+  "ines armstrong cox": "https://ff.healthatom.io/EUvKIY",
+  "maria ximena olivares diaz": "https://ff.healthatom.io/wT3LyF",
+  "cristian prado jara": "https://ff.healthatom.io/N9Xjef",
+  "gloria reti malusa": "tel:+56222172635",
+  "charytin salazar yanez": "https://ff.healthatom.io/9MdPUT",
+  "paulina velasquez catrifil": "https://ff.healthatom.io/DkTcNk",
+  "andro sapunar rodriguez": "https://ff.healthatom.io/1pEpTa",
+  "javiera marchant vio": "https://ff.healthatom.io/vEOYZh",
+  "pilar bello martinez": "https://ff.healthatom.io/kQfeV2",
+  "carlos yamil garcia - huidobro acosta": "https://ff.healthatom.io/B0htiL"
+};
 
 export const AREAS = [
   "Salud Dental",
@@ -181,6 +240,18 @@ export async function getProfessionals(): Promise<Professional[]> {
           console.log(`Matched image for: ${name} -> ${image}`);
         }
 
+        // Mapeo de link de agendamiento
+        const lowerName = name.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+        let bookingLink = BOOKING_LINKS[lowerName] || null;
+        
+        // Fallback robusto por subcadena si no hay coincidencia exacta
+        if (!bookingLink) {
+          const matchKey = Object.keys(BOOKING_LINKS).find(key => 
+            lowerName.includes(key) || key.includes(lowerName)
+          );
+          if (matchKey) bookingLink = BOOKING_LINKS[matchKey];
+        }
+
         return {
           id: p.id,
           name,
@@ -190,7 +261,8 @@ export async function getProfessionals(): Promise<Professional[]> {
           education: p.education,
           sucursal: p.sucursal,
           image,
-          ageGroup: p.ageGroup
+          ageGroup: p.ageGroup,
+          bookingLink
         };
       });
     }

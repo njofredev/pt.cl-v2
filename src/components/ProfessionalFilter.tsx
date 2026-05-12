@@ -275,7 +275,7 @@ export const ProfessionalFilter = ({ initialArea, professionals }: { initialArea
               <div className="relative">
                 <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400" size={18} />
                 <Input 
-                  placeholder="Ej: Patricia Montalva o Odontología..." 
+                  placeholder="Ingresa el nombre del profesional o especialidad..." 
                   className="pl-12 h-14 rounded-2xl border-slate-100 dark:border-slate-800 bg-slate-50 dark:bg-slate-950 focus:bg-white dark:focus:bg-slate-950 focus:ring-secondary/20 dark:text-slate-100 transition-all text-base font-medium"
                   value={searchTerm}
                   onChange={(e) => setSearchTerm(e.target.value)}
@@ -380,6 +380,9 @@ export const ProfessionalFilter = ({ initialArea, professionals }: { initialArea
               // Se considera presencial si menciona "sucursal", "vitacura" o "tribunales"
               const hasPresencial = lowerSuc.includes("sucursal") || lowerSuc.includes("vitacura") || lowerSuc.includes("tribunales") || lowerSuc.includes("casa");
               
+              const specInfo = SPECIALTY_METADATA[pro.specialty] || { icon: Activity };
+              const SpecIcon = specInfo.icon;
+              
               return (
                 <motion.div
                   key={`${pro.name}-${pro.specialty}`}
@@ -417,7 +420,7 @@ export const ProfessionalFilter = ({ initialArea, professionals }: { initialArea
                         
                         <div className="flex flex-col items-center gap-3 mt-auto">
                           <div className="inline-flex items-center gap-1.5 px-4 py-1.5 rounded-full bg-white dark:bg-slate-800 border border-slate-200/60 dark:border-slate-700 text-slate-700 dark:text-slate-200 text-[10px] font-bold uppercase tracking-widest shrink-0 shadow-sm shadow-slate-200/30 dark:shadow-none">
-                            <Sparkles size={12} fill="currentColor" className="text-secondary shrink-0" /> {pro.specialty}
+                            <SpecIcon size={12} strokeWidth={2.5} className="text-secondary shrink-0" /> {pro.specialty}
                           </div>
                           <div className="flex flex-wrap justify-center gap-1.5 items-center">
                             {hasPresencial && (
@@ -444,17 +447,32 @@ export const ProfessionalFilter = ({ initialArea, professionals }: { initialArea
                         </div>
                       </div>
                       
-                      <div className="w-full p-6 pt-0 pb-8 flex justify-center mt-auto">
+                      <div className="w-full p-6 pt-0 pb-8 flex flex-col items-center gap-3 mt-auto">
+                        {/* Botón Directo: Agendar Hora */}
+                        <a 
+                          href={pro.bookingLink || "tel:+56222172635"}
+                          target={pro.bookingLink?.startsWith('http') ? "_blank" : undefined}
+                          rel={pro.bookingLink?.startsWith('http') ? "noopener noreferrer" : undefined}
+                          className="relative inline-flex w-full max-w-[230px] cursor-pointer select-none group/agendadirect outline-none no-underline h-12 items-center"
+                        >
+                          <div className="bg-gradient-to-r from-primary to-[#1e3a8a] text-white w-full px-6 h-full flex items-center justify-center rounded-full text-[9px] font-black tracking-[0.15em] uppercase shadow-lg shadow-primary/20 dark:shadow-primary/10 transition-all duration-500 transform group-hover/agendadirect:-translate-y-1 group-active/agendadirect:scale-95 relative z-10 whitespace-nowrap">
+                            Agendar Hora
+                          </div>
+                          <div className="absolute -top-1.5 -right-1.5 w-8 h-8 bg-secondary rounded-full flex items-center justify-center text-primary shadow-lg transition-all duration-500 transform group-hover/agendadirect:-translate-y-1.5 group-hover/agendadirect:rotate-[-12deg] group-hover/agendadirect:scale-110 group-active/agendadirect:scale-95 z-20 border-4 border-white dark:border-slate-900">
+                            <CalendarDays className="w-3 h-3" strokeWidth={3.5} />
+                          </div>
+                        </a>
+
                         <Dialog>
                           <DialogTrigger asChild>
                             <button className="relative inline-flex w-full max-w-[230px] cursor-pointer select-none group/profbtn outline-none border-none bg-transparent h-12 items-center">
-                              {/* Cuerpo del Botón */}
-                              <div className="bg-none bg-white border border-slate-200/80 text-slate-600 dark:bg-gradient-to-r dark:from-primary dark:to-[#1e3a8a] dark:text-white dark:border-transparent w-full px-6 h-full flex items-center justify-center rounded-full text-[9px] font-black tracking-[0.15em] uppercase shadow-sm shadow-slate-200/30 dark:shadow-none transition-all duration-500 transform group-hover/profbtn:-translate-y-1 group-hover/profbtn:border-secondary/50 group-hover/profbtn:text-primary dark:group-hover/profbtn:text-white group-hover/profbtn:shadow-lg group-hover/profbtn:shadow-slate-200/40 dark:group-hover/profbtn:shadow-none group-active/profbtn:scale-95 relative z-10 whitespace-nowrap">
+                              {/* Cuerpo del Botón Secundario */}
+                              <div className="bg-white dark:bg-slate-800/50 border border-slate-200/80 dark:border-slate-700 text-slate-600 dark:text-slate-300 w-full px-6 h-full flex items-center justify-center rounded-full text-[9px] font-black tracking-[0.15em] uppercase shadow-sm shadow-slate-200/30 dark:shadow-none transition-all duration-500 transform group-hover/profbtn:-translate-y-1 group-hover/profbtn:border-secondary/50 group-hover/profbtn:text-primary dark:group-hover/profbtn:text-white group-hover/profbtn:shadow-lg dark:group-hover/profbtn:shadow-none group-active/profbtn:scale-95 relative z-10 whitespace-nowrap">
                                 Ver Perfil Completo
                               </div>
                               
-                              {/* Icono Badge Flotante con Lupa */}
-                              <div className="absolute -top-1.5 -right-1.5 w-8 h-8 bg-secondary rounded-full flex items-center justify-center text-primary shadow-lg transition-all duration-500 transform group-hover/profbtn:-translate-y-1.5 group-hover/profbtn:rotate-[-12deg] group-hover/profbtn:scale-110 group-active/profbtn:scale-95 z-20 border-4 border-white dark:border-slate-900">
+                              {/* Icono Badge Flotante Secundario */}
+                              <div className="absolute -top-1.5 -right-1.5 w-8 h-8 bg-slate-100 dark:bg-slate-700 rounded-full flex items-center justify-center text-slate-500 dark:text-slate-300 shadow-sm transition-all duration-500 transform group-hover/profbtn:-translate-y-1.5 group-active/profbtn:scale-95 z-20 border-4 border-white dark:border-slate-900">
                                 <Search className="w-3 h-3" strokeWidth={3.5} />
                               </div>
                             </button>
@@ -480,7 +498,10 @@ export const ProfessionalFilter = ({ initialArea, professionals }: { initialArea
                             <DialogHeader className="text-center">
                               <DialogTitle className="text-2xl sm:text-3xl font-bold tracking-tight leading-[1.2] mb-3 text-center w-full px-2">{pro.name}</DialogTitle>
                               <div className="flex gap-2 justify-center">
-                                <Badge className="bg-secondary text-primary font-bold">{pro.specialty}</Badge>
+                                <Badge className="bg-secondary text-primary font-bold flex items-center gap-1">
+                                  <SpecIcon size={12} strokeWidth={2.5} />
+                                  {pro.specialty}
+                                </Badge>
                                 <Badge variant="outline" className="text-white border-white/20">{pro.area}</Badge>
                               </div>
                               <div className="flex gap-1.5 justify-center mt-2">
@@ -536,9 +557,14 @@ export const ProfessionalFilter = ({ initialArea, professionals }: { initialArea
                             {(() => {
                               const firstName = pro.name.split(' ').filter(p => !p.includes('.')).filter(p => p.length > 0)[0] || pro.name.split(' ')[0];
                               return (
-                                <div className="relative inline-flex w-full cursor-pointer select-none group pt-2">
+                                <a 
+                                  href={pro.bookingLink || "tel:+56222172635"}
+                                  target={pro.bookingLink?.startsWith('http') ? "_blank" : undefined}
+                                  rel={pro.bookingLink?.startsWith('http') ? "noopener noreferrer" : undefined}
+                                  className="relative inline-flex w-full cursor-pointer select-none group pt-2 no-underline"
+                                >
                                   {/* Cuerpo del Botón con Degradado */}
-                                  <div className="bg-gradient-to-r from-cyan-500 to-cyan-600 dark:bg-gradient-to-r dark:from-primary dark:to-[#1e3a8a] text-white w-full px-8 h-16 flex items-center justify-center rounded-full text-base sm:text-lg font-black tracking-tight shadow-xl shadow-cyan-500/20 dark:shadow-primary/20 transition-all duration-500 transform group-hover:-translate-y-1 group-active:scale-95 relative z-10 whitespace-nowrap">
+                                  <div className="bg-gradient-to-r from-primary to-[#1e3a8a] text-white w-full px-8 h-16 flex items-center justify-center rounded-full text-base sm:text-lg font-black tracking-tight shadow-xl shadow-primary/20 dark:shadow-primary/20 transition-all duration-500 transform group-hover:-translate-y-1 group-active:scale-95 relative z-10 whitespace-nowrap">
                                     Agendar Hora con {firstName}
                                   </div>
                                   
@@ -546,7 +572,7 @@ export const ProfessionalFilter = ({ initialArea, professionals }: { initialArea
                                   <div className="absolute top-0 -right-1 sm:-right-2 w-11 h-11 bg-secondary rounded-full flex items-center justify-center text-primary shadow-lg transition-all duration-500 transform group-hover:-translate-y-1 group-hover:rotate-[-15deg] group-hover:scale-110 group-active:scale-95 z-20 border-4 border-white dark:border-slate-900">
                                     <CalendarDays className="w-4 h-4" strokeWidth={3} />
                                   </div>
-                                </div>
+                                </a>
                               );
                             })()}
                           </div>

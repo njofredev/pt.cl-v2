@@ -42,7 +42,7 @@
 @layer base {
   :root {
     --color-secondary: #38c1a5; /* Turquesa pastel sofisticado para modo claro */
-    --color-primary: #164e63; /* Cyan 900 - Tono Celeste Más Crystalline para Enfasis */
+    --color-primary: #162158; /* Azul Oscuro Institucional original */
   }
 
   .dark {

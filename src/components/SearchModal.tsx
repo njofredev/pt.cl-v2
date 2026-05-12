@@ -272,7 +272,7 @@ export function SearchModal({ isOpen, onClose }: { isOpen: boolean; onClose: () 
                         }}
                         className="relative inline-flex w-full cursor-pointer select-none group"
                       >
-                        <div className="bg-gradient-to-r from-cyan-500 to-cyan-600 dark:bg-gradient-to-r dark:from-primary dark:to-[#1e3a8a] text-white w-full px-6 h-14 flex items-center justify-center rounded-full text-sm sm:text-base font-black tracking-tight shadow-lg shadow-cyan-500/20 dark:shadow-primary/20 transition-all duration-500 transform group-hover:-translate-y-0.5 group-active:scale-95 relative z-10 whitespace-nowrap">
+                        <div className="bg-gradient-to-r from-primary to-[#1e3a8a] text-white w-full px-6 h-14 flex items-center justify-center rounded-full text-sm sm:text-base font-black tracking-tight shadow-lg shadow-primary/20 dark:shadow-primary/20 transition-all duration-500 transform group-hover:-translate-y-0.5 group-active:scale-95 relative z-10 whitespace-nowrap">
                           Agendar Hora Ahora
                         </div>
                         

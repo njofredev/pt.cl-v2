@@ -84,7 +84,7 @@ export default function NosotrosPage() {
             <div className="relative rounded-[2.5rem] bg-slate-50 dark:bg-slate-900 p-4 border border-slate-100 dark:border-white/5 overflow-hidden shadow-xl shadow-slate-200/30 dark:shadow-none transition-all hover:shadow-2xl hover:-translate-y-1 duration-500">
               <div className="relative aspect-[16/9] w-full rounded-[2rem] overflow-hidden border border-white/20">
                 <Image 
-                  src="/imagenes_general/Fundadoras.jpg"
+                  src="/imagenes_general/Fundadoras.jpeg"
                   alt="Nuestras Fundadoras"
                   fill
                   className="object-cover object-center group-hover:scale-105 transition-transform duration-700 ease-out"
@@ -109,15 +109,21 @@ export default function NosotrosPage() {
             className="grid grid-cols-1 lg:grid-cols-2 gap-8 max-w-6xl mx-auto w-full items-stretch"
           >
             {/* Misión Directa */}
-            <div className="p-10 bg-primary text-white rounded-[2.5rem] shadow-xl shadow-primary/20 relative overflow-hidden group flex flex-col justify-center">
-              <div className="absolute top-0 right-0 w-40 h-40 bg-white/5 rounded-bl-full -mr-12 -mt-12 transition-transform group-hover:scale-125 duration-700"></div>
-              <div className="w-14 h-14 rounded-2xl bg-white/10 flex items-center justify-center mb-6 border border-white/10 shadow-lg">
-                <Target size={28} className="text-secondary" />
+            <div className="p-8 bg-white dark:bg-slate-900/60 border border-slate-100 dark:border-white/10 rounded-[2.5rem] shadow-md shadow-slate-200/20 dark:shadow-none flex flex-col justify-center gap-6 group hover:-translate-y-1 transition-transform duration-300">
+              <div className="flex items-center gap-5">
+                <div className="w-14 h-14 rounded-full bg-secondary/10 flex items-center justify-center shrink-0 text-secondary border border-secondary/20 group-hover:scale-110 transition-transform duration-500">
+                  <Target size={28} strokeWidth={2} />
+                </div>
+                <div>
+                  <h3 className="text-xl font-black uppercase tracking-wider text-primary dark:text-slate-100 mb-1">Nuestra Misión</h3>
+                  <p className="text-slate-500 dark:text-slate-400 font-medium">Tu salud, nuestra prioridad.</p>
+                </div>
               </div>
-              <h2 className="text-3xl font-black tracking-tight mb-4">Nuestra Misión</h2>
-              <p className="text-slate-100 text-lg leading-relaxed font-medium italic">
-                &quot;Entregar oportunamente prestaciones de excelencia en el ámbito de la salud, a toda persona que requiera atención, al menor costo posible.&quot;
-              </p>
+              <div className="bg-slate-50 dark:bg-white/5 p-6 rounded-2xl border border-slate-100 dark:border-white/5">
+                 <p className="text-base text-slate-600 dark:text-slate-300 font-medium leading-relaxed">
+                   &quot;Entregar oportunamente prestaciones de excelencia en el ámbito de la salud, a toda persona que requiera atención, al menor costo posible.&quot;
+                 </p>
+              </div>
             </div>
             
             {/* Cita de Visión Complementaria */}
@@ -132,7 +138,7 @@ export default function NosotrosPage() {
                 </div>
               </div>
               <div className="bg-slate-50 dark:bg-white/5 p-6 rounded-2xl border border-slate-100 dark:border-white/5">
-                 <p className="text-base text-slate-600 dark:text-slate-300 font-medium leading-relaxed italic">
+                 <p className="text-base text-slate-600 dark:text-slate-300 font-medium leading-relaxed">
                    &quot;Trabajamos día a día para mantener vivo el espíritu solidario de nuestras fundadoras, asegurando un trato digno y cercano en cada consulta.&quot;
                  </p>
               </div>
@@ -357,21 +363,26 @@ export default function NosotrosPage() {
       {/* EXPLORA NUESTROS SERVICIOS */}
       <section className="py-20 bg-slate-50/30 dark:bg-slate-900/20 border-t border-slate-100 dark:border-white/5">
         <div className="container mx-auto px-6 text-center">
-          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-primary/5 text-primary dark:text-white text-[10px] font-black uppercase tracking-widest mb-4">
+          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-primary text-white text-[10px] font-black uppercase tracking-widest mb-6 shadow-md shadow-primary/10">
             Nuestra Oferta Médica
           </div>
-          <div className="flex items-center justify-center gap-4 md:gap-8 max-w-5xl mx-auto mb-10">
-            <Link href="/#sucursales" className="hidden md:flex items-center gap-2 text-[11px] font-bold uppercase tracking-wider text-slate-400 dark:text-slate-500 hover:text-secondary transition-colors shrink-0">
-              <ChevronLeft size={14} /> Sucursales
-            </Link>
+          
+          <div className="flex items-center justify-between w-full max-w-5xl mx-auto mb-10 px-4">
+            <div className="hidden md:flex flex-1 justify-start">
+              <Link href="/#sucursales" className="flex items-center gap-2 text-[11px] font-bold uppercase tracking-wider text-slate-400 dark:text-slate-500 hover:text-secondary transition-colors shrink-0">
+                <ChevronLeft size={14} /> Sucursales
+              </Link>
+            </div>
 
-            <h2 className="text-3xl md:text-4xl font-black text-slate-900 dark:text-white tracking-tight">
+            <h2 className="text-3xl md:text-4xl font-black text-slate-900 dark:text-white tracking-tight mx-4 text-center shrink-0">
               Explora Todos Nuestros Servicios
             </h2>
 
-            <Link href="/derechos-y-deberes" className="hidden md:flex items-center gap-2 text-[11px] font-bold uppercase tracking-wider text-slate-400 dark:text-slate-500 hover:text-secondary transition-colors shrink-0">
-              Derechos y Deberes <ChevronRight size={14} />
-            </Link>
+            <div className="hidden md:flex flex-1 justify-end">
+              <Link href="/derechos-y-deberes" className="flex items-center gap-2 text-[11px] font-bold uppercase tracking-wider text-slate-400 dark:text-slate-500 hover:text-secondary transition-colors shrink-0">
+                Derechos y Deberes <ChevronRight size={14} />
+              </Link>
+            </div>
           </div>
 
           {/* Mobile alternative links simple */}

@@ -228,25 +228,25 @@ export const Navbar = () => {
             </motion.div>
           )}
         </AnimatePresence>
-        <div className={`bg-gradient-to-r from-cyan-600 to-cyan-500 dark:bg-primary text-white transition-all duration-300 ${isScrolled ? 'py-1' : 'py-2'} border-b border-white/5`}>
+        <div className={`bg-primary text-white transition-all duration-300 ${isScrolled ? 'py-1' : 'py-2'} border-b border-white/5`}>
           <div className="container mx-auto px-4 md:px-6 flex flex-col lg:flex-row justify-center lg:justify-between items-center gap-y-2 py-0.5 text-[7.5px] sm:text-[9px] md:text-[10px] font-bold uppercase tracking-[0.12em] sm:tracking-[0.15em] text-center md:text-left">
             <div className="flex flex-wrap gap-x-3 sm:gap-x-4 gap-y-1.5 justify-center lg:justify-start">
               <a
                 href="https://www.google.com/maps/search/?api=1&query=Calle+Los+Tribunales+1268+Vitacura"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center gap-2 hover:text-white transition-colors group"
+                className="flex items-center gap-2 hover:text-secondary transition-colors group"
               >
-                <MapPin size={12} className="text-white group-hover:scale-110 transition-transform" />
+                <MapPin size={12} className="text-secondary group-hover:scale-110 transition-transform" />
                 LOS TRIBUNALES #1268
               </a>
               <a
                 href="https://www.google.com/maps/search/?api=1&query=Avenida+Vitacura+8620+Vitacura"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center gap-2 hover:text-white transition-colors group"
+                className="flex items-center gap-2 hover:text-secondary transition-colors group"
               >
-                <MapPin size={12} className="text-white group-hover:scale-110 transition-transform" />
+                <MapPin size={12} className="text-secondary group-hover:scale-110 transition-transform" />
                 AV. VITACURA #8620
               </a>
             </div>
@@ -254,17 +254,17 @@ export const Navbar = () => {
             <div className="flex flex-wrap gap-x-3 sm:gap-x-4 gap-y-1.5 justify-center lg:justify-end items-center">
               <a
                 href="tel:+56222172635"
-                className="flex items-center gap-2 hover:text-white transition-colors group"
+                className="flex items-center gap-2 hover:text-secondary transition-colors group"
               >
-                <Phone size={12} className="text-white group-hover:scale-110 transition-transform" />
+                <Phone size={12} className="text-secondary group-hover:scale-110 transition-transform" />
                 TRIBUNALES: +56 2 2217 2635
               </a>
               <span className="text-white/20 hidden md:inline">|</span>
               <a
                 href="tel:+56229336740"
-                className="flex items-center gap-2 hover:text-white transition-colors group"
+                className="flex items-center gap-2 hover:text-secondary transition-colors group"
               >
-                <Phone size={12} className="text-white group-hover:scale-110 transition-transform" />
+                <Phone size={12} className="text-secondary group-hover:scale-110 transition-transform" />
                 VITACURA: +56 2 2933 6740
               </a>
 
@@ -285,13 +285,13 @@ export const Navbar = () => {
                     </motion.span>
                   </AnimatePresence>
                 </div>
-                <a href="https://www.instagram.com/politabancura/" target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors transform hover:scale-110">
+                <a href="https://www.instagram.com/politabancura/" target="_blank" rel="noopener noreferrer" className="hover:text-secondary transition-colors transform hover:scale-110">
                   <Instagram size={14} />
                 </a>
-                <a href="https://www.facebook.com/profile.php?id=61568214167163" target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors transform hover:scale-110">
+                <a href="https://www.facebook.com/profile.php?id=61568214167163" target="_blank" rel="noopener noreferrer" className="hover:text-secondary transition-colors transform hover:scale-110">
                   <Facebook size={14} />
                 </a>
-                <a href="https://www.tiktok.com/@politabancura" target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors transform hover:scale-110">
+                <a href="https://www.tiktok.com/@politabancura" target="_blank" rel="noopener noreferrer" className="hover:text-secondary transition-colors transform hover:scale-110">
                   <TikTokIcon size={14} />
                 </a>
               </div>
@@ -430,13 +430,17 @@ export const Navbar = () => {
                 </div>
               </button>
 
-              <div className="hidden xl:block">
+              <div className="hidden xl:block relative group">
                 <Button
-                  className="bg-gradient-to-r from-cyan-500 to-cyan-600 dark:bg-gradient-to-r dark:from-primary dark:to-[#1e3a8a] text-white rounded-full px-8 h-11 font-bold text-[11px] tracking-widest transition-all hover:scale-105 hover:shadow-xl active:scale-95 cursor-pointer shadow-lg shadow-black/10 border-0"
+                  className="bg-gradient-to-r from-primary to-[#1e3a8a] text-white rounded-full px-8 h-11 font-bold text-[11px] tracking-widest transition-all duration-500 transform group-hover:-translate-y-1 group-active:scale-95 cursor-pointer shadow-lg shadow-black/10 border-0 relative z-10"
                   onClick={scrollToScheduler}
                 >
-                  RESERVAR HORA <Calendar size={14} className="ml-2 shrink-0 opacity-90" />
+                  RESERVAR HORA
                 </Button>
+                {/* Icono Badge Flotante */}
+                <div className="absolute -top-2 -right-2 w-10 h-10 bg-secondary rounded-full flex items-center justify-center text-white shadow-lg transition-all duration-500 transform group-hover:-translate-y-1 group-hover:rotate-[-15deg] group-hover:scale-110 group-active:scale-95 z-20 border-4 border-white dark:border-slate-950 pointer-events-none">
+                  <Calendar className="w-4 h-4" strokeWidth={2.5} />
+                </div>
               </div>
 
               {/* Mobile Search Trigger */}

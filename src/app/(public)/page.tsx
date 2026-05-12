@@ -17,6 +17,7 @@ import {
   ShieldCheck
 } from 'lucide-react';
 import { Button } from "@/components/ui/button";
+import Image from 'next/image';
 
 export default function Home() {
   return (
@@ -85,6 +86,23 @@ export default function Home() {
 
               {/* Columna Izquierda: Contexto */}
               <div className="max-w-xl">
+                <div className="mb-8 group">
+                  <Image 
+                    src="/logos_convenios_prevision/mivita_v2_light.png" 
+                    alt="Logo Tarjeta Mi Vita" 
+                    width={220} 
+                    height={88} 
+                    className="block dark:hidden object-contain drop-shadow-md transition-transform duration-500 group-hover:scale-105 group-hover:-rotate-1"
+                  />
+                  <Image 
+                    src="/logos_convenios_prevision/mivita_v2_dark.png" 
+                    alt="Logo Tarjeta Mi Vita" 
+                    width={220} 
+                    height={88} 
+                    className="hidden dark:block object-contain drop-shadow-md transition-transform duration-500 group-hover:scale-105 group-hover:-rotate-1"
+                  />
+                </div>
+
                 <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-primary text-white text-[11px] font-bold uppercase tracking-widest mb-8">
                   <ShieldCheck size={14} fill="currentColor" className="text-secondary shrink-0" /> ¡Atención vecinos de Vitacura!
                 </div>
