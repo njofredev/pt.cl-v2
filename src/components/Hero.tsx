@@ -106,7 +106,7 @@ export const Hero = ({
               }}
             >
               {/* Cuerpo del Botón principal con Degradado Premium */}
-              <div className="bg-gradient-to-r from-primary to-[#1e3a8a] text-white pl-8 pr-14 sm:px-12 h-16 flex items-center justify-center gap-4 rounded-full text-sm sm:text-lg font-black tracking-tight shadow-xl shadow-black/10 transition-all duration-500 transform group-hover:-translate-y-1 group-active:scale-95 relative z-10 whitespace-nowrap">
+              <div className="bg-gradient-to-r from-cyan-500 to-cyan-600 dark:bg-gradient-to-r dark:from-primary dark:to-[#1e3a8a] text-white pl-8 pr-14 sm:px-12 h-16 flex items-center justify-center gap-4 rounded-full text-sm sm:text-lg font-black tracking-tight shadow-xl shadow-black/10 transition-all duration-500 transform group-hover:-translate-y-1 group-active:scale-95 relative z-10 whitespace-nowrap">
                 {buttonText}
                 {isInlineIcon && (
                   <div className={`w-10 h-10 rounded-full ${floatingIconBg} flex items-center justify-center text-primary shadow-sm shrink-0 group-hover:scale-110 group-hover:rotate-[10deg] transition-transform duration-500 mr-[-12px] ml-1`}>

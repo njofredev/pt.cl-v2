@@ -538,7 +538,7 @@ export const ProfessionalFilter = ({ initialArea, professionals }: { initialArea
                               return (
                                 <div className="relative inline-flex w-full cursor-pointer select-none group pt-2">
                                   {/* Cuerpo del Botón con Degradado */}
-                                  <div className="bg-gradient-to-r from-primary to-[#1e3a8a] text-white w-full px-8 h-16 flex items-center justify-center rounded-full text-base sm:text-lg font-black tracking-tight shadow-xl shadow-primary/20 transition-all duration-500 transform group-hover:-translate-y-1 group-active:scale-95 relative z-10 whitespace-nowrap">
+                                  <div className="bg-gradient-to-r from-cyan-500 to-cyan-600 dark:bg-gradient-to-r dark:from-primary dark:to-[#1e3a8a] text-white w-full px-8 h-16 flex items-center justify-center rounded-full text-base sm:text-lg font-black tracking-tight shadow-xl shadow-cyan-500/20 dark:shadow-primary/20 transition-all duration-500 transform group-hover:-translate-y-1 group-active:scale-95 relative z-10 whitespace-nowrap">
                                     Agendar Hora con {firstName}
                                   </div>
                                   

@@ -191,7 +191,7 @@ export const Navbar = () => {
               animate={{ height: 'auto', opacity: 1 }}
               exit={{ height: 0, opacity: 0 }}
               transition={{ duration: 0.3, ease: "easeInOut" }}
-              className="bg-gradient-to-r from-sky-600 via-cyan-600 to-cyan-500 dark:from-indigo-800 dark:via-indigo-600 dark:to-indigo-500 text-white overflow-hidden relative z-[60] shadow-md border-b border-white/10"
+              className="bg-gradient-to-r from-violet-600 via-indigo-600 to-indigo-500 dark:bg-gradient-to-r dark:from-indigo-800 dark:via-indigo-600 dark:to-indigo-500 text-white overflow-hidden relative z-[60] shadow-md border-b border-white/10"
             >
               <div className="container mx-auto px-4 py-2 md:py-2.5 flex items-center justify-center gap-x-2 sm:gap-x-4 text-center relative pr-28 md:pr-32">
                 <SmilePlus className="w-5 h-5 shrink-0 hidden sm:block text-yellow-200 animate-pulse" />
@@ -206,7 +206,6 @@ export const Navbar = () => {
                   <span className="hidden lg:inline bg-black/10 px-2 py-0.5 rounded-full text-[8px] ml-2 border border-white/10 tracking-widest">HASTA 15 MAYO | PARA MAYORES DE 15 AÑOS</span>
                 </p>
 
-                {/* Grupo de Acciones Derecha: Agendar + Cerrar */}
                 <div className="absolute right-2 sm:right-4 top-1/2 -translate-y-1/2 flex items-center gap-x-1 sm:gap-x-2">
                   <a
                     href="https://ff.healthatom.io/9p2Sq9"
@@ -229,25 +228,25 @@ export const Navbar = () => {
             </motion.div>
           )}
         </AnimatePresence>
-        <div className={`bg-primary text-white transition-all duration-300 ${isScrolled ? 'py-1' : 'py-2'} border-b border-white/5`}>
+        <div className={`bg-gradient-to-r from-cyan-600 to-cyan-500 dark:bg-primary text-white transition-all duration-300 ${isScrolled ? 'py-1' : 'py-2'} border-b border-white/5`}>
           <div className="container mx-auto px-4 md:px-6 flex flex-col lg:flex-row justify-center lg:justify-between items-center gap-y-2 py-0.5 text-[7.5px] sm:text-[9px] md:text-[10px] font-bold uppercase tracking-[0.12em] sm:tracking-[0.15em] text-center md:text-left">
             <div className="flex flex-wrap gap-x-3 sm:gap-x-4 gap-y-1.5 justify-center lg:justify-start">
               <a
                 href="https://www.google.com/maps/search/?api=1&query=Calle+Los+Tribunales+1268+Vitacura"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center gap-2 hover:text-secondary transition-colors group"
+                className="flex items-center gap-2 hover:text-white transition-colors group"
               >
-                <MapPin size={12} className="text-secondary group-hover:scale-110 transition-transform" />
+                <MapPin size={12} className="text-white group-hover:scale-110 transition-transform" />
                 LOS TRIBUNALES #1268
               </a>
               <a
                 href="https://www.google.com/maps/search/?api=1&query=Avenida+Vitacura+8620+Vitacura"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center gap-2 hover:text-secondary transition-colors group"
+                className="flex items-center gap-2 hover:text-white transition-colors group"
               >
-                <MapPin size={12} className="text-secondary group-hover:scale-110 transition-transform" />
+                <MapPin size={12} className="text-white group-hover:scale-110 transition-transform" />
                 AV. VITACURA #8620
               </a>
             </div>
@@ -255,17 +254,17 @@ export const Navbar = () => {
             <div className="flex flex-wrap gap-x-3 sm:gap-x-4 gap-y-1.5 justify-center lg:justify-end items-center">
               <a
                 href="tel:+56222172635"
-                className="flex items-center gap-2 hover:text-secondary transition-colors group"
+                className="flex items-center gap-2 hover:text-white transition-colors group"
               >
-                <Phone size={12} className="text-secondary group-hover:scale-110 transition-transform" />
+                <Phone size={12} className="text-white group-hover:scale-110 transition-transform" />
                 TRIBUNALES: +56 2 2217 2635
               </a>
               <span className="text-white/20 hidden md:inline">|</span>
               <a
                 href="tel:+56229336740"
-                className="flex items-center gap-2 hover:text-secondary transition-colors group"
+                className="flex items-center gap-2 hover:text-white transition-colors group"
               >
-                <Phone size={12} className="text-secondary group-hover:scale-110 transition-transform" />
+                <Phone size={12} className="text-white group-hover:scale-110 transition-transform" />
                 VITACURA: +56 2 2933 6740
               </a>
 
@@ -286,13 +285,13 @@ export const Navbar = () => {
                     </motion.span>
                   </AnimatePresence>
                 </div>
-                <a href="https://www.instagram.com/politabancura/" target="_blank" rel="noopener noreferrer" className="hover:text-secondary transition-colors transform hover:scale-110">
+                <a href="https://www.instagram.com/politabancura/" target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors transform hover:scale-110">
                   <Instagram size={14} />
                 </a>
-                <a href="https://www.facebook.com/profile.php?id=61568214167163" target="_blank" rel="noopener noreferrer" className="hover:text-secondary transition-colors transform hover:scale-110">
+                <a href="https://www.facebook.com/profile.php?id=61568214167163" target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors transform hover:scale-110">
                   <Facebook size={14} />
                 </a>
-                <a href="https://www.tiktok.com/@politabancura" target="_blank" rel="noopener noreferrer" className="hover:text-secondary transition-colors transform hover:scale-110">
+                <a href="https://www.tiktok.com/@politabancura" target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors transform hover:scale-110">
                   <TikTokIcon size={14} />
                 </a>
               </div>
@@ -433,7 +432,7 @@ export const Navbar = () => {
 
               <div className="hidden xl:block">
                 <Button
-                  className="bg-gradient-to-r from-primary to-[#1e3a8a] text-white rounded-full px-8 h-11 font-bold text-[11px] tracking-widest transition-all hover:scale-105 hover:shadow-xl active:scale-95 cursor-pointer shadow-lg shadow-black/10 border-0"
+                  className="bg-gradient-to-r from-cyan-500 to-cyan-600 dark:bg-gradient-to-r dark:from-primary dark:to-[#1e3a8a] text-white rounded-full px-8 h-11 font-bold text-[11px] tracking-widest transition-all hover:scale-105 hover:shadow-xl active:scale-95 cursor-pointer shadow-lg shadow-black/10 border-0"
                   onClick={scrollToScheduler}
                 >
                   RESERVAR HORA <Calendar size={14} className="ml-2 shrink-0 opacity-90" />
