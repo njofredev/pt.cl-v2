@@ -64,205 +64,213 @@ export const Branches = () => {
   };
 
   return (
-    <section id="sucursales" className="py-24 bg-transparent dark:bg-transparent transition-colors duration-300">
+    <section id="sucursales" className="py-16 bg-transparent dark:bg-transparent transition-colors duration-300">
       <div className="container mx-auto px-6">
-        <div className="bg-primary rounded-[2rem] sm:rounded-[2.5rem] md:rounded-[4rem] p-6 sm:p-8 md:p-20 text-white relative overflow-hidden shadow-2xl">
+        <div className="bg-primary rounded-[2.5rem] sm:rounded-[3rem] md:rounded-[4rem] p-6 sm:p-8 md:p-16 lg:p-20 text-white relative overflow-hidden shadow-2xl border border-white/5">
           {/* Background Orbs */}
-          <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-secondary/10 rounded-full blur-[150px] -z-0" />
-          <div className="absolute bottom-0 left-0 w-[400px] h-[400px] bg-blue-500/10 rounded-full blur-[120px] -z-0" />
+          <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-secondary/10 rounded-full blur-[150px] -z-0 pointer-events-none" />
+          <div className="absolute bottom-0 left-0 w-[400px] h-[400px] bg-blue-500/10 rounded-full blur-[120px] -z-0 pointer-events-none" />
 
           <div className="relative z-10">
-            {/* Header */}
-            <div className="max-w-3xl mb-16">
+            {/* Header - Rediseñado para optimizar espacio vertical */}
+            <div className="max-w-3xl mb-12">
               <motion.div
-                initial={{ opacity: 0, y: 20 }}
+                initial={{ opacity: 0, y: 15 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/10 text-secondary text-[11px] font-bold uppercase tracking-widest mb-8 border border-white/5"
+                className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/10 text-secondary text-[10px] sm:text-[11px] font-bold uppercase tracking-widest mb-6 border border-white/5 shadow-inner"
               >
-                <MapPin size={14} /> ¡Visítanos!
+                <MapPin size={14} className="shrink-0 text-secondary" /> ¡Visítanos!
               </motion.div>
               <motion.h2
-                initial={{ opacity: 0, y: 20 }}
+                initial={{ opacity: 0, y: 15 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: 0.1 }}
-                className="text-3xl sm:text-4xl md:text-6xl font-bold mb-8 leading-[0.9] tracking-tighter"
+                className="text-3xl sm:text-4xl md:text-5xl font-black mb-4 tracking-tight leading-tight sm:leading-none"
               >
-                Conoce nuestros centros <br />
-                <span className="text-secondary">médicos y dentales.</span>
+                Conoce nuestros centros <br className="hidden sm:inline" />
+                <span className="text-transparent bg-clip-text bg-gradient-to-r from-secondary to-teal-400">médicos y dentales.</span>
               </motion.h2>
               <motion.p
-                initial={{ opacity: 0, y: 20 }}
+                initial={{ opacity: 0, y: 15 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: 0.2 }}
-                className="text-slate-300 text-xl md:text-2xl leading-relaxed font-medium max-w-xl"
+                className="text-slate-300 text-base md:text-lg leading-relaxed font-medium max-w-xl"
               >
                 Dos ubicaciones estratégicas en Vitacura para brindarte la mejor atención profesional y humana.
               </motion.p>
             </div>
 
             {/* Branches Grid */}
-            <div className="grid lg:grid-cols-2 gap-10">
+            <div className="grid lg:grid-cols-2 gap-8 lg:gap-10">
               {branches.map((branch, index) => (
                 <motion.div
                   key={branch.id}
                   initial={{ opacity: 0, y: 30 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
-                  transition={{ delay: index * 0.2 }}
-                  className="group relative bg-white/5 backdrop-blur-sm rounded-[2rem] border border-white/10 p-5 sm:p-6 md:p-8 hover:bg-white/[0.08] transition-all duration-500 overflow-hidden flex flex-col"
+                  transition={{ delay: index * 0.15 }}
+                  className="group relative bg-gradient-to-b from-white/[0.07] to-white/[0.02] backdrop-blur-md rounded-[2.5rem] border border-white/10 p-5 sm:p-7 md:p-9 hover:from-white/[0.1] hover:to-white/[0.03] hover:border-white/20 transition-all duration-500 flex flex-col shadow-xl shadow-black/5"
                 >
                   <div className="flex flex-col h-full">
-                    {/* Header: Icon + Name/Address + Map Link */}
-                    <div className="flex justify-between items-start mb-8">
+                    {/* Header: Icon + Name/Address + External Direction Link */}
+                    <div className="flex justify-between items-start mb-8 gap-4">
                       <div className="flex items-start gap-4">
-                        <div className="p-3 bg-secondary/20 rounded-xl shrink-0">
-                          <Building2 className="text-secondary" size={24} />
+                        <div className="p-3.5 bg-secondary/20 rounded-2xl shrink-0 text-secondary shadow-md border border-secondary/10 group-hover:scale-105 transition-transform duration-500">
+                          <Building2 size={24} strokeWidth={2} />
                         </div>
                         <div className="flex flex-col">
-                          <h3 className="text-xl md:text-3xl font-bold tracking-tight group-hover:text-secondary transition-colors mb-1">
+                          <h3 className="text-xl md:text-2xl lg:text-3xl font-black tracking-tight mb-1.5 text-white group-hover:text-secondary transition-colors duration-300">
                             {branch.name}
                           </h3>
-                          <div className="flex items-center gap-1.5 text-slate-400">
-                            <MapPin size={14} className="text-secondary" />
-                            <span className="text-[14px] md:text-[15px] font-medium leading-tight">{branch.address}</span>
+                          <div className="flex items-start gap-1.5 text-slate-300/90 group/addr">
+                            <MapPin size={15} className="text-secondary shrink-0 mt-0.5" />
+                            <span className="text-[13px] sm:text-[14px] font-semibold leading-snug tracking-wide transition-colors group-hover/addr:text-white">
+                              {branch.address}
+                            </span>
                           </div>
                         </div>
                       </div>
+                      
                       <a
                         href={branch.mapLink}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="p-4 bg-white/10 rounded-full hover:bg-secondary hover:text-primary transition-all duration-300 border border-white/10 shrink-0 ml-2"
+                        className="p-3.5 bg-white/5 rounded-full hover:bg-secondary hover:text-primary hover:scale-110 transition-all duration-300 border border-white/5 hover:border-secondary shrink-0 group/btn-map"
+                        title="Abrir en Google Maps"
                       >
-                        <Navigation size={20} />
+                        <Navigation size={18} className="group-hover/btn-map:animate-pulse" />
                       </a>
                     </div>
 
-                    {/* Image Area or Map */}
-                    <div className="relative group/img w-full h-[180px] sm:h-[260px] mb-8 overflow-hidden rounded-2xl bg-slate-900">
+                    {/* Image Container / Map Iframe */}
+                    <div className="relative group/img w-full h-[200px] sm:h-[240px] md:h-[260px] mb-8 overflow-hidden rounded-[1.75rem] bg-slate-900/80 border border-white/5 shadow-2xl">
                       {activeMaps[branch.id] ? (
-                        <div className="w-full h-full relative">
+                        <div className="w-full h-full relative animate-in fade-in duration-300">
                           <iframe 
                             src={branch.embedUrl} 
-                            className="w-full h-full border-0 grayscale opacity-80 invert contrast-125"
-                            style={{ filter: "invert(90%) hue-rotate(180deg)" }} // Modern Dark Map aesthetic hack
+                            className="w-full h-full border-0 grayscale opacity-90 invert contrast-125 scale-105"
+                            style={{ filter: "invert(90%) hue-rotate(180deg)" }} 
                             loading="lazy"
                             referrerPolicy="no-referrer-when-downgrade"
                             title={branch.name}
                           />
                           <button 
                             onClick={() => toggleMap(branch.id)}
-                            className="absolute top-3 right-3 bg-primary/90 hover:bg-secondary text-white hover:text-primary px-3 py-1.5 rounded-full text-[10px] font-bold uppercase tracking-widest transition-all shadow-md z-20"
+                            className="absolute top-4 right-4 bg-primary/90 hover:bg-secondary text-white hover:text-primary px-4 py-2 rounded-full text-[10px] font-black uppercase tracking-widest transition-all shadow-xl border border-white/10 backdrop-blur-md hover:scale-105 active:scale-95 z-20"
                           >
                             Cerrar Mapa
                           </button>
                         </div>
                       ) : (
                         <>
-                          <div className="absolute inset-0 bg-gradient-to-t from-primary/60 to-transparent z-10 rounded-2xl opacity-40 group-hover:opacity-10 transition-opacity" />
+                          <div className="absolute inset-0 bg-gradient-to-t from-primary/70 via-primary/20 to-transparent z-10 transition-opacity duration-500 group-hover/img:opacity-50" />
                           <img
                             src={branch.image}
                             alt={branch.name}
-                            className="w-full h-full object-cover rounded-2xl transition-all duration-500"
+                            className="w-full h-full object-cover group-hover/img:scale-110 transition-transform duration-700 ease-out"
                           />
-                          {/* Bottom-Right Button Overlay */}
+                          {/* Overlay Badge / CTA Inside Card */}
                           <div className="absolute bottom-4 right-4 z-20">
-                            <Button 
+                            <button 
                               onClick={(e) => {
                                 e.preventDefault();
-                                e.stopPropagation();
                                 toggleMap(branch.id);
                               }}
-                              className="bg-white text-primary hover:bg-secondary hover:text-primary font-bold px-4 py-2.5 rounded-xl flex items-center justify-center gap-2 shadow-2xl hover:scale-105 transition-all"
+                              className="bg-white text-primary hover:bg-secondary hover:text-primary font-bold text-[12px] px-4.5 py-2.5 rounded-xl flex items-center justify-center gap-2 shadow-[0_10px_30px_rgba(0,0,0,0.2)] hover:scale-105 active:scale-95 transition-all border border-transparent hover:border-white/20 group/badge-cta"
                             >
-                              <MapPin size={16} className="shrink-0" />
-                              <span className="leading-none relative top-[1px]">Ver mapa</span>
-                            </Button>
+                              <MapPin size={14} className="shrink-0 text-secondary group-hover/badge-cta:text-primary transition-colors" />
+                              <span className="leading-none uppercase tracking-wider font-black text-[11px]">Ver mapa interactivo</span>
+                            </button>
                           </div>
                         </>
                       )}
                     </div>
 
-                    {/* Information Grid */}
+                    {/* Time / Horarios Box packaged beautifully */}
                     <div className="mb-8">
-                      <div className="flex gap-4 items-center bg-white/5 rounded-2xl p-4 border border-white/5 group-hover:border-secondary/20 transition-colors">
-                        <Clock className="text-secondary shrink-0" size={20} />
-                        <div className="flex flex-col md:flex-row md:items-center gap-x-4 gap-y-1">
-                          <span className="text-[11px] font-bold uppercase tracking-widest text-slate-400">Horarios:</span>
-                          <p className="text-slate-200 text-[14px] md:text-[15px] font-medium">
+                      <div className="flex gap-4 items-center bg-white/[0.04] rounded-2xl p-4.5 border border-white/5 group-hover:border-secondary/20 group-hover:bg-white/[0.06] transition-all duration-300">
+                        <div className="w-10 h-10 rounded-xl bg-white/5 flex items-center justify-center text-secondary shrink-0 shadow-inner">
+                          <Clock size={18} />
+                        </div>
+                        <div className="flex flex-col md:flex-row md:items-center gap-x-3 gap-y-1">
+                          <span className="text-[10px] font-black uppercase tracking-widest text-slate-400 shrink-0">Horarios de Atención:</span>
+                          <div className="text-slate-200 text-[13px] sm:text-[14px] font-semibold">
                             {branch.hours.map((h, i) => (
                               <React.Fragment key={i}>
                                 <span className="text-secondary font-bold mr-1">{h.day}:</span>
-                                {h.time}
-                                {i < branch.hours.length - 1 && <span className="mx-3 text-white/20 hidden md:inline">|</span>}
+                                <span className="font-medium text-white/90">{h.time}</span>
+                                {i < branch.hours.length - 1 && <span className="mx-2 text-white/10 hidden md:inline">|</span>}
                                 {i < branch.hours.length - 1 && <br className="md:hidden" />}
                               </React.Fragment>
                             ))}
-                          </p>
+                          </div>
                         </div>
                       </div>
                     </div>
 
-                    {/* Contact & CTA Section */}
-                    <div className="space-y-6 pt-6 border-t border-white/5 mt-auto">
-                      <div className="grid sm:grid-cols-[1fr_1.3fr] gap-6 sm:gap-8">
-                        <div className="space-y-4">
-                          <span className="block text-[11px] font-bold uppercase tracking-widest text-slate-400">Contacto Directo</span>
-                          <div className="flex flex-col gap-3">
+                    {/* Contact Cards Grid - packaged in Tiles */}
+                    <div className="space-y-6 pt-6 border-t border-white/10 mt-auto">
+                      <div className="grid sm:grid-cols-2 gap-4">
+                        <div className="space-y-3">
+                          <span className="block text-[10px] font-black uppercase tracking-widest text-slate-400">Contacto Rápido</span>
+                          <div className="flex flex-col gap-2.5">
                             <a
                               href={`tel:${branch.contact.phone.replace(/\s/g, '')}`}
-                              className="flex items-center gap-3 text-[14px] md:text-[15px] font-medium text-slate-300 hover:text-white transition-colors group/link"
+                              className="flex items-center gap-3 p-3 bg-white/[0.04] hover:bg-white/[0.08] border border-white/5 hover:border-white/10 rounded-xl text-[13px] font-bold text-slate-200 hover:text-white transition-all group/link"
                             >
-                              <div className="w-8 h-8 bg-white/5 rounded-lg flex items-center justify-center group-hover/link:bg-secondary/20 transition-colors shrink-0">
-                                <Phone size={14} className="text-secondary" />
+                              <div className="w-8 h-8 bg-white/5 rounded-lg flex items-center justify-center text-secondary shrink-0 group-hover/link:bg-secondary group-hover/link:text-primary transition-colors duration-300 shadow-sm">
+                                <Phone size={14} />
                               </div>
-                              {branch.contact.phone}
+                              <span className="tracking-wide">{branch.contact.phone}</span>
                             </a>
                             <a
                               href={`https://wa.me/${branch.contact.whatsapp.replace(/\+/g, '').replace(/\s/g, '')}`}
                               target="_blank"
                               rel="noopener noreferrer"
-                              className="flex items-center gap-3 text-[14px] md:text-[15px] font-medium text-slate-300 hover:text-white transition-colors group/link"
+                              className="flex items-center gap-3 p-3 bg-white/[0.04] hover:bg-white/[0.08] border border-white/5 hover:border-white/10 rounded-xl text-[13px] font-bold text-slate-200 hover:text-white transition-all group/link"
                             >
-                              <div className="w-8 h-8 bg-white/5 rounded-lg flex items-center justify-center group-hover/link:bg-secondary/20 transition-colors shrink-0">
-                                <MessageCircle size={14} className="text-secondary" />
+                              <div className="w-8 h-8 bg-white/5 rounded-lg flex items-center justify-center text-secondary shrink-0 group-hover/link:bg-emerald-500 group-hover/link:text-white transition-colors duration-300 shadow-sm">
+                                <MessageCircle size={15} />
                               </div>
-                              WhatsApp
+                              <span className="tracking-wide">WhatsApp Sucursal</span>
                             </a>
                           </div>
                         </div>
 
-                        <div className="space-y-4">
-                          <span className="block text-[11px] font-bold uppercase tracking-widest text-slate-400">Canales Digitales</span>
-                          <div className="flex flex-col gap-3">
+                        <div className="space-y-3">
+                          <span className="block text-[10px] font-black uppercase tracking-widest text-slate-400">Soporte / Emails</span>
+                          <div className="flex flex-col gap-2.5">
                             {branch.contact.emails ? (
                               branch.contact.emails.map((e: any, i: number) => (
                                 <a
                                   key={i}
                                   href={`mailto:${e.address}`}
-                                  className="flex items-start gap-3 text-[12px] md:text-[13px] font-medium text-slate-400 hover:text-white transition-colors group/link"
+                                  className="flex items-center gap-3 p-3 bg-white/[0.04] hover:bg-white/[0.08] border border-white/5 hover:border-white/10 rounded-xl text-[12px] sm:text-[13px] font-bold text-slate-300 hover:text-white transition-all group/link overflow-hidden"
                                 >
-                                  <div className="w-8 h-8 bg-white/5 rounded-lg flex items-center justify-center group-hover/link:bg-secondary/20 transition-colors shrink-0 mt-1">
-                                    <Mail size={14} className="text-secondary shrink-0" />
+                                  <div className="w-8 h-8 bg-white/5 rounded-lg flex items-center justify-center text-secondary shrink-0 group-hover/link:bg-secondary group-hover/link:text-primary transition-colors duration-300">
+                                    <Mail size={14} />
                                   </div>
                                   <div className="flex flex-col min-w-0 flex-1">
-                                    <span className="text-white/40 text-[9px] uppercase tracking-tighter">{e.label}</span>
-                                    <span className="break-all leading-tight">{e.address}</span>
+                                    <span className="text-secondary text-[9px] uppercase tracking-widest font-black opacity-80">{e.label}</span>
+                                    <span className="truncate font-semibold tracking-wide text-white/90">{e.address}</span>
                                   </div>
                                 </a>
                               ))
                             ) : (
                               <a
                                 href={`mailto:${branch.contact.email}`}
-                                className="flex items-center gap-3 text-[12px] md:text-[13px] font-medium text-slate-400 hover:text-white transition-colors group/link"
+                                className="flex items-center gap-3 p-3 bg-white/[0.04] hover:bg-white/[0.08] border border-white/5 hover:border-white/10 rounded-xl text-[12px] sm:text-[13px] font-bold text-slate-300 hover:text-white transition-all group/link overflow-hidden"
                               >
-                                <div className="w-8 h-8 bg-white/5 rounded-lg flex items-center justify-center group-hover/link:bg-secondary/20 transition-colors shrink-0">
-                                  <Mail size={14} className="text-secondary shrink-0" />
+                                <div className="w-8 h-8 bg-white/5 rounded-lg flex items-center justify-center text-secondary shrink-0 group-hover/link:bg-secondary group-hover/link:text-primary transition-colors duration-300">
+                                  <Mail size={14} />
                                 </div>
-                                <span className="break-all flex-1">{branch.contact.email}</span>
+                                <div className="flex flex-col min-w-0 flex-1">
+                                  <span className="text-secondary text-[9px] uppercase tracking-widest font-black opacity-80">Email General</span>
+                                  <span className="truncate font-semibold tracking-wide text-white/90">{branch.contact.email}</span>
+                                </div>
                               </a>
                             )}
                           </div>
@@ -271,11 +279,11 @@ export const Branches = () => {
 
                       <Button
                         variant="outline"
-                        className="w-full border-white/10 text-white hover:bg-secondary hover:text-primary hover:border-secondary rounded-2xl h-16 font-bold text-[15px] transition-all group/btn"
+                        className="w-full bg-transparent border-white/10 text-white hover:bg-secondary hover:text-primary hover:border-secondary rounded-2xl h-14 font-black text-[13px] uppercase tracking-widest transition-all duration-300 shadow-sm hover:shadow-md hover:-translate-y-0.5 active:scale-98 group/btn"
                         asChild
                       >
                         <a href={branch.mapLink} target="_blank" rel="noopener noreferrer">
-                          OBTENER INDICACIONES <ChevronRight size={20} className="ml-2 group-hover/btn:translate-x-2 transition-transform" />
+                          OBTENER INDICACIONES <ChevronRight size={16} className="ml-2 group-hover/btn:translate-x-1.5 transition-transform duration-300" />
                         </a>
                       </Button>
                     </div>

@@ -74,15 +74,14 @@ export function PartnerCarousel() {
         {INFINITE_PARTNERS.map((partner, i) => (
           <div
             key={i}
-            className="shrink-0 transition-all duration-700 hover:scale-150"
+            className="relative shrink-0 h-14 w-28 md:h-20 md:w-40 transition-all duration-700 hover:scale-150"
           >
             <Image 
               src={`/logos_convenios_prevision/${partner.file}`} 
-              width={180}
-              height={80}
-              className="h-14 md:h-20 w-auto object-contain opacity-50 grayscale dark:invert hover:opacity-100 hover:grayscale-0 hover:invert-0 dark:hover:invert-0 transition-all duration-700 cursor-pointer dark:drop-shadow-[0_0_3px_rgba(255,255,255,0.15)]" 
               alt={partner.name} 
-              style={{ width: 'auto' }}
+              fill
+              sizes="(max-width: 768px) 112px, 160px"
+              className="object-contain opacity-50 grayscale dark:invert hover:opacity-100 hover:grayscale-0 hover:invert-0 dark:hover:invert-0 transition-all duration-700 cursor-pointer dark:drop-shadow-[0_0_3px_rgba(255,255,255,0.15)]" 
               priority={i < 5}
             />
           </div>

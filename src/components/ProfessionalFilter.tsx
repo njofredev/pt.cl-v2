@@ -376,9 +376,9 @@ export const ProfessionalFilter = ({ initialArea, professionals }: { initialArea
               // Mapeo directo para asegurar que la imagen aparezca en las pruebas
               const proImage = pro.image;
               const lowerSuc = pro.sucursal?.toLowerCase() || "";
+              const isVitacura = lowerSuc.includes("vitacura");
+              const isTribunales = lowerSuc.includes("tribunales") || lowerSuc.includes("matriz") || lowerSuc.includes("matríz");
               const hasTele = lowerSuc.includes("teleconsulta");
-              // Se considera presencial si menciona "sucursal", "vitacura" o "tribunales"
-              const hasPresencial = lowerSuc.includes("sucursal") || lowerSuc.includes("vitacura") || lowerSuc.includes("tribunales") || lowerSuc.includes("casa");
               
               const specInfo = SPECIALTY_METADATA[pro.specialty] || { icon: Activity };
               const SpecIcon = specInfo.icon;
@@ -412,7 +412,7 @@ export const ProfessionalFilter = ({ initialArea, professionals }: { initialArea
                           )}
                         </div>
                       </div>
-
+ 
                       <div className="p-8 pt-2 flex-grow flex flex-col items-center text-center">
                         <h3 className="text-xl font-bold text-primary dark:text-slate-50 mb-3 leading-tight group-hover:text-secondary dark:group-hover:text-secondary transition-colors w-full px-4">
                           {pro.name}
@@ -423,9 +423,14 @@ export const ProfessionalFilter = ({ initialArea, professionals }: { initialArea
                             <SpecIcon size={12} strokeWidth={2.5} className="text-secondary shrink-0" /> {pro.specialty}
                           </div>
                           <div className="flex flex-wrap justify-center gap-1.5 items-center">
-                            {hasPresencial && (
+                            {isTribunales && (
                               <div className="inline-flex items-center gap-1 px-2 py-0.5 rounded bg-slate-100 dark:bg-white/5 text-[9px] font-black text-slate-600 dark:text-slate-300 uppercase tracking-widest border border-slate-200/50 dark:border-white/5">
-                                <MapPin size={10} className="text-secondary shrink-0" /> Presencial
+                                <MapPin size={10} className="text-teal-500 shrink-0" /> Los Tribunales
+                              </div>
+                            )}
+                            {isVitacura && (
+                              <div className="inline-flex items-center gap-1 px-2 py-0.5 rounded bg-slate-100 dark:bg-white/5 text-[9px] font-black text-slate-600 dark:text-slate-300 uppercase tracking-widest border border-slate-200/50 dark:border-white/5">
+                                <MapPin size={10} className="text-secondary shrink-0" /> Vitacura
                               </div>
                             )}
                             {hasTele && (
@@ -505,9 +510,14 @@ export const ProfessionalFilter = ({ initialArea, professionals }: { initialArea
                                 <Badge variant="outline" className="text-white border-white/20">{pro.area}</Badge>
                               </div>
                               <div className="flex gap-1.5 justify-center mt-2">
-                                {hasPresencial && (
+                                {isTribunales && (
                                   <Badge variant="secondary" className="bg-white/10 text-white hover:bg-white/20 border-none flex items-center gap-1 text-[9px] font-bold uppercase tracking-wider">
-                                    <MapPin size={10} className="opacity-70" /> Presencial
+                                    <MapPin size={10} className="opacity-70 text-teal-300" /> Los Tribunales
+                                  </Badge>
+                                )}
+                                {isVitacura && (
+                                  <Badge variant="secondary" className="bg-white/10 text-white hover:bg-white/20 border-none flex items-center gap-1 text-[9px] font-bold uppercase tracking-wider">
+                                    <MapPin size={10} className="opacity-70 text-secondary" /> Vitacura
                                   </Badge>
                                 )}
                                 {hasTele && (

@@ -86,12 +86,25 @@ export default function Home() {
 
               {/* Columna Izquierda: Contexto */}
               <div className="max-w-xl">
-                <div className="mb-8 group">
+                <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-primary text-white text-[11px] font-bold uppercase tracking-widest mb-8">
+                  <ShieldCheck size={14} fill="currentColor" className="text-secondary shrink-0" /> ¡Atención vecinos de Vitacura!
+                </div>
+
+                <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-primary dark:text-white mb-6 leading-tight tracking-tighter">
+                  Valida tus descuentos con <br />
+                  <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary via-teal-500 to-secondary">Tarjeta Mi Vita.</span>
+                </h2>
+                <p className="text-lg text-slate-500 dark:text-slate-400 font-medium leading-relaxed mb-8">
+                  Accede a valores preferenciales en tus atenciones médicas y dentales. Ingresa tu RUT a continuación y verifica tu estado de convenio vigente al instante.
+                </p>
+
+                <div className="mb-10 group">
                   <Image 
                     src="/logos_convenios_prevision/mivita_v2_light.png" 
                     alt="Logo Tarjeta Mi Vita" 
                     width={220} 
                     height={88} 
+                    style={{ width: 'auto', height: 'auto' }}
                     className="block dark:hidden object-contain drop-shadow-md transition-transform duration-500 group-hover:scale-105 group-hover:-rotate-1"
                   />
                   <Image 
@@ -99,20 +112,10 @@ export default function Home() {
                     alt="Logo Tarjeta Mi Vita" 
                     width={220} 
                     height={88} 
+                    style={{ width: 'auto', height: 'auto' }}
                     className="hidden dark:block object-contain drop-shadow-md transition-transform duration-500 group-hover:scale-105 group-hover:-rotate-1"
                   />
                 </div>
-
-                <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-primary text-white text-[11px] font-bold uppercase tracking-widest mb-8">
-                  <ShieldCheck size={14} fill="currentColor" className="text-secondary shrink-0" /> ¡Atención vecinos de Vitacura!
-                </div>
-                <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-primary dark:text-white mb-6 leading-tight tracking-tighter">
-                  Valida tus descuentos con <br />
-                  <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary via-teal-500 to-secondary">Tarjeta Mi Vita.</span>
-                </h2>
-                <p className="text-lg text-slate-500 dark:text-slate-400 font-medium leading-relaxed mb-10">
-                  Accede a valores preferenciales en tus atenciones médicas y dentales. Ingresa tu RUT a continuación y verifica tu estado de convenio vigente al instante.
-                </p>
                 <div className="grid grid-cols-2 gap-3 sm:gap-6">
                   <div className="group flex items-center gap-2 sm:gap-4 bg-slate-50 dark:bg-slate-900 p-3 sm:p-4 rounded-2xl border border-slate-100 dark:border-slate-800 hover:bg-slate-100 dark:hover:bg-slate-800/80 transition-all cursor-pointer">
                     <div className="w-12 h-12 bg-white dark:bg-slate-950 border border-slate-100 dark:border-slate-800 rounded-xl shadow-sm flex items-center justify-center font-black text-secondary text-xl group-hover:scale-110 group-hover:-translate-y-2 transition-all duration-300">25%</div>

@@ -152,10 +152,8 @@ export default function NosotrosPage() {
       <section id="directorio" className="py-24 bg-slate-50/50 dark:bg-slate-950 border-t border-slate-100 dark:border-white/5 relative scroll-mt-24">
         <div className="container mx-auto px-6 relative z-10">
           <div className="text-center max-w-3xl mx-auto mb-16">
-            <div className="inline-flex items-center gap-2 text-secondary mb-3">
-              <div className="w-12 h-0.5 bg-secondary rounded-full"></div>
-              <span className="text-[11px] font-black uppercase tracking-[0.25em]">Liderazgo</span>
-              <div className="w-12 h-0.5 bg-secondary rounded-full"></div>
+            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-primary text-white text-[10px] md:text-[11px] font-black uppercase tracking-widest mb-6 shadow-md shadow-primary/10">
+              <Award size={14} strokeWidth={2.5} className="text-secondary shrink-0" /> Liderazgo
             </div>
             <h2 className="text-3xl md:text-5xl font-black text-slate-900 dark:text-white tracking-tight">Directorio Ejecutivo</h2>
           </div>
@@ -239,8 +237,8 @@ export default function NosotrosPage() {
 
         <div className="container mx-auto px-6 relative z-10">
           <div className="text-center mb-16">
-            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-secondary/10 text-secondary text-[10px] font-black uppercase tracking-widest mb-4 shadow-sm">
-              Evolución Interactiva
+            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-primary text-white text-[10px] font-black uppercase tracking-widest mb-6 shadow-md shadow-primary/10">
+              <Sparkles size={14} strokeWidth={2.5} className="text-secondary shrink-0" /> Evolución Interactiva
             </div>
             <h2 className="text-3xl md:text-5xl font-black text-slate-900 dark:text-white tracking-tight mb-4">Nuestra Línea de Tiempo</h2>
             <p className="text-slate-500 dark:text-slate-400 max-w-lg mx-auto text-sm font-medium">Navega a través de los años y revive los momentos que definieron nuestra historia.</p>
@@ -364,7 +362,7 @@ export default function NosotrosPage() {
       <section className="py-20 bg-slate-50/30 dark:bg-slate-900/20 border-t border-slate-100 dark:border-white/5">
         <div className="container mx-auto px-6 text-center">
           <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-primary text-white text-[10px] font-black uppercase tracking-widest mb-6 shadow-md shadow-primary/10">
-            Nuestra Oferta Médica
+            <Stethoscope size={14} strokeWidth={2.5} className="text-secondary shrink-0" /> Nuestra Oferta Médica
           </div>
           
           <div className="flex items-center justify-between w-full max-w-5xl mx-auto mb-10 px-4">

@@ -170,8 +170,8 @@ export default function DerechosDeberesPage() {
       {/* EXPLORA NUESTROS SERVICIOS */}
       <section className="py-20 bg-slate-50/30 dark:bg-slate-900/20 border-t border-slate-100 dark:border-white/5">
         <div className="container mx-auto px-6 text-center">
-          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-primary/5 text-primary dark:text-white text-[10px] font-black uppercase tracking-widest mb-4">
-            Nuestra Oferta Médica
+          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-primary text-white text-[10px] font-black uppercase tracking-widest mb-6 shadow-md shadow-primary/10">
+            <Stethoscope size={14} strokeWidth={2.5} className="text-secondary shrink-0" /> Nuestra Oferta Médica
           </div>
           <div className="flex items-center justify-center gap-4 md:gap-8 max-w-5xl mx-auto mb-10">
             <Link href="/nosotros" className="hidden md:flex items-center gap-2 text-[11px] font-bold uppercase tracking-wider text-slate-400 dark:text-slate-500 hover:text-secondary transition-colors shrink-0">

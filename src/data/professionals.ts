@@ -69,7 +69,25 @@ const BOOKING_LINKS: Record<string, string> = {
   "andro sapunar rodriguez": "https://ff.healthatom.io/1pEpTa",
   "javiera marchant vio": "https://ff.healthatom.io/vEOYZh",
   "pilar bello martinez": "https://ff.healthatom.io/kQfeV2",
-  "carlos yamil garcia - huidobro acosta": "https://ff.healthatom.io/B0htiL"
+  "carlos yamil garcia - huidobro acosta": "https://ff.healthatom.io/B0htiL",
+  
+  // Mapeos exactos adicionales para nombres largos de la base de datos (según PDF)
+  "javiera alejandra marchant vio": "https://ff.healthatom.io/vEOYZh",
+  "teresita covarrubias correa": "https://ff.healthatom.io/D55VPQ",
+  "andro drazen sapunar rodriguez": "https://ff.healthatom.io/1pEpTa",
+  "sergio enrique parada escobar": "https://ff.healthatom.io/qdjTyT",
+  "maria jose garcia domenech": "https://ff.healthatom.io/eT7gSq",
+  "isidora fernanda luengo larrain": "https://ff.healthatom.io/61BIi9",
+  "valentina maria briseno ossandon": "https://ff.healthatom.io/rVsLDI",
+  "camila andrea del puerto vergara": "https://ff.healthatom.io/tMna2S",
+  "charytin mariel salazar yanez": "https://ff.healthatom.io/9MdPUT",
+  "sebastian ignacio ortiz mery": "https://ff.healthatom.io/c9WrpW",
+  "carla andrea mazzarelli rodriguez": "https://ff.healthatom.io/sCAm5d",
+  "patricio ignacio merino acevedo": "https://ff.healthatom.io/YaQMT1",
+  "patricia michele montalva del pozo": "https://ff.healthatom.io/8kqQqs",
+  "caterina benapres cortes- vieira": "https://ff.healthatom.io/EbOKIl",
+  "pauline henriksen perez": "https://ff.healthatom.io/tsbVD2",
+  "carola munoz poblete": "https://ff.healthatom.io/a4nAja"
 };
 
 export const AREAS = [
@@ -241,7 +259,10 @@ export async function getProfessionals(): Promise<Professional[]> {
         }
 
         // Mapeo de link de agendamiento
-        const lowerName = name.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+        const lowerName = name.toLowerCase()
+                              .normalize("NFD")
+                              .replace(/[\u0300-\u036f]/g, "")
+                              .replace(/\s+/g, ' '); // Colapsa múltiples espacios en uno solo
         let bookingLink = BOOKING_LINKS[lowerName] || null;
         
         // Fallback robusto por subcadena si no hay coincidencia exacta

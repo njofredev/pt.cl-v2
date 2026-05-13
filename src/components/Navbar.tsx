@@ -191,7 +191,7 @@ export const Navbar = () => {
               animate={{ height: 'auto', opacity: 1 }}
               exit={{ height: 0, opacity: 0 }}
               transition={{ duration: 0.3, ease: "easeInOut" }}
-              className="bg-gradient-to-r from-violet-600 via-indigo-600 to-indigo-500 dark:bg-gradient-to-r dark:from-indigo-800 dark:via-indigo-600 dark:to-indigo-500 text-white overflow-hidden relative z-[60] shadow-md border-b border-white/10"
+              className="bg-gradient-to-r from-teal-600 to-secondary dark:bg-gradient-to-r dark:from-indigo-800 dark:via-indigo-600 dark:to-indigo-500 text-white overflow-hidden relative z-[60] shadow-md border-b border-white/10"
             >
               <div className="container mx-auto px-4 py-2 md:py-2.5 flex items-center justify-center gap-x-2 sm:gap-x-4 text-center relative pr-28 md:pr-32">
                 <SmilePlus className="w-5 h-5 shrink-0 hidden sm:block text-yellow-200 animate-pulse" />
@@ -211,7 +211,7 @@ export const Navbar = () => {
                     href="https://ff.healthatom.io/9p2Sq9"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="bg-white text-indigo-600 px-2 sm:px-4 py-1 rounded-full text-[8px] sm:text-[10px] font-black uppercase hover:bg-indigo-50 hover:scale-105 transition-all shrink-0 shadow-sm flex items-center gap-1 active:scale-95"
+                    className="bg-white text-teal-600 hover:bg-teal-50 dark:text-indigo-600 dark:hover:bg-indigo-50 px-2 sm:px-4 py-1 rounded-full text-[8px] sm:text-[10px] font-black uppercase hover:scale-105 transition-all shrink-0 shadow-sm flex items-center gap-1 active:scale-95"
                   >
                     Agendar <ChevronRight className="w-2.5 h-2.5 sm:w-3 sm:h-3" />
                   </a>
