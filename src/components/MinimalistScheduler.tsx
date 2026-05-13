@@ -223,7 +223,7 @@ export function MinimalistScheduler({ initialCategoryId }: { initialCategoryId?:
                     animate={{ opacity: 1, x: 0 }}
                     exit={{ opacity: 0, x: -10 }}
                     onClick={() => setSelectedCategory(null)}
-                    className="flex items-center gap-2 text-sm font-bold text-slate-400 hover:text-primary dark:hover:text-secondary transition-all group"
+                    className="flex items-center gap-2 text-sm font-bold text-slate-500 dark:text-slate-400 hover:text-primary dark:hover:text-secondary transition-all group"
                   >
                     <div className="w-9 h-9 rounded-xl bg-white dark:bg-slate-800 border border-slate-100 dark:border-slate-700 flex items-center justify-center group-hover:bg-primary/10 transition-colors">
                       <ArrowLeft size={16} />
@@ -266,7 +266,7 @@ export function MinimalistScheduler({ initialCategoryId }: { initialCategoryId?:
                         initial={{ opacity: 0, y: 3 }}
                         animate={{ opacity: 1, y: 0 }}
                         exit={{ opacity: 0, y: -3 }}
-                        className="text-[9px] sm:text-[10px] font-black text-slate-400 uppercase tracking-[0.2em] leading-relaxed text-center"
+                        className="text-[9px] sm:text-[10px] font-black text-slate-500 dark:text-slate-400 uppercase tracking-[0.2em] leading-relaxed text-center"
                       >
                         {selectedCategory ? 'Paso 2: Servicio' : 'Paso 1: Categoría'}
                       </motion.p>
@@ -284,7 +284,7 @@ export function MinimalistScheduler({ initialCategoryId }: { initialCategoryId?:
                 </div>
                 <div className="flex flex-col items-center gap-1">
                   <div className={`w-2.5 h-2.5 rounded-full transition-colors duration-500 ${selectedCategory ? 'bg-[#FF8A00]' : 'bg-slate-200 dark:bg-slate-700'}`} />
-                  <span className={`text-[8px] font-bold uppercase tracking-wider hidden sm:inline ${selectedCategory ? 'text-[#FF8A00]' : 'text-slate-400 dark:text-slate-500'}`}>Servicio</span>
+                  <span className={`text-[8px] font-bold uppercase tracking-wider hidden sm:inline ${selectedCategory ? 'text-[#FF8A00]' : 'text-slate-500 dark:text-slate-400'}`}>Servicio</span>
                 </div>
               </div>
             </div>
@@ -336,7 +336,7 @@ export function MinimalistScheduler({ initialCategoryId }: { initialCategoryId?:
                         <div className="p-4 sm:p-6 rounded-[1.5rem] sm:rounded-[2rem] bg-slate-50 dark:bg-slate-950 border border-slate-200/80 dark:border-slate-800 flex flex-col gap-4 min-h-[120px] sm:min-h-[110px] w-full h-full justify-between shadow-sm shadow-slate-200/20">
                           <div className="flex flex-col gap-1 items-center sm:items-start w-full">
                             <span className="text-sm sm:text-xl font-bold text-slate-700 dark:text-slate-200 leading-tight">{svc.label}</span>
-                            <span className="text-[9px] sm:text-[10px] font-medium text-slate-400 dark:text-slate-500 transition-colors leading-tight">{svc.info}</span>
+                            <span className="text-[9px] sm:text-[10px] font-medium text-slate-500 dark:text-slate-400 transition-colors leading-tight">{svc.info}</span>
                           </div>
                           <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 w-full mt-1">
                             {svc.options?.map((opt, optIdx) => (
@@ -357,7 +357,7 @@ export function MinimalistScheduler({ initialCategoryId }: { initialCategoryId?:
                         >
                           <div className="flex flex-col gap-1 items-start text-left w-full">
                             <span className="text-sm sm:text-xl font-bold text-slate-700 dark:text-slate-200 leading-tight group-hover/btn:text-secondary transition-colors">{svc.label}</span>
-                            <span className="text-[9px] sm:text-[10px] font-medium text-slate-400 dark:text-slate-500 transition-colors leading-tight line-clamp-2 sm:line-clamp-none">{svc.info}</span>
+                            <span className="text-[9px] sm:text-[10px] font-medium text-slate-500 dark:text-slate-400 transition-colors leading-tight line-clamp-2 sm:line-clamp-none">{svc.info}</span>
                           </div>
                           <div className="w-full mt-auto pt-1">
                             <div className="w-full py-2.5 rounded-full border border-secondary/40 bg-white dark:bg-slate-800 text-secondary group-hover/btn:bg-secondary group-hover/btn:text-white dark:hover:text-slate-900 transition-all text-[10px] sm:text-[11px] font-bold uppercase tracking-wider leading-none text-center shadow-sm">
@@ -375,7 +375,7 @@ export function MinimalistScheduler({ initialCategoryId }: { initialCategoryId?:
             {/* Disclaimer */}
             <div className="mt-12 pt-8 text-center flex flex-col items-center">
               <div className="w-24 h-px bg-slate-100 dark:bg-slate-800/50 mb-8"></div>
-              <p className="text-[11px] text-slate-400 font-medium leading-relaxed max-w-2xl mx-auto">
+              <p className="text-[11px] text-slate-500 dark:text-slate-400 font-medium leading-relaxed max-w-2xl mx-auto">
                 Seleccione una categoría y luego el servicio deseado. Posteriormente, será redirigido a nuestro sistema de agendamiento externo (Dentalink o Medilink) para finalizar su reserva según corresponda.
               </p>
             </div>

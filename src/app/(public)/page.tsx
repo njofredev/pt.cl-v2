@@ -34,7 +34,7 @@ export default function Home() {
 
       <section className="py-8 bg-transparent dark:bg-transparent">
         <div className="container mx-auto px-6">
-          <p className="text-[10px] font-bold text-slate-400 uppercase tracking-[0.3em] text-center mb-4">
+          <p className="text-[10px] font-bold text-slate-500 dark:text-slate-400 uppercase tracking-[0.3em] text-center mb-4">
             Atención con Previsión y Convenios Directos
           </p>
           <PartnerCarousel />
@@ -54,8 +54,8 @@ export default function Home() {
                   </svg>
                 </span>
               </p>
-              <h3 className="text-3xl md:text-5xl font-bold text-primary dark:text-white mb-4">Atención especializada por áreas</h3>
-              <p className="text-base md:text-lg text-slate-400 dark:text-slate-500 font-medium tracking-wide">Agenda en línea y obtén valores preferenciales</p>
+              <h2 className="text-3xl md:text-5xl font-bold text-primary dark:text-white mb-4">Atención especializada por áreas</h2>
+              <p className="text-base md:text-lg text-slate-500 dark:text-slate-400 font-medium tracking-wide">Agenda en línea y obtén valores preferenciales</p>
             </div>
             
             <MinimalistScheduler />

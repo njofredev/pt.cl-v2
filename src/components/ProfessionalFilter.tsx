@@ -25,7 +25,7 @@ const SPECIALTY_METADATA: Record<string, { description: string, icon: any }> = {
   'Trastornos Temporomandibulares': { description: "Diagnóstico y alivio del dolor de la articulación mandibular y el bruxismo.", icon: ShieldAlert },
   'Radiología': { description: "Diagnóstico por imagen de alta precisión para guiar tus tratamientos.", icon: Search },
   'Cirugía, Implantología': { description: "Intervenciones quirúrgicas maxilofaciales y colocación de implantes.", icon: Scissors },
-  
+
   // Salud Mental
   'Psicología': { description: "Acompañamiento terapéutico para gestionar tus emociones y potenciar tu bienestar.", icon: Brain },
   'Psiquiatría': { description: "Diagnóstico médico especializado y tratamiento farmacológico de la salud mental.", icon: Pill },
@@ -44,16 +44,16 @@ const SPECIALTY_METADATA: Record<string, { description: string, icon: any }> = {
   'Biomagnetismo': { description: "Terapia alternativa con imanes para equilibrar la energía del organismo.", icon: Zap },
 };
 
-const CustomSelect = ({ 
-  value, 
-  onChange, 
-  options, 
-  placeholder 
-}: { 
-  value: string, 
-  onChange: (val: string) => void, 
-  options: {label: string, value: string}[],
-  placeholder?: string 
+const CustomSelect = ({
+  value,
+  onChange,
+  options,
+  placeholder
+}: {
+  value: string,
+  onChange: (val: string) => void,
+  options: { label: string, value: string }[],
+  placeholder?: string
 }) => {
   const [isOpen, setIsOpen] = useState(false);
   const ref = React.useRef<HTMLDivElement>(null);
@@ -91,11 +91,10 @@ const CustomSelect = ({
               <button
                 key={opt.value}
                 type="button"
-                className={`w-full text-left px-4 py-3 rounded-xl text-sm font-medium transition-colors mb-0.5 last:mb-0 cursor-pointer ${
-                  value === opt.value 
-                    ? 'bg-primary/5 dark:bg-white/10 text-primary dark:text-white font-bold' 
-                    : 'text-slate-600 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800/80 hover:text-primary dark:hover:text-white'
-                }`}
+                className={`w-full text-left px-4 py-3 rounded-xl text-sm font-medium transition-colors mb-0.5 last:mb-0 cursor-pointer ${value === opt.value
+                  ? 'bg-primary/5 dark:bg-white/10 text-primary dark:text-white font-bold'
+                  : 'text-slate-600 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800/80 hover:text-primary dark:hover:text-white'
+                  }`}
                 onClick={() => {
                   onChange(opt.value);
                   setIsOpen(false);
@@ -129,10 +128,10 @@ export const ProfessionalFilter = ({ initialArea, professionals }: { initialArea
   const sucursales = ["Todas", "Los Tribunales", "Vitacura"];
 
   const specialties = useMemo(() => {
-    const relevantPros = selectedArea === "Todas" 
-      ? activeProfessionals 
+    const relevantPros = selectedArea === "Todas"
+      ? activeProfessionals
       : activeProfessionals.filter(p => p.area === selectedArea);
-    
+
     const uniqueSpecialties = Array.from(new Set(relevantPros.map(p => p.specialty)));
     return ["Todas", ...uniqueSpecialties.sort()];
   }, [selectedArea, activeProfessionals]);
@@ -140,10 +139,10 @@ export const ProfessionalFilter = ({ initialArea, professionals }: { initialArea
   const specialtiesForGrid = useMemo(() => {
     // Solo mostramos la grilla si hay un área específica seleccionada
     if (selectedArea === "Todas") return [];
-    
+
     // Obtenemos las especialidades actuales filtradas, quitando "Todas"
     const currentSpecs = specialties.filter(s => s !== "Todas");
-    
+
     return currentSpecs.map(spec => {
       const info = SPECIALTY_METADATA[spec] || { description: "Atención experta enfocada en tu recuperación y bienestar integral.", icon: Activity };
       return {
@@ -156,20 +155,20 @@ export const ProfessionalFilter = ({ initialArea, professionals }: { initialArea
 
   const filteredProfessionals = useMemo(() => {
     return activeProfessionals.filter(p => {
-      const matchesSearch = p.name.toLowerCase().includes(searchTerm.toLowerCase()) || 
-                           p.specialty.toLowerCase().includes(searchTerm.toLowerCase());
+      const matchesSearch = p.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        p.specialty.toLowerCase().includes(searchTerm.toLowerCase());
       const matchesArea = selectedArea === "Todas" || p.area === selectedArea;
       const matchesSpecialty = selectedSpecialty === "Todas" || p.specialty === selectedSpecialty;
       const pSucursal = p.sucursal ? p.sucursal.toLowerCase() : "";
-      const matchesSucursal = selectedSucursal === "Todas" || 
-                              !p.sucursal || 
-                              (selectedSucursal === "Los Tribunales" && (
-                                pSucursal.includes("tribunales") || 
-                                pSucursal.includes("matriz") || 
-                                pSucursal.includes("matríz")
-                              )) ||
-                              (selectedSucursal === "Vitacura" && pSucursal.includes("vitacura"));
-      
+      const matchesSucursal = selectedSucursal === "Todas" ||
+        !p.sucursal ||
+        (selectedSucursal === "Los Tribunales" && (
+          pSucursal.includes("tribunales") ||
+          pSucursal.includes("matriz") ||
+          pSucursal.includes("matríz")
+        )) ||
+        (selectedSucursal === "Vitacura" && pSucursal.includes("vitacura"));
+
       return matchesSearch && matchesArea && matchesSpecialty && matchesSucursal;
     });
   }, [searchTerm, selectedArea, selectedSpecialty, selectedSucursal, activeProfessionals]);
@@ -187,13 +186,13 @@ export const ProfessionalFilter = ({ initialArea, professionals }: { initialArea
     if (!initialArea) return "Médico";
     switch (initialArea) {
       case "Salud Dental": return "Dental";
-      case "Salud Mental": return "Mental";
+      case "Salud Mental": return "de Salud Mental";
       case "Medicina General": return "Médico";
       case "Terapias Complementarias": return "de Terapias";
       default: return "Especialista";
     }
   }, [initialArea]);
-  
+
   const AreaIcon = useMemo(() => {
     if (!initialArea) return null;
     switch (initialArea) {
@@ -210,7 +209,7 @@ export const ProfessionalFilter = ({ initialArea, professionals }: { initialArea
       <div className="container mx-auto px-6">
         {/* Grilla de Especialidades del Área (Solo se muestra en vistas de área) */}
         {specialtiesForGrid.length > 0 && (
-          <div className="-mt-8 relative z-10 mb-10 border-b border-slate-100 dark:border-white/5 pb-10">
+          <div className="mt-8 sm:-mt-8 relative z-10 mb-10 border-b border-slate-100 dark:border-white/5 pb-10">
             <span className="inline-flex items-center gap-2 px-3 py-1 rounded-lg bg-slate-100 dark:bg-white/5 text-[10px] font-black uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 mb-6 ml-1 border border-slate-200 dark:border-white/5 shadow-sm">
               Nuestras Especialidades
             </span>
@@ -218,7 +217,7 @@ export const ProfessionalFilter = ({ initialArea, professionals }: { initialArea
               {specialtiesForGrid.map((item, idx) => {
                 const Icon = item.Icon;
                 const isSelected = selectedSpecialty === item.name;
-                
+
                 return (
                   <motion.div
                     key={item.name}
@@ -227,15 +226,13 @@ export const ProfessionalFilter = ({ initialArea, professionals }: { initialArea
                     viewport={{ once: true }}
                     transition={{ delay: idx * 0.02 }}
                     onClick={() => handleSpecialtyClick(item.name)}
-                    className={`group cursor-pointer relative px-3 py-2.5 sm:px-4 sm:py-3 rounded-xl sm:rounded-2xl border transition-all duration-300 flex items-center gap-2.5 sm:gap-3 min-h-[52px] sm:min-h-[60px] hover:-translate-y-0.5 ${
-                      isSelected 
-                        ? 'bg-primary text-white border-primary shadow-md shadow-primary/10' 
-                        : 'bg-white dark:bg-slate-900 border-slate-100/80 dark:border-white/[0.03] hover:shadow-md hover:border-secondary/30 shadow-sm dark:shadow-none'
-                    }`}
+                    className={`group cursor-pointer relative px-3 py-2.5 sm:px-4 sm:py-3 rounded-xl sm:rounded-2xl border transition-all duration-300 flex items-center gap-2.5 sm:gap-3 min-h-[52px] sm:min-h-[60px] hover:-translate-y-0.5 ${isSelected
+                      ? 'bg-primary text-white border-primary shadow-md shadow-primary/10'
+                      : 'bg-white dark:bg-slate-900 border-slate-100/80 dark:border-white/[0.03] hover:shadow-md hover:border-secondary/30 shadow-sm dark:shadow-none'
+                      }`}
                   >
-                    <div className={`w-7 h-7 sm:w-8 sm:h-8 rounded-lg sm:rounded-xl flex items-center justify-center shrink-0 transition-colors ${
-                      isSelected ? 'bg-white/20 text-secondary' : 'bg-secondary/10 text-secondary group-hover:bg-secondary group-hover:text-white'
-                    }`}>
+                    <div className={`w-7 h-7 sm:w-8 sm:h-8 rounded-lg sm:rounded-xl flex items-center justify-center shrink-0 transition-colors ${isSelected ? 'bg-white/20 text-secondary' : 'bg-secondary/10 text-secondary group-hover:bg-secondary group-hover:text-white'
+                      }`}>
                       <Icon size={15} strokeWidth={2} />
                     </div>
                     <h4 className={`font-bold text-[11.5px] sm:text-[12.5px] leading-tight tracking-tight transition-colors flex-1 line-clamp-2 ${isSelected ? 'text-white' : 'text-slate-900 dark:text-white/90 group-hover:text-secondary'}`}>
@@ -269,8 +266,8 @@ export const ProfessionalFilter = ({ initialArea, professionals }: { initialArea
               <label className="text-[10px] font-bold uppercase tracking-widest text-slate-400 dark:text-slate-500 ml-2">Buscar Profesional o Especialidad</label>
               <div className="relative">
                 <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400" size={18} />
-                <Input 
-                  placeholder="Ingresa el nombre del profesional o especialidad..." 
+                <Input
+                  placeholder="Ingresa el nombre del profesional o especialidad..."
                   className="pl-12 h-14 rounded-2xl border-slate-100 dark:border-slate-800 bg-slate-50 dark:bg-slate-950 focus:bg-white dark:focus:bg-slate-950 focus:ring-secondary/20 dark:text-slate-100 transition-all text-base font-medium"
                   value={searchTerm}
                   onChange={(e) => setSearchTerm(e.target.value)}
@@ -281,7 +278,7 @@ export const ProfessionalFilter = ({ initialArea, professionals }: { initialArea
             {!initialArea && (
               <div className="space-y-2">
                 <label className="text-[10px] font-bold uppercase tracking-widest text-slate-400 dark:text-slate-500 ml-2">Área</label>
-                <CustomSelect 
+                <CustomSelect
                   value={selectedArea}
                   onChange={(val) => {
                     setSelectedArea(val as Area | "Todas");
@@ -297,7 +294,7 @@ export const ProfessionalFilter = ({ initialArea, professionals }: { initialArea
 
             <div className="space-y-2">
               <label className="text-[10px] font-bold uppercase tracking-widest text-slate-400 dark:text-slate-500 ml-2">Sucursal</label>
-              <CustomSelect 
+              <CustomSelect
                 value={selectedSucursal}
                 onChange={(val) => setSelectedSucursal(val)}
                 options={sucursales.map(suc => ({
@@ -309,7 +306,7 @@ export const ProfessionalFilter = ({ initialArea, professionals }: { initialArea
 
             <div className="space-y-2">
               <label className="text-[10px] font-bold uppercase tracking-widest text-slate-400 dark:text-slate-500 ml-2">Especialidad</label>
-              <CustomSelect 
+              <CustomSelect
                 value={selectedSpecialty}
                 onChange={(val) => setSelectedSpecialty(val)}
                 options={specialties.map(spec => ({
@@ -324,41 +321,41 @@ export const ProfessionalFilter = ({ initialArea, professionals }: { initialArea
             <div className="mt-6">
               <div className="w-32 h-px bg-gradient-to-r from-transparent via-slate-200 dark:via-slate-700 to-transparent mx-auto mb-6"></div>
               <div className="flex flex-wrap gap-2">
-              <span className="text-[10px] font-bold text-slate-400 uppercase self-center mr-2">Filtros activos:</span>
-              {searchTerm && (
-                <Badge variant="secondary" className="bg-secondary/10 text-secondary border-none rounded-lg px-3 py-1 flex items-center gap-1">
-                  &quot;{searchTerm}&quot; <X size={12} className="cursor-pointer" onClick={() => setSearchTerm("")} />
-                </Badge>
-              )}
-              {!initialArea && selectedArea !== "Todas" && (
-                <Badge variant="secondary" className="bg-secondary/10 text-secondary border-none rounded-lg px-3 py-1 flex items-center gap-1">
-                  {selectedArea} <X size={12} className="cursor-pointer" onClick={() => setSelectedArea("Todas")} />
-                </Badge>
-              )}
-              {selectedSucursal !== "Todas" && (
-                <Badge variant="secondary" className="bg-secondary/10 text-secondary border-none rounded-lg px-3 py-1 flex items-center gap-1">
-                  {selectedSucursal} <X size={12} className="cursor-pointer" onClick={() => setSelectedSucursal("Todas")} />
-                </Badge>
-              )}
-              {selectedSpecialty !== "Todas" && (
-                <Badge variant="secondary" className="bg-secondary/10 text-secondary border-none rounded-lg px-3 py-1 flex items-center gap-1">
-                  {selectedSpecialty} <X size={12} className="cursor-pointer" onClick={() => setSelectedSpecialty("Todas")} />
-                </Badge>
-              )}
-              <Button 
-                variant="ghost" 
-                size="sm" 
-                className="text-[10px] font-black uppercase tracking-widest text-red-500 dark:text-red-400 hover:bg-red-50 dark:hover:bg-red-900/20 hover:text-red-600 transition-colors flex items-center gap-1.5"
-                onClick={() => {
-                  setSearchTerm("");
-                  setSelectedArea(initialArea || "Todas");
-                  setSelectedSpecialty("Todas");
-                  setSelectedSucursal("Todas");
-                }}
-              >
-                <X size={12} className="shrink-0" />
-                Limpiar Todo
-              </Button>
+                <span className="text-[10px] font-bold text-slate-400 uppercase self-center mr-2">Filtros activos:</span>
+                {searchTerm && (
+                  <Badge variant="secondary" className="bg-secondary/10 text-secondary border-none rounded-lg px-3 py-1 flex items-center gap-1">
+                    &quot;{searchTerm}&quot; <X size={12} className="cursor-pointer" onClick={() => setSearchTerm("")} />
+                  </Badge>
+                )}
+                {!initialArea && selectedArea !== "Todas" && (
+                  <Badge variant="secondary" className="bg-secondary/10 text-secondary border-none rounded-lg px-3 py-1 flex items-center gap-1">
+                    {selectedArea} <X size={12} className="cursor-pointer" onClick={() => setSelectedArea("Todas")} />
+                  </Badge>
+                )}
+                {selectedSucursal !== "Todas" && (
+                  <Badge variant="secondary" className="bg-secondary/10 text-secondary border-none rounded-lg px-3 py-1 flex items-center gap-1">
+                    {selectedSucursal} <X size={12} className="cursor-pointer" onClick={() => setSelectedSucursal("Todas")} />
+                  </Badge>
+                )}
+                {selectedSpecialty !== "Todas" && (
+                  <Badge variant="secondary" className="bg-secondary/10 text-secondary border-none rounded-lg px-3 py-1 flex items-center gap-1">
+                    {selectedSpecialty} <X size={12} className="cursor-pointer" onClick={() => setSelectedSpecialty("Todas")} />
+                  </Badge>
+                )}
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  className="text-[10px] font-black uppercase tracking-widest text-red-500 dark:text-red-400 hover:bg-red-50 dark:hover:bg-red-900/20 hover:text-red-600 transition-colors flex items-center gap-1.5"
+                  onClick={() => {
+                    setSearchTerm("");
+                    setSelectedArea(initialArea || "Todas");
+                    setSelectedSpecialty("Todas");
+                    setSelectedSucursal("Todas");
+                  }}
+                >
+                  <X size={12} className="shrink-0" />
+                  Limpiar Todo
+                </Button>
               </div>
             </div>
           )}
@@ -374,10 +371,10 @@ export const ProfessionalFilter = ({ initialArea, professionals }: { initialArea
               const isVitacura = lowerSuc.includes("vitacura");
               const isTribunales = lowerSuc.includes("tribunales") || lowerSuc.includes("matriz") || lowerSuc.includes("matríz");
               const hasTele = lowerSuc.includes("teleconsulta");
-              
+
               const specInfo = SPECIALTY_METADATA[pro.specialty] || { icon: Activity };
               const SpecIcon = specInfo.icon;
-              
+
               return (
                 <motion.div
                   key={`${pro.name}-${pro.specialty}`}
@@ -393,9 +390,9 @@ export const ProfessionalFilter = ({ initialArea, professionals }: { initialArea
                       <div className="pt-12 pb-6 flex justify-center">
                         <div className="relative w-40 h-40 bg-slate-50 dark:bg-slate-950 rounded-full overflow-hidden border-4 border-white dark:border-slate-800 shadow-lg group-hover:scale-105 transition-transform duration-500">
                           {proImage ? (
-                            <Image 
-                              src={proImage} 
-                              alt={pro.name} 
+                            <Image
+                              src={proImage}
+                              alt={pro.name}
                               fill
                               className="object-cover"
                               sizes="160px"
@@ -407,12 +404,12 @@ export const ProfessionalFilter = ({ initialArea, professionals }: { initialArea
                           )}
                         </div>
                       </div>
- 
+
                       <div className="p-8 pt-2 flex-grow flex flex-col items-center text-center">
                         <h3 className="text-xl font-bold text-primary dark:text-slate-50 mb-3 leading-tight group-hover:text-secondary dark:group-hover:text-secondary transition-colors w-full px-4">
                           {pro.name}
                         </h3>
-                        
+
                         <div className="flex flex-col items-center gap-3 mt-auto">
                           <div className="inline-flex items-center gap-1.5 px-4 py-1.5 rounded-full bg-white dark:bg-slate-800 border border-slate-200/60 dark:border-slate-700 text-slate-700 dark:text-slate-200 text-[10px] font-bold uppercase tracking-widest shrink-0 shadow-sm shadow-slate-200/30 dark:shadow-none">
                             <SpecIcon size={12} strokeWidth={2.5} className="text-secondary shrink-0" /> {pro.specialty}
@@ -434,7 +431,7 @@ export const ProfessionalFilter = ({ initialArea, professionals }: { initialArea
                               </div>
                             )}
                           </div>
-                          
+
                           {pro.ageGroup && (
                             <div className="flex flex-wrap justify-center gap-1 mt-2 pt-2 border-t border-slate-100 dark:border-white/10 w-full">
                               {pro.ageGroup.split(',').map(s => s.replace(/\./g, '').trim()).filter(Boolean).map((age, i) => (
@@ -446,10 +443,10 @@ export const ProfessionalFilter = ({ initialArea, professionals }: { initialArea
                           )}
                         </div>
                       </div>
-                      
+
                       <div className="w-full p-6 pt-0 pb-8 flex flex-col items-center gap-3 mt-auto">
                         {/* Botón Directo: Agendar Hora */}
-                        <a 
+                        <a
                           href={pro.bookingLink || "tel:+56222172635"}
                           target={pro.bookingLink?.startsWith('http') ? "_blank" : undefined}
                           rel={pro.bookingLink?.startsWith('http') ? "noopener noreferrer" : undefined}
@@ -470,120 +467,124 @@ export const ProfessionalFilter = ({ initialArea, professionals }: { initialArea
                               <div className="bg-white dark:bg-slate-800/50 border border-slate-200/80 dark:border-slate-700 text-slate-600 dark:text-slate-300 w-full px-6 h-full flex items-center justify-center rounded-full text-[9px] font-black tracking-[0.15em] uppercase shadow-sm shadow-slate-200/30 dark:shadow-none transition-all duration-500 transform group-hover/profbtn:-translate-y-1 group-hover/profbtn:border-secondary/50 group-hover/profbtn:text-primary dark:group-hover/profbtn:text-white group-hover/profbtn:shadow-lg dark:group-hover/profbtn:shadow-none group-active/profbtn:scale-95 relative z-10 whitespace-nowrap">
                                 Ver Perfil Completo
                               </div>
-                              
+
                               {/* Icono Badge Flotante Secundario */}
                               <div className="absolute -top-1.5 -right-1.5 w-8 h-8 bg-slate-100 dark:bg-slate-700 rounded-full flex items-center justify-center text-slate-500 dark:text-slate-300 shadow-sm transition-all duration-500 transform group-hover/profbtn:-translate-y-1.5 group-active/profbtn:scale-95 z-20 border-4 border-white dark:border-slate-900">
                                 <Search className="w-3 h-3" strokeWidth={3.5} />
                               </div>
                             </button>
                           </DialogTrigger>
-                        <DialogContent showCloseButton={false} className="sm:max-w-[500px] rounded-[2.5rem] border-none p-0 overflow-hidden gap-0 bg-white dark:bg-slate-900">
-                          <div className="bg-primary p-8 text-white relative">
-                            <DialogClose className="absolute top-6 right-6 p-2 text-white/70 hover:text-white hover:bg-white/10 rounded-full transition-all outline-none group cursor-pointer">
-                              <X className="w-6 h-6" />
-                            </DialogClose>
-                            <div className="relative w-24 h-24 bg-white/10 rounded-full flex items-center justify-center mb-6 overflow-hidden mx-auto border-2 border-white/20">
-                              {proImage ? (
-                                <Image 
-                                  src={proImage} 
-                                  alt={pro.name} 
-                                  fill
-                                  className="object-cover"
-                                  sizes="96px"
-                                />
-                              ) : (
-                                <User size={48} className="text-secondary" />
-                              )}
+                          <DialogContent showCloseButton={false} className="w-[95vw] max-w-[500px] max-h-[90vh] sm:max-h-[85vh] flex flex-col rounded-[2.5rem] border-none p-0 overflow-hidden gap-0 bg-white dark:bg-slate-900">
+                            <div className="bg-primary p-6 sm:p-8 text-white relative shrink-0">
+                              <DialogClose className="absolute top-4 right-4 sm:top-6 sm:right-6 p-2 text-white/70 hover:text-white hover:bg-white/10 rounded-full transition-all outline-none group cursor-pointer">
+                                <X className="w-5 h-5 sm:w-6 h-6" />
+                              </DialogClose>
+                              <div className="relative w-20 h-20 sm:w-24 h-24 bg-white/10 rounded-full flex items-center justify-center mb-4 sm:mb-6 overflow-hidden mx-auto border-2 border-white/20">
+                                {proImage ? (
+                                  <Image
+                                    src={proImage}
+                                    alt={pro.name}
+                                    fill
+                                    className="object-cover"
+                                    sizes="96px"
+                                  />
+                                ) : (
+                                  <User size={40} className="text-secondary" />
+                                )}
+                              </div>
+                              <DialogHeader className="text-center">
+                                <DialogTitle className="text-xl sm:text-3xl font-bold tracking-tight leading-[1.2] mb-2 sm:mb-3 text-center w-full px-2">{pro.name}</DialogTitle>
+                                <div className="flex flex-wrap gap-1.5 sm:gap-2 justify-center">
+                                  <Badge className="bg-secondary text-primary font-bold flex items-center gap-1 text-[10px] sm:text-xs py-0.5 px-2">
+                                    <SpecIcon size={10} strokeWidth={2.5} />
+                                    {pro.specialty}
+                                  </Badge>
+                                  <Badge variant="outline" className="text-white border-white/20 text-[10px] sm:text-xs py-0.5 px-2">{pro.area}</Badge>
+                                </div>
+                                <div className="flex flex-wrap gap-1 sm:gap-1.5 justify-center mt-2">
+                                  {isTribunales && (
+                                    <Badge variant="secondary" className="bg-white/10 text-white hover:bg-white/20 border-none flex items-center gap-1 text-[8px] sm:text-[9px] font-bold uppercase tracking-wider py-0.5 px-1.5">
+                                      <MapPin size={9} className="opacity-70 text-teal-300" /> Los Tribunales
+                                    </Badge>
+                                  )}
+                                  {isVitacura && (
+                                    <Badge variant="secondary" className="bg-white/10 text-white hover:bg-white/20 border-none flex items-center gap-1 text-[8px] sm:text-[9px] font-bold uppercase tracking-wider py-0.5 px-1.5">
+                                      <MapPin size={9} className="opacity-70 text-secondary" /> Vitacura
+                                    </Badge>
+                                  )}
+                                  {hasTele && (
+                                    <Badge variant="secondary" className="bg-indigo-500/30 text-indigo-50 hover:bg-indigo-500/40 border-none flex items-center gap-1 text-[8px] sm:text-[9px] font-bold uppercase tracking-wider py-0.5 px-1.5">
+                                      <Video size={9} className="opacity-70" /> Teleconsulta
+                                    </Badge>
+                                  )}
+                                </div>
+                                {pro.ageGroup && (
+                                  <div className="flex flex-wrap justify-center gap-1 sm:gap-1.5 mt-3 sm:mt-4 max-h-[65px] overflow-y-auto custom-scrollbar pr-1">
+                                    {pro.ageGroup.split(',').map(s => s.replace(/\./g, '').trim()).filter(Boolean).map((age, i) => (
+                                      <span key={i} className="text-[8px] sm:text-[9px] font-black tracking-widest uppercase bg-white/10 text-white/90 px-2 py-0.5 sm:px-2.5 sm:py-1 rounded-lg border border-white/5 backdrop-blur-sm whitespace-nowrap">
+                                        {age}
+                                      </span>
+                                    ))}
+                                  </div>
+                                )}
+                              </DialogHeader>
                             </div>
-                            <DialogHeader className="text-center">
-                              <DialogTitle className="text-2xl sm:text-3xl font-bold tracking-tight leading-[1.2] mb-3 text-center w-full px-2">{pro.name}</DialogTitle>
-                              <div className="flex gap-2 justify-center">
-                                <Badge className="bg-secondary text-primary font-bold flex items-center gap-1">
-                                  <SpecIcon size={12} strokeWidth={2.5} />
-                                  {pro.specialty}
-                                </Badge>
-                                <Badge variant="outline" className="text-white border-white/20">{pro.area}</Badge>
-                              </div>
-                              <div className="flex gap-1.5 justify-center mt-2">
-                                {isTribunales && (
-                                  <Badge variant="secondary" className="bg-white/10 text-white hover:bg-white/20 border-none flex items-center gap-1 text-[9px] font-bold uppercase tracking-wider">
-                                    <MapPin size={10} className="opacity-70 text-teal-300" /> Los Tribunales
-                                  </Badge>
-                                )}
-                                {isVitacura && (
-                                  <Badge variant="secondary" className="bg-white/10 text-white hover:bg-white/20 border-none flex items-center gap-1 text-[9px] font-bold uppercase tracking-wider">
-                                    <MapPin size={10} className="opacity-70 text-secondary" /> Vitacura
-                                  </Badge>
-                                )}
-                                {hasTele && (
-                                  <Badge variant="secondary" className="bg-indigo-500/30 text-indigo-50 hover:bg-indigo-500/40 border-none flex items-center gap-1 text-[9px] font-bold uppercase tracking-wider">
-                                    <Video size={10} className="opacity-70" /> Teleconsulta
-                                  </Badge>
-                                )}
-                              </div>
-                              {pro.ageGroup && (
-                                <div className="flex flex-wrap justify-center gap-1.5 mt-4">
-                                  {pro.ageGroup.split(',').map(s => s.replace(/\./g, '').trim()).filter(Boolean).map((age, i) => (
-                                    <span key={i} className="text-[9px] font-black tracking-widest uppercase bg-white/10 text-white/90 px-2.5 py-1 rounded-lg border border-white/5 backdrop-blur-sm">
-                                      {age}
-                                    </span>
-                                  ))}
+
+                            {/* Scrollable content limited only to details texts */}
+                            <div className="bg-white dark:bg-slate-900 p-6 sm:p-8 space-y-6 flex-1 overflow-y-auto">
+                              {pro.description && (
+                                <div className="space-y-2">
+                                  <h4 className="text-[10px] font-bold uppercase tracking-widest text-slate-500 dark:text-slate-400 flex items-center gap-2">
+                                    <Info size={14} className="text-secondary" /> Perfil
+                                  </h4>
+                                  <p className="text-slate-600 dark:text-slate-300 font-medium text-sm sm:text-base leading-relaxed">{pro.description}</p>
                                 </div>
                               )}
-                            </DialogHeader>
-                          </div>
-                          <div className="bg-white dark:bg-slate-900 p-8 space-y-6 max-h-[60vh] overflow-y-auto">
-                            {pro.description && (
-                              <div className="space-y-2">
-                                <h4 className="text-[10px] font-bold uppercase tracking-widest text-slate-400 dark:text-slate-500 flex items-center gap-2">
-                                  <Info size={14} className="text-secondary" /> Perfil
-                                </h4>
-                                <p className="text-slate-600 dark:text-slate-300 font-medium leading-relaxed">{pro.description}</p>
-                              </div>
-                            )}
-                            {pro.education && (
-                              <div className="space-y-2">
-                                <h4 className="text-[10px] font-bold uppercase tracking-widest text-slate-400 dark:text-slate-500 flex items-center gap-2">
-                                  <GraduationCap size={14} className="text-secondary" /> Formación Académica
-                                </h4>
-                                <p className="text-slate-600 dark:text-slate-300 font-medium leading-relaxed">{pro.education}</p>
-                              </div>
-                            )}
-                            {pro.sucursal && (
-                              <div className="space-y-2">
-                                <h4 className="text-[10px] font-bold uppercase tracking-widest text-slate-400 dark:text-slate-500 flex items-center gap-2">
-                                  <MapPin size={14} className="text-secondary" /> Ubicación
-                                </h4>
-                                <p className="text-slate-600 dark:text-slate-300 font-medium leading-relaxed">{pro.sucursal}</p>
-                              </div>
-                            )}
-                            
-                            {/* Helper to get first name */}
-                            {(() => {
-                              const firstName = pro.name.split(' ').filter(p => !p.includes('.')).filter(p => p.length > 0)[0] || pro.name.split(' ')[0];
-                              return (
-                                <a 
-                                  href={pro.bookingLink || "tel:+56222172635"}
-                                  target={pro.bookingLink?.startsWith('http') ? "_blank" : undefined}
-                                  rel={pro.bookingLink?.startsWith('http') ? "noopener noreferrer" : undefined}
-                                  className="relative inline-flex w-full cursor-pointer select-none group pt-2 no-underline"
-                                >
-                                  {/* Cuerpo del Botón con Degradado */}
-                                  <div className="bg-gradient-to-r from-primary to-[#1e3a8a] text-white w-full px-8 h-16 flex items-center justify-center rounded-full text-base sm:text-lg font-black tracking-tight shadow-xl shadow-primary/20 dark:shadow-primary/20 transition-all duration-500 transform group-hover:-translate-y-1 group-active:scale-95 relative z-10 whitespace-nowrap">
-                                    Agendar Hora con {firstName}
-                                  </div>
-                                  
-                                  {/* Icono Badge Flotante */}
-                                  <div className="absolute top-0 -right-1 sm:-right-2 w-11 h-11 bg-secondary rounded-full flex items-center justify-center text-primary shadow-lg transition-all duration-500 transform group-hover:-translate-y-1 group-hover:rotate-[-15deg] group-hover:scale-110 group-active:scale-95 z-20 border-4 border-white dark:border-slate-900">
-                                    <CalendarDays className="w-4 h-4" strokeWidth={3} />
-                                  </div>
-                                </a>
-                              );
-                            })()}
-                          </div>
-                        </DialogContent>
-                      </Dialog>
-                    </div>
+                              {pro.education && (
+                                <div className="space-y-2">
+                                  <h4 className="text-[10px] font-bold uppercase tracking-widest text-slate-500 dark:text-slate-400 flex items-center gap-2">
+                                    <GraduationCap size={14} className="text-secondary" /> Formación Académica
+                                  </h4>
+                                  <p className="text-slate-600 dark:text-slate-300 font-medium text-sm sm:text-base leading-relaxed">{pro.education}</p>
+                                </div>
+                              )}
+                              {pro.sucursal && (
+                                <div className="space-y-2">
+                                  <h4 className="text-[10px] font-bold uppercase tracking-widest text-slate-500 dark:text-slate-400 flex items-center gap-2">
+                                    <MapPin size={14} className="text-secondary" /> Ubicación
+                                  </h4>
+                                  <p className="text-slate-600 dark:text-slate-300 font-medium text-sm sm:text-base leading-relaxed">{pro.sucursal}</p>
+                                </div>
+                              )}
+                            </div>
+
+                            {/* Fixed footer CTA area for immediate accessibility */}
+                            <div className="bg-white dark:bg-slate-900 px-6 pb-6 pt-2 sm:px-8 sm:pb-8 sm:pt-3 border-t border-slate-100 dark:border-slate-800 shrink-0">
+                              {(() => {
+                                const firstName = pro.name.split(' ').filter(p => !p.includes('.')).filter(p => p.length > 0)[0] || pro.name.split(' ')[0];
+                                return (
+                                  <a
+                                    href={pro.bookingLink || "tel:+56222172635"}
+                                    target={pro.bookingLink?.startsWith('http') ? "_blank" : undefined}
+                                    rel={pro.bookingLink?.startsWith('http') ? "noopener noreferrer" : undefined}
+                                    className="relative inline-flex w-full cursor-pointer select-none group no-underline h-14 sm:h-16 items-center"
+                                  >
+                                    {/* Cuerpo del Botón con Degradado */}
+                                    <div className="bg-gradient-to-r from-primary to-[#1e3a8a] text-white w-full px-8 h-full flex items-center justify-center rounded-full text-sm sm:text-base font-black tracking-tight shadow-xl shadow-primary/20 dark:shadow-primary/20 transition-all duration-500 transform group-hover:-translate-y-1 group-active:scale-95 relative z-10 whitespace-nowrap">
+                                      Agendar Hora con {firstName}
+                                    </div>
+
+                                    {/* Icono Badge Flotante */}
+                                    <div className="absolute -top-1.5 -right-1 sm:-right-2 w-10 h-10 sm:w-12 sm:h-12 bg-secondary rounded-full flex items-center justify-center text-primary shadow-lg transition-all duration-500 transform group-hover:-translate-y-1.5 group-hover:rotate-[-15deg] group-hover:scale-110 group-active:scale-95 z-20 border-4 border-white dark:border-slate-900">
+                                      <CalendarDays className="w-3.5 h-3.5 sm:w-4 sm:h-4" strokeWidth={3} />
+                                    </div>
+                                  </a>
+                                );
+                              })()}
+                            </div>
+                          </DialogContent>
+                        </Dialog>
+                      </div>
                     </div>
                   </div>
                 </motion.div>
@@ -593,8 +594,8 @@ export const ProfessionalFilter = ({ initialArea, professionals }: { initialArea
         </div>
 
         {filteredProfessionals.length === 0 && (
-          <motion.div 
-            initial={{ opacity: 0 }} 
+          <motion.div
+            initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             className="text-center py-24 bg-white dark:bg-slate-900 rounded-[3rem] border border-dashed border-slate-200 dark:border-slate-800"
           >
@@ -603,8 +604,8 @@ export const ProfessionalFilter = ({ initialArea, professionals }: { initialArea
             </div>
             <h3 className="text-xl font-bold text-primary dark:text-white mb-2">No encontramos resultados</h3>
             <p className="text-slate-500 dark:text-slate-400 font-medium">Intenta ajustando los filtros o el término de búsqueda.</p>
-            <Button 
-              variant="outline" 
+            <Button
+              variant="outline"
               className="mt-8 rounded-full border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800"
               onClick={() => {
                 setSearchTerm("");

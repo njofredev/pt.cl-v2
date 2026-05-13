@@ -365,33 +365,9 @@ export default function NosotrosPage() {
             <Stethoscope size={14} strokeWidth={2.5} className="text-secondary shrink-0" /> Nuestra Oferta Médica
           </div>
           
-          <div className="flex items-center justify-between w-full max-w-5xl mx-auto mb-10 px-4">
-            <div className="hidden md:flex flex-1 justify-start">
-              <Link href="/#sucursales" className="flex items-center gap-2 text-[11px] font-bold uppercase tracking-wider text-slate-400 dark:text-slate-500 hover:text-secondary transition-colors shrink-0">
-                <ChevronLeft size={14} /> Sucursales
-              </Link>
-            </div>
-
-            <h2 className="text-3xl md:text-4xl font-black text-slate-900 dark:text-white tracking-tight mx-4 text-center shrink-0">
-              Explora Todos Nuestros Servicios
-            </h2>
-
-            <div className="hidden md:flex flex-1 justify-end">
-              <Link href="/derechos-y-deberes" className="flex items-center gap-2 text-[11px] font-bold uppercase tracking-wider text-slate-400 dark:text-slate-500 hover:text-secondary transition-colors shrink-0">
-                Derechos y Deberes <ChevronRight size={14} />
-              </Link>
-            </div>
-          </div>
-
-          {/* Mobile alternative links simple */}
-          <div className="flex md:hidden items-center justify-between w-full px-4 mb-8 text-[10px] font-bold uppercase tracking-wider">
-            <Link href="/#sucursales" className="flex items-center gap-1 text-slate-400 dark:text-slate-500">
-              <ChevronLeft size={12} /> Sucursales
-            </Link>
-            <Link href="/derechos-y-deberes" className="flex items-center gap-1 text-slate-400 dark:text-slate-500">
-              Derechos y Deberes <ChevronRight size={12} />
-            </Link>
-          </div>
+          <h2 className="text-3xl md:text-4xl font-black text-slate-900 dark:text-white tracking-tight mb-10 text-center">
+            Explora Todos Nuestros Servicios
+          </h2>
           
           <div className="flex flex-wrap items-center justify-center gap-3 md:gap-4 max-w-5xl mx-auto">
             {[

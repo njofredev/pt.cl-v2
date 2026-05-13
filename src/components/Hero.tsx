@@ -77,6 +77,15 @@ export const Hero = ({
     return () => clearInterval(timer);
   }, [images.length]);
 
+  const handleSliderClick = () => {
+    const el = document.getElementById('sucursales');
+    if (el) {
+      el.scrollIntoView({ behavior: 'smooth' });
+    } else {
+      window.location.href = '/#sucursales';
+    }
+  };
+
   return (
     <section className="relative pt-[200px] sm:pt-[220px] md:pt-44 pb-12 md:pb-20 overflow-hidden bg-transparent dark:bg-transparent transition-colors duration-300">
 
@@ -86,6 +95,7 @@ export const Hero = ({
           initial={{ opacity: 0, x: -30 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.6 }}
+          className="flex flex-col items-center sm:items-start text-center sm:text-left"
         >
           <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-primary text-white text-[10px] font-bold uppercase tracking-widest mb-5 md:mb-8">
             <BadgeIcon size={14} fill="currentColor" className="text-secondary" /> {badgeText}
@@ -97,7 +107,7 @@ export const Hero = ({
           <p className="text-base md:text-xl text-slate-500 dark:text-slate-400 font-medium max-w-md leading-relaxed mb-6 md:mb-10">
             {description}
           </p>
-          <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4 flex-wrap">
+          <div className="flex flex-col sm:flex-row items-center sm:items-center gap-4 flex-wrap">
             <div
               className="relative inline-flex cursor-pointer select-none group"
               onClick={() => {
@@ -105,8 +115,8 @@ export const Hero = ({
                 if (el) el.scrollIntoView({ behavior: 'smooth' });
               }}
             >
-              {/* Cuerpo del Botón principal con Degradado Premium */}
-              <div className="bg-gradient-to-r from-primary to-[#1e3a8a] text-white pl-8 pr-14 sm:px-12 h-16 flex items-center justify-center gap-4 rounded-full text-sm sm:text-lg font-black tracking-tight shadow-xl shadow-black/10 transition-all duration-500 transform group-hover:-translate-y-1 group-active:scale-95 relative z-10 whitespace-nowrap">
+              {/* Cuerpo del Botón principal con Degradado Premium y Ancho Normalizado */}
+              <div className="bg-gradient-to-r from-primary to-[#1e3a8a] text-white w-60 sm:w-64 h-16 flex items-center justify-center gap-4 rounded-full text-sm sm:text-lg font-black tracking-tight shadow-xl shadow-black/10 transition-all duration-500 transform group-hover:-translate-y-1 group-active:scale-95 relative z-10 whitespace-nowrap">
                 {buttonText}
                 {isInlineIcon && (
                   <div className={`w-10 h-10 rounded-full ${floatingIconBg} flex items-center justify-center text-primary shadow-sm shrink-0 group-hover:scale-110 group-hover:rotate-[10deg] transition-transform duration-500 mr-[-12px] ml-1`}>
@@ -133,7 +143,7 @@ export const Hero = ({
                       if (el) el.scrollIntoView({ behavior: 'smooth' });
                     }
                   }}
-                  className="h-16 inline-flex items-center justify-center gap-3 px-12 rounded-full border-2 border-slate-200 dark:border-white/10 bg-transparent dark:bg-white/5 text-slate-700 dark:text-slate-100 text-sm sm:text-lg font-black tracking-tight shadow-sm hover:bg-slate-50 dark:hover:bg-white/10 hover:border-primary/20 dark:hover:border-white/20 transition-all duration-500 transform group-hover/sec:-translate-y-1 group-active/sec:scale-95 select-none whitespace-nowrap cursor-pointer"
+                  className="h-16 w-60 sm:w-64 inline-flex items-center justify-center gap-3 rounded-full border-2 border-slate-200 dark:border-white/10 bg-transparent dark:bg-white/5 text-slate-700 dark:text-slate-100 text-sm sm:text-lg font-black tracking-tight shadow-sm hover:bg-slate-50 dark:hover:bg-white/10 hover:border-primary/20 dark:hover:border-white/20 transition-all duration-500 transform group-hover/sec:-translate-y-1 group-active/sec:scale-95 select-none whitespace-nowrap cursor-pointer"
                 >
                   <span>{secondaryButtonText}</span>
                 </button>
@@ -154,7 +164,10 @@ export const Hero = ({
           transition={{ duration: 0.8, delay: 0.2 }}
           className="relative"
         >
-          <div className="relative z-10 bg-slate-100 dark:bg-slate-900 rounded-[2rem] sm:rounded-[3rem] p-3 sm:p-4 shadow-lg shadow-slate-200/50 dark:shadow-none border-4 sm:border-8 border-white dark:border-slate-900 overflow-hidden aspect-[4/3]">
+          <div 
+            onClick={handleSliderClick}
+            className="relative z-10 bg-slate-100 dark:bg-slate-900 rounded-[2rem] sm:rounded-[3rem] p-3 sm:p-4 shadow-lg shadow-slate-200/50 dark:shadow-none border-4 sm:border-8 border-white dark:border-slate-900 overflow-hidden aspect-[4/3] cursor-pointer group/slider hover:shadow-2xl transition-all duration-500 transform active:scale-[0.99]"
+          >
             <div className="relative w-full h-full rounded-[1.7rem] sm:rounded-[2.5rem] overflow-hidden">
               <AnimatePresence initial={false}>
                 <motion.div
@@ -170,7 +183,7 @@ export const Hero = ({
                     alt={images[currentImageIndex].alt}
                     fill
                     priority={true}
-                    className="object-cover"
+                    className="object-cover group-hover/slider:scale-105 transition-transform duration-700"
                     sizes="(max-width: 768px) 100vw, 50vw"
                   />
                 </motion.div>
@@ -191,7 +204,7 @@ export const Hero = ({
                 {images.map((_, i) => (
                   <button
                     key={i}
-                    onClick={() => setCurrentImageIndex(i)}
+                    onClick={(e) => { e.stopPropagation(); setCurrentImageIndex(i); }}
                     aria-label={`Ver imagen de sucursal ${i + 1}`}
                     className="w-6 h-6 flex items-center justify-center cursor-pointer focus:outline-none group"
                   >

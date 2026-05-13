@@ -266,7 +266,7 @@ export const Navbar = () => {
             </motion.div>
           )}
         </AnimatePresence>
-        <div className={`bg-primary text-white transition-all duration-300 ${isScrolled ? 'py-1' : 'py-2'} border-b border-white/5`}>
+        <div className={`bg-primary text-white hidden md:block transition-all duration-300 ${isScrolled ? 'py-1' : 'py-2'} border-b border-white/5`}>
           <div className="container mx-auto px-4 md:px-6 flex flex-col lg:flex-row justify-center lg:justify-between items-center gap-y-2 py-0.5 text-[7.5px] sm:text-[9px] md:text-[10px] font-bold uppercase tracking-[0.12em] sm:tracking-[0.15em] text-center md:text-left">
             <div className="flex flex-wrap gap-x-3 sm:gap-x-4 gap-y-1.5 justify-center lg:justify-start">
               <a
@@ -353,7 +353,7 @@ export const Navbar = () => {
 
               {/* Desktop Menu */}
               <div
-                className="hidden xl:flex items-center space-x-0.5 text-[10.5px] font-bold uppercase tracking-widest text-slate-500 dark:text-slate-400 relative"
+                className="hidden xl:flex items-center space-x-0.5 text-[13.5px] font-bold text-slate-600 dark:text-slate-300 relative"
                 onMouseLeave={() => setActiveDropdown(null)}
               >
                 {NAV_ITEMS.map((item) => (
@@ -422,7 +422,7 @@ export const Navbar = () => {
                                 </div>
                               )}
                               <div className="flex flex-col pt-1">
-                                <span className="text-[13px] font-bold text-primary dark:text-slate-100 group-hover/sub:text-secondary transition-colors uppercase tracking-wider">
+                                <span className="text-[14.5px] font-bold text-primary dark:text-slate-100 group-hover/sub:text-secondary transition-colors tracking-tight">
                                   {sub.name}
                                 </span>
                                 {sub.desc && (
@@ -470,10 +470,10 @@ export const Navbar = () => {
 
               <div className="hidden xl:block relative group">
                 <Button
-                  className="bg-gradient-to-r from-primary to-[#1e3a8a] text-white rounded-full px-8 h-11 font-bold text-[11px] tracking-widest transition-all duration-500 transform group-hover:-translate-y-1 group-active:scale-95 cursor-pointer shadow-lg shadow-black/10 border-0 relative z-10"
+                  className="bg-gradient-to-r from-primary to-[#1e3a8a] text-white rounded-full px-8 h-11 font-bold text-[13px] tracking-tight transition-all duration-500 transform group-hover:-translate-y-1 group-active:scale-95 cursor-pointer shadow-lg shadow-black/10 border-0 relative z-10"
                   onClick={scrollToScheduler}
                 >
-                  RESERVAR HORA
+                  Reservar Hora
                 </Button>
                 {/* Icono Badge Flotante */}
                 <div className="absolute -top-2 -right-2 w-10 h-10 bg-secondary rounded-full flex items-center justify-center text-white shadow-lg transition-all duration-500 transform group-hover:-translate-y-1 group-hover:rotate-[-15deg] group-hover:scale-110 group-active:scale-95 z-20 border-4 border-white dark:border-slate-950 pointer-events-none">
@@ -591,7 +591,7 @@ export const Navbar = () => {
                   className="w-full bg-primary h-14 rounded-2xl font-bold text-white mt-2 cursor-pointer"
                   onClick={scrollToScheduler}
                 >
-                  RESERVAR HORA <Calendar size={16} className="ml-2 shrink-0" />
+                  Reservar Hora <Calendar size={16} className="ml-2 shrink-0" />
                 </Button>
               </div>
             </motion.div>

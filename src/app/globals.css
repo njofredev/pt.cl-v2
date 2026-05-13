@@ -69,12 +69,12 @@
 /* Configuraciones de base */
 @layer base {
   :root {
-    --color-secondary: #2a8d79; /* Turquesa accesible con alto contraste contra blanco */
+    --color-secondary: #227262; /* Turquesa de alto contraste accesible contra blanco (>4.5:1) */
     --color-primary: #162158; /* Azul Oscuro Institucional original */
   }
 
   .dark {
-    --color-secondary: #2a8d79; /* Mantenemos el turquesa de alto contraste */
+    --color-secondary: #2a8d79; /* Turquesa de alto contraste accesible contra fondo oscuro */
     --color-primary: #162158; /* Azul Oscuro Institucional original para Modo Oscuro */
   }
 

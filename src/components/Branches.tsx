@@ -78,9 +78,9 @@ export const Branches = () => {
                 initial={{ opacity: 0, y: 15 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/10 text-secondary text-[10px] sm:text-[11px] font-bold uppercase tracking-widest mb-6 border border-white/5 shadow-inner"
+                className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/10 text-emerald-300 text-[10px] sm:text-[11px] font-bold uppercase tracking-widest mb-6 border border-white/5 shadow-inner"
               >
-                <MapPin size={14} className="shrink-0 text-secondary" /> ¡Visítanos!
+                <MapPin size={14} className="shrink-0 text-emerald-300" /> ¡Visítanos!
               </motion.div>
               <motion.h2
                 initial={{ opacity: 0, y: 15 }}
@@ -133,7 +133,7 @@ export const Branches = () => {
                           </div>
                         </div>
                       </div>
-                      
+
                       <a
                         href={branch.mapLink}
                         target="_blank"
@@ -149,15 +149,15 @@ export const Branches = () => {
                     <div className="relative group/img w-full h-[200px] sm:h-[240px] md:h-[260px] mb-8 overflow-hidden rounded-[1.75rem] bg-slate-900/80 border border-white/5 shadow-2xl">
                       {activeMaps[branch.id] ? (
                         <div className="w-full h-full relative animate-in fade-in duration-300">
-                          <iframe 
-                            src={branch.embedUrl} 
+                          <iframe
+                            src={branch.embedUrl}
                             className="w-full h-full border-0 grayscale opacity-90 invert contrast-125 scale-105"
-                            style={{ filter: "invert(90%) hue-rotate(180deg)" }} 
+                            style={{ filter: "invert(90%) hue-rotate(180deg)" }}
                             loading="lazy"
                             referrerPolicy="no-referrer-when-downgrade"
                             title={branch.name}
                           />
-                          <button 
+                          <button
                             onClick={() => toggleMap(branch.id)}
                             className="absolute top-4 right-4 bg-primary/90 hover:bg-secondary text-white hover:text-primary px-4 py-2 rounded-full text-[10px] font-black uppercase tracking-widest transition-all shadow-xl border border-white/10 backdrop-blur-md hover:scale-105 active:scale-95 z-20"
                           >
@@ -174,7 +174,7 @@ export const Branches = () => {
                           />
                           {/* Overlay Badge / CTA Inside Card */}
                           <div className="absolute bottom-4 right-4 z-20">
-                            <button 
+                            <button
                               onClick={(e) => {
                                 e.preventDefault();
                                 toggleMap(branch.id);
@@ -182,7 +182,7 @@ export const Branches = () => {
                               className="bg-white text-primary hover:bg-secondary hover:text-primary font-bold text-[12px] px-4.5 py-2.5 rounded-xl flex items-center justify-center gap-2 shadow-[0_10px_30px_rgba(0,0,0,0.2)] hover:scale-105 active:scale-95 transition-all border border-transparent hover:border-white/20 group/badge-cta"
                             >
                               <MapPin size={14} className="shrink-0 text-secondary group-hover/badge-cta:text-primary transition-colors" />
-                              <span className="leading-none uppercase tracking-wider font-black text-[11px]">Ver mapa interactivo</span>
+                              <span className="leading-none uppercase tracking-wider font-black text-[11px]">Ver Mapa</span>
                             </button>
                           </div>
                         </>
