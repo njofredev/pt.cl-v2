@@ -109,12 +109,12 @@ const LogoTicker = ({ title, logos, speed = 15 }: { title: string, logos: string
           {repeatedLogos.map((src, idx) => (
             <div 
               key={idx} 
-              className="h-10 flex items-center justify-center shrink-0 grayscale opacity-50 hover:grayscale-0 hover:opacity-100 dark:invert dark:opacity-60 dark:hover:opacity-100 transition-all duration-300 ease-out cursor-pointer"
+              className="h-14 flex items-center justify-center shrink-0 grayscale opacity-75 hover:grayscale-0 hover:opacity-100 transition-all duration-300 ease-out cursor-pointer"
             >
               <img 
                 src={src} 
                 alt="Convenio o Tecnología Integrada" 
-                className="h-7 w-auto object-contain px-0.5" 
+                className="h-9 w-auto object-contain px-1" 
               />
             </div>
           ))}
