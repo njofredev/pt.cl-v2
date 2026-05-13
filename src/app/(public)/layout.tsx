@@ -1,6 +1,9 @@
+import dynamic from 'next/dynamic';
 import { Navbar } from "@/components/Navbar";
-import { Footer } from "@/components/Footer";
-import { WhatsAppFab } from "@/components/WhatsAppFab";
+
+const Footer = dynamic(() => import("@/components/Footer").then(mod => mod.Footer));
+ 
+const WhatsAppFab = dynamic(() => import("@/components/WhatsAppFab").then(mod => mod.WhatsAppFab));
 
 export default function PublicLayout({
   children,

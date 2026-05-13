@@ -1,10 +1,19 @@
 import React from 'react';
+import dynamic from 'next/dynamic';
 import { Hero } from '@/components/Hero';
 import { MinimalistScheduler } from '@/components/MinimalistScheduler';
 import { PartnerCarousel } from '@/components/PartnerCarousel';
 import { ServiceCarousel } from '@/components/ServiceCarousel';
-import { Branches } from '@/components/Branches';
-import { GoogleReviews } from '@/components/GoogleReviews';
+
+const GoogleReviews = dynamic(() => import('@/components/GoogleReviews').then(mod => mod.GoogleReviews), {
+  ssr: true,
+  loading: () => <div className="h-96 animate-pulse bg-slate-50 dark:bg-slate-900/50 rounded-[3rem] mx-6 my-16" />
+});
+
+const Branches = dynamic(() => import('@/components/Branches').then(mod => mod.Branches), {
+  ssr: true,
+  loading: () => <div className="h-screen animate-pulse bg-slate-900 rounded-[3rem] mx-6" />
+});
 import Link from 'next/link';
 import {
   Stethoscope,
