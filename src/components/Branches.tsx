@@ -13,6 +13,7 @@ import {
   Building2
 } from 'lucide-react';
 import { Button } from "@/components/ui/button";
+import Image from 'next/image';
 
 const branches = [
   {
@@ -97,7 +98,7 @@ export const Branches = () => {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: 0.2 }}
-                className="text-slate-300 text-base md:text-lg leading-relaxed font-medium max-w-xl"
+                className="text-slate-200 text-base md:text-lg leading-relaxed font-medium max-w-xl"
               >
                 Dos ubicaciones estratégicas en Vitacura para brindarte la mejor atención profesional y humana.
               </motion.p>
@@ -167,11 +168,15 @@ export const Branches = () => {
                       ) : (
                         <>
                           <div className="absolute inset-0 bg-gradient-to-t from-primary/70 via-primary/20 to-transparent z-10 transition-opacity duration-500 group-hover/img:opacity-50" />
-                          <img
-                            src={branch.image}
-                            alt={branch.name}
-                            className="w-full h-full object-cover group-hover/img:scale-110 transition-transform duration-700 ease-out"
-                          />
+                          <div className="relative w-full h-full">
+                            <Image
+                              src={branch.image}
+                              alt={branch.name}
+                              fill
+                              className="object-cover group-hover/img:scale-110 transition-transform duration-700 ease-out"
+                              sizes="(max-width: 640px) 100vw, 320px"
+                            />
+                          </div>
                           {/* Overlay Badge / CTA Inside Card */}
                           <div className="absolute bottom-4 right-4 z-20">
                             <button
@@ -196,7 +201,7 @@ export const Branches = () => {
                           <Clock size={18} />
                         </div>
                         <div className="flex flex-col md:flex-row md:items-center gap-x-3 gap-y-1">
-                          <span className="text-[10px] font-black uppercase tracking-widest text-slate-400 shrink-0">Horarios de Atención:</span>
+                          <span className="text-[10px] font-black uppercase tracking-widest text-slate-300 shrink-0">Horarios de Atención:</span>
                           <div className="text-slate-200 text-[13px] sm:text-[14px] font-semibold">
                             {branch.hours.map((h, i) => (
                               <React.Fragment key={i}>
@@ -215,7 +220,7 @@ export const Branches = () => {
                     <div className="space-y-6 pt-6 border-t border-white/10 mt-auto">
                       <div className="grid sm:grid-cols-2 gap-4">
                         <div className="space-y-3">
-                          <span className="block text-[10px] font-black uppercase tracking-widest text-slate-400">Contacto Rápido</span>
+                          <span className="block text-[10px] font-black uppercase tracking-widest text-slate-300">Contacto Rápido</span>
                           <div className="flex flex-col gap-2.5">
                             <a
                               href={`tel:${branch.contact.phone.replace(/\s/g, '')}`}

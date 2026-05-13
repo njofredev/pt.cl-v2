@@ -265,8 +265,8 @@ export const Footer = () => {
                   <WhatsAppIcon className="text-emerald-500 shrink-0 group-hover:scale-110 transition-transform" size={16} />
                   <span className="font-medium">+56 9 6618 7736</span>
                 </a>
-                <a href="mailto:secretaria@policlinicotabancura.cl" className="flex gap-3 text-[12px] text-slate-500 dark:text-slate-400 hover:text-primary dark:hover:text-white transition-colors items-center pt-1">
-                  <Mail className="text-secondary shrink-0 opacity-70" size={15} />
+                <a href="mailto:secretaria@policlinicotabancura.cl" className="flex gap-3 text-[12px] text-slate-400 dark:text-slate-300 hover:text-primary dark:hover:text-white transition-colors items-center pt-1">
+                  <Mail className="text-secondary shrink-0 opacity-80" size={15} />
                   <span className="break-all font-medium">secretaria@policlinicotabancura.cl</span>
                 </a>
               </div>
