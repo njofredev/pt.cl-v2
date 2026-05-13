@@ -98,7 +98,7 @@ export default function Home() {
                   Accede a valores preferenciales en tus atenciones médicas y dentales. Ingresa tu RUT a continuación y verifica tu estado de convenio vigente al instante.
                 </p>
 
-                <div className="mb-10 group">
+                <div className="mb-10 group hidden md:block">
                   <Image 
                     src="/logos_convenios_prevision/mivita_v2_light.png" 
                     alt="Logo Tarjeta Mi Vita" 

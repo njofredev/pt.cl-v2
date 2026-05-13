@@ -210,11 +210,11 @@ export const ProfessionalFilter = ({ initialArea, professionals }: { initialArea
       <div className="container mx-auto px-6">
         {/* Grilla de Especialidades del Área (Solo se muestra en vistas de área) */}
         {specialtiesForGrid.length > 0 && (
-          <div className="-mt-8 relative z-10 mb-16 border-b border-slate-100 dark:border-white/5 pb-16">
+          <div className="-mt-8 relative z-10 mb-10 border-b border-slate-100 dark:border-white/5 pb-10">
             <span className="inline-flex items-center gap-2 px-3 py-1 rounded-lg bg-slate-100 dark:bg-white/5 text-[10px] font-black uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 mb-6 ml-1 border border-slate-200 dark:border-white/5 shadow-sm">
               Nuestras Especialidades
             </span>
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-2 sm:gap-3">
+            <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-2">
               {specialtiesForGrid.map((item, idx) => {
                 const Icon = item.Icon;
                 const isSelected = selectedSpecialty === item.name;
@@ -222,30 +222,25 @@ export const ProfessionalFilter = ({ initialArea, professionals }: { initialArea
                 return (
                   <motion.div
                     key={item.name}
-                    initial={{ opacity: 0, y: 10 }}
+                    initial={{ opacity: 0, y: 8 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
-                    transition={{ delay: idx * 0.03 }}
+                    transition={{ delay: idx * 0.02 }}
                     onClick={() => handleSpecialtyClick(item.name)}
-                    className={`group cursor-pointer relative p-3 sm:p-4 rounded-xl sm:rounded-2xl border transition-all duration-300 flex flex-col h-full hover:-translate-y-0.5 ${
+                    className={`group cursor-pointer relative px-3 py-2.5 sm:px-4 sm:py-3 rounded-xl sm:rounded-2xl border transition-all duration-300 flex items-center gap-2.5 sm:gap-3 min-h-[52px] sm:min-h-[60px] hover:-translate-y-0.5 ${
                       isSelected 
-                        ? 'bg-primary text-white border-primary shadow-lg shadow-primary/10' 
-                        : 'bg-white dark:bg-slate-900 border-slate-100 dark:border-slate-800 hover:shadow-md hover:border-secondary/40 shadow-sm dark:shadow-none'
+                        ? 'bg-primary text-white border-primary shadow-md shadow-primary/10' 
+                        : 'bg-white dark:bg-slate-900 border-slate-100/80 dark:border-white/[0.03] hover:shadow-md hover:border-secondary/30 shadow-sm dark:shadow-none'
                     }`}
                   >
-                    <div className="flex items-center gap-3 mb-0 sm:mb-2.5">
-                      <div className={`w-8 h-8 rounded-xl flex items-center justify-center shrink-0 transition-colors ${
-                        isSelected ? 'bg-white/10 text-secondary' : 'bg-secondary/10 text-secondary group-hover:bg-secondary group-hover:text-white'
-                      }`}>
-                        <Icon size={16} strokeWidth={2} />
-                      </div>
-                      <h4 className={`font-bold text-[13px] sm:text-sm leading-tight tracking-tight ${isSelected ? 'text-white' : 'text-slate-900 dark:text-white group-hover:text-secondary'}`}>
-                        {item.name}
-                      </h4>
+                    <div className={`w-7 h-7 sm:w-8 sm:h-8 rounded-lg sm:rounded-xl flex items-center justify-center shrink-0 transition-colors ${
+                      isSelected ? 'bg-white/20 text-secondary' : 'bg-secondary/10 text-secondary group-hover:bg-secondary group-hover:text-white'
+                    }`}>
+                      <Icon size={15} strokeWidth={2} />
                     </div>
-                    <p className={`text-[11px] leading-relaxed font-medium hidden sm:line-clamp-2 ${isSelected ? 'text-white/80' : 'text-slate-500 dark:text-slate-400'}`}>
-                      {item.description}
-                    </p>
+                    <h4 className={`font-bold text-[11.5px] sm:text-[12.5px] leading-tight tracking-tight transition-colors flex-1 line-clamp-2 ${isSelected ? 'text-white' : 'text-slate-900 dark:text-white/90 group-hover:text-secondary'}`}>
+                      {item.name}
+                    </h4>
                   </motion.div>
                 );
               })}

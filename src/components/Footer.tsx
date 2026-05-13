@@ -43,12 +43,13 @@ const FooterSection = ({ title, links }: FooterSectionProps) => {
       <div className="md:hidden py-4">
         <button
           onClick={() => setIsOpen(!isOpen)}
+          aria-label={`Expandir sección ${title}`}
           className="w-full flex items-center justify-between text-left group cursor-pointer"
         >
           <h4 className="text-[10px] font-bold uppercase tracking-[0.3em] text-secondary">{title}</h4>
           <ChevronDown 
             size={16} 
-            className={`text-slate-400 transition-transform duration-300 ${isOpen ? 'rotate-180 text-secondary' : ''}`} 
+            className={`text-slate-600 transition-transform duration-300 ${isOpen ? 'rotate-180 text-secondary' : ''}`} 
           />
         </button>
         
@@ -87,7 +88,7 @@ const LogoTicker = ({ title, logos, speed = 15 }: { title: string, logos: string
 
   return (
     <div className="space-y-2.5 overflow-hidden w-full">
-      <span className="text-[8px] font-bold uppercase tracking-[0.25em] text-slate-400 dark:text-slate-500 block">
+      <span className="text-[8px] font-bold uppercase tracking-[0.25em] text-slate-600 dark:text-slate-400 block">
         {title}
       </span>
       <div 
@@ -136,17 +137,17 @@ export const Footer = () => {
               <Link href="/" className="flex items-center gap-3 mb-6">
                 <img src="/logo.svg" alt="Logo" className="h-12 w-auto dark:brightness-0 dark:invert" />
               </Link>
-              <p className="text-slate-500 dark:text-slate-300 font-medium leading-relaxed text-sm sm:text-base mb-6">
+              <p className="text-slate-600 dark:text-slate-300 font-medium leading-relaxed text-sm sm:text-base mb-6">
                 Tecnología y cuidado humano al servicio de tu salud. Más de 20 años innovando en medicina integral.
               </p>
               <div className="flex gap-4">
-                <a href="https://www.instagram.com/politabancura/" target="_blank" rel="noopener noreferrer" className="w-10 h-10 bg-slate-100 dark:bg-white/10 rounded-full flex items-center justify-center text-slate-500 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-white/20 hover:text-secondary transition-all group">
+                <a href="https://www.instagram.com/politabancura/" target="_blank" rel="noopener noreferrer" aria-label="Ir a nuestro perfil de Instagram" className="w-10 h-10 bg-slate-100 dark:bg-white/10 rounded-full flex items-center justify-center text-slate-600 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-white/20 hover:text-secondary transition-all group">
                   <Instagram size={18} className="group-hover:scale-110 transition-transform" />
                 </a>
-                <a href="https://www.facebook.com/profile.php?id=61568214167163" target="_blank" rel="noopener noreferrer" className="w-10 h-10 bg-slate-100 dark:bg-white/10 rounded-full flex items-center justify-center text-slate-500 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-white/20 hover:text-secondary transition-all group">
+                <a href="https://www.facebook.com/profile.php?id=61568214167163" target="_blank" rel="noopener noreferrer" aria-label="Ir a nuestro perfil de Facebook" className="w-10 h-10 bg-slate-100 dark:bg-white/10 rounded-full flex items-center justify-center text-slate-600 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-white/20 hover:text-secondary transition-all group">
                   <Facebook size={18} className="group-hover:scale-110 transition-transform" />
                 </a>
-                <a href="https://www.tiktok.com/@politabancura" target="_blank" rel="noopener noreferrer" className="w-10 h-10 bg-slate-100 dark:bg-white/10 rounded-full flex items-center justify-center text-slate-500 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-white/20 hover:text-secondary transition-all group">
+                <a href="https://www.tiktok.com/@politabancura" target="_blank" rel="noopener noreferrer" aria-label="Ir a nuestro perfil de TikTok" className="w-10 h-10 bg-slate-100 dark:bg-white/10 rounded-full flex items-center justify-center text-slate-600 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-white/20 hover:text-secondary transition-all group">
                   <TikTokIcon size={18} className="group-hover:scale-110 transition-transform" />
                 </a>
               </div>
@@ -276,12 +277,12 @@ export const Footer = () => {
         {/* Bottom Bar */}
         <div className="pt-12 border-t border-slate-100 dark:border-white/10 flex flex-col md:flex-row justify-between items-center gap-8">
           <div className="flex items-center gap-8">
-            <div className="flex items-center gap-2 text-slate-500 dark:text-slate-400 text-[10px] font-bold uppercase tracking-widest">
+            <div className="flex items-center gap-2 text-slate-600 dark:text-slate-400 text-[10px] font-bold uppercase tracking-widest">
               <Activity size={14} className="text-secondary" /> Diseñado y desarrollado en Policlínico Tabancura
             </div>
           </div>
 
-          <p className="text-slate-400 dark:text-slate-600 text-[10px] font-bold uppercase tracking-[0.4em]">
+          <p className="text-slate-600 dark:text-slate-500 text-[10px] font-bold uppercase tracking-[0.4em]">
             © {new Date().getFullYear()} POLICLÍNICO TABANCURA • Tu Salud es nuestra prioridad.
           </p>
         </div>

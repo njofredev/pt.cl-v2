@@ -1,8 +1,8 @@
 "use client";
 
-import React from 'react';
-import { motion } from 'framer-motion';
-import { MessageCircle } from 'lucide-react';
+import React, { useState, useEffect } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { Search, X } from 'lucide-react';
 
 const WhatsAppIcon = ({ className = "" }: { className?: string }) => (
   <svg viewBox="0 0 24 24" width="24" height="24" fill="currentColor" className={className}>
@@ -25,34 +25,238 @@ const WHATSAPP_LINKS = [
   }
 ];
 
+// Motion variants for Mobile Stagger animation
+const containerVariants = {
+  hidden: { opacity: 0 },
+  show: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.08,
+    }
+  },
+  exit: {
+    opacity: 0,
+    transition: {
+      staggerChildren: 0.06,
+      staggerDirection: -1,
+    }
+  }
+};
+
+const itemVariants = {
+  hidden: { opacity: 0, y: 18, scale: 0.85 },
+  show: { opacity: 1, y: 0, scale: 1, transition: { type: "spring", stiffness: 300, damping: 25 } },
+  exit: { opacity: 0, y: 12, scale: 0.9, transition: { duration: 0.15 } }
+};
+
 export function WhatsAppFab() {
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isExpanded, setIsExpanded] = useState(false); // Control del acordeón en móvil
+  const [mounted, setMounted] = useState(false); // Evitar hidratación incorrecta
+
+  useEffect(() => {
+    setMounted(true);
+    if (typeof document === 'undefined') return;
+    
+    // Check inicial de menú móvil
+    setIsMenuOpen(document.body.classList.contains('mobile-menu-open'));
+
+    // Auto-colapsar el acordeón si el menú nav principal cambia de estado
+    const observer = new MutationObserver(() => {
+      const open = document.body.classList.contains('mobile-menu-open');
+      setIsMenuOpen(open);
+      if (open) setIsExpanded(false); // Colapsar por si acaso
+    });
+
+    observer.observe(document.body, {
+      attributes: true,
+      attributeFilter: ['class']
+    });
+
+    return () => observer.disconnect();
+  }, []);
+
+  const handleSearchClick = (e: React.MouseEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+    setIsExpanded(false); // Auto-cerrar al abrir búsqueda en móvil
+    
+    if (typeof window !== 'undefined') {
+      if ((window as any).__openGlobalSearch) {
+        (window as any).__openGlobalSearch();
+      } else {
+        window.dispatchEvent(new CustomEvent('open-search-modal'));
+      }
+    }
+  };
+
+  // Prevenir errores de hidratación al no renderizar nada en el servidor (ideal para componentes puramente flotantes de interacción)
+  if (!mounted) return null;
+
   return (
-    <div className="fixed bottom-4 right-4 sm:bottom-6 sm:right-6 z-[100] flex flex-col gap-3 items-end pointer-events-none">
-      {WHATSAPP_LINKS.map((wa, idx) => (
-        <motion.a
-          key={wa.id}
-          href={wa.url}
-          target="_blank"
-          rel="noopener noreferrer"
+    <>
+      {/* ==================================================
+          VERSIÓN DESKTOP (Visible en sm+): Stack Fijo Completo
+          ================================================== */}
+      <div className="hidden sm:flex fixed bottom-6 right-6 z-[100] flex-col gap-3 items-end pointer-events-none">
+        {/* Botón de Búsqueda */}
+        <motion.button
+          type="button"
+          onClick={handleSearchClick}
           initial={{ opacity: 0, x: 50, scale: 0.8 }}
           animate={{ opacity: 1, x: 0, scale: 1 }}
-          transition={{ delay: 0.5 + idx * 0.15, type: 'spring', stiffness: 260, damping: 20 }}
-          className="pointer-events-auto group flex items-center gap-2.5 relative"
+          transition={{ delay: 0.3, type: 'spring', stiffness: 260, damping: 20 }}
+          className="pointer-events-auto group flex items-center gap-2.5 relative cursor-pointer border-none bg-transparent outline-none"
         >
-          {/* Etiqueta Lateral compacta */}
           <span className="bg-white dark:bg-slate-900 text-primary dark:text-white shadow-md border border-slate-100 dark:border-slate-800 px-3 py-1.5 rounded-xl text-[9px] font-black uppercase tracking-widest opacity-85 group-hover:opacity-100 group-hover:-translate-x-0.5 transition-all duration-300 shadow-black/5 select-none">
-            {wa.label}
+            Buscar
           </span>
-
-          {/* Botón Circular más pequeño con el logo nativo */}
-          <div className="w-11 h-11 bg-[#25D366] rounded-full flex items-center justify-center text-white shadow-lg shadow-[#25D366]/20 cursor-pointer transition-all duration-500 group-hover:scale-110 group-hover:rotate-6 group-active:scale-95 relative">
-            <WhatsAppIcon className="w-5 h-5" />
-            
-            {/* Punto de Notificación optimizado */}
-            <span className="absolute -top-0.5 -right-0.5 w-3.5 h-3.5 bg-red-500 rounded-full border-2 border-white dark:border-slate-950 animate-pulse" />
+          <div className="w-11 h-11 bg-slate-950 text-white dark:bg-slate-800 hover:bg-secondary dark:hover:bg-secondary rounded-full flex items-center justify-center shadow-lg shadow-black/20 transition-all duration-500 group-hover:scale-110 group-hover:-rotate-6 group-active:scale-95 relative border border-white/5">
+            <Search size={17} strokeWidth={2.5} className="transition-transform group-hover:scale-110" />
           </div>
-        </motion.a>
-      ))}
-    </div>
+        </motion.button>
+
+        {/* Botones de WhatsApp */}
+        {WHATSAPP_LINKS.map((wa, idx) => (
+          <motion.a
+            key={wa.id}
+            href={wa.url}
+            target="_blank"
+            rel="noopener noreferrer"
+            initial={{ opacity: 0, x: 50, scale: 0.8 }}
+            animate={{ opacity: 1, x: 0, scale: 1 }}
+            transition={{ delay: 0.5 + idx * 0.15, type: 'spring', stiffness: 260, damping: 20 }}
+            className="pointer-events-auto group flex items-center gap-2.5 relative"
+          >
+            <span className="bg-white dark:bg-slate-900 text-primary dark:text-white shadow-md border border-slate-100 dark:border-slate-800 px-3 py-1.5 rounded-xl text-[9px] font-black uppercase tracking-widest opacity-85 group-hover:opacity-100 group-hover:-translate-x-0.5 transition-all duration-300 shadow-black/5 select-none">
+              {wa.label}
+            </span>
+            <div className="w-11 h-11 bg-[#25D366] rounded-full flex items-center justify-center text-white shadow-lg shadow-[#25D366]/20 cursor-pointer transition-all duration-500 group-hover:scale-110 group-hover:rotate-6 group-active:scale-95 relative">
+              <WhatsAppIcon className="w-5 h-5" />
+              <span className="absolute -top-0.5 -right-0.5 w-3.5 h-3.5 bg-red-500 rounded-full border-2 border-white dark:border-slate-950 animate-pulse" />
+            </div>
+          </motion.a>
+        ))}
+      </div>
+
+      {/* ==================================================
+          VERSIÓN MÓVIL (Visible en <sm): Acordeón Desplegable (Compacto)
+          ================================================== */}
+      <div className="flex sm:hidden fixed bottom-4 right-4 z-[100] flex-col-reverse gap-3 items-end pointer-events-none">
+        
+        {/* 1. Botón Gatillo Principal (Diseño Apilado Diagonal) */}
+        <motion.button
+          type="button"
+          onClick={() => setIsExpanded(!isExpanded)}
+          initial={{ scale: 0.8, opacity: 0 }}
+          animate={{ scale: 1, opacity: 1 }}
+          aria-label={isExpanded ? "Cerrar opciones flotantes" : "Ver canales de atención y buscador"}
+          className={`pointer-events-auto w-[52px] h-[52px] rounded-full flex items-center justify-center shadow-2xl border-none relative group transition-all duration-300 ${
+            isExpanded 
+              ? "bg-slate-950 text-white shadow-slate-950/20 scale-95" 
+              : "bg-white dark:bg-slate-900 border border-slate-100 dark:border-slate-800/50 shadow-black/10 animate-bounce-subtle"
+          }`}
+        >
+          <AnimatePresence mode="wait">
+            {isExpanded ? (
+              <motion.div
+                key="close"
+                initial={{ rotate: -60, opacity: 0 }}
+                animate={{ rotate: 0, opacity: 1 }}
+                exit={{ rotate: 60, opacity: 0 }}
+                transition={{ duration: 0.2 }}
+              >
+                <X size={20} strokeWidth={2.5} />
+              </motion.div>
+            ) : (
+              <motion.div
+                key="trigger"
+                initial={{ rotate: 45, opacity: 0 }}
+                animate={{ rotate: 0, opacity: 1 }}
+                exit={{ rotate: -45, opacity: 0 }}
+                transition={{ duration: 0.25 }}
+                className="relative w-9 h-9 flex items-center justify-center select-none"
+              >
+                {/* Círculo Atrás: Diagonal Superior Izquierda (Buscar) */}
+                <div className="absolute top-0.5 left-0.5 w-[17px] h-[17px] bg-slate-950 border border-white/10 rounded-full flex items-center justify-center text-white shadow-sm -translate-x-0.5 -translate-y-0.5">
+                  <Search size={9} strokeWidth={3} />
+                </div>
+
+                {/* Círculo Atrás: Diagonal Inferior Derecha (WhatsApp 2) */}
+                <div className="absolute bottom-0.5 right-0.5 w-[17px] h-[17px] bg-[#25D366] border border-white/10 rounded-full flex items-center justify-center text-white shadow-sm translate-x-0.5 translate-y-0.5">
+                  <WhatsAppIcon className="w-2.5 h-2.5" />
+                </div>
+
+                {/* Círculo Centro y Frente: WhatsApp Principal */}
+                <div className="relative w-[26px] h-[26px] bg-[#25D366] border-2 border-white dark:border-slate-900 rounded-full flex items-center justify-center text-white shadow-md z-10">
+                  <WhatsAppIcon className="w-4 h-4" />
+                  {/* Notificación de alerta unida al centro */}
+                  <span className="absolute -top-1 -right-1 w-3 h-3 bg-red-500 rounded-full border-2 border-white dark:border-slate-900 animate-pulse" />
+                </div>
+              </motion.div>
+            )}
+          </AnimatePresence>
+        </motion.button>
+
+        {/* 2. Grupo de Opciones Desplegables (Cae arriba del botón gatillo) */}
+        <AnimatePresence>
+          {isExpanded && (
+            <motion.div
+              variants={containerVariants}
+              initial="hidden"
+              animate="show"
+              exit="exit"
+              className="flex flex-col gap-2.5 items-end pointer-events-none"
+            >
+              {/* Opción: Buscar */}
+              <motion.button
+                type="button"
+                variants={itemVariants}
+                onClick={handleSearchClick}
+                className="pointer-events-auto group flex items-center gap-2 relative cursor-pointer border-none bg-transparent outline-none"
+              >
+                <span className="bg-slate-950 dark:bg-slate-900 text-white border border-white/5 shadow-lg px-3 py-1.5 rounded-xl text-[9px] font-black uppercase tracking-widest transition-opacity select-none opacity-90">
+                  Buscar
+                </span>
+                <div className="w-11 h-11 bg-slate-950 text-white rounded-full flex items-center justify-center shadow-lg shadow-black/20 relative border border-white/10">
+                  <Search size={17} strokeWidth={2.5} />
+                </div>
+              </motion.button>
+
+              {/* Opción: WhatsApp Sucursales */}
+              {WHATSAPP_LINKS.map((wa) => (
+                <motion.a
+                  key={wa.id}
+                  variants={itemVariants}
+                  href={wa.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  onClick={() => setIsExpanded(false)} // Auto-colapsar al cliquear destino
+                  className="pointer-events-auto group flex items-center gap-2 relative"
+                >
+                  <span className="bg-white dark:bg-slate-900 text-primary dark:text-white border border-slate-100 dark:border-slate-800 shadow-lg px-3 py-1.5 rounded-xl text-[9px] font-black uppercase tracking-widest transition-opacity select-none opacity-90">
+                    {wa.label}
+                  </span>
+                  <div className="w-11 h-11 bg-[#25D366] rounded-full flex items-center justify-center text-white shadow-lg shadow-[#25D366]/20 relative">
+                    <WhatsAppIcon className="w-5.5 h-5.5" />
+                  </div>
+                </motion.a>
+              ))}
+            </motion.div>
+          )}
+        </AnimatePresence>
+
+      </div>
+
+      <style jsx global>{`
+        @keyframes bounce-subtle {
+          0%, 100% { transform: translateY(0); }
+          50% { transform: translateY(-4px); }
+        }
+        .animate-bounce-subtle {
+          animation: bounce-subtle 3s infinite ease-in-out;
+        }
+      `}</style>
+    </>
   );
 }

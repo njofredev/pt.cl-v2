@@ -246,19 +246,19 @@ export function ServiceCarousel() {
       {/* Fila 1: Especialidades (A la derecha) */}
       <div className="w-full">
         <div className="px-8 mb-1">
-          <h4 className="text-[9px] font-bold text-slate-400 dark:text-slate-500 uppercase tracking-[0.2em]">
+          <h2 className="text-[9px] font-bold text-slate-500 dark:text-slate-400 uppercase tracking-[0.2em]">
             Nuestras Especialidades
-          </h4>
+          </h2>
         </div>
         <InfiniteScrollRow items={INFINITE_SERVICES} speed={0.9} direction="right" />
       </div>
 
       {/* Fila 2: Modalidades (A la izquierda) */}
-      <div className="w-full">
+      <div className="w-full hidden md:block">
         <div className="px-8 mb-1">
-          <h4 className="text-[9px] font-bold text-slate-400 dark:text-slate-500 uppercase tracking-[0.2em]">
+          <h2 className="text-[9px] font-bold text-slate-500 dark:text-slate-400 uppercase tracking-[0.2em]">
             Modalidades de Atención y Pagos
-          </h4>
+          </h2>
         </div>
         <InfiniteScrollRow items={INFINITE_MODALITIES} speed={0.9} direction="left" />
       </div>

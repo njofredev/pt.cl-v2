@@ -35,7 +35,9 @@ import {
   Instagram,
   Facebook,
   FileText,
-  Clock
+  Clock,
+  HeartHandshake,
+  Users
 } from 'lucide-react';
 import { Button } from "@/components/ui/button";
 import { motion, AnimatePresence } from 'framer-motion';
@@ -49,7 +51,7 @@ const NAV_ITEMS = [
     href: '#',
     isMega: true,
     subItems: [
-      { name: 'Quiénes Somos', href: '/nosotros', desc: 'Conoce nuestra historia y valores.', icon: <Activity className="text-blue-500" /> },
+      { name: 'Quiénes Somos', href: '/nosotros', desc: 'Conoce nuestra historia y valores.', icon: <HeartHandshake className="text-pink-500" /> },
       { name: 'Derechos y Deberes', href: '/derechos-y-deberes', desc: 'Conoce tus derechos y responsabilidades.', icon: <FileText className="text-emerald-500" /> },
       { name: 'Nuestras Sucursales', href: '/#sucursales', desc: 'Ubícanos y conoce nuestros horarios.', icon: <MapPin className="text-amber-500" /> },
     ]
@@ -131,6 +133,22 @@ export const Navbar = () => {
     };
   }, []);
 
+  // Toggle active class on body for global styling awareness (e.g., FAB adaptation)
+  useEffect(() => {
+    if (typeof document !== 'undefined') {
+      if (isMobileMenuOpen) {
+        document.body.classList.add('mobile-menu-open');
+      } else {
+        document.body.classList.remove('mobile-menu-open');
+      }
+    }
+    return () => {
+      if (typeof document !== 'undefined') {
+        document.body.classList.remove('mobile-menu-open');
+      }
+    };
+  }, [isMobileMenuOpen]);
+
   const scrollToTop = (e: React.MouseEvent) => {
     // Si estamos en la home, hacemos scroll suave al inicio.
     if (window.location.pathname === '/') {
@@ -174,8 +192,28 @@ export const Navbar = () => {
         setIsSearchOpen(true);
       }
     };
+    
+    const handleOpenSearchModal = () => {
+      setIsSearchOpen(true);
+    };
+
+    // Direct bridge function for maximum robustness
+    if (typeof window !== 'undefined') {
+      (window as any).__openGlobalSearch = () => {
+        setIsSearchOpen(true);
+      };
+    }
+
     window.addEventListener("keydown", handleKeyDown);
-    return () => window.removeEventListener("keydown", handleKeyDown);
+    window.addEventListener("open-search-modal", handleOpenSearchModal);
+    
+    return () => {
+      window.removeEventListener("keydown", handleKeyDown);
+      window.removeEventListener("open-search-modal", handleOpenSearchModal);
+      if (typeof window !== 'undefined') {
+        delete (window as any).__openGlobalSearch;
+      }
+    };
   }, []);
 
   const [showPromo, setShowPromo] = useState(true);
@@ -285,13 +323,13 @@ export const Navbar = () => {
                     </motion.span>
                   </AnimatePresence>
                 </div>
-                <a href="https://www.instagram.com/politabancura/" target="_blank" rel="noopener noreferrer" className="hover:text-secondary transition-colors transform hover:scale-110">
+                <a href="https://www.instagram.com/politabancura/" target="_blank" rel="noopener noreferrer" aria-label="Ir a nuestro Instagram" className="hover:text-secondary transition-colors transform hover:scale-110">
                   <Instagram size={14} />
                 </a>
-                <a href="https://www.facebook.com/profile.php?id=61568214167163" target="_blank" rel="noopener noreferrer" className="hover:text-secondary transition-colors transform hover:scale-110">
+                <a href="https://www.facebook.com/profile.php?id=61568214167163" target="_blank" rel="noopener noreferrer" aria-label="Ir a nuestro Facebook" className="hover:text-secondary transition-colors transform hover:scale-110">
                   <Facebook size={14} />
                 </a>
-                <a href="https://www.tiktok.com/@politabancura" target="_blank" rel="noopener noreferrer" className="hover:text-secondary transition-colors transform hover:scale-110">
+                <a href="https://www.tiktok.com/@politabancura" target="_blank" rel="noopener noreferrer" aria-label="Ir a nuestro TikTok" className="hover:text-secondary transition-colors transform hover:scale-110">
                   <TikTokIcon size={14} />
                 </a>
               </div>
@@ -351,23 +389,23 @@ export const Navbar = () => {
                         opacity: 1,
                         y: 0,
                         scale: 1,
-                        left: activeDropdown === 'Nosotros' ? '0%' : activeDropdown === 'Servicios' ? '10%' : '0%'
+                        left: activeDropdown === 'Nosotros' ? '0%' : activeDropdown === 'Servicios' ? '8%' : '28%'
                       }}
                       exit={{ opacity: 0, y: 10, scale: 0.98 }}
                       transition={{ duration: 0.4, ease: [0.23, 1, 0.32, 1] }}
                       onMouseEnter={() => setActiveDropdown(activeDropdown)}
                       onMouseLeave={() => setActiveDropdown(null)}
-                      className="absolute top-full pt-6 w-[850px] z-50 origin-top cursor-default"
+                      className="absolute top-full pt-6 w-[720px] z-50 origin-top cursor-default"
                     >
                       {/* Sub-contenedor con los estilos visuales reales */}
-                      <div className="border border-slate-100 dark:border-slate-800 bg-white dark:bg-slate-950 rounded-[2.5rem] shadow-[0_20px_50px_rgba(0,0,0,0.08)] dark:shadow-none overflow-hidden">
-                        <div className="p-8 pb-4">
+                      <div className="border border-slate-100 dark:border-slate-800 bg-white dark:bg-slate-950 rounded-3xl shadow-[0_20px_50px_rgba(0,0,0,0.08)] dark:shadow-none overflow-hidden">
+                        <div className="p-5 pb-3">
                           <motion.div
                             key={activeDropdown}
                           initial={{ opacity: 0 }}
                           animate={{ opacity: 1 }}
                           transition={{ duration: 0.3 }}
-                          className="grid grid-cols-2 gap-4"
+                          className="grid grid-cols-2 gap-2"
                         >
                           {NAV_ITEMS.find(i => i.name === activeDropdown)?.subItems?.map((sub) => (
                             <Link
@@ -376,10 +414,10 @@ export const Navbar = () => {
                               onClick={(e) => handleAnchorClick(e, sub.href)}
                               target={sub.href.startsWith('http') ? "_blank" : undefined}
                               rel={sub.href.startsWith('http') ? "noopener noreferrer" : undefined}
-                              className="group/sub flex items-start gap-5 p-6 rounded-[2rem] transition-all hover:bg-slate-50 dark:hover:bg-slate-900 border border-transparent hover:border-slate-100 dark:hover:border-slate-800"
+                              className="group/sub flex items-start gap-4 p-3.5 rounded-2xl transition-all hover:bg-slate-50 dark:hover:bg-slate-900 border border-transparent hover:border-slate-100 dark:hover:border-slate-800"
                             >
                               {sub.icon && (
-                                <div className="w-14 h-14 bg-white dark:bg-slate-900 border border-transparent dark:border-slate-800 rounded-2xl flex items-center justify-center shadow-sm group-hover/sub:shadow-md group-hover/sub:scale-110 transition-all shrink-0">
+                                <div className="w-11 h-11 bg-white dark:bg-slate-900 border border-transparent dark:border-slate-800 rounded-xl flex items-center justify-center shadow-sm group-hover/sub:shadow-md group-hover/sub:scale-105 transition-all shrink-0 [&>svg]:w-5 [&>svg]:h-5">
                                   {sub.icon}
                                 </div>
                               )}
@@ -446,6 +484,7 @@ export const Navbar = () => {
               {/* Mobile Search Trigger */}
               <button
                 onClick={() => setIsSearchOpen(true)}
+                aria-label="Abrir buscador móvil"
                 className="xl:hidden w-12 h-12 bg-slate-50 border border-slate-100 dark:bg-slate-900 dark:border-slate-800 rounded-2xl flex items-center justify-center text-slate-500 dark:text-slate-400 shadow-sm hover:border-secondary/20 transition-all active:scale-95"
               >
                 <Search size={20} />
@@ -455,6 +494,7 @@ export const Navbar = () => {
               <button
                 className="xl:hidden w-12 h-12 bg-slate-50 border border-slate-100 dark:bg-slate-900 dark:border-slate-800 rounded-2xl flex items-center justify-center text-primary dark:text-white shadow-sm hover:border-secondary/20 transition-all active:scale-95"
                 onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+                aria-label={isMobileMenuOpen ? "Cerrar menú de navegación" : "Abrir menú de navegación"}
               >
                 {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
               </button>

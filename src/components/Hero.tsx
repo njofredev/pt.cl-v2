@@ -78,23 +78,23 @@ export const Hero = ({
   }, [images.length]);
 
   return (
-    <section className="relative pt-64 md:pt-44 pb-16 md:pb-20 overflow-hidden bg-transparent dark:bg-transparent transition-colors duration-300">
+    <section className="relative pt-[200px] sm:pt-[220px] md:pt-44 pb-12 md:pb-20 overflow-hidden bg-transparent dark:bg-transparent transition-colors duration-300">
 
 
-      <div className="container mx-auto px-6 grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+      <div className="container mx-auto px-6 grid lg:grid-cols-2 gap-6 lg:gap-16 items-center">
         <motion.div
           initial={{ opacity: 0, x: -30 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.6 }}
         >
-          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-primary text-white text-[10px] font-bold uppercase tracking-widest mb-8">
+          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-primary text-white text-[10px] font-bold uppercase tracking-widest mb-5 md:mb-8">
             <BadgeIcon size={14} fill="currentColor" className="text-secondary" /> {badgeText}
           </div>
-          <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold text-primary dark:text-slate-50 leading-[1.1] md:leading-[1] tracking-tighter mb-6 md:mb-8">
+          <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold text-primary dark:text-slate-50 leading-[1.15] md:leading-[1] tracking-tighter mb-3 md:mb-8">
             {titlePrefix} <br />
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary via-teal-500 to-secondary">{titleHighlight}</span>
           </h1>
-          <p className="text-xl text-slate-500 dark:text-slate-400 font-medium max-w-md leading-relaxed mb-10">
+          <p className="text-base md:text-xl text-slate-500 dark:text-slate-400 font-medium max-w-md leading-relaxed mb-6 md:mb-10">
             {description}
           </p>
           <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4 flex-wrap">
@@ -187,22 +187,26 @@ export const Hero = ({
               </div>
 
               {/* Puntos de paginación */}
-              <div className="flex gap-2 bg-black/20 p-2 rounded-full backdrop-blur-sm">
+              <div className="flex gap-1 bg-black/20 p-1 rounded-full backdrop-blur-sm">
                 {images.map((_, i) => (
                   <button
                     key={i}
                     onClick={() => setCurrentImageIndex(i)}
-                    className={`w-2 h-2 rounded-full transition-all duration-300 ${i === currentImageIndex ? 'w-6 bg-white' : 'bg-white/50 hover:bg-white'
-                      }`}
-                  />
+                    aria-label={`Ver imagen de sucursal ${i + 1}`}
+                    className="w-6 h-6 flex items-center justify-center cursor-pointer focus:outline-none group"
+                  >
+                    <div className={`h-2 rounded-full transition-all duration-300 ${
+                      i === currentImageIndex ? 'w-4 bg-white' : 'w-2 bg-white/50 group-hover:bg-white'
+                    }`} />
+                  </button>
                 ))}
               </div>
             </div>
           </div>
           {/* Badge flotante de confianza */}
-          <div className="absolute -bottom-6 -left-6 bg-white dark:bg-slate-900 p-6 rounded-3xl shadow-lg border border-slate-100 dark:border-slate-800 z-30">
+          <div className="absolute -bottom-6 -left-6 bg-white dark:bg-slate-900 p-4 md:p-6 rounded-3xl shadow-lg border border-slate-100 dark:border-slate-800 z-30">
             <p className="text-3xl font-bold text-primary dark:text-slate-50">{statsNumber}</p>
-            <p className="text-[10px] font-bold text-slate-400 dark:text-slate-500 uppercase tracking-widest">{statsLabel}</p>
+            <p className="text-[10px] font-bold text-slate-500 dark:text-slate-500 uppercase tracking-widest">{statsLabel}</p>
           </div>
 
         </motion.div>
