@@ -210,7 +210,7 @@ export const ProfessionalFilter = ({ initialArea, professionals }: { initialArea
         {/* Grilla de Especialidades del Área (Solo se muestra en vistas de área) */}
         {specialtiesForGrid.length > 0 && (
           <div className="mt-8 sm:-mt-8 relative z-10 mb-10 border-b border-slate-100 dark:border-white/5 pb-10">
-            <span className="inline-flex items-center gap-2 px-3 py-1 rounded-lg bg-slate-100 dark:bg-white/5 text-[10px] font-black uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 mb-6 ml-1 border border-slate-200 dark:border-white/5 shadow-sm">
+            <span className="inline-flex items-center gap-2 px-3 py-1 rounded-lg bg-slate-100 dark:bg-white/5 text-[10px] font-black uppercase tracking-[0.2em] text-slate-500 dark:text-slate-300 mb-6 ml-1 border border-slate-200 dark:border-white/5 shadow-sm">
               Nuestras Especialidades
             </span>
             <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-2">
@@ -235,9 +235,9 @@ export const ProfessionalFilter = ({ initialArea, professionals }: { initialArea
                       }`}>
                       <Icon size={15} strokeWidth={2} />
                     </div>
-                    <h4 className={`font-bold text-[11.5px] sm:text-[12.5px] leading-tight tracking-tight transition-colors flex-1 line-clamp-2 ${isSelected ? 'text-white' : 'text-slate-900 dark:text-white/90 group-hover:text-secondary'}`}>
+                    <h3 className={`font-bold text-[11.5px] sm:text-[12.5px] leading-tight tracking-tight transition-colors flex-1 line-clamp-2 ${isSelected ? 'text-white' : 'text-slate-900 dark:text-white/90 group-hover:text-secondary'}`}>
                       {item.name}
-                    </h4>
+                    </h3>
                   </motion.div>
                 );
               })}
@@ -263,7 +263,7 @@ export const ProfessionalFilter = ({ initialArea, professionals }: { initialArea
         <div id="controles-filtro" className="scroll-mt-32 bg-white dark:bg-slate-900 p-6 rounded-[2rem] shadow-xl shadow-primary/5 dark:shadow-none border border-slate-100 dark:border-slate-800 mb-12">
           <div className={`grid gap-6 items-end ${initialArea ? 'lg:grid-cols-3' : 'lg:grid-cols-4'}`}>
             <div className="lg:col-span-1 space-y-2">
-              <label className="text-[10px] font-bold uppercase tracking-widest text-slate-400 dark:text-slate-500 ml-2">Buscar Profesional o Especialidad</label>
+              <label className="text-[10px] font-bold uppercase tracking-widest text-slate-500 dark:text-slate-400 ml-2">Buscar Profesional o Especialidad</label>
               <div className="relative">
                 <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400" size={18} />
                 <Input
@@ -277,7 +277,7 @@ export const ProfessionalFilter = ({ initialArea, professionals }: { initialArea
 
             {!initialArea && (
               <div className="space-y-2">
-                <label className="text-[10px] font-bold uppercase tracking-widest text-slate-400 dark:text-slate-500 ml-2">Área</label>
+                <label className="text-[10px] font-bold uppercase tracking-widest text-slate-500 dark:text-slate-400 ml-2">Área</label>
                 <CustomSelect
                   value={selectedArea}
                   onChange={(val) => {
@@ -293,7 +293,7 @@ export const ProfessionalFilter = ({ initialArea, professionals }: { initialArea
             )}
 
             <div className="space-y-2">
-              <label className="text-[10px] font-bold uppercase tracking-widest text-slate-400 dark:text-slate-500 ml-2">Sucursal</label>
+              <label className="text-[10px] font-bold uppercase tracking-widest text-slate-500 dark:text-slate-400 ml-2">Sucursal</label>
               <CustomSelect
                 value={selectedSucursal}
                 onChange={(val) => setSelectedSucursal(val)}
@@ -305,7 +305,7 @@ export const ProfessionalFilter = ({ initialArea, professionals }: { initialArea
             </div>
 
             <div className="space-y-2">
-              <label className="text-[10px] font-bold uppercase tracking-widest text-slate-400 dark:text-slate-500 ml-2">Especialidad</label>
+              <label className="text-[10px] font-bold uppercase tracking-widest text-slate-500 dark:text-slate-400 ml-2">Especialidad</label>
               <CustomSelect
                 value={selectedSpecialty}
                 onChange={(val) => setSelectedSpecialty(val)}
@@ -534,25 +534,25 @@ export const ProfessionalFilter = ({ initialArea, professionals }: { initialArea
                             <div className="bg-white dark:bg-slate-900 p-6 sm:p-8 space-y-6 flex-1 overflow-y-auto">
                               {pro.description && (
                                 <div className="space-y-2">
-                                  <h4 className="text-[10px] font-bold uppercase tracking-widest text-slate-500 dark:text-slate-400 flex items-center gap-2">
+                                  <h3 className="text-[10px] font-bold uppercase tracking-widest text-slate-500 dark:text-slate-300 flex items-center gap-2">
                                     <Info size={14} className="text-secondary" /> Perfil
-                                  </h4>
+                                  </h3>
                                   <p className="text-slate-600 dark:text-slate-300 font-medium text-sm sm:text-base leading-relaxed">{pro.description}</p>
                                 </div>
                               )}
                               {pro.education && (
                                 <div className="space-y-2">
-                                  <h4 className="text-[10px] font-bold uppercase tracking-widest text-slate-500 dark:text-slate-400 flex items-center gap-2">
+                                  <h3 className="text-[10px] font-bold uppercase tracking-widest text-slate-500 dark:text-slate-300 flex items-center gap-2">
                                     <GraduationCap size={14} className="text-secondary" /> Formación Académica
-                                  </h4>
+                                  </h3>
                                   <p className="text-slate-600 dark:text-slate-300 font-medium text-sm sm:text-base leading-relaxed">{pro.education}</p>
                                 </div>
                               )}
                               {pro.sucursal && (
                                 <div className="space-y-2">
-                                  <h4 className="text-[10px] font-bold uppercase tracking-widest text-slate-500 dark:text-slate-400 flex items-center gap-2">
+                                  <h3 className="text-[10px] font-bold uppercase tracking-widest text-slate-500 dark:text-slate-300 flex items-center gap-2">
                                     <MapPin size={14} className="text-secondary" /> Ubicación
-                                  </h4>
+                                  </h3>
                                   <p className="text-slate-600 dark:text-slate-300 font-medium text-sm sm:text-base leading-relaxed">{pro.sucursal}</p>
                                 </div>
                               )}

@@ -230,7 +230,7 @@ export function SearchModal({ isOpen, onClose }: { isOpen: boolean; onClose: () 
                       {selectedPro.ageGroup && (
                         <div className="flex flex-wrap justify-center gap-1.5 mb-2">
                           {selectedPro.ageGroup.split(',').map(s => s.replace(/\./g, '').trim()).filter(Boolean).map((age, i) => (
-                            <span key={i} className="text-[8px] font-black tracking-widest uppercase bg-slate-100 dark:bg-slate-800 text-slate-500 dark:text-slate-400 px-2 py-1 rounded-md border border-slate-200/50 dark:border-white/5">
+                            <span key={i} className="text-[8px] font-black tracking-widest uppercase bg-slate-100 dark:bg-slate-800 text-slate-500 dark:text-slate-300 px-2 py-1 rounded-md border border-slate-200/50 dark:border-white/5">
                               {age}
                             </span>
                           ))}
@@ -239,25 +239,25 @@ export function SearchModal({ isOpen, onClose }: { isOpen: boolean; onClose: () 
 
                       {selectedPro.description && (
                         <div className="space-y-1.5">
-                          <h4 className="text-[9px] font-bold uppercase tracking-widest text-slate-400 dark:text-slate-500 flex items-center gap-1.5">
+                          <h3 className="text-[9px] font-bold uppercase tracking-widest text-slate-500 dark:text-slate-400 flex items-center gap-1.5">
                             <Info size={12} className="text-secondary" /> Perfil
-                          </h4>
+                          </h3>
                           <p className="text-slate-600 dark:text-slate-300 font-medium leading-relaxed text-xs sm:text-sm">{selectedPro.description}</p>
                         </div>
                       )}
                       {selectedPro.education && (
                         <div className="space-y-1.5">
-                          <h4 className="text-[9px] font-bold uppercase tracking-widest text-slate-400 dark:text-slate-500 flex items-center gap-1.5">
+                          <h3 className="text-[9px] font-bold uppercase tracking-widest text-slate-500 dark:text-slate-400 flex items-center gap-1.5">
                             <GraduationCap size={12} className="text-secondary" /> Formación Académica
-                          </h4>
+                          </h3>
                           <p className="text-slate-600 dark:text-slate-300 font-medium leading-relaxed text-xs sm:text-sm">{selectedPro.education}</p>
                         </div>
                       )}
                       {selectedPro.sucursal && (
                         <div className="space-y-1.5">
-                          <h4 className="text-[9px] font-bold uppercase tracking-widest text-slate-400 dark:text-slate-500 flex items-center gap-1.5">
+                          <h3 className="text-[9px] font-bold uppercase tracking-widest text-slate-500 dark:text-slate-400 flex items-center gap-1.5">
                             <MapPin size={12} className="text-secondary" /> Ubicación
-                          </h4>
+                          </h3>
                           <p className="text-slate-600 dark:text-slate-300 font-medium leading-relaxed text-xs sm:text-sm">{selectedPro.sucursal}</p>
                         </div>
                       )}
@@ -300,7 +300,7 @@ export function SearchModal({ isOpen, onClose }: { isOpen: boolean; onClose: () 
                         placeholder="Escribe el nombre de un profesional o servicio..."
                         className="flex-1 bg-transparent border-none outline-none text-lg font-medium text-slate-800 dark:text-slate-100 placeholder:text-slate-400 dark:placeholder:text-slate-600"
                       />
-                      <div className="flex items-center gap-2 px-3 py-1.5 bg-white dark:bg-slate-800 border border-slate-100 dark:border-slate-700 rounded-xl shadow-sm text-[10px] font-bold text-slate-400 dark:text-slate-500 uppercase tracking-widest hidden sm:flex">
+                      <div className="flex items-center gap-2 px-3 py-1.5 bg-white dark:bg-slate-800 border border-slate-100 dark:border-slate-700 rounded-xl shadow-sm text-[10px] font-bold text-slate-500 dark:text-slate-400 uppercase tracking-widest hidden sm:flex">
                         <span className="text-[9px]">ALT</span> K
                       </div>
                       <button onClick={onClose} className="p-2 hover:bg-white dark:hover:bg-slate-800 rounded-xl transition-colors text-slate-400">
@@ -316,7 +316,7 @@ export function SearchModal({ isOpen, onClose }: { isOpen: boolean; onClose: () 
                           </div>
                           <div>
                             <p className="text-slate-500 dark:text-slate-300 font-bold">Búsqueda Inteligente</p>
-                            <p className="text-xs text-slate-400 dark:text-slate-500 mt-1">Escribe nombres de doctores, especialidades o servicios.</p>
+                            <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">Escribe nombres de doctores, especialidades o servicios.</p>
                           </div>
                         </div>
                       ) : query.length > 0 && filteredResults.length === 0 ? (
@@ -349,7 +349,7 @@ export function SearchModal({ isOpen, onClose }: { isOpen: boolean; onClose: () 
                                 </div>
                                 <div>
                                   <p className={`text-sm font-bold transition-colors ${idx === selectedIndex ? "text-primary dark:text-secondary" : "text-slate-800 dark:text-slate-100"}`}>{result.title}</p>
-                                  <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">{result.category}</p>
+                                  <p className="text-[10px] font-bold text-slate-500 dark:text-slate-400 uppercase tracking-widest">{result.category}</p>
                                 </div>
                               </div>
                               <div className="flex items-center gap-3">
@@ -368,7 +368,7 @@ export function SearchModal({ isOpen, onClose }: { isOpen: boolean; onClose: () 
 
                     <div className="p-4 bg-slate-50/50 dark:bg-slate-900/50 border-t border-slate-100 dark:border-slate-800 flex justify-between items-center px-8">
                       <div className="flex gap-4">
-                        <div className="flex items-center gap-1.5 text-[10px] font-bold text-slate-400 uppercase">
+                        <div className="flex items-center gap-1.5 text-[10px] font-bold text-slate-500 dark:text-slate-400 uppercase">
                           <span className="px-1.5 py-0.5 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded text-[9px] dark:text-slate-400">ENTER</span> Seleccionar
                         </div>
                       </div>

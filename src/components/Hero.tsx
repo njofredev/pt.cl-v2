@@ -219,7 +219,7 @@ export const Hero = ({
           {/* Badge flotante de confianza */}
           <div className="absolute -bottom-6 -left-6 bg-white dark:bg-slate-900 p-4 md:p-6 rounded-3xl shadow-lg border border-slate-100 dark:border-slate-800 z-30">
             <p className="text-3xl font-bold text-primary dark:text-slate-50">{statsNumber}</p>
-            <p className="text-[10px] font-bold text-slate-500 dark:text-slate-500 uppercase tracking-widest">{statsLabel}</p>
+            <p className="text-[10px] font-bold text-slate-500 dark:text-slate-300 uppercase tracking-widest">{statsLabel}</p>
           </div>
 
         </motion.div>

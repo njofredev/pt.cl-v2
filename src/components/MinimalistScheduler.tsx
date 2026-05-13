@@ -258,7 +258,7 @@ export function MinimalistScheduler({ initialCategoryId }: { initialCategoryId?:
                 </div>
 
                 <div className="text-center">
-                  <h4 className="text-xl font-bold text-primary dark:text-white tracking-tight">Agendar Hora</h4>
+                  <h3 className="text-xl font-bold text-primary dark:text-white tracking-tight">Agendar Hora</h3>
                   <div className="flex items-center justify-center mt-1.5 sm:mt-2">
                     <AnimatePresence mode="wait">
                       <motion.p

@@ -29,7 +29,7 @@ const FooterSection = ({ title, links }: FooterSectionProps) => {
     <div className="border-b border-slate-100 dark:border-white/5 md:border-none">
       {/* Versión Desktop */}
       <div className="hidden md:block">
-        <h4 className="text-[10px] font-bold uppercase tracking-[0.3em] text-secondary mb-8">{title}</h4>
+        <h3 className="text-[10px] font-bold uppercase tracking-[0.3em] text-secondary mb-8">{title}</h3>
         <ul className="space-y-4">
           {links.map((item) => (
             <li key={item.name}>
@@ -46,7 +46,7 @@ const FooterSection = ({ title, links }: FooterSectionProps) => {
           aria-label={`Expandir sección ${title}`}
           className="w-full flex items-center justify-between text-left group cursor-pointer"
         >
-          <h4 className="text-[10px] font-bold uppercase tracking-[0.3em] text-secondary">{title}</h4>
+          <h3 className="text-[10px] font-bold uppercase tracking-[0.3em] text-secondary">{title}</h3>
           <ChevronDown 
             size={16} 
             className={`text-slate-600 transition-transform duration-300 ${isOpen ? 'rotate-180 text-secondary' : ''}`} 
@@ -216,7 +216,7 @@ export const Footer = () => {
 
           {/* Contact Info */}
           <div className="col-span-1 mt-6 md:mt-0">
-            <h4 className="text-[10px] font-bold uppercase tracking-[0.3em] text-secondary mb-8">Contacto</h4>
+            <h3 className="text-[10px] font-bold uppercase tracking-[0.3em] text-secondary mb-8">Contacto</h3>
             <div className="space-y-6">
               
               {/* Sucursal Vitacura */}

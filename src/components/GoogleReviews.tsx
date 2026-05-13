@@ -110,7 +110,7 @@ export const GoogleReviews = () => {
                   <Star key={i} size={16} fill="#EA4335" className="text-[#EA4335]" />
                 ))}
               </div>
-              <span className="text-[11px] font-bold uppercase tracking-widest text-slate-400 dark:text-slate-500">Reseñas Verificadas</span>
+              <span className="text-[11px] font-bold uppercase tracking-widest text-slate-500 dark:text-slate-300">Reseñas Verificadas</span>
             </div>
             <h2 className="text-3xl md:text-5xl font-bold text-primary dark:text-white tracking-tighter leading-[0.9] mb-6">
               Tu opinión nos importa. <br /><span className="text-transparent bg-clip-text bg-gradient-to-r from-primary via-teal-500 to-secondary">Experiencias reales.</span>
@@ -168,7 +168,7 @@ export const GoogleReviews = () => {
                     <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l3.66-2.84z"/>
                     <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/>
                   </svg>
-                  <span className="text-xs font-bold uppercase tracking-widest text-slate-500 dark:text-slate-400">Google Rating</span>
+                  <span className="text-xs font-bold uppercase tracking-widest text-slate-500 dark:text-slate-300">Google Rating</span>
                 </div>
                 <p className="text-[13px] font-medium text-slate-600 dark:text-slate-300">
                   Basado en <span className="font-black text-primary dark:text-secondary">{activeData.count} opiniones</span> reales
@@ -229,12 +229,12 @@ export const GoogleReviews = () => {
       {/* CTA: Dejar Reseña en Google */}
       <div className="container mx-auto px-6 mt-12 relative z-10 text-center">
         <div className="flex flex-col items-center justify-center gap-3">
-          <p className="text-[11px] font-bold text-slate-400 dark:text-slate-500 uppercase tracking-[0.2em]">
+          <p className="text-[11px] font-bold text-slate-500 dark:text-slate-300 uppercase tracking-[0.2em]">
             ¿Te has atendido con nosotros recientemente?
           </p>
-          <h4 className="text-lg md:text-xl font-bold text-primary dark:text-white mb-2">
+          <h3 className="text-lg md:text-xl font-bold text-primary dark:text-white mb-2">
             Comparte tu experiencia en Google
-          </h4>
+          </h3>
           <div className="flex flex-wrap gap-4 justify-center">
             <a 
               href="https://g.page/r/CQnnnRuZmSXvEAE/review"
