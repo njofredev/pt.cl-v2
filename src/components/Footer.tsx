@@ -81,6 +81,49 @@ const FooterSection = ({ title, links }: FooterSectionProps) => {
   );
 };
 
+const LogoTicker = ({ title, logos, speed = 15 }: { title: string, logos: string[], speed?: number }) => {
+  // Repeat 3 times to ensure enough items for seamless overflow tracking
+  const repeatedLogos = [...logos, ...logos, ...logos];
+
+  return (
+    <div className="space-y-2.5 overflow-hidden w-full">
+      <span className="text-[8px] font-bold uppercase tracking-[0.25em] text-slate-400 dark:text-slate-500 block">
+        {title}
+      </span>
+      <div 
+        className="relative w-full overflow-hidden flex items-center py-1.5" 
+        style={{ 
+          maskImage: 'linear-gradient(to right, transparent 0%, white 15%, white 85%, transparent 100%)',
+          WebkitMaskImage: 'linear-gradient(to right, transparent 0%, white 15%, white 85%, transparent 100%)' 
+        }}
+      >
+        <motion.div 
+          className="flex gap-8 items-center shrink-0 pr-8"
+          animate={{ x: ["0%", "-33.333%"] }}
+          transition={{ 
+            ease: "linear", 
+            duration: speed, 
+            repeat: Infinity 
+          }}
+        >
+          {repeatedLogos.map((src, idx) => (
+            <div 
+              key={idx} 
+              className="h-6 flex items-center justify-center shrink-0 grayscale opacity-40 hover:grayscale-0 hover:opacity-100 dark:invert dark:opacity-50 dark:hover:opacity-100 transition-all duration-300 ease-out cursor-pointer"
+            >
+              <img 
+                src={src} 
+                alt="Convenio o Tecnología Integrada" 
+                className="h-4 sm:h-4.5 w-auto object-contain" 
+              />
+            </div>
+          ))}
+        </motion.div>
+      </div>
+    </div>
+  );
+};
+
 export const Footer = () => {
   return (
     <footer className="bg-white dark:bg-transparent text-slate-900 dark:text-white pt-20 md:pt-24 pb-12 transition-colors duration-300 border-t border-slate-100 dark:border-none relative z-10">
@@ -88,23 +131,48 @@ export const Footer = () => {
         {/* La grilla en mobile ya no usará gap-y-16 completo, lo dejaremos adaptado */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-x-8 gap-y-8 md:gap-y-16 mb-24">
           {/* Brand & Mission */}
-          <div className="space-y-6 mb-4 md:mb-0">
-            <Link href="/" className="flex items-center gap-3">
-              <img src="/logo.svg" alt="Logo" className="h-12 w-auto dark:brightness-0 dark:invert" />
-            </Link>
-            <p className="text-slate-500 dark:text-slate-300 font-medium leading-relaxed text-sm sm:text-base">
-              Tecnología y cuidado humano al servicio de tu salud. Más de 20 años innovando en medicina integral.
-            </p>
-            <div className="flex gap-4">
-              <a href="https://www.instagram.com/politabancura/" target="_blank" rel="noopener noreferrer" className="w-10 h-10 bg-slate-100 dark:bg-white/10 rounded-full flex items-center justify-center text-slate-500 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-white/20 hover:text-secondary transition-all group">
-                <Instagram size={18} className="group-hover:scale-110 transition-transform" />
-              </a>
-              <a href="https://www.facebook.com/profile.php?id=61568214167163" target="_blank" rel="noopener noreferrer" className="w-10 h-10 bg-slate-100 dark:bg-white/10 rounded-full flex items-center justify-center text-slate-500 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-white/20 hover:text-secondary transition-all group">
-                <Facebook size={18} className="group-hover:scale-110 transition-transform" />
-              </a>
-              <a href="https://www.tiktok.com/@politabancura" target="_blank" rel="noopener noreferrer" className="w-10 h-10 bg-slate-100 dark:bg-white/10 rounded-full flex items-center justify-center text-slate-500 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-white/20 hover:text-secondary transition-all group">
-                <TikTokIcon size={18} className="group-hover:scale-110 transition-transform" />
-              </a>
+          <div className="space-y-6 mb-4 md:mb-0 flex flex-col h-full">
+            <div>
+              <Link href="/" className="flex items-center gap-3 mb-6">
+                <img src="/logo.svg" alt="Logo" className="h-12 w-auto dark:brightness-0 dark:invert" />
+              </Link>
+              <p className="text-slate-500 dark:text-slate-300 font-medium leading-relaxed text-sm sm:text-base mb-6">
+                Tecnología y cuidado humano al servicio de tu salud. Más de 20 años innovando en medicina integral.
+              </p>
+              <div className="flex gap-4">
+                <a href="https://www.instagram.com/politabancura/" target="_blank" rel="noopener noreferrer" className="w-10 h-10 bg-slate-100 dark:bg-white/10 rounded-full flex items-center justify-center text-slate-500 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-white/20 hover:text-secondary transition-all group">
+                  <Instagram size={18} className="group-hover:scale-110 transition-transform" />
+                </a>
+                <a href="https://www.facebook.com/profile.php?id=61568214167163" target="_blank" rel="noopener noreferrer" className="w-10 h-10 bg-slate-100 dark:bg-white/10 rounded-full flex items-center justify-center text-slate-500 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-white/20 hover:text-secondary transition-all group">
+                  <Facebook size={18} className="group-hover:scale-110 transition-transform" />
+                </a>
+                <a href="https://www.tiktok.com/@politabancura" target="_blank" rel="noopener noreferrer" className="w-10 h-10 bg-slate-100 dark:bg-white/10 rounded-full flex items-center justify-center text-slate-500 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-white/20 hover:text-secondary transition-all group">
+                  <TikTokIcon size={18} className="group-hover:scale-110 transition-transform" />
+                </a>
+              </div>
+            </div>
+
+            {/* Carruseles de Apoyo Tecnológico & Métodos de Pago (Solo Desktop) */}
+            <div className="hidden lg:flex flex-col gap-5 pt-6 mt-auto border-t border-slate-100 dark:border-white/5 w-full overflow-hidden select-none">
+              <LogoTicker 
+                title="Apoyo Tecnológico"
+                speed={14}
+                logos={[
+                  "/logos_convenios_prevision/logoDentalink.svg",
+                  "/logos_convenios_prevision/logoMedilink.svg",
+                  "/logos_convenios_prevision/logoDTX.svg",
+                  "/logos_convenios_prevision/logoDentsply.svg"
+                ]}
+              />
+              <LogoTicker 
+                title="Métodos de Pago"
+                speed={12}
+                logos={[
+                  "/logos_convenios_prevision/logoKlap.svg",
+                  "/logos_convenios_prevision/logoFonasa.svg",
+                  "/logos_convenios_prevision/logoImed.svg"
+                ]}
+              />
             </div>
           </div>
 
