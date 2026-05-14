@@ -36,7 +36,7 @@ export default function Home() {
         description={
           <>
             En Policlínico Tabancura te acompañamos en cada etapa con especialistas de excelencia y el trato humano que tú y tu familia merecen.
-            <span className="block mt-4 font-bold text-slate-700 dark:text-white">Todo lo que necesitas, <span className="text-secondary">en un solo lugar.</span></span>
+            <span className="block mt-4 font-bold text-slate-700 dark:text-white">150+ prestaciones, <span className="text-secondary">60+ profesionales especializados.</span></span>
           </>
         }
       />

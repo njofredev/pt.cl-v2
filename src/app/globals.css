@@ -8,7 +8,7 @@
    --color-secondary: var(--color-secondary); /* Turquesa Dinámico */
    --color-clinical-bg: #FDFBF7; /* Tono crema cálido premium */
    
-   --font-sans: var(--font-google-sans), "Product Sans", ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+   --font-sans: var(--font-google-sans), ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
   
   --radius-xl: 1.25rem;
   --radius-2xl: 2rem;
