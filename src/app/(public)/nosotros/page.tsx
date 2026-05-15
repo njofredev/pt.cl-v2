@@ -11,6 +11,7 @@ import {
 import Link from 'next/link';
 import { Button } from "@/components/ui/button";
 import Image from 'next/image';
+import { OtherServices } from '@/components/OtherServices';
 
 export default function NosotrosPage() {
   const hitos = [
@@ -367,43 +368,7 @@ export default function NosotrosPage() {
       </section>
 
       {/* EXPLORA NUESTROS SERVICIOS */}
-      <section className="py-20 bg-slate-50/30 dark:bg-slate-900/20 border-t border-slate-100 dark:border-white/5">
-        <div className="container mx-auto px-6 text-center">
-          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-primary text-white text-[10px] font-black uppercase tracking-widest mb-6 shadow-md shadow-primary/10">
-            <Stethoscope size={14} strokeWidth={2.5} className="text-secondary shrink-0" /> Nuestra Oferta Médica
-          </div>
-          
-          <h2 className="text-3xl md:text-4xl font-black text-slate-900 dark:text-white tracking-tight mb-10 text-center">
-            Explora Todos Nuestros Servicios
-          </h2>
-          
-          <div className="flex flex-wrap items-center justify-center gap-3 md:gap-4 max-w-5xl mx-auto">
-            {[
-              { slug: 'dental', name: 'Salud Dental', icon: <SmilePlus size={20} />, color: 'text-cyan-500 bg-cyan-500/10' },
-              { slug: 'mental', name: 'Salud Mental', icon: <Brain size={20} />, color: 'text-purple-500 bg-purple-500/10' },
-              { slug: 'medicina', name: 'Medicina General', icon: <Stethoscope size={20} />, color: 'text-blue-500 bg-blue-500/10' },
-              { slug: 'terapias', name: 'Terapias Complementarias', icon: <Leaf size={20} />, color: 'text-emerald-500 bg-emerald-500/10' },
-            ].map((item) => (
-              <Link 
-                key={item.slug} 
-                href={`/servicios/${item.slug}`}
-                className="group flex items-center gap-3 px-5 py-3 rounded-2xl bg-white dark:bg-slate-900/60 border border-slate-100 dark:border-white/10 shadow-sm hover:shadow-md hover:-translate-y-0.5 transition-all duration-300"
-              >
-                <div className={`w-10 h-10 rounded-xl flex items-center justify-center shrink-0 ${item.color} group-hover:scale-110 transition-transform duration-300`}>
-                  {item.icon}
-                </div>
-                <div className="text-left pr-2">
-                  <span className="block text-[10px] font-bold text-slate-400 dark:text-slate-500 uppercase tracking-wider leading-none mb-0.5">Área Especializada</span>
-                  <span className="block text-sm md:text-base font-bold text-slate-800 dark:text-slate-200 leading-tight">
-                    {item.name}
-                  </span>
-                </div>
-                <ChevronRight size={16} className="text-slate-300 dark:text-slate-600 group-hover:text-primary dark:group-hover:text-secondary group-hover:translate-x-0.5 transition-all ml-1" />
-              </Link>
-            ))}
-          </div>
-        </div>
-      </section>
+      <OtherServices />
 
     </main>
   );

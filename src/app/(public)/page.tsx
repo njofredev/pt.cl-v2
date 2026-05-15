@@ -37,12 +37,12 @@ export default async function Home() {
   return (
     <main className="relative min-h-screen bg-transparent dark:bg-transparent antialiased overflow-x-hidden transition-colors duration-300">
       {/* 1. HERO SECTION DINÁMICO */}
-      <Hero 
-        badgeText="Excelencia en cada atención"
+      <Hero
+        badgeText="Compromiso con tu bienestar"
         description={
           <>
             En Policlínico Tabancura te acompañamos en cada etapa con especialistas de excelencia y el trato humano que tú y tu familia merecen.
-            <span className="block mt-4 font-bold text-slate-700 dark:text-white">150+ prestaciones, <span className="text-secondary">{totalPros}+ profesionales especializados.</span></span>
+            <span className="block mt-4 font-bold text-slate-700 dark:text-white">150+ prestaciones <span className="text-secondary">{totalPros}+ profesionales.</span></span>
           </>
         }
         statsNumber={`+${totalPros}`}
@@ -74,7 +74,7 @@ export default async function Home() {
               <h2 className="text-3xl md:text-5xl font-bold text-primary dark:text-white mb-4">Atención especializada por áreas</h2>
               <p className="text-base md:text-lg text-slate-500 dark:text-slate-400 font-medium tracking-wide">Agenda en línea y obtén valores preferenciales</p>
             </div>
-            
+
             <MinimalistScheduler />
           </div>
 
@@ -116,19 +116,19 @@ export default async function Home() {
                 </p>
 
                 <div className="mb-10 group hidden md:block">
-                  <Image 
-                    src="/logos_convenios_prevision/mivita_v2_light.png" 
-                    alt="Logo Tarjeta Mi Vita" 
-                    width={220} 
-                    height={88} 
+                  <Image
+                    src="/logos_convenios_prevision/mivita_v2_light.png"
+                    alt="Logo Tarjeta Mi Vita"
+                    width={220}
+                    height={88}
                     style={{ width: 'auto', height: 'auto' }}
                     className="block dark:hidden object-contain drop-shadow-md transition-transform duration-500 group-hover:scale-105 group-hover:-rotate-1"
                   />
-                  <Image 
-                    src="/logos_convenios_prevision/mivita_v2_dark.png" 
-                    alt="Logo Tarjeta Mi Vita" 
-                    width={220} 
-                    height={88} 
+                  <Image
+                    src="/logos_convenios_prevision/mivita_v2_dark.png"
+                    alt="Logo Tarjeta Mi Vita"
+                    width={220}
+                    height={88}
                     style={{ width: 'auto', height: 'auto' }}
                     className="hidden dark:block object-contain drop-shadow-md transition-transform duration-500 group-hover:scale-105 group-hover:-rotate-1"
                   />
@@ -169,7 +169,7 @@ export default async function Home() {
                     <iframe
                       src="https://mivita.policlinicotabancura.cl/"
                       className="absolute w-full h-[105%] left-0 -top-[2%] sm:w-[120%] sm:h-[160%] sm:-left-[10%] sm:-top-[5%] pointer-events-auto origin-center scale-95 sm:scale-100"
-                      style={{ 
+                      style={{
                         colorScheme: 'light'
                       }}
                       scrolling="no"
@@ -187,7 +187,7 @@ export default async function Home() {
           </div>
         </div>
       </section>
-      
+
       {/* BLOQUE RESEÑAS DE GOOGLE */}
       <GoogleReviews />
 
