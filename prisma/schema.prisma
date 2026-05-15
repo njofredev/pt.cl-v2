@@ -18,6 +18,7 @@ model Professional {
   sucursal    String?  @map("Sucursal:")
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
+  published   Boolean  @default(true)
 
   // Additional fields from the DB (optional to map them all)
   rut         String?  @map("Rut:")

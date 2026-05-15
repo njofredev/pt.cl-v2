@@ -18,6 +18,9 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { useSearchParams } from 'next/navigation';
 
+
+// AQUÍ SE REEMPLAZAN LAS ESPECIALIDADES MOSTRADAS EN LA FICHA DEL PROFESIONAL
+
 // Base de datos visual de descripciones e iconos para especialidades por área
 const SPECIALTY_METADATA: Record<string, { description: string, icon: any, focus?: string[] }> = {
   // Salud Dental
@@ -125,7 +128,7 @@ const SPECIALTY_METADATA: Record<string, { description: string, icon: any, focus
   'Masoterapia': {
     description: "Técnicas manuales enfocadas en aliviar contracturas, tensiones y relajar el cuerpo.",
     icon: Hand,
-    focus: ["Masaje descontracturante", "Relajación integral", "Drenaje linfático", "Liberación miofascial"]
+    focus: ["Masaje descontracturante", "Relajación integral", "Bienestar y salud", "Liberación miofascial"]
   },
   'Biomagnetismo': {
     description: "Terapia alternativa con imanes para equilibrar la energía del organismo.",

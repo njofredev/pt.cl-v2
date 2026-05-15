@@ -315,7 +315,7 @@ export function MinimalistScheduler({ initialCategoryId }: { initialCategoryId?:
                         <div className={`w-10 h-10 sm:w-14 sm:h-14 rounded-xl sm:rounded-2xl ${colors.bg} border ${colors.border} flex items-center justify-center ${colors.text} group-hover:scale-110 transition-transform shrink-0 [&>svg]:w-5 [&>svg]:h-5 sm:[&>svg]:w-[26px] sm:[&>svg]:h-[26px]`}>
                           {cat.icon}
                         </div>
-                        <span className={`text-sm sm:text-xl font-bold text-slate-700 dark:text-slate-200 ${colors.hoverText} transition-colors leading-tight`}>
+                        <span className={`text-sm sm:text-lg lg:text-xl font-bold text-slate-700 dark:text-slate-200 ${colors.hoverText} transition-colors leading-tight tracking-tight sm:tracking-tighter`}>
                           {cat.title}
                         </span>
                       </button>

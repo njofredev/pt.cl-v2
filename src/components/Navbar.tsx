@@ -200,7 +200,7 @@ export const Navbar = () => {
         setIsSearchOpen(true);
       }
     };
-    
+
     const handleOpenSearchModal = () => {
       setIsSearchOpen(true);
     };
@@ -214,7 +214,7 @@ export const Navbar = () => {
 
     window.addEventListener("keydown", handleKeyDown);
     window.addEventListener("open-search-modal", handleOpenSearchModal);
-    
+
     return () => {
       window.removeEventListener("keydown", handleKeyDown);
       window.removeEventListener("open-search-modal", handleOpenSearchModal);
@@ -243,18 +243,18 @@ export const Navbar = () => {
                 <SmilePlus className="w-5 h-5 shrink-0 hidden sm:block text-yellow-200 animate-pulse" />
                 <p className="text-[9px] sm:text-[11px] md:text-xs font-bold tracking-wide flex flex-wrap items-center justify-center gap-x-1">
                   <span className="hidden md:inline-flex items-center bg-white/20 px-2 py-0.5 rounded-full text-[9px] mr-1">
-                    <Megaphone className="w-2.5 h-2.5 mr-1 -rotate-12 shrink-0" /> PROMO LIMITADA
+                    <Megaphone className="w-2.5 h-2.5 mr-1 -rotate-12 shrink-0" /> PROMOCIÓN LIMITADA
                   </span>
-                  <span>Limpieza Dental Pro+: Evaluación + RX Bitewing Bilateral + Profilaxis + Fluoración por</span>
+                  <span>Limpieza Dental: Evaluación + RX Bitewing Bilateral + Profilaxis por</span>
                   <span className="text-yellow-200 text-xs sm:text-sm font-black flex items-center ml-1 underline underline-offset-2">
-                    $34.000.-
+                    $24.000.-
                   </span>
-                  <span className="hidden lg:inline bg-black/10 px-2 py-0.5 rounded-full text-[8px] ml-2 border border-white/10 tracking-widest">HASTA 15 MAYO | PARA MAYORES DE 15 AÑOS</span>
+                  <span className="hidden lg:inline bg-black/10 px-2 py-0.5 rounded-full text-[8px] ml-2 border border-white/10 tracking-widest">HASTA 30 de MAYO | PARA MAYORES DE 15 AÑOS</span>
                 </p>
 
                 <div className="absolute right-2 sm:right-4 top-1/2 -translate-y-1/2 flex items-center gap-x-1 sm:gap-x-2">
                   <a
-                    href="https://ff.healthatom.io/9p2Sq9"
+                    href="https://ff.healthatom.io/77H8tW"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="bg-white text-cyan-900 hover:bg-cyan-50 dark:bg-purple-50 dark:text-purple-900 dark:hover:bg-white px-2 sm:px-4 py-1 rounded-full text-[8px] sm:text-[10px] font-black uppercase hover:scale-105 transition-all shrink-0 shadow-sm flex items-center gap-1 active:scale-95"
@@ -319,7 +319,7 @@ export const Navbar = () => {
               <div className="flex items-center gap-3 text-white/80">
                 <div className="hidden sm:flex relative items-center h-4 min-w-[95px] overflow-hidden">
                   <AnimatePresence mode="wait">
-                    <motion.span 
+                    <motion.span
                       key={socialPhraseIndex}
                       initial={{ opacity: 0, y: 10 }}
                       animate={{ opacity: 0.6, y: 0 }}
@@ -410,65 +410,61 @@ export const Navbar = () => {
                         <div className="p-5 pb-3">
                           <motion.div
                             key={activeDropdown}
-                          initial={{ opacity: 0 }}
-                          animate={{ opacity: 1 }}
-                          transition={{ duration: 0.3 }}
-                          className="grid grid-cols-2 gap-2"
-                        >
-                          {NAV_ITEMS.find(i => i.name === activeDropdown)?.subItems?.map((sub) => {
-                            const isConfirming = confirmLink === sub.href;
-                            
-                            return (
-                              <Link
-                                key={sub.name}
-                                href={sub.href}
-                                onClick={(e) => {
-                                  if (sub.href.startsWith('http')) {
-                                    if (!isConfirming) {
-                                      e.preventDefault();
-                                      setConfirmLink(sub.href);
-                                      return;
+                            initial={{ opacity: 0 }}
+                            animate={{ opacity: 1 }}
+                            transition={{ duration: 0.3 }}
+                            className="grid grid-cols-2 gap-2"
+                          >
+                            {NAV_ITEMS.find(i => i.name === activeDropdown)?.subItems?.map((sub) => {
+                              const isConfirming = confirmLink === sub.href;
+
+                              return (
+                                <Link
+                                  key={sub.name}
+                                  href={sub.href}
+                                  onClick={(e) => {
+                                    if (sub.href.startsWith('http')) {
+                                      if (!isConfirming) {
+                                        e.preventDefault();
+                                        setConfirmLink(sub.href);
+                                        return;
+                                      }
                                     }
-                                  }
-                                  handleAnchorClick(e, sub.href);
-                                }}
-                                target={sub.href.startsWith('http') ? "_blank" : undefined}
-                                rel={sub.href.startsWith('http') ? "noopener noreferrer" : undefined}
-                                className={`group/sub flex items-start gap-4 p-3.5 rounded-2xl transition-all border border-transparent ${
-                                  isConfirming 
-                                    ? 'bg-amber-400 dark:bg-amber-500 border-amber-500 hover:bg-amber-500 shadow-md scale-[1.02]' 
+                                    handleAnchorClick(e, sub.href);
+                                  }}
+                                  target={sub.href.startsWith('http') ? "_blank" : undefined}
+                                  rel={sub.href.startsWith('http') ? "noopener noreferrer" : undefined}
+                                  className={`group/sub flex items-start gap-4 p-3.5 rounded-2xl transition-all border border-transparent ${isConfirming
+                                    ? 'bg-amber-400 dark:bg-amber-500 border-amber-500 hover:bg-amber-500 shadow-md scale-[1.02]'
                                     : 'hover:bg-slate-50 dark:hover:bg-slate-900 hover:border-slate-100 dark:hover:border-slate-800'
-                                }`}
-                              >
-                                {sub.icon && (
-                                  <div className={`w-11 h-11 rounded-xl flex items-center justify-center shadow-sm group-hover/sub:shadow-md group-hover/sub:scale-105 transition-all shrink-0 [&>svg]:w-5 [&>svg]:h-5 ${
-                                    isConfirming ? 'bg-white text-amber-600' : 'bg-white dark:bg-slate-900 border border-transparent dark:border-slate-800'
-                                  }`}>
-                                    {sub.icon}
-                                  </div>
-                                )}
-                                <div className="flex flex-col pt-1">
-                                  <span className={`text-[14.5px] font-bold transition-colors tracking-tight ${
-                                    isConfirming ? 'text-slate-900' : 'text-primary dark:text-slate-100 group-hover/sub:text-secondary'
-                                  }`}>
-                                    {isConfirming ? "Saldrás de Policlínico Tabancura" : sub.name}
-                                  </span>
-                                  {sub.desc && (
-                                    <span className={`text-[11px] font-medium leading-snug mt-2 transition-all ${
-                                      isConfirming ? 'text-slate-800' : 'text-slate-400 opacity-80 group-hover/sub:opacity-100'
-                                    }`}>
-                                      {isConfirming ? "Haz clic de nuevo para continuar al portal externo." : sub.desc}
-                                    </span>
+                                    }`}
+                                >
+                                  {sub.icon && (
+                                    <div className={`w-11 h-11 rounded-xl flex items-center justify-center shadow-sm group-hover/sub:shadow-md group-hover/sub:scale-105 transition-all shrink-0 [&>svg]:w-5 [&>svg]:h-5 ${isConfirming ? 'bg-white text-amber-600' : 'bg-white dark:bg-slate-900 border border-transparent dark:border-slate-800'
+                                      }`}>
+                                      {sub.icon}
+                                    </div>
                                   )}
-                                </div>
-                              </Link>
-                            );
-                          })}
-                        </motion.div>
+                                  <div className="flex flex-col pt-1">
+                                    <span className={`text-[14.5px] font-bold transition-colors tracking-tight ${isConfirming ? 'text-slate-900' : 'text-primary dark:text-slate-100 group-hover/sub:text-secondary'
+                                      }`}>
+                                      {isConfirming ? "Saldrás de Policlínico Tabancura" : sub.name}
+                                    </span>
+                                    {sub.desc && (
+                                      <span className={`text-[11px] font-medium leading-snug mt-2 transition-all ${isConfirming ? 'text-slate-800' : 'text-slate-400 opacity-80 group-hover/sub:opacity-100'
+                                        }`}>
+                                        {isConfirming ? "Haz clic de nuevo para continuar al portal externo." : sub.desc}
+                                      </span>
+                                    )}
+                                  </div>
+                                </Link>
+                              );
+                            })}
+                          </motion.div>
+                        </div>
                       </div>
-                    </div>
-                  </motion.div>
-                )}
+                    </motion.div>
+                  )}
                 </AnimatePresence>
 
               </div>
@@ -499,7 +495,7 @@ export const Navbar = () => {
                 </div>
               </button>
 
-              <div className="hidden xl:block relative group">
+              <div className="hidden xl:block relative group z-10">
                 <Button
                   className="bg-gradient-to-r from-primary to-[#1e3a8a] text-white rounded-full px-8 h-11 font-bold text-[13px] tracking-tight transition-all duration-500 transform group-hover:-translate-y-1 group-active:scale-95 cursor-pointer shadow-lg shadow-black/10 border-0 relative z-10"
                   onClick={scrollToScheduler}
@@ -507,7 +503,7 @@ export const Navbar = () => {
                   Reservar Hora
                 </Button>
                 {/* Icono Badge Flotante */}
-                <div className="absolute -top-2 -right-2 w-10 h-10 bg-secondary rounded-full flex items-center justify-center text-white shadow-lg transition-all duration-500 transform group-hover:-translate-y-1 group-hover:rotate-[-15deg] group-hover:scale-110 group-active:scale-95 z-20 border-4 border-white dark:border-slate-950 pointer-events-none">
+                <div className="absolute -top-2 -right-2 w-10 h-10 bg-secondary rounded-full flex items-center justify-center text-white shadow-lg transition-all duration-500 transform group-hover:-translate-y-1 group-hover:rotate-[-15deg] group-hover:scale-110 group-active:scale-95 z-30 border-4 border-white dark:border-slate-950 pointer-events-none">
                   <Calendar className="w-4 h-4" strokeWidth={2.5} />
                 </div>
               </div>
@@ -591,11 +587,10 @@ export const Navbar = () => {
                                 href={sub.href}
                                 target={sub.href.startsWith('http') ? "_blank" : undefined}
                                 rel={sub.href.startsWith('http') ? "noopener noreferrer" : undefined}
-                                className={`text-sm font-bold text-right transition-all px-3 py-1.5 rounded-lg ${
-                                  isConfirming 
-                                    ? 'bg-amber-400 text-slate-900 shadow-sm scale-105' 
-                                    : 'text-slate-500 hover:text-secondary'
-                                }`}
+                                className={`text-sm font-bold text-right transition-all px-3 py-1.5 rounded-lg ${isConfirming
+                                  ? 'bg-amber-400 text-slate-900 shadow-sm scale-105'
+                                  : 'text-slate-500 hover:text-secondary'
+                                  }`}
                                 onClick={(e) => {
                                   if (sub.href.startsWith('http')) {
                                     if (!isConfirming) {

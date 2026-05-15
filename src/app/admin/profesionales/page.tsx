@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect } from 'react';
-import { Plus, Search, Edit2, Trash2, Loader2, AlertTriangle } from 'lucide-react';
+import { Plus, Search, Edit2, Trash2, Loader2, AlertTriangle, Eye, EyeOff } from 'lucide-react';
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
@@ -146,7 +146,7 @@ export default function AdminProfessionalsPage() {
                 <th className="pb-4 pt-2 px-4 text-xs font-bold uppercase tracking-widest text-slate-400">Profesional</th>
                 <th className="pb-4 pt-2 px-4 text-xs font-bold uppercase tracking-widest text-slate-400">Especialidad</th>
                 <th className="pb-4 pt-2 px-4 text-xs font-bold uppercase tracking-widest text-slate-400">Área</th>
-                <th className="pb-4 pt-2 px-4 text-xs font-bold uppercase tracking-widest text-slate-400">Sucursal</th>
+                <th className="pb-4 pt-2 px-4 text-xs font-bold uppercase tracking-widest text-slate-400">Estado</th>
                 <th className="pb-4 pt-2 px-4 text-xs font-bold uppercase tracking-widest text-slate-400 text-right">Acciones</th>
               </tr>
             </thead>
@@ -178,9 +178,37 @@ export default function AdminProfessionalsPage() {
                         {prof.area}
                       </Badge>
                     </td>
-                    <td className="py-4 px-4 text-slate-500">{prof.sucursal || '-'}</td>
+                    <td className="py-4 px-4">
+                      {prof.published !== false ? (
+                        <div className="flex items-center gap-1.5 text-emerald-600 font-bold text-[10px] uppercase tracking-wider bg-emerald-50 px-2 py-1 rounded-lg w-fit">
+                          <Eye size={12} /> Habilitado
+                        </div>
+                      ) : (
+                        <div className="flex items-center gap-1.5 text-slate-400 font-bold text-[10px] uppercase tracking-wider bg-slate-50 px-2 py-1 rounded-lg w-fit">
+                          <EyeOff size={12} /> Deshabilitado
+                        </div>
+                      )}
+                    </td>
                     <td className="py-4 px-4 text-right">
                       <div className="flex items-center justify-end gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
+                        <Button 
+                          variant="ghost" 
+                          size="icon" 
+                          onClick={async () => {
+                            try {
+                              const res = await fetch(`/api/admin/professionals/${prof.id}`, {
+                                method: 'PUT',
+                                headers: { 'Content-Type': 'application/json' },
+                                body: JSON.stringify({ ...prof, published: prof.published === false }),
+                              });
+                              if (res.ok) fetchProfessionals();
+                            } catch (e) { console.error(e); }
+                          }} 
+                          className={`h-8 w-8 rounded-lg transition-colors ${prof.published !== false ? 'text-slate-400 hover:text-emerald-600 hover:bg-emerald-50' : 'text-emerald-600 bg-emerald-50 hover:bg-emerald-100'}`}
+                          title={prof.published !== false ? "Deshabilitar de la web" : "Habilitar en la web"}
+                        >
+                          {prof.published !== false ? <EyeOff size={16} /> : <Eye size={16} />}
+                        </Button>
                         <Button variant="ghost" size="icon" onClick={() => handleEdit(prof)} className="h-8 w-8 text-slate-400 hover:text-primary hover:bg-primary/10 rounded-lg">
                           <Edit2 size={16} />
                         </Button>

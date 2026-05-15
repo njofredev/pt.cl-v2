@@ -12,6 +12,7 @@ export interface Professional {
   image?: string | null;
   ageGroup?: string | null;
   bookingLink?: string | null;
+  published?: boolean;
 }
 
 // Mapeo de Links de Agendamiento 2026 extraídos
@@ -114,16 +115,16 @@ export const PROFESSIONALS: Professional[] = [
 export async function getProfessionals(): Promise<Professional[]> {
   noStore(); // Desactiva completamente la caché para este fetch
   try {
-    // Obtenemos los profesionales de la base de datos real (db_sst)
-    const dbProfessionals = await prisma.professional.findMany({
-      orderBy: { id: 'asc' }
-    });
+    // Obtenemos los profesionales de la base de datos real (db_sst) usando SQL directo para evitar problemas con cliente stale
+    const dbProfessionals: any[] = await prisma.$queryRaw`SELECT * FROM "Professional" ORDER BY id ASC`;
 
     if (dbProfessionals && dbProfessionals.length > 0) {
-      // Mapeamos los campos reales de la DB al formato de la interfaz Professional
-      return dbProfessionals.map((p) => {
-        const name = `${p.firstName} ${p.lastName || ''}`.trim();
-        let image = (p as any).imageUrl;
+      // Filtramos por habilitados (published: true o undefined que asumimos habilitado por defecto)
+      return dbProfessionals.filter(p => p.published !== false).map((p) => {
+        const firstName = p["Nombres:"] || p.firstName;
+        const lastName = p["Apellidos:"] || p.lastName;
+        const name = `${firstName} ${lastName || ''}`.trim();
+        let image = p["Imagen:"] || (p as any).imageUrl;
 
         // Si el usuario guardó un nombre de archivo, verificamos si necesita el prefijo de la carpeta
         if (image && !image.startsWith('/') && !image.startsWith('http')) {
@@ -214,6 +215,8 @@ export async function getProfessionals(): Promise<Professional[]> {
             image = "/img_profesionales/perfilMariaSoledadIturra.jpg";
           } else if (lowerName.includes("matias") && lowerName.includes("navarrete")) {
             image = "/img_profesionales/perfilMatiasNavarrete.jpg";
+          } else if (lowerName.includes("matias") && lowerName.includes("estai")) {
+            image = "/img_profesionales/perfilMatiasEstai.jpg";
           } else if (lowerName.includes("pablo") && lowerName.includes("santa")) {
             image = "/img_profesionales/perfilPabloSantaCruz.jpg";
           } else if (lowerName.includes("ximena") && lowerName.includes("olivares")) {
@@ -276,14 +279,15 @@ export async function getProfessionals(): Promise<Professional[]> {
         return {
           id: p.id,
           name,
-          specialty: p.specialty,
-          area: p.area,
-          description: p.description,
-          education: p.education,
-          sucursal: p.sucursal,
+          specialty: p["Especialidad:"] || p.specialty,
+          area: p["Área:"] || p.area,
+          description: p["Descripción para el sitio web:"] || p.description,
+          education: p["Título / Universidad:"] || p.education,
+          sucursal: p["Sucursal:"] || p.sucursal,
           image,
-          ageGroup: p.ageGroup,
-          bookingLink
+          ageGroup: p["Grupo Etario:"] || p.ageGroup,
+          bookingLink,
+          published: p.published
         };
       });
     }

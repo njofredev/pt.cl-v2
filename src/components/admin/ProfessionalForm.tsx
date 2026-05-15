@@ -21,6 +21,7 @@ export type ProfessionalData = {
   ageGroup: string;
   otherTitles: string;
   imageUrl?: string;
+  published: boolean;
 };
 
 const defaultData: ProfessionalData = {
@@ -37,6 +38,7 @@ const defaultData: ProfessionalData = {
   ageGroup: '',
   otherTitles: '',
   imageUrl: '',
+  published: true,
 };
 
 const AGE_GROUPS = [
@@ -88,6 +90,7 @@ export function ProfessionalForm({ open, onOpenChange, professional, onSuccess }
         ageGroup: professional.ageGroup || '',
         otherTitles: professional.otherTitles || '',
         imageUrl: (professional as any).imageUrl || '',
+        published: professional.published !== undefined ? professional.published : true,
       });
     } else {
       setFormData(defaultData);
@@ -337,6 +340,26 @@ export function ProfessionalForm({ open, onOpenChange, professional, onSuccess }
                 <p className="text-[10px] text-slate-400 mt-2">
                   Si subes el archivo a la carpeta de imágenes, solo escribe el nombre (ej: <strong>perfilCatalina.jpg</strong>).
                 </p>
+              </div>
+              <div className="mt-4 bg-slate-50 border border-slate-100 p-4 rounded-2xl flex items-center justify-between">
+                <div>
+                  <label className="text-[10px] font-black uppercase text-primary tracking-wider flex items-center gap-2">
+                    Visibilidad en la Web
+                  </label>
+                  <p className="text-[10px] text-slate-400 mt-1">
+                    Habilita o deshabilita la visualización de este profesional en el sitio público.
+                  </p>
+                </div>
+                <label className="relative inline-flex items-center cursor-pointer">
+                  <input 
+                    type="checkbox" 
+                    name="published"
+                    checked={formData.published}
+                    onChange={(e) => setFormData(prev => ({ ...prev, published: e.target.checked }))}
+                    className="sr-only peer"
+                  />
+                  <div className="w-11 h-6 bg-slate-200 peer-focus:outline-none rounded-full peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-slate-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-secondary"></div>
+                </label>
               </div>
             </div>
           </div>
