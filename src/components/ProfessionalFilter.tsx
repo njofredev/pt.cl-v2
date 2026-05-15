@@ -15,6 +15,8 @@ import { Card, CardContent } from "@/components/ui/card";
 import { AREAS, Area, Professional } from '@/data/professionals';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger, DialogClose } from "@/components/ui/dialog";
 import Image from 'next/image';
+import Link from 'next/link';
+import { useSearchParams } from 'next/navigation';
 
 // Base de datos visual de descripciones e iconos para especialidades por área
 const SPECIALTY_METADATA: Record<string, { description: string, icon: any, focus?: string[] }> = {
@@ -198,19 +200,28 @@ const CustomSelect = ({
   );
 };
 
-export const ProfessionalFilter = ({ initialArea, professionals }: { initialArea?: Area, professionals: Professional[] }) => {
+import { Suspense } from 'react';
+
+const ProfessionalFilterContent = ({ initialArea, professionals }: { initialArea?: Area, professionals: Professional[] }) => {
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedArea, setSelectedArea] = useState<Area | "Todas">(initialArea || "Todas");
   const [selectedSpecialty, setSelectedSpecialty] = useState<string>("Todas");
   const [selectedSucursal, setSelectedSucursal] = useState<string>("Todas");
   const [selectedAgeGroup, setSelectedAgeGroup] = useState<string>("Todas");
   const [shuffledProfessionals, setShuffledProfessionals] = useState<Professional[]>([]);
+  const searchParams = useSearchParams();
+  const preSelectedSpecialty = searchParams.get('especialidad');
 
   useEffect(() => {
     // Barajar aleatoriamente los profesionales al cargar en el cliente (evita Hydration Mismatch)
     const shuffled = [...professionals].sort(() => Math.random() - 0.5);
     setShuffledProfessionals(shuffled);
-  }, [professionals]);
+
+    // Si viene una especialidad por URL, la seleccionamos
+    if (preSelectedSpecialty) {
+      setSelectedSpecialty(preSelectedSpecialty);
+    }
+  }, [professionals, preSelectedSpecialty]);
 
   const activeProfessionals = shuffledProfessionals.length > 0 ? shuffledProfessionals : professionals;
 
@@ -343,6 +354,40 @@ export const ProfessionalFilter = ({ initialArea, professionals }: { initialArea
               })}
             </div>
           </div>
+        )}
+
+        {initialArea === "Salud Dental" && !selectedAreaFilter && (
+          <motion.div 
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="mb-16 bg-gradient-to-r from-primary/5 via-secondary/10 to-primary/5 rounded-[2.5rem] p-8 md:p-12 border border-secondary/20 relative overflow-hidden group shadow-2xl shadow-secondary/5"
+          >
+            <div className="absolute top-0 right-0 p-8 opacity-10 group-hover:scale-110 transition-transform duration-700">
+              <Zap size={140} className="text-secondary" />
+            </div>
+            <div className="relative z-10 grid md:grid-cols-3 gap-8 items-center">
+              <div className="md:col-span-2">
+                <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-secondary text-primary text-[10px] font-black uppercase tracking-widest mb-6">
+                  <Zap size={14} fill="currentColor" /> Innovación Dental 2026
+                </div>
+                <h3 className="text-2xl md:text-5xl font-black text-primary dark:text-white mb-6 tracking-tighter leading-tight">
+                  Laboratorio <br />
+                  <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-secondary">Digital Dental</span>
+                </h3>
+                <p className="text-slate-600 dark:text-slate-300 font-medium max-w-xl text-base md:text-lg leading-relaxed">
+                  Creamos tus piezas dentales en una sola sesión mediante tecnología <strong>Chairside</strong>. Escaneamos con <strong>Primescan</strong> para modelos 3D procesados vía <strong>inLab CAD/CAM</strong> y fresados con <strong>CEREC MCX</strong>.
+                </p>
+              </div>
+              <div className="flex justify-center md:justify-end">
+                <Link href="/servicios/dental?especialidad=Rehabilitación Oral#equipo">
+                  <Button className="bg-primary hover:bg-primary/90 text-white rounded-full px-10 h-16 text-base font-bold shadow-2xl shadow-primary/20 transform hover:-translate-y-1 transition-all duration-300 group/btn">
+                    Agendar Rehabilitación <ChevronRight className="ml-2 group-hover/btn:translate-x-1 transition-transform" />
+                  </Button>
+                </Link>
+              </div>
+            </div>
+          </motion.div>
         )}
 
         <div id="equipo" className="scroll-mt-32 text-center mb-10 flex flex-col items-center">
@@ -839,3 +884,9 @@ const ProfessionalCard = ({ pro, idx }: { pro: Professional, idx: number }) => {
     </motion.div>
   );
 };
+
+export const ProfessionalFilter = (props: { initialArea?: Area, professionals: Professional[] }) => (
+  <Suspense fallback={<div className='min-h-screen flex items-center justify-center'><div className='animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-primary'></div></div>}>
+    <ProfessionalFilterContent {...props} />
+  </Suspense>
+);

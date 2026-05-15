@@ -28,7 +28,7 @@ export default function LaboratorioPage() {
                 transition={{ delay: 0.1 }}
                 className="text-3xl md:text-5xl font-black text-slate-900 dark:text-white mb-6 tracking-tight"
               >
-                Laboratorio <br/> <span className="text-rose-600 dark:text-rose-400">Digital</span>
+                Laboratorio <br/> <span className="text-rose-600 dark:text-rose-400">Digital Dental</span>
               </motion.h1>
               
               <motion.p 
@@ -37,7 +37,7 @@ export default function LaboratorioPage() {
                 transition={{ delay: 0.2 }}
                 className="text-slate-600 dark:text-slate-400 leading-relaxed mb-8"
               >
-                Obtén tus resultados de exámenes de sangre, orina y cultivos de forma automatizada, con 100% trazabilidad digital y entrega directa a tu correo electrónico.
+                Especializados en <strong>Rehabilitación Oral</strong> de alta precisión. Mediante tecnología <strong>chairside</strong>, utilizamos <strong>Primescan</strong> para escaneos 3D, procesados vía <strong>inLab CAD/CAM</strong> y fresados con <strong>CEREC MCX</strong> para entregarte tu pieza dental definitiva en tiempo récord.
               </motion.p>
 
               <motion.ul 
@@ -46,7 +46,12 @@ export default function LaboratorioPage() {
                 transition={{ delay: 0.3 }}
                 className="space-y-3 mb-8"
               >
-                {['Toma de Muestras Rápida', 'Trazabilidad Código QR', 'Resultados en 24 a 48 horas'].map((item, i) => (
+                {[
+                  'Rehabilitación Oral en una sesión',
+                  'Escaneo Intraoral Primescan',
+                  'Diseño inLab CAD/CAM',
+                  'Fresado CEREC MCX de Dentsply Sirona'
+                ].map((item, i) => (
                   <li key={i} className="flex items-center gap-3 text-sm font-medium text-slate-700 dark:text-slate-300">
                     <CheckCircle size={16} className="text-rose-500 shrink-0" />
                     {item}
@@ -59,9 +64,9 @@ export default function LaboratorioPage() {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.4 }}
               >
-                <Link href="/#agendar">
+                <Link href="/servicios/dental?especialidad=Rehabilitación Oral#equipo">
                   <Button className="bg-rose-600 hover:bg-rose-700 text-white rounded-full px-8 shadow-lg shadow-rose-600/20">
-                    Ver Exámenes Disponibles
+                    Agendar Consulta de Especialidad
                   </Button>
                 </Link>
               </motion.div>
