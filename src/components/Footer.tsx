@@ -151,16 +151,16 @@ const LikeButton = () => {
   const controls = useAnimation();
 
   useEffect(() => {
-    const savedLikes = localStorage.getItem('footer-likes');
-    const userLiked = localStorage.getItem('footer-is-liked');
+    const savedLikes = localStorage.getItem('footer-likes-v2');
+    const userLiked = localStorage.getItem('footer-is-liked-v2');
     
-    // Si no hay likes guardados, empezamos con una base "social proof"
+    // Si no hay likes guardados, empezamos desde 0
     if (savedLikes) {
       setLikes(parseInt(savedLikes));
     } else {
       const baseLikes = 0;
       setLikes(baseLikes);
-      localStorage.setItem('footer-likes', baseLikes.toString());
+      localStorage.setItem('footer-likes-v2', baseLikes.toString());
     }
     
     if (userLiked) setIsLiked(true);
@@ -173,15 +173,15 @@ const LikeButton = () => {
     setLikes(newLikes);
     setIsLiked(newLiked);
     
-    localStorage.setItem('footer-likes', newLikes.toString());
+    localStorage.setItem('footer-likes-v2', newLikes.toString());
     if (newLiked) {
-      localStorage.setItem('footer-is-liked', 'true');
+      localStorage.setItem('footer-is-liked-v2', 'true');
       await controls.start({
         scale: [1, 1.4, 1],
         transition: { duration: 0.3 }
       });
     } else {
-      localStorage.removeItem('footer-is-liked');
+      localStorage.removeItem('footer-is-liked-v2');
     }
   };
 
