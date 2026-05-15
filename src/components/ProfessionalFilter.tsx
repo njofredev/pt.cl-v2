@@ -2,11 +2,11 @@
 
 import React, { useState, useMemo, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { 
-  Search, User, ChevronRight, ChevronDown, Filter, X, Info, GraduationCap, MapPin, 
-  Sparkles, SmilePlus, Brain, Stethoscope, Leaf, CalendarDays, Video, Activity, 
-  Bone, Scissors, Ear, Smile, Users, ShieldAlert, Pill, Footprints, Baby, 
-  Syringe, ShieldPlus, Hand, Zap, Trash2 
+import {
+  Search, User, ChevronRight, ChevronDown, Filter, X, Info, GraduationCap, MapPin,
+  Sparkles, SmilePlus, Brain, Stethoscope, Leaf, CalendarDays, Video, Activity,
+  Bone, Scissors, Ear, Smile, Users, ShieldAlert, Pill, Footprints, Baby,
+  Syringe, ShieldPlus, Hand, Zap, Trash2
 } from 'lucide-react';
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
@@ -19,114 +19,114 @@ import Image from 'next/image';
 // Base de datos visual de descripciones e iconos para especialidades por área
 const SPECIALTY_METADATA: Record<string, { description: string, icon: any, focus?: string[] }> = {
   // Salud Dental
-  'Odontología General': { 
-    description: "Diagnóstico integral y prevención para mantener tu sonrisa sana todos los días.", 
+  'Odontología General': {
+    description: "Diagnóstico integral y prevención para mantener tu sonrisa sana todos los días.",
     icon: Smile,
     focus: ["Limpiezas profundas", "Restauraciones estéticas", "Prevención de caries", "Urgencias dentales"]
   },
-  'Implantología': { 
-    description: "Restauración permanente de piezas dentales con prótesis seguras sobre implantes.", 
+  'Implantología': {
+    description: "Restauración permanente de piezas dentales con prótesis seguras sobre implantes.",
     icon: Sparkles,
     focus: ["Cirugía mínimamente invasiva", "Carga inmediata", "Prótesis fijas", "Injertos óseos"]
   },
-  'Ortodoncia': { 
-    description: "Alineación dental y corrección de mordida para una estética y funcionalidad perfecta.", 
+  'Ortodoncia': {
+    description: "Alineación dental y corrección de mordida para una estética y funcionalidad perfecta.",
     icon: SmilePlus,
     focus: ["Brackets metálicos y cerámicos", "Ortodoncia invisible", "Alineación funcional", "Estética dental"]
   },
-  'Endodoncia': { 
-    description: "Tratamiento especializado del conducto para salvar piezas dentales dañadas.", 
+  'Endodoncia': {
+    description: "Tratamiento especializado del conducto para salvar piezas dentales dañadas.",
     icon: Pill,
     focus: ["Tratamiento de conducto", "Alivio del dolor", "Tecnología rotatoria", "Salvamento dental"]
   },
-  'Periodoncia': { 
-    description: "Cuidado, tratamiento y prevención de enfermedades en las encías y tejidos.", 
+  'Periodoncia': {
+    description: "Cuidado, tratamiento y prevención de enfermedades en las encías y tejidos.",
     icon: Activity,
     focus: ["Gingivitis y Periodontitis", "Salud gingival", "Cirugía periodontal", "Mantenimiento óseo"]
   },
-  'Rehabilitación Oral': { 
-    description: "Recuperación estética y funcional de la boca mediante prótesis avanzadas.", 
+  'Rehabilitación Oral': {
+    description: "Recuperación estética y funcional de la boca mediante prótesis avanzadas.",
     icon: ShieldPlus,
     focus: ["Coronas y puentes", "Diseño de sonrisa", "Prótesis removibles", "Oclusión funcional"]
   },
-  'Odontopediatría': { 
-    description: "Atención odontológica delicada y enfocada en la salud bucal de los niños.", 
+  'Odontopediatría': {
+    description: "Atención odontológica delicada y enfocada en la salud bucal de los niños.",
     icon: Baby,
     focus: ["Prevención infantil", "Sellantes y flúor", "Manejo conductual", "Ortodoncia preventiva"]
   },
-  'Trastornos Temporomandibulares': { 
-    description: "Diagnóstico y alivio del dolor de la articulación mandibular y el bruxismo.", 
+  'Trastornos Temporomandibulares': {
+    description: "Diagnóstico y alivio del dolor de la articulación mandibular y el bruxismo.",
     icon: ShieldAlert,
     focus: ["Manejo del bruxismo", "Placas de relajación", "Dolor orofacial", "Disfunción articular"]
   },
-  'Radiología': { 
-    description: "Diagnóstico por imagen de alta precisión para guiar tus tratamientos.", 
+  'Radiología': {
+    description: "Diagnóstico por imagen de alta precisión para guiar tus tratamientos.",
     icon: Search,
     focus: ["Radiografías panorámicas", "Scanner 3D (CBCT)", "Cefalometrías", "Diagnóstico digital"]
   },
-  'Cirugía, Implantología': { 
-    description: "Intervenciones quirúrgicas maxilofaciales y colocación de implantes.", 
+  'Cirugía, Implantología': {
+    description: "Intervenciones quirúrgicas maxilofaciales y colocación de implantes.",
     icon: Scissors,
     focus: ["Extracciones complejas", "Terceros molares", "Implantes avanzados", "Cirugía oral"]
   },
 
   // Salud Mental
-  'Psicología': { 
-    description: "Acompañamiento terapéutico para gestionar tus emociones y potenciar tu bienestar.", 
+  'Psicología': {
+    description: "Acompañamiento terapéutico para gestionar tus emociones y potenciar tu bienestar.",
     icon: Brain,
     focus: ["Terapia individual", "Manejo de ansiedad", "Apoyo emocional", "Desarrollo personal"]
   },
-  'Psiquiatría': { 
-    description: "Diagnóstico médico especializado y tratamiento farmacológico de la salud mental.", 
+  'Psiquiatría': {
+    description: "Diagnóstico médico especializado y tratamiento farmacológico de la salud mental.",
     icon: Pill,
     focus: ["Tratamiento farmacológico", "Diagnóstico clínico", "Salud mental adulta", "Seguimiento médico"]
   },
-  'Psicopedagogía': { 
-    description: "Orientación y potenciación de los procesos de aprendizaje infantil y juvenil.", 
+  'Psicopedagogía': {
+    description: "Orientación y potenciación de los procesos de aprendizaje infantil y juvenil.",
     icon: Users,
     focus: ["Apoyo escolar", "Dificultades de aprendizaje", "Evaluación cognitiva", "Habilidades de estudio"]
   },
-  'Fonoaudiología': { 
-    description: "Terapia integral en la comunicación, el lenguaje, el habla y la deglución.", 
+  'Fonoaudiología': {
+    description: "Terapia integral en la comunicación, el lenguaje, el habla y la deglución.",
     icon: Ear,
     focus: ["Terapia del lenguaje", "Trastornos del habla", "Deglución atípica", "Voz y comunicación"]
   },
 
   // Medicina General
-  'Medicina': { 
-    description: "Atención médica primaria de confianza, chequeos y derivaciones preventivas.", 
+  'Medicina': {
+    description: "Atención médica primaria de confianza, chequeos y derivaciones preventivas.",
     icon: Stethoscope,
     focus: ["Consulta general", "Control de enfermedades", "Chequeo preventivo", "Certificados médicos"]
   },
-  'Pediatría': { 
-    description: "Cuidado integral y seguimiento del crecimiento de los más pequeños.", 
+  'Pediatría': {
+    description: "Cuidado integral y seguimiento del crecimiento de los más pequeños.",
     icon: Baby,
     focus: ["Control niño sano", "Vacunatorio", "Enfermedades infantiles", "Crecimiento y desarrollo"]
   },
-  'Kinesiología': { 
-    description: "Rehabilitación física motora, respiratoria y recuperación muscular integral.", 
+  'Kinesiología': {
+    description: "Rehabilitación física motora, respiratoria y recuperación muscular integral.",
     icon: Activity,
     focus: ["Rehabilitación física", "Kinesiología respiratoria", "Lesiones deportivas", "Post-operatorios"]
   },
-  'Enfermería': { 
-    description: "Atención clínica, administración de tratamientos y curaciones ambulatorias.", 
+  'Enfermería': {
+    description: "Atención clínica, administración de tratamientos y curaciones ambulatorias.",
     icon: Syringe,
     focus: ["Inyectables", "Curaciones", "Toma de presión", "Atención ambulatoria"]
   },
-  'Podología': { 
-    description: "Cuidado profesional y tratamiento preventivo para la salud de tus pies.", 
+  'Podología': {
+    description: "Cuidado profesional y tratamiento preventivo para la salud de tus pies.",
     icon: Footprints,
     focus: ["Onicocriptosis", "Cuidado del pie diabético", "Tratamiento de callosidades", "Salud podal"]
   },
 
   // Terapias
-  'Masoterapia': { 
-    description: "Técnicas manuales enfocadas en aliviar contracturas, tensiones y relajar el cuerpo.", 
+  'Masoterapia': {
+    description: "Técnicas manuales enfocadas en aliviar contracturas, tensiones y relajar el cuerpo.",
     icon: Hand,
     focus: ["Masaje descontracturante", "Relajación integral", "Drenaje linfático", "Liberación miofascial"]
   },
-  'Biomagnetismo': { 
-    description: "Terapia alternativa con imanes para equilibrar la energía del organismo.", 
+  'Biomagnetismo': {
+    description: "Terapia alternativa con imanes para equilibrar la energía del organismo.",
     icon: Zap,
     focus: ["Equilibrio energético", "Terapia complementaria", "Bienestar natural", "Armonización"]
   },
@@ -265,8 +265,8 @@ export const ProfessionalFilter = ({ initialArea, professionals }: { initialArea
           pSucursal.includes("matríz")
         )) ||
         (selectedSucursal === "Vitacura" && pSucursal.includes("vitacura"));
-      
-      const matchesAge = selectedAgeGroup === "Todas" || 
+
+      const matchesAge = selectedAgeGroup === "Todas" ||
         (p.ageGroup && p.ageGroup.toLowerCase().includes(selectedAgeGroup.toLowerCase().split('(')[0].trim()));
 
       return matchesSearch && matchesArea && matchesSpecialty && matchesSucursal && matchesAge;
@@ -285,7 +285,7 @@ export const ProfessionalFilter = ({ initialArea, professionals }: { initialArea
   const areaLabel = useMemo(() => {
     if (!initialArea) return "Médico";
     switch (initialArea) {
-      case "Salud Dental": return "Dental";
+      case "Salud Dental": return "Salud Dental";
       case "Salud Mental": return "de Salud Mental";
       case "Medicina General": return "Médico";
       case "Terapias Complementarias": return "de Terapias";
@@ -537,7 +537,7 @@ export const ProfessionalFilter = ({ initialArea, professionals }: { initialArea
 
 const ProfessionalCard = ({ pro, idx }: { pro: Professional, idx: number }) => {
   const [showSpecInfo, setShowSpecInfo] = useState(false);
-  
+
   const proImage = pro.image;
   const lowerSuc = pro.sucursal?.toLowerCase() || "";
   const isVitacura = lowerSuc.includes("vitacura");
@@ -661,7 +661,7 @@ const ProfessionalCard = ({ pro, idx }: { pro: Professional, idx: number }) => {
                       <User size={50} className="text-secondary" />
                     )}
                   </div>
-                  
+
                   <DialogHeader className="text-center w-full mb-4">
                     <DialogTitle className="text-lg sm:text-xl md:text-2xl font-bold tracking-tight leading-tight mb-1">{pro.name}</DialogTitle>
                     <div className="text-secondary font-bold text-[10px] md:text-xs uppercase tracking-widest opacity-90">{pro.area}</div>
@@ -671,13 +671,12 @@ const ProfessionalCard = ({ pro, idx }: { pro: Professional, idx: number }) => {
                   <div className="flex flex-col items-center gap-2 w-full mt-auto pt-6 border-t border-white/10">
                     <span className="hidden sm:block text-[9px] font-black uppercase tracking-[0.2em] text-white/40">Categoría</span>
                     <div className="flex flex-wrap justify-center gap-1.5">
-                      <button 
+                      <button
                         onClick={() => setShowSpecInfo(!showSpecInfo)}
-                        className={`group/specbtn inline-flex items-center gap-1 px-3 py-1 rounded-full border-none transition-all duration-300 relative ${
-                          showSpecInfo 
-                          ? 'bg-white text-primary shadow-xl scale-105' 
-                          : 'bg-secondary text-primary font-bold shadow-lg shadow-secondary/20 hover:scale-105'
-                        }`}
+                        className={`group/specbtn inline-flex items-center gap-1 px-3 py-1 rounded-full border-none transition-all duration-300 relative ${showSpecInfo
+                            ? 'bg-white text-primary shadow-xl scale-105'
+                            : 'bg-secondary text-primary font-bold shadow-lg shadow-secondary/20 hover:scale-105'
+                          }`}
                       >
                         <SpecIcon size={10} strokeWidth={2.5} className={showSpecInfo ? 'text-secondary' : ''} />
                         <span className="text-[9px] font-bold uppercase tracking-widest">{pro.specialty}</span>
@@ -698,7 +697,7 @@ const ProfessionalCard = ({ pro, idx }: { pro: Professional, idx: number }) => {
                 {/* Lado Derecho: Badges y Detalles (Scrollable) */}
                 <div className="w-full md:w-[65%] flex flex-col bg-white dark:bg-slate-900 overflow-hidden">
                   <div className="p-5 sm:p-6 md:p-8 flex-1 overflow-y-auto custom-scrollbar space-y-6">
-                    
+
                     <AnimatePresence mode="wait">
                       {showSpecInfo ? (
                         <motion.div
@@ -712,7 +711,7 @@ const ProfessionalCard = ({ pro, idx }: { pro: Professional, idx: number }) => {
                             <h3 className="text-[9px] font-black uppercase tracking-[0.2em] text-secondary flex items-center gap-2">
                               <Sparkles size={12} /> Sobre la Especialidad
                             </h3>
-                            <button 
+                            <button
                               onClick={() => setShowSpecInfo(false)}
                               className="text-[9px] font-black uppercase tracking-widest text-primary dark:text-white hover:text-secondary flex items-center gap-1.5 transition-colors mr-10"
                             >
@@ -725,7 +724,7 @@ const ProfessionalCard = ({ pro, idx }: { pro: Professional, idx: number }) => {
                               {specMetadata.description}
                             </p>
                           </div>
-                          
+
                           {specMetadata.focus && (
                             <div className="space-y-3">
                               <h3 className="text-[9px] font-black uppercase tracking-[0.2em] text-slate-400 dark:text-slate-500">Áreas de enfoque principal</h3>

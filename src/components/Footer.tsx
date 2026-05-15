@@ -57,7 +57,7 @@ const FooterSection = ({ title, links }: FooterSectionProps) => {
         <button
           onClick={() => setIsOpen(!isOpen)}
           aria-label={`Expandir sección ${title}`}
-          className="w-full flex items-center justify-between text-left group cursor-pointer"
+          className="w-full flex items-center justify-center gap-3 text-center group cursor-pointer"
         >
           <h3 className="text-[10px] font-bold uppercase tracking-[0.3em] text-secondary">{title}</h3>
           <ChevronDown 
@@ -75,7 +75,7 @@ const FooterSection = ({ title, links }: FooterSectionProps) => {
               transition={{ duration: 0.3, ease: "easeInOut" }}
               className="overflow-hidden"
             >
-              <ul className="pt-4 pb-2 space-y-3">
+              <ul className="pt-4 pb-2 space-y-3 text-center">
                 {links.map((item) => (
                   <li key={item.name}>
                     <Link 
@@ -153,7 +153,7 @@ export const Footer = () => {
           {/* Brand & Mission */}
           <div className="space-y-6 mb-4 md:mb-0 flex flex-col h-full">
             <div>
-              <Link href="/" className="flex items-center gap-3 mb-6">
+              <Link href="/" className="flex items-center justify-center md:justify-start gap-3 mb-6">
                 <img 
                   src="/logo.svg" 
                   alt="Logo" 
@@ -162,10 +162,10 @@ export const Footer = () => {
                   className="h-12 w-auto dark:brightness-0 dark:invert" 
                 />
               </Link>
-              <p className="text-slate-600 dark:text-slate-300 font-medium leading-relaxed text-sm sm:text-base mb-6">
+              <p className="text-slate-600 dark:text-slate-300 font-medium leading-relaxed text-sm sm:text-base mb-6 text-center md:text-left">
                 Tecnología y cuidado humano al servicio de tu salud. Más de 20 años innovando en medicina integral.
               </p>
-              <div className="flex gap-4">
+              <div className="flex gap-4 justify-center md:justify-start">
                 <a href="https://www.instagram.com/politabancura/" target="_blank" rel="noopener noreferrer" aria-label="Ir a nuestro perfil de Instagram" className="w-10 h-10 bg-slate-100 dark:bg-white/10 rounded-full flex items-center justify-center text-slate-600 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-white/20 hover:text-secondary transition-all group">
                   <Instagram size={18} className="group-hover:scale-110 transition-transform" />
                 </a>
@@ -240,12 +240,12 @@ export const Footer = () => {
           />
 
           {/* Contact Info */}
-          <div className="col-span-1 mt-6 md:mt-0">
-            <h3 className="text-[10px] font-bold uppercase tracking-[0.3em] text-secondary mb-8">Contacto</h3>
+          <div className="col-span-1 mt-6 md:mt-0 flex flex-col items-center md:items-start text-center md:text-left">
+            <h3 className="text-[10px] font-bold uppercase tracking-[0.3em] text-secondary mb-8 w-full">Contacto</h3>
             <div className="space-y-6">
               
               {/* Sucursal Vitacura */}
-              <div className="space-y-3">
+              <div className="space-y-3 flex flex-col items-center md:items-start">
                 <div className="flex items-center gap-2 mb-2">
                   <div className="h-px w-4 bg-secondary/30"></div>
                   <span className="text-slate-900 dark:text-white text-[11px] font-bold uppercase tracking-widest">Sucursal Vitacura</span>
@@ -273,10 +273,10 @@ export const Footer = () => {
               </div>
 
               {/* Sucursal Los Tribunales */}
-              <div className="space-y-3 pt-3 border-t border-slate-100 dark:border-white/5">
+              <div className="space-y-3 pt-3 border-t border-slate-100 dark:border-white/5 flex flex-col items-center md:items-start">
                 <div className="flex items-center gap-2 mb-2">
                   <div className="h-px w-4 bg-secondary/30"></div>
-                  <span className="text-slate-900 dark:text-white text-[11px] font-bold uppercase tracking-widest">Sucursal Los Tribunales</span>
+                  <span className="text-slate-900 dark:text-white text-[11px] font-bold uppercase tracking-widest">Casa Matriz - Los Tribunales</span>
                 </div>
                 <a href="https://www.google.com/maps/search/?api=1&query=Calle+Los+Tribunales+1268+Vitacura" target="_blank" rel="noopener noreferrer" className="flex gap-3 text-slate-600 dark:text-slate-300 hover:text-primary dark:hover:text-white transition-colors group text-sm items-start">
                   <MapPin className="text-secondary shrink-0 mt-0.5 group-hover:scale-110 transition-transform" size={16} />
@@ -300,8 +300,8 @@ export const Footer = () => {
         </div>
 
         {/* Bottom Bar */}
-        <div className="pt-12 border-t border-slate-100 dark:border-white/10 flex flex-col md:flex-row justify-between items-center gap-8">
-          <div className="flex items-center gap-8">
+        <div className="pt-12 border-t border-slate-100 dark:border-white/10 flex flex-col md:flex-row justify-between items-center gap-8 text-center md:text-left">
+          <div className="flex items-center gap-8 justify-center md:justify-start">
             <div className="flex items-center gap-2 text-slate-600 dark:text-slate-400 text-[10px] font-bold uppercase tracking-widest">
               <Activity size={14} className="text-secondary" /> Diseñado y desarrollado en Policlínico Tabancura
             </div>

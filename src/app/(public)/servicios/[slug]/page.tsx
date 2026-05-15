@@ -142,11 +142,20 @@ export default async function ServicePage({ params }: { params: Promise<{ slug: 
   }
 
   const professionals = await getProfessionals();
+  const areaProfessionals = professionals.filter(p => p.area === area);
+  const proCount = areaProfessionals.length;
+
+  // Merge dynamic count into heroProps
+  const dynamicHeroProps = {
+    ...heroProps,
+    statsNumber: `+${proCount}`,
+    statsLabel: proCount === 1 ? "Especialista" : "Especialistas"
+  };
 
   return (
     <div id="top" className="min-h-screen bg-white dark:bg-slate-950 transition-colors duration-300">
       {/* Usamos el Hero global pero con props inyectadas para la categoría */}
-      <Hero {...heroProps} />
+      <Hero {...dynamicHeroProps} />
       
       <ProfessionalFilter key={slug} initialArea={area} professionals={professionals} />
 

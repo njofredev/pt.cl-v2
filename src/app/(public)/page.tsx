@@ -28,7 +28,12 @@ import {
 import { Button } from "@/components/ui/button";
 import Image from 'next/image';
 
-export default function Home() {
+import { Area, getProfessionals } from '@/data/professionals';
+
+export default async function Home() {
+  const professionals = await getProfessionals();
+  const totalPros = professionals.length;
+
   return (
     <main className="relative min-h-screen bg-transparent dark:bg-transparent antialiased overflow-x-hidden transition-colors duration-300">
       {/* 1. HERO SECTION DINÁMICO */}
@@ -37,11 +42,11 @@ export default function Home() {
         description={
           <>
             En Policlínico Tabancura te acompañamos en cada etapa con especialistas de excelencia y el trato humano que tú y tu familia merecen.
-            <span className="block mt-4 font-bold text-slate-700 dark:text-white">150+ prestaciones, <span className="text-secondary">60+ profesionales especializados.</span></span>
+            <span className="block mt-4 font-bold text-slate-700 dark:text-white">150+ prestaciones, <span className="text-secondary">{totalPros}+ profesionales especializados.</span></span>
           </>
         }
-        statsNumber="+10k"
-        statsLabel="Historias de bienestar"
+        statsNumber={`+${totalPros}`}
+        statsLabel="Profesionales de salud"
       />
 
       <section className="py-8 bg-transparent dark:bg-transparent">
