@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Star, Quote, Building2 } from 'lucide-react';
 
@@ -45,58 +45,19 @@ const DATA = {
     name: "Sucursal Vitacura",
     rating: "4.9",
     count: 53,
-    // Multiplicamos por 10 para que el buffer de scroll sea enorme y no haya cortes
-    reviews: Array(10).fill(VITACURA_RAW).flat()
+    reviews: [...VITACURA_RAW, ...VITACURA_RAW, ...VITACURA_RAW, ...VITACURA_RAW]
   },
   tribunales: {
     name: "Sucursal Tribunales",
     rating: "4.4",
     count: 30,
-    // Multiplicamos por 10
-    reviews: Array(10).fill(TRIBUNALES_RAW).flat()
+    reviews: [...TRIBUNALES_RAW, ...TRIBUNALES_RAW, ...TRIBUNALES_RAW, ...TRIBUNALES_RAW]
   }
 };
 
 export const GoogleReviews = () => {
   const [branch, setBranch] = useState<'vitacura' | 'tribunales'>('vitacura');
   const activeData = DATA[branch];
-  
-  const scrollRef = useRef<HTMLDivElement>(null);
-  const [isPaused, setIsPaused] = useState(false);
-
-  // Efecto para reiniciar el scroll a la mitad cada vez que cambiamos de sucursal
-  useEffect(() => {
-    if (scrollRef.current) {
-      const { scrollWidth } = scrollRef.current;
-      scrollRef.current.scrollLeft = scrollWidth / 2;
-    }
-  }, [branch]);
-
-  // Lógica de Scroll Infinito Matemático
-  const handleScroll = () => {
-    if (!scrollRef.current) return;
-    const { scrollLeft, scrollWidth } = scrollRef.current;
-    const singleSetWidth = scrollWidth / 10; 
-
-    // Si avanza hacia el final (10 sets), vuelve al set 4 para mantener centro
-    if (scrollLeft >= singleSetWidth * 8) {
-      scrollRef.current.scrollLeft = singleSetWidth * 3;
-    }
-    // Si retrocede por debajo del set 2, salta al set 6
-    if (scrollLeft <= singleSetWidth * 1) {
-      scrollRef.current.scrollLeft = singleSetWidth * 5;
-    }
-  };
-
-  // Ticker de Movimiento Continuo
-  useEffect(() => {
-    const interval = setInterval(() => {
-      if (!isPaused && scrollRef.current) {
-        scrollRef.current.scrollBy({ left: 0.8, behavior: "auto" }); // Velocidad lenta elegante
-      }
-    }, 16);
-    return () => clearInterval(interval);
-  }, [isPaused]);
 
   return (
     <section className="py-16 relative overflow-hidden bg-transparent dark:bg-transparent">
@@ -110,7 +71,7 @@ export const GoogleReviews = () => {
                   <Star key={i} size={16} fill="#EA4335" className="text-[#EA4335]" />
                 ))}
               </div>
-              <span className="text-[11px] font-bold uppercase tracking-widest text-slate-500 dark:text-slate-300">Reseñas Verificadas</span>
+              <span className="text-[11px] font-bold uppercase tracking-widest text-slate-600 dark:text-slate-400">Reseñas Verificadas</span>
             </div>
             <h2 className="text-3xl md:text-5xl font-bold text-primary dark:text-white tracking-tighter leading-[0.9] mb-6">
               Tu opinión nos importa. <br /><span className="text-transparent bg-clip-text bg-gradient-to-r from-primary via-teal-500 to-secondary">Experiencias reales.</span>
@@ -125,7 +86,7 @@ export const GoogleReviews = () => {
                   className={`relative px-5 py-2.5 text-[11px] font-black uppercase tracking-widest rounded-xl transition-all duration-300 ${
                     branch === b 
                     ? 'text-white shadow-lg shadow-primary/20 bg-primary' 
-                    : 'text-slate-500 hover:text-primary dark:hover:text-white'
+                    : 'text-slate-600 hover:text-primary dark:text-slate-400 dark:hover:text-white'
                   }`}
                 >
                   <div className="relative z-10 flex items-center gap-2">
@@ -146,7 +107,6 @@ export const GoogleReviews = () => {
               exit={{ opacity: 0, y: -10 }}
               className="bg-white dark:bg-slate-900 p-6 sm:p-8 rounded-[2.5rem] shadow-xl shadow-primary/5 border border-slate-100 dark:border-slate-800 flex items-center gap-6 relative overflow-hidden shrink-0"
             >
-              {/* Watermark Google */}
               <svg className="absolute -right-4 -bottom-4 w-24 h-24 opacity-[0.03] dark:opacity-[0.05]" viewBox="0 0 24 24">
                  <path fill="currentColor" d="M12.545,10.239v3.821h5.445c-0.712,2.315-2.647,3.972-5.445,3.972c-3.332,0-6.033-2.701-6.033-6.032s2.701-6.032,6.033-6.032c1.498,0,2.866,0.549,3.921,1.453l2.814-2.814C17.503,2.988,15.139,2,12.545,2C7.021,2,2.543,6.477,2.543,12s4.478,10,10.002,10c8.396,0,10.249-7.85,9.426-11.748L12.545,10.239z"/>
               </svg>
@@ -168,7 +128,7 @@ export const GoogleReviews = () => {
                     <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l3.66-2.84z"/>
                     <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/>
                   </svg>
-                  <span className="text-xs font-bold uppercase tracking-widest text-slate-500 dark:text-slate-300">Google Rating</span>
+                  <span className="text-xs font-bold uppercase tracking-widest text-slate-600 dark:text-slate-400">Google Rating</span>
                 </div>
                 <p className="text-[13px] font-medium text-slate-600 dark:text-slate-300">
                   Basado en <span className="font-black text-primary dark:text-secondary">{activeData.count} opiniones</span> reales
@@ -179,17 +139,11 @@ export const GoogleReviews = () => {
         </div>
       </div>
 
-      {/* Sistema Carrusel Infinito 100% Confiable con Detección Matemática de Scroll */}
       <div 
-        className="relative w-full [mask-image:linear-gradient(to_right,transparent,black_10%,black_90%,transparent)] group py-2"
-        onMouseEnter={() => setIsPaused(true)}
-        onMouseLeave={() => setIsPaused(false)}
+        className="relative w-full [mask-image:linear-gradient(to_right,transparent,black_10%,black_90%,transparent)] py-2"
       >
         <div 
-          ref={scrollRef}
-          onScroll={handleScroll}
-          className="flex gap-6 overflow-x-auto hide-scrollbar py-4 px-6 select-none"
-          style={{ scrollBehavior: 'auto' }}
+          className="flex w-fit animate-marquee hover:[animation-play-state:paused] gap-6 py-4 px-6"
         >
           {activeData.reviews.map((review, idx) => (
             <motion.div 
@@ -226,7 +180,6 @@ export const GoogleReviews = () => {
         </div>
       </div>
 
-      {/* CTA: Dejar Reseña en Google */}
       <div className="container mx-auto px-6 mt-12 relative z-10 text-center">
         <div className="flex flex-col items-center justify-center gap-3">
           <p className="text-[11px] font-bold text-slate-500 dark:text-slate-300 uppercase tracking-[0.2em]">
@@ -267,7 +220,6 @@ export const GoogleReviews = () => {
           </div>
         </div>
       </div>
-
     </section>
   );
 };

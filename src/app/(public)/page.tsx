@@ -167,6 +167,9 @@ export default function Home() {
                       scrolling="no"
                       frameBorder="0"
                       title="Validador Tarjeta Mi Vita"
+                      loading="lazy"
+                      sandbox="allow-scripts allow-same-origin allow-forms allow-popups"
+                      referrerPolicy="no-referrer-when-downgrade"
                     />
                   </div>
                 </div>

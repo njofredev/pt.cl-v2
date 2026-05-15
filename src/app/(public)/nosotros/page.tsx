@@ -81,8 +81,8 @@ export default function NosotrosPage() {
             viewport={{ once: true }}
             className="w-full max-w-4xl mx-auto group"
           >
-            <div className="relative rounded-[2.5rem] bg-slate-50 dark:bg-slate-900 p-4 border border-slate-100 dark:border-white/5 overflow-hidden shadow-xl shadow-slate-200/30 dark:shadow-none transition-all hover:shadow-2xl hover:-translate-y-1 duration-500">
-              <div className="relative aspect-[16/9] w-full rounded-[2rem] overflow-hidden border border-white/20">
+            <div className="relative rounded-[2.5rem] bg-slate-50 dark:bg-slate-900 p-3 sm:p-4 border border-slate-100 dark:border-white/5 overflow-hidden shadow-xl shadow-slate-200/30 dark:shadow-none transition-all hover:shadow-2xl hover:-translate-y-1 duration-500">
+              <div className="relative aspect-[16/9] w-full rounded-[1.8rem] sm:rounded-[2rem] overflow-hidden border border-white/20">
                 <Image 
                   src="/imagenes_general/Fundadoras.jpeg"
                   alt="Nuestras Fundadoras"
@@ -90,13 +90,21 @@ export default function NosotrosPage() {
                   className="object-cover object-center group-hover:scale-105 transition-transform duration-700 ease-out"
                   sizes="(max-width: 1024px) 100vw, 896px"
                 />
-                {/* Overlay de nombres elegante al hover */}
-                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-80 lg:opacity-0 lg:group-hover:opacity-100 transition-opacity duration-500 flex flex-col justify-end p-8 text-white">
+                {/* Overlay de nombres elegante - Solo Desktop (al hover) */}
+                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-0 lg:group-hover:opacity-100 transition-opacity duration-500 hidden lg:flex flex-col justify-end p-8 text-white">
                   <p className="text-xs font-bold uppercase tracking-widest text-secondary mb-2">Identidad Histórica</p>
                   <p className="text-sm md:text-base font-medium leading-relaxed">
                     <span className="font-black">De izq a der:</span> Sra. Paz Correa, Beatriz Lambert, Isabel Prieto, Patricia Braun, Gloria Correa, Isabel Braun.
                   </p>
                 </div>
+              </div>
+
+              {/* Texto debajo de la imagen - Solo Mobile */}
+              <div className="lg:hidden px-4 py-8 text-center sm:text-left bg-white dark:bg-slate-900/50 rounded-b-[2rem]">
+                 <p className="text-[10px] font-black uppercase tracking-widest text-secondary mb-3">Identidad Histórica</p>
+                 <p className="text-sm text-slate-600 dark:text-slate-300 font-medium leading-relaxed">
+                    <span className="font-black text-primary dark:text-secondary">De izq a der:</span> Sra. Paz Correa, Beatriz Lambert, Isabel Prieto, Patricia Braun, Gloria Correa, Isabel Braun.
+                 </p>
               </div>
             </div>
           </motion.div>
@@ -393,8 +401,6 @@ export default function NosotrosPage() {
                 <ChevronRight size={16} className="text-slate-300 dark:text-slate-600 group-hover:text-primary dark:group-hover:text-secondary group-hover:translate-x-0.5 transition-all ml-1" />
               </Link>
             ))}
-            
-
           </div>
         </div>
       </section>

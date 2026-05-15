@@ -18,7 +18,7 @@ import Image from 'next/image';
 const branches = [
   {
     id: 'tribunales',
-    name: 'Sucursal Los Tribunales',
+    name: 'Casa Matriz - Los Tribunales',
     address: 'Calle Los Tribunales #1268, Vitacura, Santiago',
     mapLink: 'https://www.google.com/maps/search/?api=1&query=Calle+Los+Tribunales+1268+Vitacura',
     hours: [
@@ -167,7 +167,7 @@ export const Branches = () => {
                         </div>
                       ) : (
                         <>
-                          <div className="absolute inset-0 bg-gradient-to-t from-primary/70 via-primary/20 to-transparent z-10 transition-opacity duration-500 group-hover/img:opacity-50" />
+                          <div className="absolute inset-0 bg-gradient-to-t from-primary/90 via-primary/30 to-transparent z-10 transition-opacity duration-500 group-hover/img:opacity-60 pointer-events-none" />
                           <div className="relative w-full h-full">
                             <Image
                               src={branch.image}
@@ -196,20 +196,18 @@ export const Branches = () => {
 
                     {/* Time / Horarios Box packaged beautifully */}
                     <div className="mb-8">
-                      <div className="flex gap-4 items-center bg-white/[0.04] rounded-2xl p-4.5 border border-white/5 group-hover:border-secondary/20 group-hover:bg-white/[0.06] transition-all duration-300">
-                        <div className="w-10 h-10 rounded-xl bg-white/5 flex items-center justify-center text-secondary shrink-0 shadow-inner">
+                      <div className="flex gap-4 items-start bg-white/[0.04] rounded-2xl p-5 border border-white/5 group-hover:border-secondary/20 group-hover:bg-white/[0.06] transition-all duration-300">
+                        <div className="w-10 h-10 rounded-xl bg-white/5 flex items-center justify-center text-secondary shrink-0 shadow-inner mt-0.5">
                           <Clock size={18} />
                         </div>
-                        <div className="flex flex-col md:flex-row md:items-center gap-x-3 gap-y-1">
-                          <span className="text-[10px] font-black uppercase tracking-widest text-slate-300 shrink-0">Horarios de Atención:</span>
-                          <div className="text-slate-200 text-[13px] sm:text-[14px] font-semibold">
+                        <div className="flex flex-col gap-2 flex-1">
+                          <span className="text-[10px] font-black uppercase tracking-widest text-slate-400">Horarios de Atención</span>
+                          <div className="flex flex-col gap-1.5">
                             {branch.hours.map((h, i) => (
-                              <React.Fragment key={i}>
-                                <span className="text-secondary font-bold mr-1">{h.day}:</span>
-                                <span className="font-medium text-white/90">{h.time}</span>
-                                {i < branch.hours.length - 1 && <span className="mx-2 text-white/10 hidden md:inline">|</span>}
-                                {i < branch.hours.length - 1 && <br className="md:hidden" />}
-                              </React.Fragment>
+                              <div key={i} className="flex flex-col sm:flex-row sm:items-baseline gap-1 sm:gap-2">
+                                <span className="text-secondary font-bold text-[11px] uppercase tracking-wider shrink-0 min-w-[120px]">{h.day}:</span>
+                                <span className="text-slate-200 text-[13px] sm:text-[14px] font-semibold leading-tight">{h.time}</span>
+                              </div>
                             ))}
                           </div>
                         </div>

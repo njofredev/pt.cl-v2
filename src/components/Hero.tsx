@@ -40,6 +40,7 @@ export interface HeroProps {
   isInlineIcon?: boolean;
   secondaryButtonText?: string;
   secondaryButtonAnchorId?: string;
+  sliderAnchorId?: string;
 }
 
 const DEFAULT_IMAGES = [
@@ -63,7 +64,8 @@ export const Hero = ({
   floatingIconBg = "bg-secondary",
   isInlineIcon = false,
   secondaryButtonText,
-  secondaryButtonAnchorId
+  secondaryButtonAnchorId,
+  sliderAnchorId
 }: HeroProps) => {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
 
@@ -78,11 +80,17 @@ export const Hero = ({
   }, [images.length]);
 
   const handleSliderClick = () => {
-    const el = document.getElementById('sucursales');
+    // Si estamos en una página de servicio (donde images != DEFAULT_IMAGES), 
+    // no redirigimos a la home a menos que sliderAnchorId esté definido.
+    const targetId = sliderAnchorId || (images === DEFAULT_IMAGES ? 'sucursales' : null);
+    
+    if (!targetId) return;
+
+    const el = document.getElementById(targetId);
     if (el) {
       el.scrollIntoView({ behavior: 'smooth' });
-    } else {
-      window.location.href = '/#sucursales';
+    } else if (typeof window !== 'undefined' && window.location.pathname === '/') {
+      window.location.href = `#${targetId}`;
     }
   };
 
@@ -94,7 +102,7 @@ export const Hero = ({
         <motion.div
           initial={{ opacity: 0, x: -30 }}
           animate={{ opacity: 1, x: 0 }}
-          transition={{ duration: 0.6 }}
+          transition={{ duration: 0.5 }}
           className="flex flex-col items-center sm:items-start text-center sm:text-left"
         >
           <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-primary text-white text-[10px] font-bold uppercase tracking-widest mb-5 md:mb-8">
@@ -108,8 +116,9 @@ export const Hero = ({
             {description}
           </p>
           <div className="flex flex-col sm:flex-row items-center sm:items-center gap-4 flex-wrap">
-            <div
-              className="relative inline-flex cursor-pointer select-none group"
+            <button
+              type="button"
+              className="relative inline-flex cursor-pointer select-none group border-none bg-transparent p-0 outline-none"
               onClick={() => {
                 const el = document.getElementById('agendar');
                 if (el) el.scrollIntoView({ behavior: 'smooth' });
@@ -131,7 +140,7 @@ export const Hero = ({
                   <FloatingIcon className="w-4 h-4 sm:w-5 sm:h-5" strokeWidth={2.5} />
                 </div>
               )}
-            </div>
+            </button>
 
             {/* Botón Secundario Condicional */}
             {secondaryButtonText && (
@@ -159,32 +168,36 @@ export const Hero = ({
 
         {/* Elemento Visual de Identidad: Slider de Sucursales / Especialidad */}
         <motion.div
-          initial={{ opacity: 0, scale: 0.8 }}
+          initial={{ opacity: 0.01, scale: 0.98 }}
           animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 0.8, delay: 0.2 }}
+          transition={{ duration: 0.4 }}
           className="relative"
         >
           <div 
             onClick={handleSliderClick}
-            className="relative z-10 bg-slate-100 dark:bg-slate-900 rounded-[2rem] sm:rounded-[3rem] p-3 sm:p-4 shadow-lg shadow-slate-200/50 dark:shadow-none border-4 sm:border-8 border-white dark:border-slate-900 overflow-hidden aspect-[4/3] cursor-pointer group/slider hover:shadow-2xl transition-all duration-500 transform active:scale-[0.99]"
+            className={`relative z-10 bg-slate-100 dark:bg-slate-900 rounded-[2rem] sm:rounded-[3rem] p-3 sm:p-4 shadow-lg shadow-slate-200/50 dark:shadow-none border-4 sm:border-8 border-white dark:border-slate-900 overflow-hidden aspect-[4/3] group/slider hover:shadow-2xl transition-all duration-500 transform active:scale-[0.99] ${
+              (sliderAnchorId || images === DEFAULT_IMAGES) ? 'cursor-pointer' : 'cursor-default'
+            }`}
           >
             <div className="relative w-full h-full rounded-[1.7rem] sm:rounded-[2.5rem] overflow-hidden">
               <AnimatePresence initial={false}>
                 <motion.div
                   key={currentImageIndex}
-                  initial={{ opacity: 0 }}
+                  initial={currentImageIndex === 0 ? { opacity: 1 } : { opacity: 0 }}
                   animate={{ opacity: 1 }}
                   exit={{ opacity: 0 }}
-                  transition={{ duration: 1.5, ease: "easeInOut" }}
+                  transition={{ duration: currentImageIndex === 0 ? 0 : 1.2, ease: "easeInOut" }}
                   className="absolute inset-0 w-full h-full"
                 >
-                  <Image
+                    <Image
                     src={images[currentImageIndex].src}
                     alt={images[currentImageIndex].alt}
                     fill
                     priority={currentImageIndex === 0}
+                    {...({ fetchPriority: currentImageIndex === 0 ? "high" : undefined } as any)}
                     className="object-cover group-hover/slider:scale-105 transition-transform duration-700"
-                    sizes="(max-width: 768px) 100vw, 50vw"
+                    sizes="(max-width: 640px) 100vw, (max-width: 1024px) 80vw, 1200px"
+                    quality={currentImageIndex === 0 ? 90 : 75}
                   />
                 </motion.div>
               </AnimatePresence>
@@ -200,20 +213,22 @@ export const Hero = ({
               </div>
 
               {/* Puntos de paginación */}
-              <div className="flex gap-1 bg-black/20 p-1 rounded-full backdrop-blur-sm">
-                {images.map((_, i) => (
-                  <button
-                    key={i}
-                    onClick={(e) => { e.stopPropagation(); setCurrentImageIndex(i); }}
-                    aria-label={`Ver imagen de sucursal ${i + 1}`}
-                    className="w-6 h-6 flex items-center justify-center cursor-pointer focus:outline-none group"
-                  >
-                    <div className={`h-2 rounded-full transition-all duration-300 ${
-                      i === currentImageIndex ? 'w-4 bg-white' : 'w-2 bg-white/50 group-hover:bg-white'
-                    }`} />
-                  </button>
-                ))}
-              </div>
+              {images.length > 1 && (
+                <div className="flex gap-1 bg-black/20 p-1 rounded-full backdrop-blur-sm">
+                  {images.map((_, i) => (
+                    <button
+                      key={i}
+                      onClick={(e) => { e.stopPropagation(); setCurrentImageIndex(i); }}
+                      aria-label={`Ver imagen ${i + 1}`}
+                      className="w-6 h-6 flex items-center justify-center cursor-pointer focus:outline-none group"
+                    >
+                      <div className={`h-2 rounded-full transition-all duration-300 ${
+                        i === currentImageIndex ? 'w-4 bg-white' : 'w-2 bg-white/50 group-hover:bg-white'
+                      }`} />
+                    </button>
+                  ))}
+                </div>
+              )}
             </div>
           </div>
           {/* Badge flotante de confianza */}

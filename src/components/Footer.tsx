@@ -25,6 +25,13 @@ interface FooterSectionProps {
 const FooterSection = ({ title, links }: FooterSectionProps) => {
   const [isOpen, setIsOpen] = useState(false);
 
+  const scrollToTop = (e: React.MouseEvent, href: string) => {
+    if (href === '/' && typeof window !== 'undefined' && window.location.pathname === '/') {
+      e.preventDefault();
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+  };
+
   return (
     <div className="border-b border-slate-100 dark:border-white/5 md:border-none">
       {/* Versión Desktop */}
@@ -33,7 +40,13 @@ const FooterSection = ({ title, links }: FooterSectionProps) => {
         <ul className="space-y-4">
           {links.map((item) => (
             <li key={item.name}>
-              <Link href={item.href} className="text-slate-500 dark:text-slate-300 hover:text-primary dark:hover:text-white transition-colors font-medium text-sm sm:text-base">{item.name}</Link>
+              <Link 
+                href={item.href} 
+                onClick={(e) => scrollToTop(e, item.href)}
+                className="text-slate-500 dark:text-slate-300 hover:text-primary dark:hover:text-white transition-colors font-medium text-sm sm:text-base"
+              >
+                {item.name}
+              </Link>
             </li>
           ))}
         </ul>
@@ -67,6 +80,10 @@ const FooterSection = ({ title, links }: FooterSectionProps) => {
                   <li key={item.name}>
                     <Link 
                       href={item.href} 
+                      onClick={(e) => {
+                        scrollToTop(e, item.href);
+                        setIsOpen(false);
+                      }}
                       className="text-slate-500 dark:text-slate-300 active:text-secondary transition-colors font-medium text-sm block py-1"
                     >
                       {item.name}
@@ -115,6 +132,8 @@ const LogoTicker = ({ title, logos, speed = 15 }: { title: string, logos: string
               <img 
                 src={src} 
                 alt="Convenio o Tecnología Integrada" 
+                width={120}
+                height={40}
                 className="h-9 w-auto object-contain px-1" 
               />
             </div>
@@ -135,7 +154,13 @@ export const Footer = () => {
           <div className="space-y-6 mb-4 md:mb-0 flex flex-col h-full">
             <div>
               <Link href="/" className="flex items-center gap-3 mb-6">
-                <img src="/logo.svg" alt="Logo" className="h-12 w-auto dark:brightness-0 dark:invert" />
+                <img 
+                  src="/logo.svg" 
+                  alt="Logo" 
+                  width={150}
+                  height={50}
+                  className="h-12 w-auto dark:brightness-0 dark:invert" 
+                />
               </Link>
               <p className="text-slate-600 dark:text-slate-300 font-medium leading-relaxed text-sm sm:text-base mb-6">
                 Tecnología y cuidado humano al servicio de tu salud. Más de 20 años innovando en medicina integral.
@@ -193,7 +218,7 @@ export const Footer = () => {
 
           {/* Site Map: Servicios */}
           <FooterSection 
-            title="Servicios"
+            title="Especialidades"
             links={[
               { name: 'Salud Dental', href: '/servicios/dental' },
               { name: 'Salud Mental', href: '/servicios/mental' },
@@ -225,7 +250,7 @@ export const Footer = () => {
                   <div className="h-px w-4 bg-secondary/30"></div>
                   <span className="text-slate-900 dark:text-white text-[11px] font-bold uppercase tracking-widest">Sucursal Vitacura</span>
                 </div>
-                <a href="https://www.google.com/maps/search/?api=1&query=Avenida+Vitacura+8620+Vitacura" target="_blank" rel="noreferrer" className="flex gap-3 text-slate-600 dark:text-slate-300 hover:text-primary dark:hover:text-white transition-colors group text-sm items-start">
+                <a href="https://www.google.com/maps/search/?api=1&query=Avenida+Vitacura+8620+Vitacura" target="_blank" rel="noopener noreferrer" className="flex gap-3 text-slate-600 dark:text-slate-300 hover:text-primary dark:hover:text-white transition-colors group text-sm items-start">
                   <MapPin className="text-secondary shrink-0 mt-0.5 group-hover:scale-110 transition-transform" size={16} />
                   <span className="font-medium">Av. Vitacura 8620</span>
                 </a>
@@ -233,7 +258,7 @@ export const Footer = () => {
                   <Phone className="text-secondary shrink-0 group-hover:scale-110 transition-transform" size={16} />
                   <span className="font-medium">+56 2 2933 6740</span>
                 </a>
-                <a href="https://wa.me/56965781253" target="_blank" rel="noreferrer" className="flex gap-3 text-slate-600 dark:text-slate-300 hover:text-emerald-500 dark:hover:text-emerald-400 transition-colors group text-sm items-center">
+                <a href="https://wa.me/56965781253" target="_blank" rel="noopener noreferrer" className="flex gap-3 text-slate-600 dark:text-slate-300 hover:text-emerald-500 dark:hover:text-emerald-400 transition-colors group text-sm items-center">
                   <WhatsAppIcon className="text-emerald-500 shrink-0 group-hover:scale-110 transition-transform" size={16} />
                   <span className="font-medium">+56 9 6578 1253</span>
                 </a>
@@ -253,7 +278,7 @@ export const Footer = () => {
                   <div className="h-px w-4 bg-secondary/30"></div>
                   <span className="text-slate-900 dark:text-white text-[11px] font-bold uppercase tracking-widest">Sucursal Los Tribunales</span>
                 </div>
-                <a href="https://www.google.com/maps/search/?api=1&query=Calle+Los+Tribunales+1268+Vitacura" target="_blank" rel="noreferrer" className="flex gap-3 text-slate-600 dark:text-slate-300 hover:text-primary dark:hover:text-white transition-colors group text-sm items-start">
+                <a href="https://www.google.com/maps/search/?api=1&query=Calle+Los+Tribunales+1268+Vitacura" target="_blank" rel="noopener noreferrer" className="flex gap-3 text-slate-600 dark:text-slate-300 hover:text-primary dark:hover:text-white transition-colors group text-sm items-start">
                   <MapPin className="text-secondary shrink-0 mt-0.5 group-hover:scale-110 transition-transform" size={16} />
                   <span className="font-medium">Calle Los Tribunales #1268</span>
                 </a>
@@ -261,7 +286,7 @@ export const Footer = () => {
                   <Phone className="text-secondary shrink-0 group-hover:scale-110 transition-transform" size={16} />
                   <span className="font-medium">+56 2 2217 2635</span>
                 </a>
-                <a href="https://wa.me/56966187736" target="_blank" rel="noreferrer" className="flex gap-3 text-slate-600 dark:text-slate-300 hover:text-emerald-500 dark:hover:text-emerald-400 transition-colors group text-sm items-center">
+                <a href="https://wa.me/56966187736" target="_blank" rel="noopener noreferrer" className="flex gap-3 text-slate-600 dark:text-slate-300 hover:text-emerald-500 dark:hover:text-emerald-400 transition-colors group text-sm items-center">
                   <WhatsAppIcon className="text-emerald-500 shrink-0 group-hover:scale-110 transition-transform" size={16} />
                   <span className="font-medium">+56 9 6618 7736</span>
                 </a>

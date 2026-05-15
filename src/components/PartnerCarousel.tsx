@@ -1,7 +1,6 @@
 "use client";
 
-import React, { useRef, useState, useEffect } from "react";
-import { motion } from "framer-motion";
+import React from "react";
 import Image from "next/image";
 
 const PARTNERS = [
@@ -19,70 +18,28 @@ const PARTNERS = [
   { name: 'UTFSM', file: 'utfsm.png' },
 ];
 
-// Triplicamos para asegurar que el scroll infinito sea fluido
-const INFINITE_PARTNERS = [...PARTNERS, ...PARTNERS, ...PARTNERS];
+// Duplicamos para asegurar que el scroll infinito sea fluido con la animación CSS
+const INFINITE_PARTNERS = [...PARTNERS, ...PARTNERS];
 
 export function PartnerCarousel() {
-  const carouselRef = useRef<HTMLDivElement>(null);
-  const [isPaused, setIsPaused] = useState(false);
-
-  // Lógica de Scroll Infinito sin saltos visuales
-  const handleScroll = () => {
-    if (!carouselRef.current) return;
-    const { scrollLeft, scrollWidth } = carouselRef.current;
-    const singleSetWidth = scrollWidth / 3;
-
-    if (scrollLeft >= singleSetWidth * 2) {
-      carouselRef.current.scrollLeft = scrollLeft - singleSetWidth;
-    }
-    if (scrollLeft <= 0) {
-      carouselRef.current.scrollLeft = singleSetWidth;
-    }
-  };
-
-  useEffect(() => {
-    if (carouselRef.current) {
-      const singleSetWidth = carouselRef.current.scrollWidth / 3;
-      carouselRef.current.scrollLeft = singleSetWidth;
-    }
-  }, []);
-
-  useEffect(() => {
-    const interval = setInterval(() => {
-      if (!isPaused && carouselRef.current) {
-        carouselRef.current.scrollBy({ left: 1, behavior: "auto" });
-      }
-    }, 20); // Velocidad de giro constante
-
-    return () => clearInterval(interval);
-  }, [isPaused]);
-
   return (
     <div 
       className="relative w-full overflow-hidden py-4 group [mask-image:linear-gradient(to_right,transparent,black_10%,black_90%,transparent)]"
-      onMouseEnter={() => setIsPaused(true)}
-      onMouseLeave={() => setIsPaused(false)}
     >
-
-      {/* Contenedor del Carrusel */}
-      <div 
-        ref={carouselRef}
-        onScroll={handleScroll}
-        className="flex gap-20 md:gap-32 overflow-x-auto hide-scrollbar items-center py-4 select-none"
-        style={{ scrollBehavior: 'auto' }}
-      >
+      {/* Contenedor del Carrusel con Animación CSS Marquee (definida en globals.css) */}
+      <div className="flex w-fit animate-marquee hover:[animation-play-state:paused] py-4">
         {INFINITE_PARTNERS.map((partner, i) => (
           <div
             key={i}
-            className="relative shrink-0 h-14 w-28 md:h-20 md:w-40 transition-all duration-700 hover:scale-150"
+            className="relative shrink-0 h-14 w-28 md:h-20 md:w-40 transition-all duration-700 hover:scale-110 mx-10 md:mx-16"
           >
             <Image 
               src={`/logos_convenios_prevision/${partner.file}`} 
               alt={partner.name} 
               fill
-              sizes="(max-width: 768px) 112px, 160px"
+              sizes="160px"
               className="object-contain opacity-50 grayscale dark:invert hover:opacity-100 hover:grayscale-0 hover:invert-0 dark:hover:invert-0 transition-all duration-700 cursor-pointer dark:drop-shadow-[0_0_3px_rgba(255,255,255,0.15)]" 
-              priority={i < 5}
+              priority={i < 3}
             />
           </div>
         ))}

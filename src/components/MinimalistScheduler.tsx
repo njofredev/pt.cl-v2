@@ -194,7 +194,7 @@ export function MinimalistScheduler({ initialCategoryId }: { initialCategoryId?:
 
   const handleCategoryClick = (category: Category) => {
     if (category.id === "tomaMuestras") {
-      window.open(category.services[0].link, '_blank');
+      window.open(category.services[0].link, '_blank', 'noopener');
     } else {
       setSelectedCategory(category);
     }
@@ -342,7 +342,7 @@ export function MinimalistScheduler({ initialCategoryId }: { initialCategoryId?:
                             {svc.options?.map((opt, optIdx) => (
                               <button
                                 key={optIdx}
-                                onClick={() => window.open(opt.link, '_blank')}
+                                onClick={() => window.open(opt.link, '_blank', 'noopener')}
                                 className="text-[10px] sm:text-[11px] font-bold py-2 bg-white dark:bg-slate-800 rounded-full border border-secondary/40 hover:border-secondary dark:border-slate-700 text-secondary hover:bg-secondary hover:text-white dark:hover:bg-secondary dark:hover:text-slate-900 transition-all whitespace-nowrap cursor-pointer text-center uppercase tracking-wider"
                               >
                                 {opt.label}
@@ -352,7 +352,7 @@ export function MinimalistScheduler({ initialCategoryId }: { initialCategoryId?:
                         </div>
                       ) : (
                         <button
-                          onClick={() => window.open(svc.link, '_blank')}
+                          onClick={() => window.open(svc.link, '_blank', 'noopener')}
                           className="w-full h-full p-4 sm:p-6 rounded-[1.5rem] sm:rounded-[2rem] border border-slate-200/80 dark:border-slate-800 hover:border-secondary/20 dark:hover:border-secondary/40 bg-slate-50/50 dark:bg-slate-950/50 hover:bg-white dark:hover:bg-slate-900 transition-all group/btn min-h-[120px] sm:min-h-[110px] flex flex-col justify-between gap-4 shadow-sm shadow-slate-200/40 dark:shadow-none hover:shadow-xl hover:shadow-slate-200/50 dark:hover:shadow-none hover:-translate-y-0.5"
                         >
                           <div className="flex flex-col gap-1 items-start text-left w-full">

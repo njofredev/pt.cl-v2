@@ -2,7 +2,12 @@
 
 import React, { useState, useMemo, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Search, User, ChevronRight, ChevronDown, Filter, X, Info, GraduationCap, MapPin, Sparkles, SmilePlus, Brain, Stethoscope, Leaf, CalendarDays, Video } from 'lucide-react';
+import { 
+  Search, User, ChevronRight, ChevronDown, Filter, X, Info, GraduationCap, MapPin, 
+  Sparkles, SmilePlus, Brain, Stethoscope, Leaf, CalendarDays, Video, Activity, 
+  Bone, Scissors, Ear, Smile, Users, ShieldAlert, Pill, Footprints, Baby, 
+  Syringe, ShieldPlus, Hand, Zap, Trash2 
+} from 'lucide-react';
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -10,38 +15,121 @@ import { Card, CardContent } from "@/components/ui/card";
 import { AREAS, Area, Professional } from '@/data/professionals';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger, DialogClose } from "@/components/ui/dialog";
 import Image from 'next/image';
-import { Activity, Bone, Scissors, Ear, Smile, Users, ShieldAlert, Pill, Footprints, Baby, Syringe, ShieldPlus, Hand, Zap } from 'lucide-react';
 
 // Base de datos visual de descripciones e iconos para especialidades por área
-const SPECIALTY_METADATA: Record<string, { description: string, icon: any }> = {
+const SPECIALTY_METADATA: Record<string, { description: string, icon: any, focus?: string[] }> = {
   // Salud Dental
-  'Odontología General': { description: "Diagnóstico integral y prevención para mantener tu sonrisa sana todos los días.", icon: Smile },
-  'Implantología': { description: "Restauración permanente de piezas dentales con prótesis seguras sobre implantes.", icon: Sparkles },
-  'Ortodoncia': { description: "Alineación dental y corrección de mordida para una estética y funcionalidad perfecta.", icon: SmilePlus },
-  'Endodoncia': { description: "Tratamiento especializado del conducto para salvar piezas dentales dañadas.", icon: Pill },
-  'Periodoncia': { description: "Cuidado, tratamiento y prevención de enfermedades en las encías y tejidos.", icon: Activity },
-  'Rehabilitación Oral': { description: "Recuperación estética y funcional de la boca mediante prótesis avanzadas.", icon: ShieldPlus },
-  'Odontopediatría': { description: "Atención odontológica delicada y enfocada en la salud bucal de los niños.", icon: Baby },
-  'Trastornos Temporomandibulares': { description: "Diagnóstico y alivio del dolor de la articulación mandibular y el bruxismo.", icon: ShieldAlert },
-  'Radiología': { description: "Diagnóstico por imagen de alta precisión para guiar tus tratamientos.", icon: Search },
-  'Cirugía, Implantología': { description: "Intervenciones quirúrgicas maxilofaciales y colocación de implantes.", icon: Scissors },
+  'Odontología General': { 
+    description: "Diagnóstico integral y prevención para mantener tu sonrisa sana todos los días.", 
+    icon: Smile,
+    focus: ["Limpiezas profundas", "Restauraciones estéticas", "Prevención de caries", "Urgencias dentales"]
+  },
+  'Implantología': { 
+    description: "Restauración permanente de piezas dentales con prótesis seguras sobre implantes.", 
+    icon: Sparkles,
+    focus: ["Cirugía mínimamente invasiva", "Carga inmediata", "Prótesis fijas", "Injertos óseos"]
+  },
+  'Ortodoncia': { 
+    description: "Alineación dental y corrección de mordida para una estética y funcionalidad perfecta.", 
+    icon: SmilePlus,
+    focus: ["Brackets metálicos y cerámicos", "Ortodoncia invisible", "Alineación funcional", "Estética dental"]
+  },
+  'Endodoncia': { 
+    description: "Tratamiento especializado del conducto para salvar piezas dentales dañadas.", 
+    icon: Pill,
+    focus: ["Tratamiento de conducto", "Alivio del dolor", "Tecnología rotatoria", "Salvamento dental"]
+  },
+  'Periodoncia': { 
+    description: "Cuidado, tratamiento y prevención de enfermedades en las encías y tejidos.", 
+    icon: Activity,
+    focus: ["Gingivitis y Periodontitis", "Salud gingival", "Cirugía periodontal", "Mantenimiento óseo"]
+  },
+  'Rehabilitación Oral': { 
+    description: "Recuperación estética y funcional de la boca mediante prótesis avanzadas.", 
+    icon: ShieldPlus,
+    focus: ["Coronas y puentes", "Diseño de sonrisa", "Prótesis removibles", "Oclusión funcional"]
+  },
+  'Odontopediatría': { 
+    description: "Atención odontológica delicada y enfocada en la salud bucal de los niños.", 
+    icon: Baby,
+    focus: ["Prevención infantil", "Sellantes y flúor", "Manejo conductual", "Ortodoncia preventiva"]
+  },
+  'Trastornos Temporomandibulares': { 
+    description: "Diagnóstico y alivio del dolor de la articulación mandibular y el bruxismo.", 
+    icon: ShieldAlert,
+    focus: ["Manejo del bruxismo", "Placas de relajación", "Dolor orofacial", "Disfunción articular"]
+  },
+  'Radiología': { 
+    description: "Diagnóstico por imagen de alta precisión para guiar tus tratamientos.", 
+    icon: Search,
+    focus: ["Radiografías panorámicas", "Scanner 3D (CBCT)", "Cefalometrías", "Diagnóstico digital"]
+  },
+  'Cirugía, Implantología': { 
+    description: "Intervenciones quirúrgicas maxilofaciales y colocación de implantes.", 
+    icon: Scissors,
+    focus: ["Extracciones complejas", "Terceros molares", "Implantes avanzados", "Cirugía oral"]
+  },
 
   // Salud Mental
-  'Psicología': { description: "Acompañamiento terapéutico para gestionar tus emociones y potenciar tu bienestar.", icon: Brain },
-  'Psiquiatría': { description: "Diagnóstico médico especializado y tratamiento farmacológico de la salud mental.", icon: Pill },
-  'Psicopedagogía': { description: "Orientación y potenciación de los procesos de aprendizaje infantil y juvenil.", icon: Users },
-  'Fonoaudiología': { description: "Terapia integral en la comunicación, el lenguaje, el habla y la deglución.", icon: Ear },
+  'Psicología': { 
+    description: "Acompañamiento terapéutico para gestionar tus emociones y potenciar tu bienestar.", 
+    icon: Brain,
+    focus: ["Terapia individual", "Manejo de ansiedad", "Apoyo emocional", "Desarrollo personal"]
+  },
+  'Psiquiatría': { 
+    description: "Diagnóstico médico especializado y tratamiento farmacológico de la salud mental.", 
+    icon: Pill,
+    focus: ["Tratamiento farmacológico", "Diagnóstico clínico", "Salud mental adulta", "Seguimiento médico"]
+  },
+  'Psicopedagogía': { 
+    description: "Orientación y potenciación de los procesos de aprendizaje infantil y juvenil.", 
+    icon: Users,
+    focus: ["Apoyo escolar", "Dificultades de aprendizaje", "Evaluación cognitiva", "Habilidades de estudio"]
+  },
+  'Fonoaudiología': { 
+    description: "Terapia integral en la comunicación, el lenguaje, el habla y la deglución.", 
+    icon: Ear,
+    focus: ["Terapia del lenguaje", "Trastornos del habla", "Deglución atípica", "Voz y comunicación"]
+  },
 
   // Medicina General
-  'Medicina': { description: "Atención médica primaria de confianza, chequeos y derivaciones preventivas.", icon: Stethoscope },
-  'Pediatría': { description: "Cuidado integral y seguimiento del crecimiento de los más pequeños.", icon: Baby },
-  'Kinesiología': { description: "Rehabilitación física motora, respiratoria y recuperación muscular integral.", icon: Activity },
-  'Enfermería': { description: "Atención clínica, administración de tratamientos y curaciones ambulatorias.", icon: Syringe },
-  'Podología': { description: "Cuidado profesional y tratamiento preventivo para la salud de tus pies.", icon: Footprints },
+  'Medicina': { 
+    description: "Atención médica primaria de confianza, chequeos y derivaciones preventivas.", 
+    icon: Stethoscope,
+    focus: ["Consulta general", "Control de enfermedades", "Chequeo preventivo", "Certificados médicos"]
+  },
+  'Pediatría': { 
+    description: "Cuidado integral y seguimiento del crecimiento de los más pequeños.", 
+    icon: Baby,
+    focus: ["Control niño sano", "Vacunatorio", "Enfermedades infantiles", "Crecimiento y desarrollo"]
+  },
+  'Kinesiología': { 
+    description: "Rehabilitación física motora, respiratoria y recuperación muscular integral.", 
+    icon: Activity,
+    focus: ["Rehabilitación física", "Kinesiología respiratoria", "Lesiones deportivas", "Post-operatorios"]
+  },
+  'Enfermería': { 
+    description: "Atención clínica, administración de tratamientos y curaciones ambulatorias.", 
+    icon: Syringe,
+    focus: ["Inyectables", "Curaciones", "Toma de presión", "Atención ambulatoria"]
+  },
+  'Podología': { 
+    description: "Cuidado profesional y tratamiento preventivo para la salud de tus pies.", 
+    icon: Footprints,
+    focus: ["Onicocriptosis", "Cuidado del pie diabético", "Tratamiento de callosidades", "Salud podal"]
+  },
 
   // Terapias
-  'Masoterapia': { description: "Técnicas manuales enfocadas en aliviar contracturas, tensiones y relajar el cuerpo.", icon: Hand },
-  'Biomagnetismo': { description: "Terapia alternativa con imanes para equilibrar la energía del organismo.", icon: Zap },
+  'Masoterapia': { 
+    description: "Técnicas manuales enfocadas en aliviar contracturas, tensiones y relajar el cuerpo.", 
+    icon: Hand,
+    focus: ["Masaje descontracturante", "Relajación integral", "Drenaje linfático", "Liberación miofascial"]
+  },
+  'Biomagnetismo': { 
+    description: "Terapia alternativa con imanes para equilibrar la energía del organismo.", 
+    icon: Zap,
+    focus: ["Equilibrio energético", "Terapia complementaria", "Bienestar natural", "Armonización"]
+  },
 };
 
 const CustomSelect = ({
@@ -115,6 +203,7 @@ export const ProfessionalFilter = ({ initialArea, professionals }: { initialArea
   const [selectedArea, setSelectedArea] = useState<Area | "Todas">(initialArea || "Todas");
   const [selectedSpecialty, setSelectedSpecialty] = useState<string>("Todas");
   const [selectedSucursal, setSelectedSucursal] = useState<string>("Todas");
+  const [selectedAgeGroup, setSelectedAgeGroup] = useState<string>("Todas");
   const [shuffledProfessionals, setShuffledProfessionals] = useState<Professional[]>([]);
 
   useEffect(() => {
@@ -126,6 +215,14 @@ export const ProfessionalFilter = ({ initialArea, professionals }: { initialArea
   const activeProfessionals = shuffledProfessionals.length > 0 ? shuffledProfessionals : professionals;
 
   const sucursales = ["Todas", "Los Tribunales", "Vitacura"];
+  const ageGroups = [
+    "Todas",
+    "Niños (0 a 11 años)",
+    "Adolescentes (12 a 17 años)",
+    "Adulto - Joven (18 a 29 años)",
+    "Adulto (30 a 59 años)",
+    "Tercera Edad (60 años en adelante)"
+  ];
 
   const specialties = useMemo(() => {
     const relevantPros = selectedArea === "Todas"
@@ -168,10 +265,13 @@ export const ProfessionalFilter = ({ initialArea, professionals }: { initialArea
           pSucursal.includes("matríz")
         )) ||
         (selectedSucursal === "Vitacura" && pSucursal.includes("vitacura"));
+      
+      const matchesAge = selectedAgeGroup === "Todas" || 
+        (p.ageGroup && p.ageGroup.toLowerCase().includes(selectedAgeGroup.toLowerCase().split('(')[0].trim()));
 
-      return matchesSearch && matchesArea && matchesSpecialty && matchesSucursal;
+      return matchesSearch && matchesArea && matchesSpecialty && matchesSucursal && matchesAge;
     });
-  }, [searchTerm, selectedArea, selectedSpecialty, selectedSucursal, activeProfessionals]);
+  }, [activeProfessionals, searchTerm, selectedArea, selectedSpecialty, selectedSucursal, selectedAgeGroup]);
 
   const handleSpecialtyClick = (specName: string) => {
     setSelectedSpecialty(specName);
@@ -261,8 +361,8 @@ export const ProfessionalFilter = ({ initialArea, professionals }: { initialArea
 
         {/* Barra de Filtros */}
         <div id="controles-filtro" className="scroll-mt-32 bg-white dark:bg-slate-900 p-6 rounded-[2rem] shadow-xl shadow-primary/5 dark:shadow-none border border-slate-100 dark:border-slate-800 mb-12">
-          <div className={`grid gap-6 items-end ${initialArea ? 'lg:grid-cols-3' : 'lg:grid-cols-4'}`}>
-            <div className="lg:col-span-1 space-y-2">
+          <div className={`grid grid-cols-1 md:grid-cols-2 gap-6 items-end ${!initialArea ? 'lg:grid-cols-[1.5fr,1fr,1fr,1fr,1fr,auto]' : 'lg:grid-cols-[1.5fr,1fr,1fr,1fr,auto]'}`}>
+            <div className="space-y-2">
               <label className="text-[10px] font-bold uppercase tracking-widest text-slate-500 dark:text-slate-400 ml-2">Buscar Profesional o Especialidad</label>
               <div className="relative">
                 <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400" size={18} />
@@ -305,6 +405,18 @@ export const ProfessionalFilter = ({ initialArea, professionals }: { initialArea
             </div>
 
             <div className="space-y-2">
+              <label className="text-[10px] font-bold uppercase tracking-widest text-slate-500 dark:text-slate-400 ml-2">Edad de Atención</label>
+              <CustomSelect
+                value={selectedAgeGroup}
+                onChange={(val) => setSelectedAgeGroup(val)}
+                options={ageGroups.map(age => ({
+                  label: age === "Todas" ? "Todas las Edades" : age,
+                  value: age
+                }))}
+              />
+            </div>
+
+            <div className="space-y-2">
               <label className="text-[10px] font-bold uppercase tracking-widest text-slate-500 dark:text-slate-400 ml-2">Especialidad</label>
               <CustomSelect
                 value={selectedSpecialty}
@@ -315,9 +427,27 @@ export const ProfessionalFilter = ({ initialArea, professionals }: { initialArea
                 }))}
               />
             </div>
+
+            {/* Botón Limpiar Filtros (Desktop) */}
+            <div className="hidden lg:flex flex-col items-center justify-end h-full pb-0.5">
+              <button
+                onClick={() => {
+                  setSearchTerm("");
+                  setSelectedArea("Todas");
+                  setSelectedSpecialty("Todas");
+                  setSelectedSucursal("Todas");
+                  setSelectedAgeGroup("Todas");
+                }}
+                disabled={!searchTerm && selectedArea === "Todas" && selectedSpecialty === "Todas" && selectedSucursal === "Todas" && selectedAgeGroup === "Todas"}
+                className="w-14 h-14 rounded-2xl flex items-center justify-center transition-all duration-300 disabled:opacity-30 disabled:cursor-not-allowed bg-slate-50 dark:bg-slate-950 border border-slate-100 dark:border-slate-800 text-slate-400 hover:text-red-500 hover:border-red-200 dark:hover:border-red-900/50 hover:bg-red-50 dark:hover:bg-red-950/30 group"
+                title="Limpiar todos los filtros"
+              >
+                <Trash2 size={20} className="group-hover:scale-110 transition-transform" />
+              </button>
+            </div>
           </div>
 
-          {(searchTerm || (!initialArea && selectedArea !== "Todas") || selectedSpecialty !== "Todas" || selectedSucursal !== "Todas") && (
+          {(searchTerm || (!initialArea && selectedArea !== "Todas") || selectedSpecialty !== "Todas" || selectedSucursal !== "Todas" || selectedAgeGroup !== "Todas") && (
             <div className="mt-6">
               <div className="w-32 h-px bg-gradient-to-r from-transparent via-slate-200 dark:via-slate-700 to-transparent mx-auto mb-6"></div>
               <div className="flex flex-wrap gap-2">
@@ -335,6 +465,11 @@ export const ProfessionalFilter = ({ initialArea, professionals }: { initialArea
                 {selectedSucursal !== "Todas" && (
                   <Badge variant="secondary" className="bg-secondary/10 text-secondary border-none rounded-lg px-3 py-1 flex items-center gap-1">
                     {selectedSucursal} <X size={12} className="cursor-pointer" onClick={() => setSelectedSucursal("Todas")} />
+                  </Badge>
+                )}
+                {selectedAgeGroup !== "Todas" && (
+                  <Badge variant="secondary" className="bg-secondary/10 text-secondary border-none rounded-lg px-3 py-1 flex items-center gap-1">
+                    {selectedAgeGroup} <X size={12} className="cursor-pointer" onClick={() => setSelectedAgeGroup("Todas")} />
                   </Badge>
                 )}
                 {selectedSpecialty !== "Todas" && (
@@ -364,232 +499,9 @@ export const ProfessionalFilter = ({ initialArea, professionals }: { initialArea
         {/* Grid de Profesionales */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
           <AnimatePresence mode='popLayout'>
-            {filteredProfessionals.map((pro, idx) => {
-              // Mapeo directo para asegurar que la imagen aparezca en las pruebas
-              const proImage = pro.image;
-              const lowerSuc = pro.sucursal?.toLowerCase() || "";
-              const isVitacura = lowerSuc.includes("vitacura");
-              const isTribunales = lowerSuc.includes("tribunales") || lowerSuc.includes("matriz") || lowerSuc.includes("matríz");
-              const hasTele = lowerSuc.includes("teleconsulta");
-
-              const specInfo = SPECIALTY_METADATA[pro.specialty] || { icon: Activity };
-              const SpecIcon = specInfo.icon;
-
-              return (
-                <motion.div
-                  key={`${pro.name}-${pro.specialty}`}
-                  layout
-                  initial={{ opacity: 0, scale: 0.9 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  exit={{ opacity: 0, scale: 0.9 }}
-                  transition={{ duration: 0.2, delay: idx * 0.01 }}
-                >
-                  <div className="group h-full border border-slate-200/80 dark:border-slate-800 hover:border-secondary/30 dark:hover:border-secondary/30 shadow-md shadow-slate-200/30 dark:shadow-none hover:shadow-2xl hover:shadow-secondary/10 dark:hover:shadow-secondary/20 transition-all duration-500 rounded-[3rem] overflow-hidden bg-white dark:bg-slate-900 flex flex-col">
-                    <div className="p-0 flex flex-col h-full">
-                      {/* Área de Imagen - Avatar Circular Centrado */}
-                      <div className="pt-12 pb-6 flex justify-center">
-                        <div className="relative w-40 h-40 bg-slate-50 dark:bg-slate-950 rounded-full overflow-hidden border-4 border-white dark:border-slate-800 shadow-lg group-hover:scale-105 transition-transform duration-500">
-                          {proImage ? (
-                            <Image
-                              src={proImage}
-                              alt={pro.name}
-                              fill
-                              className="object-cover"
-                              sizes="160px"
-                            />
-                          ) : (
-                            <div className="w-full h-full flex items-center justify-center bg-gradient-to-br from-slate-50 to-slate-100 dark:from-slate-800 dark:to-slate-900">
-                              <User className="text-slate-200 dark:text-slate-700" size={60} />
-                            </div>
-                          )}
-                        </div>
-                      </div>
-
-                      <div className="p-8 pt-2 flex-grow flex flex-col items-center text-center">
-                        <h3 className="text-xl font-bold text-primary dark:text-slate-50 mb-3 leading-tight group-hover:text-secondary dark:group-hover:text-secondary transition-colors w-full px-4">
-                          {pro.name}
-                        </h3>
-
-                        <div className="flex flex-col items-center gap-3 mt-auto">
-                          <div className="inline-flex items-center gap-1.5 px-4 py-1.5 rounded-full bg-white dark:bg-slate-800 border border-slate-200/60 dark:border-slate-700 text-slate-700 dark:text-slate-200 text-[10px] font-bold uppercase tracking-widest shrink-0 shadow-sm shadow-slate-200/30 dark:shadow-none">
-                            <SpecIcon size={12} strokeWidth={2.5} className="text-secondary shrink-0" /> {pro.specialty}
-                          </div>
-                          <div className="flex flex-wrap justify-center gap-1.5 items-center">
-                            {isTribunales && (
-                              <div className="inline-flex items-center gap-1 px-2 py-0.5 rounded bg-slate-100 dark:bg-white/5 text-[9px] font-black text-slate-600 dark:text-slate-300 uppercase tracking-widest border border-slate-200/50 dark:border-white/5">
-                                <MapPin size={10} className="text-teal-500 shrink-0" /> Los Tribunales
-                              </div>
-                            )}
-                            {isVitacura && (
-                              <div className="inline-flex items-center gap-1 px-2 py-0.5 rounded bg-slate-100 dark:bg-white/5 text-[9px] font-black text-slate-600 dark:text-slate-300 uppercase tracking-widest border border-slate-200/50 dark:border-white/5">
-                                <MapPin size={10} className="text-secondary shrink-0" /> Vitacura
-                              </div>
-                            )}
-                            {hasTele && (
-                              <div className="inline-flex items-center gap-1 px-2 py-0.5 rounded bg-blue-50 dark:bg-blue-900/20 text-[9px] font-black text-blue-600 dark:text-blue-300 uppercase tracking-widest border border-blue-200/50 dark:border-blue-800/50">
-                                <Video size={10} className="shrink-0" /> Teleconsulta
-                              </div>
-                            )}
-                          </div>
-
-                          {pro.ageGroup && (
-                            <div className="flex flex-wrap justify-center gap-1 mt-2 pt-2 border-t border-slate-100 dark:border-white/10 w-full">
-                              {pro.ageGroup.split(',').map(s => s.replace(/\./g, '').trim()).filter(Boolean).map((age, i) => (
-                                <span key={i} className="text-[8px] font-black tracking-wider uppercase bg-secondary/10 text-secondary px-2 py-0.5 rounded-md">
-                                  {age.includes('(') ? age.split('(')[0].trim() : age}
-                                </span>
-                              ))}
-                            </div>
-                          )}
-                        </div>
-                      </div>
-
-                      <div className="w-full p-6 pt-0 pb-8 flex flex-col items-center gap-3 mt-auto">
-                        {/* Botón Directo: Agendar Hora */}
-                        <a
-                          href={pro.bookingLink || "tel:+56222172635"}
-                          target={pro.bookingLink?.startsWith('http') ? "_blank" : undefined}
-                          rel={pro.bookingLink?.startsWith('http') ? "noopener noreferrer" : undefined}
-                          className="relative inline-flex w-full max-w-[230px] cursor-pointer select-none group/agendadirect outline-none no-underline h-12 items-center"
-                        >
-                          <div className="bg-gradient-to-r from-primary to-[#1e3a8a] text-white w-full px-6 h-full flex items-center justify-center rounded-full text-[9px] font-black tracking-[0.15em] uppercase shadow-lg shadow-primary/20 dark:shadow-primary/10 transition-all duration-500 transform group-hover/agendadirect:-translate-y-1 group-active/agendadirect:scale-95 relative z-10 whitespace-nowrap">
-                            Agendar Hora
-                          </div>
-                          <div className="absolute -top-1.5 -right-1.5 w-8 h-8 bg-secondary rounded-full flex items-center justify-center text-primary shadow-lg transition-all duration-500 transform group-hover/agendadirect:-translate-y-1.5 group-hover/agendadirect:rotate-[-12deg] group-hover/agendadirect:scale-110 group-active/agendadirect:scale-95 z-20 border-4 border-white dark:border-slate-900">
-                            <CalendarDays className="w-3 h-3" strokeWidth={3.5} />
-                          </div>
-                        </a>
-
-                        <Dialog>
-                          <DialogTrigger asChild>
-                            <button className="relative inline-flex w-full max-w-[230px] cursor-pointer select-none group/profbtn outline-none border-none bg-transparent h-12 items-center">
-                              {/* Cuerpo del Botón Secundario */}
-                              <div className="bg-white dark:bg-slate-800/50 border border-slate-200/80 dark:border-slate-700 text-slate-600 dark:text-slate-300 w-full px-6 h-full flex items-center justify-center rounded-full text-[9px] font-black tracking-[0.15em] uppercase shadow-sm shadow-slate-200/30 dark:shadow-none transition-all duration-500 transform group-hover/profbtn:-translate-y-1 group-hover/profbtn:border-secondary/50 group-hover/profbtn:text-primary dark:group-hover/profbtn:text-white group-hover/profbtn:shadow-lg dark:group-hover/profbtn:shadow-none group-active/profbtn:scale-95 relative z-10 whitespace-nowrap">
-                                Ver Perfil Completo
-                              </div>
-
-                              {/* Icono Badge Flotante Secundario */}
-                              <div className="absolute -top-1.5 -right-1.5 w-8 h-8 bg-slate-100 dark:bg-slate-700 rounded-full flex items-center justify-center text-slate-500 dark:text-slate-300 shadow-sm transition-all duration-500 transform group-hover/profbtn:-translate-y-1.5 group-active/profbtn:scale-95 z-20 border-4 border-white dark:border-slate-900">
-                                <Search className="w-3 h-3" strokeWidth={3.5} />
-                              </div>
-                            </button>
-                          </DialogTrigger>
-                          <DialogContent showCloseButton={false} className="w-[95vw] max-w-[500px] max-h-[90vh] sm:max-h-[85vh] flex flex-col rounded-[2.5rem] border-none p-0 overflow-hidden gap-0 bg-white dark:bg-slate-900">
-                            <div className="bg-primary p-6 sm:p-8 text-white relative shrink-0">
-                              <DialogClose className="absolute top-4 right-4 sm:top-6 sm:right-6 p-2 text-white/70 hover:text-white hover:bg-white/10 rounded-full transition-all outline-none group cursor-pointer">
-                                <X className="w-5 h-5 sm:w-6 h-6" />
-                              </DialogClose>
-                              <div className="relative w-20 h-20 sm:w-24 h-24 bg-white/10 rounded-full flex items-center justify-center mb-4 sm:mb-6 overflow-hidden mx-auto border-2 border-white/20">
-                                {proImage ? (
-                                  <Image
-                                    src={proImage}
-                                    alt={pro.name}
-                                    fill
-                                    className="object-cover"
-                                    sizes="96px"
-                                  />
-                                ) : (
-                                  <User size={40} className="text-secondary" />
-                                )}
-                              </div>
-                              <DialogHeader className="text-center">
-                                <DialogTitle className="text-xl sm:text-3xl font-bold tracking-tight leading-[1.2] mb-2 sm:mb-3 text-center w-full px-2">{pro.name}</DialogTitle>
-                                <div className="flex flex-wrap gap-1.5 sm:gap-2 justify-center">
-                                  <Badge className="bg-secondary text-primary font-bold flex items-center gap-1 text-[10px] sm:text-xs py-0.5 px-2">
-                                    <SpecIcon size={10} strokeWidth={2.5} />
-                                    {pro.specialty}
-                                  </Badge>
-                                  <Badge variant="outline" className="text-white border-white/20 text-[10px] sm:text-xs py-0.5 px-2">{pro.area}</Badge>
-                                </div>
-                                <div className="flex flex-wrap gap-1 sm:gap-1.5 justify-center mt-2">
-                                  {isTribunales && (
-                                    <Badge variant="secondary" className="bg-white/10 text-white hover:bg-white/20 border-none flex items-center gap-1 text-[8px] sm:text-[9px] font-bold uppercase tracking-wider py-0.5 px-1.5">
-                                      <MapPin size={9} className="opacity-70 text-teal-300" /> Los Tribunales
-                                    </Badge>
-                                  )}
-                                  {isVitacura && (
-                                    <Badge variant="secondary" className="bg-white/10 text-white hover:bg-white/20 border-none flex items-center gap-1 text-[8px] sm:text-[9px] font-bold uppercase tracking-wider py-0.5 px-1.5">
-                                      <MapPin size={9} className="opacity-70 text-secondary" /> Vitacura
-                                    </Badge>
-                                  )}
-                                  {hasTele && (
-                                    <Badge variant="secondary" className="bg-indigo-500/30 text-indigo-50 hover:bg-indigo-500/40 border-none flex items-center gap-1 text-[8px] sm:text-[9px] font-bold uppercase tracking-wider py-0.5 px-1.5">
-                                      <Video size={9} className="opacity-70" /> Teleconsulta
-                                    </Badge>
-                                  )}
-                                </div>
-                                {pro.ageGroup && (
-                                  <div className="flex flex-wrap justify-center gap-1 sm:gap-1.5 mt-3 sm:mt-4 max-h-[65px] overflow-y-auto custom-scrollbar pr-1">
-                                    {pro.ageGroup.split(',').map(s => s.replace(/\./g, '').trim()).filter(Boolean).map((age, i) => (
-                                      <span key={i} className="text-[8px] sm:text-[9px] font-black tracking-widest uppercase bg-white/10 text-white/90 px-2 py-0.5 sm:px-2.5 sm:py-1 rounded-lg border border-white/5 backdrop-blur-sm whitespace-nowrap">
-                                        {age}
-                                      </span>
-                                    ))}
-                                  </div>
-                                )}
-                              </DialogHeader>
-                            </div>
-
-                            {/* Scrollable content limited only to details texts */}
-                            <div className="bg-white dark:bg-slate-900 p-6 sm:p-8 space-y-6 flex-1 overflow-y-auto">
-                              {pro.description && (
-                                <div className="space-y-2">
-                                  <h3 className="text-[10px] font-bold uppercase tracking-widest text-slate-500 dark:text-slate-300 flex items-center gap-2">
-                                    <Info size={14} className="text-secondary" /> Perfil
-                                  </h3>
-                                  <p className="text-slate-600 dark:text-slate-300 font-medium text-sm sm:text-base leading-relaxed">{pro.description}</p>
-                                </div>
-                              )}
-                              {pro.education && (
-                                <div className="space-y-2">
-                                  <h3 className="text-[10px] font-bold uppercase tracking-widest text-slate-500 dark:text-slate-300 flex items-center gap-2">
-                                    <GraduationCap size={14} className="text-secondary" /> Formación Académica
-                                  </h3>
-                                  <p className="text-slate-600 dark:text-slate-300 font-medium text-sm sm:text-base leading-relaxed">{pro.education}</p>
-                                </div>
-                              )}
-                              {pro.sucursal && (
-                                <div className="space-y-2">
-                                  <h3 className="text-[10px] font-bold uppercase tracking-widest text-slate-500 dark:text-slate-300 flex items-center gap-2">
-                                    <MapPin size={14} className="text-secondary" /> Ubicación
-                                  </h3>
-                                  <p className="text-slate-600 dark:text-slate-300 font-medium text-sm sm:text-base leading-relaxed">{pro.sucursal}</p>
-                                </div>
-                              )}
-                            </div>
-
-                            {/* Fixed footer CTA area for immediate accessibility */}
-                            <div className="bg-white dark:bg-slate-900 px-6 pb-6 pt-2 sm:px-8 sm:pb-8 sm:pt-3 border-t border-slate-100 dark:border-slate-800 shrink-0">
-                              {(() => {
-                                const firstName = pro.name.split(' ').filter(p => !p.includes('.')).filter(p => p.length > 0)[0] || pro.name.split(' ')[0];
-                                return (
-                                  <a
-                                    href={pro.bookingLink || "tel:+56222172635"}
-                                    target={pro.bookingLink?.startsWith('http') ? "_blank" : undefined}
-                                    rel={pro.bookingLink?.startsWith('http') ? "noopener noreferrer" : undefined}
-                                    className="relative inline-flex w-full cursor-pointer select-none group no-underline h-14 sm:h-16 items-center"
-                                  >
-                                    {/* Cuerpo del Botón con Degradado */}
-                                    <div className="bg-gradient-to-r from-primary to-[#1e3a8a] text-white w-full px-8 h-full flex items-center justify-center rounded-full text-sm sm:text-base font-black tracking-tight shadow-xl shadow-primary/20 dark:shadow-primary/20 transition-all duration-500 transform group-hover:-translate-y-1 group-active:scale-95 relative z-10 whitespace-nowrap">
-                                      Agendar Hora con {firstName}
-                                    </div>
-
-                                    {/* Icono Badge Flotante */}
-                                    <div className="absolute -top-1.5 -right-1 sm:-right-2 w-10 h-10 sm:w-12 sm:h-12 bg-secondary rounded-full flex items-center justify-center text-primary shadow-lg transition-all duration-500 transform group-hover:-translate-y-1.5 group-hover:rotate-[-15deg] group-hover:scale-110 group-active:scale-95 z-20 border-4 border-white dark:border-slate-900">
-                                      <CalendarDays className="w-3.5 h-3.5 sm:w-4 sm:h-4" strokeWidth={3} />
-                                    </div>
-                                  </a>
-                                );
-                              })()}
-                            </div>
-                          </DialogContent>
-                        </Dialog>
-                      </div>
-                    </div>
-                  </div>
-                </motion.div>
-              );
-            })}
+            {filteredProfessionals.map((pro, idx) => (
+              <ProfessionalCard key={`${pro.name}-${pro.specialty}`} pro={pro} idx={idx} />
+            ))}
           </AnimatePresence>
         </div>
 
@@ -620,5 +532,311 @@ export const ProfessionalFilter = ({ initialArea, professionals }: { initialArea
         )}
       </div>
     </section>
+  );
+};
+
+const ProfessionalCard = ({ pro, idx }: { pro: Professional, idx: number }) => {
+  const [showSpecInfo, setShowSpecInfo] = useState(false);
+  
+  const proImage = pro.image;
+  const lowerSuc = pro.sucursal?.toLowerCase() || "";
+  const isVitacura = lowerSuc.includes("vitacura");
+  const isTribunales = lowerSuc.includes("tribunales") || lowerSuc.includes("matriz") || lowerSuc.includes("matríz");
+  const hasTele = lowerSuc.includes("teleconsulta");
+
+  const specMetadata = SPECIALTY_METADATA[pro.specialty] || { icon: Activity, description: "Atención experta enfocada en tu recuperación y bienestar integral." };
+  const SpecIcon = specMetadata.icon;
+
+  return (
+    <motion.div
+      layout
+      initial={{ opacity: 0, scale: 0.9 }}
+      animate={{ opacity: 1, scale: 1 }}
+      exit={{ opacity: 0, scale: 0.9 }}
+      transition={{ duration: 0.2, delay: idx * 0.01 }}
+    >
+      <div className="group h-full border border-slate-200/80 dark:border-slate-800 hover:border-secondary/30 dark:hover:border-secondary/30 shadow-md shadow-slate-200/30 dark:shadow-none hover:shadow-2xl hover:shadow-secondary/10 dark:hover:shadow-secondary/20 transition-all duration-500 rounded-[3rem] overflow-hidden bg-white dark:bg-slate-900 flex flex-col">
+        <div className="p-0 flex flex-col h-full">
+          {/* Área de Imagen - Avatar Circular Centrado */}
+          <div className="pt-12 pb-6 flex justify-center">
+            <div className="relative w-40 h-40 bg-slate-50 dark:bg-slate-950 rounded-full overflow-hidden border-4 border-white dark:border-slate-800 shadow-lg group-hover:scale-105 transition-transform duration-500">
+              {proImage ? (
+                <Image
+                  src={proImage}
+                  alt={pro.name}
+                  fill
+                  className="object-cover"
+                  sizes="160px"
+                />
+              ) : (
+                <div className="w-full h-full flex items-center justify-center bg-gradient-to-br from-slate-50 to-slate-100 dark:from-slate-800 dark:to-slate-900">
+                  <User className="text-slate-200 dark:text-slate-700" size={60} />
+                </div>
+              )}
+            </div>
+          </div>
+
+          <div className="p-8 pt-2 flex-grow flex flex-col items-center text-center">
+            <h3 className="text-xl font-bold text-primary dark:text-slate-50 mb-3 leading-tight group-hover:text-secondary dark:group-hover:text-secondary transition-colors w-full px-4">
+              {pro.name}
+            </h3>
+
+            <div className="flex flex-col items-center gap-3 mt-auto">
+              <div className="inline-flex items-center gap-1.5 px-4 py-1.5 rounded-full bg-white dark:bg-slate-800 border border-slate-200/60 dark:border-slate-700 text-slate-700 dark:text-slate-200 text-[10px] font-bold uppercase tracking-widest shrink-0 shadow-sm shadow-slate-200/30 dark:shadow-none">
+                <SpecIcon size={12} strokeWidth={2.5} className="text-secondary shrink-0" /> {pro.specialty}
+              </div>
+              <div className="flex flex-wrap justify-center gap-1.5 items-center">
+                {isTribunales && (
+                  <div className="inline-flex items-center gap-1 px-2 py-0.5 rounded bg-slate-100 dark:bg-white/5 text-[9px] font-black text-slate-600 dark:text-slate-300 uppercase tracking-widest border border-slate-200/50 dark:border-white/5">
+                    <MapPin size={10} className="text-teal-500 shrink-0" /> Los Tribunales
+                  </div>
+                )}
+                {isVitacura && (
+                  <div className="inline-flex items-center gap-1 px-2 py-0.5 rounded bg-slate-100 dark:bg-white/5 text-[9px] font-black text-slate-600 dark:text-slate-300 uppercase tracking-widest border border-slate-200/50 dark:border-white/5">
+                    <MapPin size={10} className="text-secondary shrink-0" /> Vitacura
+                  </div>
+                )}
+                {hasTele && (
+                  <div className="inline-flex items-center gap-1 px-2 py-0.5 rounded bg-blue-50 dark:bg-blue-900/20 text-[9px] font-black text-blue-600 dark:text-blue-300 uppercase tracking-widest border border-blue-200/50 dark:border-blue-800/50">
+                    <Video size={10} className="shrink-0" /> Teleconsulta
+                  </div>
+                )}
+              </div>
+
+              {pro.ageGroup && (
+                <div className="flex flex-wrap justify-center gap-1 mt-2 pt-2 border-t border-slate-100 dark:border-white/10 w-full">
+                  {pro.ageGroup.split(',').map(s => s.replace(/\./g, '').trim()).filter(Boolean).map((age, i) => (
+                    <span key={i} className="text-[8px] font-black tracking-wider uppercase bg-secondary/10 text-secondary px-2 py-0.5 rounded-md">
+                      {age.includes('(') ? age.split('(')[0].trim() : age}
+                    </span>
+                  ))}
+                </div>
+              )}
+            </div>
+          </div>
+
+          <div className="w-full p-6 pt-0 pb-8 flex flex-col items-center gap-3 mt-auto">
+            {/* Botón Directo: Agendar Hora */}
+            <a
+              href={pro.bookingLink || "tel:+56222172635"}
+              target={pro.bookingLink?.startsWith('http') ? "_blank" : undefined}
+              rel={pro.bookingLink?.startsWith('http') ? "noopener noreferrer" : undefined}
+              className="relative inline-flex w-full max-w-[230px] cursor-pointer select-none group/agendadirect outline-none no-underline h-12 items-center"
+            >
+              <div className="bg-gradient-to-r from-primary to-[#1e3a8a] text-white w-full px-6 h-full flex items-center justify-center rounded-full text-[9px] font-black tracking-[0.15em] uppercase shadow-lg shadow-primary/20 dark:shadow-primary/10 transition-all duration-500 transform group-hover/agendadirect:-translate-y-1 group-active/agendadirect:scale-95 relative z-10 whitespace-nowrap">
+                Agendar Hora
+              </div>
+              <div className="absolute -top-1.5 -right-1.5 w-8 h-8 bg-white dark:bg-slate-800 rounded-full flex items-center justify-center text-secondary shadow-xl transition-all duration-500 transform group-hover/agendadirect:-translate-y-1.5 group-hover/agendadirect:rotate-[-12deg] group-hover/agendadirect:scale-110 group-active/agendadirect:scale-95 z-20 border-4 border-slate-50 dark:border-slate-900">
+                <CalendarDays className="w-3.5 h-3.5" strokeWidth={3} />
+              </div>
+            </a>
+
+            <Dialog onOpenChange={(open) => !open && setShowSpecInfo(false)}>
+              <DialogTrigger asChild>
+                <button className="relative inline-flex w-full max-w-[230px] cursor-pointer select-none group/profbtn outline-none border-none bg-transparent h-12 items-center">
+                  {/* Cuerpo del Botón Secundario */}
+                  <div className="bg-white dark:bg-slate-800/50 border border-slate-200/80 dark:border-slate-700 text-slate-600 dark:text-slate-300 w-full px-6 h-full flex items-center justify-center rounded-full text-[9px] font-black tracking-[0.15em] uppercase shadow-sm shadow-slate-200/30 dark:shadow-none transition-all duration-500 transform group-hover/profbtn:-translate-y-1 group-hover/profbtn:border-secondary/50 group-hover/profbtn:text-primary dark:group-hover/profbtn:text-white group-hover/profbtn:shadow-lg dark:group-hover/profbtn:shadow-none group-active/profbtn:scale-95 relative z-10 whitespace-nowrap">
+                    Ver Perfil Completo
+                  </div>
+
+                  {/* Icono Badge Flotante Secundario */}
+                  <div className="absolute -top-1.5 -right-1.5 w-8 h-8 bg-slate-100 dark:bg-slate-700 rounded-full flex items-center justify-center text-slate-500 dark:text-slate-300 shadow-sm transition-all duration-500 transform group-hover/profbtn:-translate-y-1.5 group-active/profbtn:scale-95 z-20 border-4 border-white dark:border-slate-900">
+                    <Search className="w-3 h-3" strokeWidth={3.5} />
+                  </div>
+                </button>
+              </DialogTrigger>
+              <DialogContent showCloseButton={false} className="w-[95vw] max-w-[500px] md:max-w-[800px] max-h-[85vh] flex flex-col md:flex-row rounded-[2rem] border-none p-0 overflow-hidden gap-0 bg-white dark:bg-slate-900">
+                {/* Lado Izquierdo: Avatar e Información Básica (Fondo Azul) */}
+                <div className="w-full md:w-[35%] bg-primary p-6 md:p-8 text-white relative shrink-0 flex flex-col items-center justify-center text-center border-b md:border-b-0 md:border-r border-white/10">
+                  <div className="relative w-20 h-20 sm:w-28 h-28 md:w-36 md:h-36 bg-white/10 rounded-full flex items-center justify-center mb-4 overflow-hidden border-4 border-white/20 shadow-2xl">
+                    {proImage ? (
+                      <Image
+                        src={proImage}
+                        alt={pro.name}
+                        fill
+                        className="object-cover"
+                        sizes="(max-width: 768px) 112px, 144px"
+                      />
+                    ) : (
+                      <User size={50} className="text-secondary" />
+                    )}
+                  </div>
+                  
+                  <DialogHeader className="text-center w-full mb-4">
+                    <DialogTitle className="text-lg sm:text-xl md:text-2xl font-bold tracking-tight leading-tight mb-1">{pro.name}</DialogTitle>
+                    <div className="text-secondary font-bold text-[10px] md:text-xs uppercase tracking-widest opacity-90">{pro.area}</div>
+                  </DialogHeader>
+
+                  {/* Categoría y Especialidad */}
+                  <div className="flex flex-col items-center gap-2 w-full mt-auto pt-6 border-t border-white/10">
+                    <span className="hidden sm:block text-[9px] font-black uppercase tracking-[0.2em] text-white/40">Categoría</span>
+                    <div className="flex flex-wrap justify-center gap-1.5">
+                      <button 
+                        onClick={() => setShowSpecInfo(!showSpecInfo)}
+                        className={`group/specbtn inline-flex items-center gap-1 px-3 py-1 rounded-full border-none transition-all duration-300 relative ${
+                          showSpecInfo 
+                          ? 'bg-white text-primary shadow-xl scale-105' 
+                          : 'bg-secondary text-primary font-bold shadow-lg shadow-secondary/20 hover:scale-105'
+                        }`}
+                      >
+                        <SpecIcon size={10} strokeWidth={2.5} className={showSpecInfo ? 'text-secondary' : ''} />
+                        <span className="text-[9px] font-bold uppercase tracking-widest">{pro.specialty}</span>
+                        <ChevronRight size={10} className={`ml-1 transition-transform duration-300 ${showSpecInfo ? 'rotate-180 text-secondary' : 'group-hover/specbtn:translate-x-0.5'}`} />
+                      </button>
+                      <Badge variant="outline" className="text-white border-white/20 text-[9px] py-1 px-3 rounded-full backdrop-blur-sm">
+                        {pro.area}
+                      </Badge>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Botón Cerrar (Extremo derecho superior) */}
+                <DialogClose className="absolute top-4 right-4 p-1.5 text-slate-400 hover:text-primary dark:hover:text-white hover:bg-slate-100 dark:hover:bg-white/10 rounded-full transition-all outline-none group cursor-pointer z-[100]">
+                  <X className="w-5 h-5" />
+                </DialogClose>
+
+                {/* Lado Derecho: Badges y Detalles (Scrollable) */}
+                <div className="w-full md:w-[65%] flex flex-col bg-white dark:bg-slate-900 overflow-hidden">
+                  <div className="p-5 sm:p-6 md:p-8 flex-1 overflow-y-auto custom-scrollbar space-y-6">
+                    
+                    <AnimatePresence mode="wait">
+                      {showSpecInfo ? (
+                        <motion.div
+                          key="specialty-info"
+                          initial={{ opacity: 0, x: 20 }}
+                          animate={{ opacity: 1, x: 0 }}
+                          exit={{ opacity: 0, x: -20 }}
+                          className="space-y-5"
+                        >
+                          <div className="flex items-center justify-between">
+                            <h3 className="text-[9px] font-black uppercase tracking-[0.2em] text-secondary flex items-center gap-2">
+                              <Sparkles size={12} /> Sobre la Especialidad
+                            </h3>
+                            <button 
+                              onClick={() => setShowSpecInfo(false)}
+                              className="text-[9px] font-black uppercase tracking-widest text-primary dark:text-white hover:text-secondary flex items-center gap-1.5 transition-colors mr-10"
+                            >
+                              <ChevronRight size={10} className="rotate-180" /> Volver al Perfil
+                            </button>
+                          </div>
+                          <div className="bg-secondary/5 dark:bg-secondary/10 p-5 rounded-2xl border border-secondary/10">
+                            <h4 className="text-xl font-bold text-primary dark:text-white mb-2">{pro.specialty}</h4>
+                            <p className="text-slate-600 dark:text-slate-300 font-medium text-sm leading-relaxed">
+                              {specMetadata.description}
+                            </p>
+                          </div>
+                          
+                          {specMetadata.focus && (
+                            <div className="space-y-3">
+                              <h3 className="text-[9px] font-black uppercase tracking-[0.2em] text-slate-400 dark:text-slate-500">Áreas de enfoque principal</h3>
+                              <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                                {specMetadata.focus.map((item, i) => (
+                                  <div key={i} className="flex items-center gap-2 bg-slate-50 dark:bg-white/5 p-2 rounded-xl border border-slate-100 dark:border-white/5">
+                                    <div className="w-5 h-5 rounded-lg bg-secondary/10 flex items-center justify-center shrink-0">
+                                      <Activity size={10} className="text-secondary" />
+                                    </div>
+                                    <span className="text-[11px] font-bold text-slate-700 dark:text-slate-200">{item}</span>
+                                  </div>
+                                ))}
+                              </div>
+                            </div>
+                          )}
+                        </motion.div>
+                      ) : (
+                        <motion.div
+                          key="profile-info"
+                          initial={{ opacity: 0, x: -20 }}
+                          animate={{ opacity: 1, x: 0 }}
+                          exit={{ opacity: 0, x: 20 }}
+                          className="space-y-6"
+                        >
+                          {/* 1. Formación Académica */}
+                          {pro.education && (
+                            <div className="space-y-1.5">
+                              <h3 className="text-[9px] font-bold uppercase tracking-[0.2em] text-slate-400 dark:text-slate-500 flex items-center gap-2">
+                                <GraduationCap size={12} className="text-secondary" /> Formación Académica
+                              </h3>
+                              <p className="text-slate-600 dark:text-slate-300 font-medium text-xs sm:text-sm leading-relaxed">{pro.education}</p>
+                            </div>
+                          )}
+
+                          {/* 2. Perfil Profesional */}
+                          {pro.description && (
+                            <div className="space-y-1.5">
+                              <h3 className="text-[9px] font-bold uppercase tracking-[0.2em] text-slate-400 dark:text-slate-500 flex items-center gap-2">
+                                <Info size={12} className="text-secondary" /> Perfil Profesional
+                              </h3>
+                              <p className="text-slate-600 dark:text-slate-300 font-medium text-xs sm:text-sm leading-relaxed">{pro.description}</p>
+                            </div>
+                          )}
+
+                          {/* 3. Edades de atención */}
+                          {pro.ageGroup && (
+                            <div className="flex flex-col items-center md:items-start gap-2 pt-4 border-t border-slate-100 dark:border-slate-800 w-full">
+                              <span className="hidden sm:block text-[9px] font-black uppercase tracking-[0.2em] text-slate-400 dark:text-slate-500">Edades de atención</span>
+                              <div className="flex flex-wrap justify-center md:justify-start gap-1.5">
+                                {pro.ageGroup.split(',').map(s => s.replace(/\./g, '').trim()).filter(Boolean).map((age, i) => (
+                                  <span key={i} className="text-[8px] font-bold tracking-tight bg-secondary/10 text-secondary px-2.5 py-1 rounded-lg border border-secondary/10 whitespace-nowrap">
+                                    {age}
+                                  </span>
+                                ))}
+                              </div>
+                            </div>
+                          )}
+
+                          {/* 4. Sucursales */}
+                          <div className="flex flex-col items-center md:items-start gap-2 pt-4 border-t border-slate-100 dark:border-slate-800 w-full">
+                            <span className="hidden sm:block text-[9px] font-black uppercase tracking-[0.2em] text-slate-400 dark:text-slate-500">Sucursales y Modalidad</span>
+                            <div className="flex flex-wrap gap-1.5 justify-center md:justify-start">
+                              {isTribunales && (
+                                <Badge variant="secondary" className="bg-slate-100 dark:bg-white/5 text-slate-600 dark:text-slate-300 hover:bg-slate-200 border-none flex items-center gap-1 px-2.5 py-1.5 rounded-lg text-[8px] font-black uppercase tracking-widest">
+                                  <MapPin size={10} className="opacity-70 text-teal-500" /> Los Tribunales
+                                </Badge>
+                              )}
+                              {isVitacura && (
+                                <Badge variant="secondary" className="bg-slate-100 dark:bg-white/5 text-slate-600 dark:text-slate-300 hover:bg-slate-200 border-none flex items-center gap-1 px-2.5 py-1.5 rounded-lg text-[8px] font-black uppercase tracking-widest">
+                                  <MapPin size={10} className="opacity-70 text-secondary" /> Vitacura
+                                </Badge>
+                              )}
+                              {hasTele && (
+                                <Badge variant="secondary" className="bg-blue-50 dark:bg-blue-900/20 text-blue-600 dark:text-blue-300 hover:bg-blue-100 border-none flex items-center gap-1 px-2.5 py-1.5 rounded-lg text-[8px] font-black uppercase tracking-widest">
+                                  <Video size={10} className="opacity-70" /> Teleconsulta
+                                </Badge>
+                              )}
+                            </div>
+                          </div>
+                        </motion.div>
+                      )}
+                    </AnimatePresence>
+                  </div>
+
+                  {/* Footer Fijo con CTA */}
+                  <div className="bg-slate-50 dark:bg-slate-900/50 px-6 py-4 md:px-8 md:py-6 border-t border-slate-100 dark:border-slate-800 shrink-0">
+                    {(() => {
+                      const firstName = pro.name.split(' ').filter(p => !p.includes('.')).filter(p => p.length > 0)[0] || pro.name.split(' ')[0];
+                      return (
+                        <a
+                          href={pro.bookingLink || "tel:+56222172635"}
+                          target={pro.bookingLink?.startsWith('http') ? "_blank" : undefined}
+                          rel={pro.bookingLink?.startsWith('http') ? "noopener noreferrer" : undefined}
+                          className="relative inline-flex w-full cursor-pointer select-none group no-underline h-12 md:h-14 items-center"
+                        >
+                          <div className="bg-gradient-to-r from-primary to-[#1e3a8a] text-white w-full px-6 h-full flex items-center justify-center rounded-full text-xs md:text-sm font-black tracking-tight shadow-xl shadow-primary/20 transition-all duration-500 transform group-hover:-translate-y-1 group-active:scale-95 relative z-10 whitespace-nowrap">
+                            Agendar Hora con {firstName}
+                          </div>
+                          <div className="absolute -top-1 -right-1 w-8 h-8 md:w-10 md:h-10 bg-white dark:bg-slate-800 rounded-full flex items-center justify-center text-secondary shadow-xl transition-all duration-500 transform group-hover:-translate-y-1.5 group-hover:rotate-[-15deg] group-hover:scale-110 group-active:scale-95 z-20 border-4 border-slate-50 dark:border-slate-900">
+                            <CalendarDays className="w-3.5 h-3.5 md:w-4 md:h-4" strokeWidth={3} />
+                          </div>
+                        </a>
+                      );
+                    })()}
+                  </div>
+                </div>
+              </DialogContent>
+            </Dialog>
+          </div>
+        </div>
+      </div>
+    </motion.div>
   );
 };

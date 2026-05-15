@@ -57,7 +57,7 @@ const NAV_ITEMS = [
     ]
   },
   {
-    name: 'Servicios',
+    name: 'Especialidades',
     href: '#servicios',
     isMega: true,
     subItems: [
@@ -108,6 +108,7 @@ export const Navbar = () => {
   const [mounted, setMounted] = useState(false);
   const [currentTime, setCurrentTime] = useState<Date | null>(null);
   const [socialPhraseIndex, setSocialPhraseIndex] = useState(0);
+  const [confirmLink, setConfirmLink] = useState<string | null>(null);
 
   useEffect(() => {
     setMounted(true);
@@ -148,6 +149,13 @@ export const Navbar = () => {
       }
     };
   }, [isMobileMenuOpen]);
+
+  useEffect(() => {
+    if (confirmLink) {
+      const timer = setTimeout(() => setConfirmLink(null), 3500);
+      return () => clearTimeout(timer);
+    }
+  }, [confirmLink]);
 
   const scrollToTop = (e: React.MouseEvent) => {
     // Si estamos en la home, hacemos scroll suave al inicio.
@@ -229,7 +237,7 @@ export const Navbar = () => {
               animate={{ height: 'auto', opacity: 1 }}
               exit={{ height: 0, opacity: 0 }}
               transition={{ duration: 0.3, ease: "easeInOut" }}
-              className="bg-gradient-to-r from-teal-600 to-secondary dark:bg-gradient-to-r dark:from-indigo-800 dark:via-indigo-600 dark:to-indigo-500 text-white overflow-hidden relative z-[60] shadow-md border-b border-white/10"
+              className="bg-gradient-to-r from-cyan-700 via-teal-600 to-emerald-500 dark:from-indigo-950 dark:via-purple-900 dark:to-indigo-950 text-white overflow-hidden relative z-[60] shadow-md border-b border-white/10"
             >
               <div className="container mx-auto px-4 py-2 md:py-2.5 flex items-center justify-center gap-x-2 sm:gap-x-4 text-center relative pr-28 md:pr-32">
                 <SmilePlus className="w-5 h-5 shrink-0 hidden sm:block text-yellow-200 animate-pulse" />
@@ -249,7 +257,7 @@ export const Navbar = () => {
                     href="https://ff.healthatom.io/9p2Sq9"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="bg-white text-teal-600 hover:bg-teal-50 dark:text-indigo-600 dark:hover:bg-indigo-50 px-2 sm:px-4 py-1 rounded-full text-[8px] sm:text-[10px] font-black uppercase hover:scale-105 transition-all shrink-0 shadow-sm flex items-center gap-1 active:scale-95"
+                    className="bg-white text-cyan-900 hover:bg-cyan-50 dark:bg-purple-50 dark:text-purple-900 dark:hover:bg-white px-2 sm:px-4 py-1 rounded-full text-[8px] sm:text-[10px] font-black uppercase hover:scale-105 transition-all shrink-0 shadow-sm flex items-center gap-1 active:scale-95"
                   >
                     Agendar <ChevronRight className="w-2.5 h-2.5 sm:w-3 sm:h-3" />
                   </a>
@@ -368,8 +376,8 @@ export const Navbar = () => {
                         if (item.href === '/') scrollToTop(e);
                         else handleAnchorClick(e, item.href);
                       }}
-                      className={`flex items-center gap-1.5 transition-colors ${(item as any).highlight
-                        ? 'border border-secondary text-secondary hover:bg-secondary hover:text-primary px-4 py-1.5 rounded-full font-bold'
+                      className={`flex items-center gap-1.5 transition-all ${(item as any).highlight
+                        ? `border border-secondary px-4 py-1.5 rounded-full font-bold ${activeDropdown === item.name ? 'bg-secondary text-white dark:text-black' : 'text-secondary hover:bg-secondary hover:text-white dark:hover:text-black'}`
                         : `hover:text-secondary ${activeDropdown === item.name ? 'text-secondary' : ''}`
                         }`}
                     >
@@ -389,7 +397,7 @@ export const Navbar = () => {
                         opacity: 1,
                         y: 0,
                         scale: 1,
-                        left: activeDropdown === 'Nosotros' ? '0%' : activeDropdown === 'Servicios' ? '8%' : '28%'
+                        left: activeDropdown === 'Nosotros' ? '0%' : activeDropdown === 'Especialidades' ? '8%' : '28%'
                       }}
                       exit={{ opacity: 0, y: 10, scale: 0.98 }}
                       transition={{ duration: 0.4, ease: [0.23, 1, 0.32, 1] }}
@@ -407,32 +415,55 @@ export const Navbar = () => {
                           transition={{ duration: 0.3 }}
                           className="grid grid-cols-2 gap-2"
                         >
-                          {NAV_ITEMS.find(i => i.name === activeDropdown)?.subItems?.map((sub) => (
-                            <Link
-                              key={sub.name}
-                              href={sub.href}
-                              onClick={(e) => handleAnchorClick(e, sub.href)}
-                              target={sub.href.startsWith('http') ? "_blank" : undefined}
-                              rel={sub.href.startsWith('http') ? "noopener noreferrer" : undefined}
-                              className="group/sub flex items-start gap-4 p-3.5 rounded-2xl transition-all hover:bg-slate-50 dark:hover:bg-slate-900 border border-transparent hover:border-slate-100 dark:hover:border-slate-800"
-                            >
-                              {sub.icon && (
-                                <div className="w-11 h-11 bg-white dark:bg-slate-900 border border-transparent dark:border-slate-800 rounded-xl flex items-center justify-center shadow-sm group-hover/sub:shadow-md group-hover/sub:scale-105 transition-all shrink-0 [&>svg]:w-5 [&>svg]:h-5">
-                                  {sub.icon}
-                                </div>
-                              )}
-                              <div className="flex flex-col pt-1">
-                                <span className="text-[14.5px] font-bold text-primary dark:text-slate-100 group-hover/sub:text-secondary transition-colors tracking-tight">
-                                  {sub.name}
-                                </span>
-                                {sub.desc && (
-                                  <span className="text-[11px] text-slate-400 font-medium leading-snug mt-2 opacity-80 group-hover/sub:opacity-100 transition-opacity">
-                                    {sub.desc}
-                                  </span>
+                          {NAV_ITEMS.find(i => i.name === activeDropdown)?.subItems?.map((sub) => {
+                            const isConfirming = confirmLink === sub.href;
+                            
+                            return (
+                              <Link
+                                key={sub.name}
+                                href={sub.href}
+                                onClick={(e) => {
+                                  if (sub.href.startsWith('http')) {
+                                    if (!isConfirming) {
+                                      e.preventDefault();
+                                      setConfirmLink(sub.href);
+                                      return;
+                                    }
+                                  }
+                                  handleAnchorClick(e, sub.href);
+                                }}
+                                target={sub.href.startsWith('http') ? "_blank" : undefined}
+                                rel={sub.href.startsWith('http') ? "noopener noreferrer" : undefined}
+                                className={`group/sub flex items-start gap-4 p-3.5 rounded-2xl transition-all border border-transparent ${
+                                  isConfirming 
+                                    ? 'bg-amber-400 dark:bg-amber-500 border-amber-500 hover:bg-amber-500 shadow-md scale-[1.02]' 
+                                    : 'hover:bg-slate-50 dark:hover:bg-slate-900 hover:border-slate-100 dark:hover:border-slate-800'
+                                }`}
+                              >
+                                {sub.icon && (
+                                  <div className={`w-11 h-11 rounded-xl flex items-center justify-center shadow-sm group-hover/sub:shadow-md group-hover/sub:scale-105 transition-all shrink-0 [&>svg]:w-5 [&>svg]:h-5 ${
+                                    isConfirming ? 'bg-white text-amber-600' : 'bg-white dark:bg-slate-900 border border-transparent dark:border-slate-800'
+                                  }`}>
+                                    {sub.icon}
+                                  </div>
                                 )}
-                              </div>
-                            </Link>
-                          ))}
+                                <div className="flex flex-col pt-1">
+                                  <span className={`text-[14.5px] font-bold transition-colors tracking-tight ${
+                                    isConfirming ? 'text-slate-900' : 'text-primary dark:text-slate-100 group-hover/sub:text-secondary'
+                                  }`}>
+                                    {isConfirming ? "Saldrás de Policlínico Tabancura" : sub.name}
+                                  </span>
+                                  {sub.desc && (
+                                    <span className={`text-[11px] font-medium leading-snug mt-2 transition-all ${
+                                      isConfirming ? 'text-slate-800' : 'text-slate-400 opacity-80 group-hover/sub:opacity-100'
+                                    }`}>
+                                      {isConfirming ? "Haz clic de nuevo para continuar al portal externo." : sub.desc}
+                                    </span>
+                                  )}
+                                </div>
+                              </Link>
+                            );
+                          })}
                         </motion.div>
                       </div>
                     </div>
@@ -552,21 +583,35 @@ export const Navbar = () => {
                           transition={{ duration: 0.3, ease: "easeInOut" }}
                           className="overflow-hidden w-full pr-4 flex flex-col gap-4 border-r-2 border-slate-100 items-end mt-1"
                         >
-                          {item.subItems.map((sub) => (
-                            <Link
-                              key={sub.name}
-                              href={sub.href}
-                              target={sub.href.startsWith('http') ? "_blank" : undefined}
-                              rel={sub.href.startsWith('http') ? "noopener noreferrer" : undefined}
-                              className="text-sm font-bold text-slate-500 hover:text-secondary text-right"
-                              onClick={(e) => {
-                                handleAnchorClick(e, sub.href);
-                                setIsMobileMenuOpen(false);
-                              }}
-                            >
-                              {sub.name}
-                            </Link>
-                          ))}
+                          {item.subItems.map((sub) => {
+                            const isConfirming = confirmLink === sub.href;
+                            return (
+                              <Link
+                                key={sub.name}
+                                href={sub.href}
+                                target={sub.href.startsWith('http') ? "_blank" : undefined}
+                                rel={sub.href.startsWith('http') ? "noopener noreferrer" : undefined}
+                                className={`text-sm font-bold text-right transition-all px-3 py-1.5 rounded-lg ${
+                                  isConfirming 
+                                    ? 'bg-amber-400 text-slate-900 shadow-sm scale-105' 
+                                    : 'text-slate-500 hover:text-secondary'
+                                }`}
+                                onClick={(e) => {
+                                  if (sub.href.startsWith('http')) {
+                                    if (!isConfirming) {
+                                      e.preventDefault();
+                                      setConfirmLink(sub.href);
+                                      return;
+                                    }
+                                  }
+                                  handleAnchorClick(e, sub.href);
+                                  setIsMobileMenuOpen(false);
+                                }}
+                              >
+                                {isConfirming ? "Clic de nuevo para salir" : sub.name}
+                              </Link>
+                            );
+                          })}
                         </motion.div>
                       )}
                     </AnimatePresence>
