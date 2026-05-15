@@ -352,17 +352,35 @@ export const ProfessionalFilter = ({ initialArea, professionals }: { initialArea
             </div>
           )}
           <h2 className="text-3xl md:text-5xl font-bold text-primary dark:text-slate-50 tracking-tighter mb-4">
-            Nuestro Equipo <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary via-teal-500 to-secondary">{areaLabel}</span>
+            Especialistas en <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary via-teal-500 to-secondary">{areaLabel}</span>
           </h2>
           <p className="text-slate-500 dark:text-slate-400 max-w-2xl mx-auto font-medium">
-            Encuentra al especialista adecuado para tu cuidado entre más de 60 profesionales de la salud.
+            Profesionales de excelencia dedicados a brindar una atención integral y humana para tu bienestar.
           </p>
         </div>
 
         {/* Barra de Filtros */}
-        <div id="controles-filtro" className="scroll-mt-32 bg-white dark:bg-slate-900 p-6 rounded-[2rem] shadow-xl shadow-primary/5 dark:shadow-none border border-slate-100 dark:border-slate-800 mb-12">
-          <div className={`grid grid-cols-1 md:grid-cols-2 gap-6 items-end ${!initialArea ? 'lg:grid-cols-[1.5fr,1fr,1fr,1fr,1fr,auto]' : 'lg:grid-cols-[1.5fr,1fr,1fr,1fr,auto]'}`}>
-            <div className="space-y-2">
+        <div id="controles-filtro" className="scroll-mt-32 bg-white dark:bg-slate-900 p-6 rounded-[2rem] shadow-xl shadow-primary/5 dark:shadow-none border border-slate-100 dark:border-slate-800 mb-12 relative group/filters">
+          {/* Botón Limpiar Filtros (Flotante Desktop/Tablet) */}
+          <div className="absolute top-6 right-6 z-20">
+            <button
+              onClick={() => {
+                setSearchTerm("");
+                setSelectedArea(initialArea || "Todas");
+                setSelectedSpecialty("Todas");
+                setSelectedSucursal("Todas");
+                setSelectedAgeGroup("Todas");
+              }}
+              disabled={!searchTerm && selectedArea === (initialArea || "Todas") && selectedSpecialty === "Todas" && selectedSucursal === "Todas" && selectedAgeGroup === "Todas"}
+              className="w-10 h-10 rounded-xl flex items-center justify-center transition-all duration-300 disabled:opacity-0 disabled:pointer-events-none bg-slate-50 dark:bg-slate-950 border border-slate-100 dark:border-slate-800 text-slate-400 hover:text-red-500 hover:border-red-200 dark:hover:border-red-900/50 hover:bg-red-50 dark:hover:bg-red-950/30 group/trash"
+              title="Limpiar todos los filtros"
+            >
+              <Trash2 size={16} className="group-hover/trash:scale-110 transition-transform" />
+            </button>
+          </div>
+
+          <div className={`grid grid-cols-1 md:grid-cols-2 gap-6 items-end ${!initialArea ? 'lg:grid-cols-5' : 'lg:grid-cols-4'}`}>
+            <div className="space-y-2 md:col-span-2 lg:col-span-1">
               <label className="text-[10px] font-bold uppercase tracking-widest text-slate-500 dark:text-slate-400 ml-2">Buscar Profesional o Especialidad</label>
               <div className="relative">
                 <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400" size={18} />
@@ -426,24 +444,6 @@ export const ProfessionalFilter = ({ initialArea, professionals }: { initialArea
                   value: spec
                 }))}
               />
-            </div>
-
-            {/* Botón Limpiar Filtros (Desktop) */}
-            <div className="hidden lg:flex flex-col items-center justify-end h-full pb-0.5">
-              <button
-                onClick={() => {
-                  setSearchTerm("");
-                  setSelectedArea("Todas");
-                  setSelectedSpecialty("Todas");
-                  setSelectedSucursal("Todas");
-                  setSelectedAgeGroup("Todas");
-                }}
-                disabled={!searchTerm && selectedArea === "Todas" && selectedSpecialty === "Todas" && selectedSucursal === "Todas" && selectedAgeGroup === "Todas"}
-                className="w-14 h-14 rounded-2xl flex items-center justify-center transition-all duration-300 disabled:opacity-30 disabled:cursor-not-allowed bg-slate-50 dark:bg-slate-950 border border-slate-100 dark:border-slate-800 text-slate-400 hover:text-red-500 hover:border-red-200 dark:hover:border-red-900/50 hover:bg-red-50 dark:hover:bg-red-950/30 group"
-                title="Limpiar todos los filtros"
-              >
-                <Trash2 size={20} className="group-hover:scale-110 transition-transform" />
-              </button>
             </div>
           </div>
 

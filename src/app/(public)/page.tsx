@@ -33,12 +33,15 @@ export default function Home() {
     <main className="relative min-h-screen bg-transparent dark:bg-transparent antialiased overflow-x-hidden transition-colors duration-300">
       {/* 1. HERO SECTION DINÁMICO */}
       <Hero 
+        badgeText="Excelencia en cada atención"
         description={
           <>
             En Policlínico Tabancura te acompañamos en cada etapa con especialistas de excelencia y el trato humano que tú y tu familia merecen.
             <span className="block mt-4 font-bold text-slate-700 dark:text-white">150+ prestaciones, <span className="text-secondary">60+ profesionales especializados.</span></span>
           </>
         }
+        statsNumber="+10k"
+        statsLabel="Historias de bienestar"
       />
 
       <section className="py-8 bg-transparent dark:bg-transparent">
