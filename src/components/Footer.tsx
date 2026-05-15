@@ -2,8 +2,9 @@
 
 import React, { useState } from 'react';
 import Link from 'next/link';
-import { Activity, Instagram, Facebook, MapPin, Phone, Mail, MessageCircle, ChevronDown } from 'lucide-react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { Activity, Instagram, Facebook, MapPin, Phone, Mail, MessageCircle, ChevronDown, Heart } from 'lucide-react';
+import { motion, AnimatePresence, useAnimation } from 'framer-motion';
+import { useEffect } from 'react';
 
 const TikTokIcon = ({ size = 18, className = "" }: { size?: number, className?: string }) => (
   <svg width={size} height={size} fill="currentColor" viewBox="0 0 24 24" className={className}>
@@ -141,6 +142,71 @@ const LogoTicker = ({ title, logos, speed = 15 }: { title: string, logos: string
         </motion.div>
       </div>
     </div>
+  );
+};
+
+const LikeButton = () => {
+  const [likes, setLikes] = useState(0);
+  const [isLiked, setIsLiked] = useState(false);
+  const controls = useAnimation();
+
+  useEffect(() => {
+    const savedLikes = localStorage.getItem('footer-likes');
+    const userLiked = localStorage.getItem('footer-is-liked');
+    
+    // Si no hay likes guardados, empezamos con una base "social proof"
+    if (savedLikes) {
+      setLikes(parseInt(savedLikes));
+    } else {
+      const baseLikes = 1248;
+      setLikes(baseLikes);
+      localStorage.setItem('footer-likes', baseLikes.toString());
+    }
+    
+    if (userLiked) setIsLiked(true);
+  }, []);
+
+  const handleLike = async () => {
+    const newLiked = !isLiked;
+    const newLikes = newLiked ? likes + 1 : likes - 1;
+    
+    setLikes(newLikes);
+    setIsLiked(newLiked);
+    
+    localStorage.setItem('footer-likes', newLikes.toString());
+    if (newLiked) {
+      localStorage.setItem('footer-is-liked', 'true');
+      await controls.start({
+        scale: [1, 1.4, 1],
+        transition: { duration: 0.3 }
+      });
+    } else {
+      localStorage.removeItem('footer-is-liked');
+    }
+  };
+
+  return (
+    <motion.button
+      onClick={handleLike}
+      whileHover={{ scale: 1.05 }}
+      whileTap={{ scale: 0.95 }}
+      className={`flex items-center gap-2 px-3 py-1.5 rounded-full border transition-all duration-300 ${
+        isLiked 
+          ? 'bg-rose-500/10 border-rose-500/20 text-rose-500' 
+          : 'bg-slate-50 dark:bg-white/5 border-slate-100 dark:border-white/5 text-slate-400 dark:text-slate-500 hover:text-rose-500 hover:border-rose-500/20'
+      }`}
+    >
+      <motion.div animate={controls}>
+        <Heart 
+          size={12} 
+          fill={isLiked ? "currentColor" : "none"} 
+          className={isLiked ? "drop-shadow-[0_0_8px_rgba(244,63,94,0.4)]" : ""}
+        />
+      </motion.div>
+      <span className="text-[10px] font-bold tabular-nums">
+        {likes.toLocaleString()}
+      </span>
+    </motion.button>
   );
 };
 
@@ -301,10 +367,13 @@ export const Footer = () => {
 
         {/* Bottom Bar */}
         <div className="pt-12 border-t border-slate-100 dark:border-white/10 flex flex-col md:flex-row justify-between items-center gap-8 text-center md:text-left">
-          <div className="flex items-center gap-8 justify-center md:justify-start">
+          <div className="flex flex-col md:flex-row items-center gap-4 md:gap-8 justify-center md:justify-start">
             <div className="flex items-center gap-2 text-slate-600 dark:text-slate-400 text-[10px] font-bold uppercase tracking-widest">
               <Activity size={14} className="text-secondary" /> Diseñado y desarrollado en Policlínico Tabancura
             </div>
+            
+            {/* Botón de Like / Apoyo */}
+            <LikeButton />
           </div>
 
           <p className="text-slate-600 dark:text-slate-500 text-[10px] font-bold uppercase tracking-[0.4em]">
