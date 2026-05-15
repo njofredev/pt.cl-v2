@@ -158,7 +158,7 @@ const LikeButton = () => {
     if (savedLikes) {
       setLikes(parseInt(savedLikes));
     } else {
-      const baseLikes = 1248;
+      const baseLikes = 0;
       setLikes(baseLikes);
       localStorage.setItem('footer-likes', baseLikes.toString());
     }
