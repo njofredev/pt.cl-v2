@@ -23,15 +23,15 @@ export const OtherServices = ({ excludeSlug }: { excludeSlug?: string }) => {
     <div className="w-full border-t border-slate-100 dark:border-white/5 bg-slate-50/30 dark:bg-slate-950/30 py-16 pb-24">
       <div className="container mx-auto px-6 text-center">
         <p className="text-[10px] font-bold text-slate-400 dark:text-slate-500 uppercase tracking-[0.3em] mb-8">
-          Explora otras especialidades
+          Explora nuestras especialidades
         </p>
         <div className="flex flex-wrap items-center justify-center gap-3 md:gap-4 max-w-3xl mx-auto">
           {NAV_SERVICES.filter(item => item.slug !== excludeSlug).map((item) => {
             const Icon = item.icon;
             const colors = colorClasses[item.color];
             return (
-              <Link 
-                key={item.slug} 
+              <Link
+                key={item.slug}
                 href={`/servicios/${item.slug}`}
                 className={`group flex items-center gap-3 px-5 py-3 rounded-2xl bg-white dark:bg-slate-900/60 border border-slate-100 dark:border-white/10 shadow-sm hover:shadow-md hover:-translate-y-0.5 transition-all duration-300`}
               >

@@ -296,10 +296,10 @@ const ProfessionalFilterContent = ({ initialArea, professionals }: { initialArea
   const areaLabel = useMemo(() => {
     if (!initialArea) return "Médico";
     switch (initialArea) {
-      case "Salud Dental": return "Salud Dental";
-      case "Salud Mental": return "de Salud Mental";
-      case "Medicina General": return "Médico";
-      case "Terapias Complementarias": return "de Terapias";
+      case "Salud Dental": return "Cuidado y salud dental";
+      case "Salud Mental": return "Salud y bienestar Mental";
+      case "Medicina General": return "Medicina integral";
+      case "Terapias Complementarias": return "Terapias complementarias";
       default: return "Especialista";
     }
   }, [initialArea]);
@@ -356,8 +356,9 @@ const ProfessionalFilterContent = ({ initialArea, professionals }: { initialArea
           </div>
         )}
 
+        {/* 
         {initialArea === "Salud Dental" && selectedSpecialty === "Todas" && (
-          <motion.div 
+          <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
@@ -389,6 +390,7 @@ const ProfessionalFilterContent = ({ initialArea, professionals }: { initialArea
             </div>
           </motion.div>
         )}
+        */}
 
         <div id="equipo" className="scroll-mt-32 text-center mb-10 flex flex-col items-center">
           {AreaIcon && (
@@ -719,8 +721,8 @@ const ProfessionalCard = ({ pro, idx }: { pro: Professional, idx: number }) => {
                       <button
                         onClick={() => setShowSpecInfo(!showSpecInfo)}
                         className={`group/specbtn inline-flex items-center gap-1 px-3 py-1 rounded-full border-none transition-all duration-300 relative ${showSpecInfo
-                            ? 'bg-white text-primary shadow-xl scale-105'
-                            : 'bg-secondary text-primary font-bold shadow-lg shadow-secondary/20 hover:scale-105'
+                          ? 'bg-white text-primary shadow-xl scale-105'
+                          : 'bg-secondary text-primary font-bold shadow-lg shadow-secondary/20 hover:scale-105'
                           }`}
                       >
                         <SpecIcon size={10} strokeWidth={2.5} className={showSpecInfo ? 'text-secondary' : ''} />
