@@ -52,6 +52,12 @@
   html {
     scroll-behavior: smooth;
   }
+
+  @media (min-width: 1024px) {
+    html {
+      font-size: 17px; /* Aumento ligero del tamaño base para mejor legibilidad en desktop */
+    }
+  }
   
   body {
     font-family: var(--font-sans);

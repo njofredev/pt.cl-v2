@@ -297,7 +297,7 @@ const ProfessionalFilterContent = ({ initialArea, professionals }: { initialArea
     if (!initialArea) return "Médico";
     switch (initialArea) {
       case "Salud Dental": return "Cuidado y salud dental";
-      case "Salud Mental": return "Salud y bienestar Mental";
+      case "Salud Mental": return "Salud y bienestar mental";
       case "Medicina General": return "Medicina integral";
       case "Terapias Complementarias": return "Terapias complementarias";
       default: return "Especialista";
