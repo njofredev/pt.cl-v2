@@ -356,7 +356,7 @@ const ProfessionalFilterContent = ({ initialArea, professionals }: { initialArea
           </div>
         )}
 
-        {initialArea === "Salud Dental" && !selectedAreaFilter && (
+        {initialArea === "Salud Dental" && selectedSpecialty === "Todas" && (
           <motion.div 
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
