@@ -619,8 +619,8 @@ const ProfessionalFilterContent = ({ initialArea, professionals }: { initialArea
                 </div>
                 
                 {specialties.length > 2 && (
-                  <div className="shrink-0 flex items-center gap-3 lg:border-l border-slate-100 dark:border-white/5 lg:pl-6 w-full lg:w-auto">
-                    <span className="text-[9px] font-black uppercase tracking-widest text-slate-400 w-16 text-right leading-tight">Otras Especialidades</span>
+                  <div className="shrink-0 flex items-center gap-4 lg:border-l border-slate-100 dark:border-white/5 lg:pl-6 w-full lg:w-auto mt-4 lg:mt-0">
+                    <span className="text-[9px] font-black uppercase tracking-widest text-slate-400 w-24 shrink-0 text-right leading-tight">Otras Especialidades</span>
                     <div className="flex flex-wrap justify-end gap-2 max-w-full">
                       {specialties.filter(s => s !== "Todas" && s !== selectedSpecialty).map((spec) => {
                         const meta = SPECIALTY_METADATA[spec];
