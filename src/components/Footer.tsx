@@ -287,6 +287,7 @@ export const Footer = () => {
               { name: 'Nuestras Sucursales', href: '/#sucursales' },
               { name: 'Convenios y Alianzas', href: '/convenios' },
               { name: 'PAD Dental (Fonasa)', href: '/pad-dental' },
+              { name: 'Cotizador Digital', href: '/novedades/cotizador' },
               { name: 'Centro de Ayuda', href: 'https://politabancura.tawk.help/' },
               { name: 'Estado de Sistemas', href: 'https://uptime.policlinicotabancura.cl/status/estado' }
             ]}
@@ -310,7 +311,6 @@ export const Footer = () => {
             links={[
               { name: 'Centro Radiológico', href: '/novedades/centro-radiologico' },
               { name: 'Laboratorio Digital', href: '/novedades/laboratorio' },
-              { name: 'Cotizador Digital', href: '/novedades/cotizador' },
               { name: 'Validador Mi Vita', href: '/#mivita' }
             ]}
           />
