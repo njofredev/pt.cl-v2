@@ -185,6 +185,12 @@ export default function CotizadorPage() {
             {/* SECCIÓN CÓMO FUNCIONA - Refined Guide */}
             <section className="py-20 bg-white dark:bg-slate-950 border-y border-slate-100 dark:border-slate-900 relative overflow-hidden">
               <div className="container mx-auto px-6">
+                <div className="text-center mb-16">
+                  <h2 className="text-3xl md:text-4xl font-black text-primary dark:text-white tracking-tighter mb-4">
+                    ¿Cómo cotizo mis exámenes?
+                  </h2>
+                  <div className="w-24 h-1.5 bg-gradient-to-r from-secondary to-primary mx-auto rounded-full opacity-80"></div>
+                </div>
                 <div className="grid md:grid-cols-3 gap-12">
                   <div className="group flex items-start gap-6 p-8 rounded-[2.5rem] bg-slate-50 dark:bg-slate-900/50 border border-transparent hover:border-secondary/20 transition-all">
                     <div className="w-14 h-14 bg-white dark:bg-slate-800 shadow-lg rounded-2xl flex items-center justify-center shrink-0 font-black text-2xl text-secondary">1</div>
