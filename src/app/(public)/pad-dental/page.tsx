@@ -270,8 +270,14 @@ export default function PadDentalPage() {
               </div>
 
               <div className="relative z-10">
-                <div className="w-14 h-14 bg-secondary/15 rounded-2xl border border-secondary/20 flex items-center justify-center text-secondary mb-8">
-                  <ShieldCheck size={28} />
+                <div className="w-20 h-14 bg-white/10 rounded-2xl border border-white/20 flex items-center justify-center text-secondary mb-8 relative p-2 overflow-hidden backdrop-blur-sm">
+                  <Image 
+                    src="/logos_convenios_prevision/fonasa.png" 
+                    alt="Logo Fonasa" 
+                    fill 
+                    sizes="80px"
+                    className="object-contain p-2" 
+                  />
                 </div>
 
                 <h3 className="text-3xl md:text-4xl font-black tracking-tight leading-none mb-6">

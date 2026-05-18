@@ -250,7 +250,7 @@ export default function ConveniosPage() {
                           </div>
                         )}
                         <div className="space-y-2">
-                          <div className="flex flex-wrap items-center gap-3">
+                          <div className="flex flex-col items-start gap-1.5">
                             <span className="bg-secondary/15 text-secondary px-3 py-1 rounded-full text-[9px] font-black uppercase tracking-wider">{col.type}</span>
                             <h3 className="text-lg font-black text-primary dark:text-white">{col.name}</h3>
                           </div>
@@ -307,32 +307,6 @@ export default function ConveniosPage() {
           </div>
         </section>
 
-        {/* CORPORATE PARTNERS CTA */}
-        <section className="max-w-4xl mx-auto">
-          <div className="bg-white dark:bg-slate-900 rounded-[3rem] p-10 md:p-14 border border-slate-100 dark:border-slate-800/80 shadow-2xl flex flex-col md:flex-row items-center justify-between gap-10">
-            <div className="space-y-4 max-w-md text-center md:text-left">
-              <div className="w-12 h-12 bg-secondary/15 rounded-2xl flex items-center justify-center text-secondary mx-auto md:mx-0">
-                <HeartHandshake size={24} />
-              </div>
-              <h3 className="text-2xl font-black text-primary dark:text-white tracking-tight">¿Quieres establecer una alianza corporativa?</h3>
-              <p className="text-xs font-semibold text-slate-400 dark:text-slate-500 leading-relaxed">
-                Ofrecemos programas de salud bucal, preventiva y de medicina general personalizados para empresas, colegios o sindicatos de la comuna de Vitacura y alrededores.
-              </p>
-            </div>
-
-            <div className="shrink-0 w-full md:w-auto">
-              <a
-                href="mailto:alianzas@policlinicotabancura.cl?subject=Consulta%20por%20Convenio%20Corporativo"
-                className="flex items-center justify-center gap-3 bg-primary hover:bg-[#1e3a8a] text-white px-8 py-5 rounded-[1.5rem] font-bold text-xs uppercase tracking-widest transition-all hover:scale-105 active:scale-95 shadow-xl shadow-primary/10 cursor-pointer"
-              >
-                <Mail size={16} />
-                <span>Escríbenos Hoy</span>
-                <ArrowRight size={14} className="animate-pulse" />
-              </a>
-            </div>
-          </div>
-        </section>
-
         {/* FAQS SECTION */}
         <section id="faqs" className="max-w-3xl mx-auto mt-28 scroll-mt-36">
           <h3 className="text-2xl font-black text-primary dark:text-white text-center tracking-tight mb-12 flex items-center justify-center gap-2">
@@ -380,6 +354,32 @@ export default function ConveniosPage() {
                 </div>
               );
             })}
+          </div>
+        </section>
+
+        {/* CORPORATE PARTNERS CTA */}
+        <section className="max-w-4xl mx-auto mt-28">
+          <div className="bg-white dark:bg-slate-900 rounded-[3rem] p-10 md:p-14 border border-slate-100 dark:border-slate-800/80 shadow-2xl flex flex-col md:flex-row items-center justify-between gap-10">
+            <div className="space-y-4 max-w-md text-center md:text-left">
+              <div className="w-12 h-12 bg-secondary/15 rounded-2xl flex items-center justify-center text-secondary mx-auto md:mx-0">
+                <HeartHandshake size={24} />
+              </div>
+              <h3 className="text-2xl font-black text-primary dark:text-white tracking-tight">¿Quieres establecer una alianza corporativa?</h3>
+              <p className="text-xs font-semibold text-slate-400 dark:text-slate-500 leading-relaxed">
+                Ofrecemos programas de salud bucal, preventiva y de medicina general personalizados para empresas, colegios o sindicatos de la comuna de Vitacura y alrededores.
+              </p>
+            </div>
+
+            <div className="shrink-0 w-full md:w-auto">
+              <a
+                href="mailto:alianzas@policlinicotabancura.cl?subject=Consulta%20por%20Convenio%20Corporativo"
+                className="flex items-center justify-center gap-3 bg-primary hover:bg-[#1e3a8a] text-white px-8 py-5 rounded-[1.5rem] font-bold text-xs uppercase tracking-widest transition-all hover:scale-105 active:scale-95 shadow-xl shadow-primary/10 cursor-pointer"
+              >
+                <Mail size={16} />
+                <span>Escríbenos Hoy</span>
+                <ArrowRight size={14} className="animate-pulse" />
+              </a>
+            </div>
           </div>
         </section>
 
