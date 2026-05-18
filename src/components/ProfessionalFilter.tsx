@@ -595,6 +595,59 @@ const ProfessionalFilterContent = ({ initialArea, professionals }: { initialArea
           )}
         </div>
 
+        {/* Descripción de Especialidad Escogida (Solo Desktop) */}
+        {selectedSpecialty !== "Todas" && (
+          <motion.div 
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            className="hidden md:block mb-10 bg-white dark:bg-slate-900 rounded-[2rem] p-6 border border-slate-100 dark:border-white/5 shadow-xl shadow-slate-100/50 dark:shadow-none transition-all"
+          >
+            <div className="flex flex-col lg:flex-row items-start lg:items-center justify-between gap-6">
+              <div className="flex-1">
+                <div className="flex items-center gap-3 mb-2">
+                  <div className="w-10 h-10 rounded-xl bg-primary/10 dark:bg-white/10 text-primary dark:text-white flex items-center justify-center shrink-0">
+                    {(() => {
+                      const meta = SPECIALTY_METADATA[selectedSpecialty];
+                      const Icon = meta?.icon || Activity;
+                      return <Icon size={20} strokeWidth={2.5} />;
+                    })()}
+                  </div>
+                  <h3 className="text-xl font-black text-slate-900 dark:text-white">{selectedSpecialty}</h3>
+                </div>
+                <p className="text-sm font-medium text-slate-500 dark:text-slate-400 max-w-3xl leading-relaxed">
+                  {SPECIALTY_METADATA[selectedSpecialty]?.description || "Atención experta enfocada en tu recuperación y bienestar integral."}
+                </p>
+              </div>
+              
+              {specialties.length > 2 && (
+                <div className="shrink-0 flex items-center gap-3 lg:border-l border-slate-100 dark:border-white/5 lg:pl-6 w-full lg:w-auto">
+                  <span className="text-[9px] font-black uppercase tracking-widest text-slate-400 w-16 text-right leading-tight">Otras Especialidades</span>
+                  <div className="flex gap-2 max-w-full lg:max-w-[300px] overflow-hidden relative overflow-x-auto custom-scrollbar pb-2 lg:pb-0">
+                    {/* Máscara de desvanecimiento para el overlow de iconos */}
+                    <div className="hidden lg:block absolute inset-y-0 right-0 w-8 bg-gradient-to-l from-white dark:from-slate-900 to-transparent z-10 pointer-events-none" />
+                    
+                    {specialties.filter(s => s !== "Todas" && s !== selectedSpecialty).map((spec) => {
+                      const meta = SPECIALTY_METADATA[spec];
+                      if (!meta) return null;
+                      const Icon = meta.icon;
+                      return (
+                        <button
+                          key={spec}
+                          onClick={() => setSelectedSpecialty(spec)}
+                          title={spec}
+                          className="w-10 h-10 shrink-0 rounded-xl bg-slate-50 dark:bg-slate-800 text-slate-500 dark:text-slate-400 hover:bg-secondary/15 hover:text-secondary transition-all flex items-center justify-center transform hover:-translate-y-1"
+                        >
+                          <Icon size={16} strokeWidth={2.5} />
+                        </button>
+                      );
+                    })}
+                  </div>
+                </div>
+              )}
+            </div>
+          </motion.div>
+        )}
+
         {/* Grid de Profesionales */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
           <AnimatePresence mode='popLayout'>
