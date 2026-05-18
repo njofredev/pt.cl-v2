@@ -81,7 +81,27 @@ const SPECIALTY_METADATA: Record<string, { description: string, icon: any, focus
     icon: Brain,
     focus: ["Terapia individual", "Manejo de ansiedad", "Apoyo emocional", "Desarrollo personal"]
   },
+  'Psicología Clínica': {
+    description: "Acompañamiento terapéutico para gestionar tus emociones y potenciar tu bienestar.",
+    icon: Brain,
+    focus: ["Terapia individual", "Manejo de ansiedad", "Apoyo emocional", "Desarrollo personal"]
+  },
+  'Psicología Infantil': {
+    description: "Acompañamiento terapéutico especializado en el bienestar emocional de los niños.",
+    icon: Brain,
+    focus: ["Terapia infantil", "Desarrollo emocional", "Apoyo conductual", "Manejo de ansiedad"]
+  },
+  'Psicología Infanto Juvenil': {
+    description: "Acompañamiento terapéutico especializado en el bienestar emocional de niños y adolescentes.",
+    icon: Brain,
+    focus: ["Terapia infantil y juvenil", "Desarrollo emocional", "Apoyo conductual", "Manejo de ansiedad"]
+  },
   'Psiquiatría': {
+    description: "Diagnóstico médico especializado y tratamiento farmacológico de la salud mental.",
+    icon: Pill,
+    focus: ["Tratamiento farmacológico", "Diagnóstico clínico", "Salud mental adulta", "Seguimiento médico"]
+  },
+  'Psiquiatría Adultos': {
     description: "Diagnóstico médico especializado y tratamiento farmacológico de la salud mental.",
     icon: Pill,
     focus: ["Tratamiento farmacológico", "Diagnóstico clínico", "Salud mental adulta", "Seguimiento médico"]
