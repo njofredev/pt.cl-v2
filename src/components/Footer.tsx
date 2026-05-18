@@ -65,6 +65,7 @@ const FooterSection = ({ title, links }: FooterSectionProps) => {
           aria-label={`Expandir sección ${title}`}
           className="w-full flex items-center justify-center gap-3 text-center group cursor-pointer"
         >
+          <div className="w-4 h-4 opacity-0 pointer-events-none" aria-hidden="true" />
           <h3 className="text-[10px] font-bold uppercase tracking-[0.3em] text-secondary">{title}</h3>
           <ChevronDown
             size={16}
@@ -317,59 +318,63 @@ export const Footer = () => {
 
           {/* Contact Info */}
           <div className="col-span-1 mt-6 md:mt-0 flex flex-col items-center md:items-start text-center md:text-left">
-            <h3 className="text-[10px] font-bold uppercase tracking-[0.3em] text-secondary mb-8 w-full">Contacto</h3>
-            <div className="space-y-6">
+            <h3 className="text-[10px] font-bold uppercase tracking-[0.3em] text-secondary mb-8 w-full text-center md:text-left">Contacto</h3>
+            <div className="space-y-8 w-full flex flex-col items-center md:items-start">
 
               {/* Sucursal Vitacura */}
-              <div className="space-y-3 flex flex-col items-center md:items-start">
-                <div className="flex items-center gap-2 mb-2">
-                  <div className="h-px w-4 bg-secondary/30"></div>
-                  <span className="text-slate-900 dark:text-white text-[11px] font-bold uppercase tracking-widest">Sucursal Vitacura</span>
+              <div className="space-y-4 flex flex-col items-center md:items-start w-full">
+                <div className="flex items-center justify-center md:justify-start gap-2 mb-1 w-full">
+                  <div className="h-px w-4 bg-secondary/30 hidden md:block"></div>
+                  <span className="text-slate-900 dark:text-white text-[11px] font-bold uppercase tracking-widest text-center md:text-left">Sucursal Vitacura</span>
                 </div>
-                <a href="https://www.google.com/maps/search/?api=1&query=Avenida+Vitacura+8620+Vitacura" target="_blank" rel="noopener noreferrer" className="flex gap-3 text-slate-600 dark:text-slate-300 hover:text-primary dark:hover:text-white transition-colors group text-sm items-start">
-                  <MapPin className="text-secondary shrink-0 mt-0.5 group-hover:scale-110 transition-transform" size={16} />
-                  <span className="font-medium">Av. Vitacura 8620</span>
-                </a>
-                <a href="tel:+56229336740" className="flex gap-3 text-slate-600 dark:text-slate-300 hover:text-primary dark:hover:text-white transition-colors group text-sm items-center">
-                  <Phone className="text-secondary shrink-0 group-hover:scale-110 transition-transform" size={16} />
-                  <span className="font-medium">+56 2 2933 6740</span>
-                </a>
-                <a href="https://wa.me/56965781253" target="_blank" rel="noopener noreferrer" className="flex gap-3 text-slate-600 dark:text-slate-300 hover:text-emerald-500 dark:hover:text-emerald-400 transition-colors group text-sm items-center">
-                  <WhatsAppIcon className="text-emerald-500 shrink-0 group-hover:scale-110 transition-transform" size={16} />
-                  <span className="font-medium">+56 9 6578 1253</span>
-                </a>
-                <a href="mailto:recepciondental@policlinicotabancura.cl" className="flex gap-3 text-slate-600 dark:text-slate-300 hover:text-primary dark:hover:text-white transition-colors group text-sm items-center pt-1">
-                  <Mail className="text-secondary shrink-0 group-hover:scale-110 transition-transform" size={16} />
-                  <span className="font-medium text-[12px] break-all">recepciondental@policlinicotabancura.cl</span>
-                </a>
-                <a href="mailto:recepcionmedica@policlinicotabancura.cl" className="flex gap-3 text-slate-600 dark:text-slate-300 hover:text-primary dark:hover:text-white transition-colors group text-sm items-center">
-                  <Mail className="text-secondary shrink-0 group-hover:scale-110 transition-transform" size={16} />
-                  <span className="font-medium text-[12px] break-all">recepcionmedica@policlinicotabancura.cl</span>
-                </a>
+                <div className="flex flex-col items-start space-y-3">
+                  <a href="https://www.google.com/maps/search/?api=1&query=Avenida+Vitacura+8620+Vitacura" target="_blank" rel="noopener noreferrer" className="flex gap-3 text-slate-600 dark:text-slate-300 hover:text-primary dark:hover:text-white transition-colors group text-sm items-start text-left">
+                    <MapPin className="text-secondary shrink-0 mt-0.5 group-hover:scale-110 transition-transform" size={16} />
+                    <span className="font-medium">Av. Vitacura 8620</span>
+                  </a>
+                  <a href="tel:+56229336740" className="flex gap-3 text-slate-600 dark:text-slate-300 hover:text-primary dark:hover:text-white transition-colors group text-sm items-center text-left">
+                    <Phone className="text-secondary shrink-0 group-hover:scale-110 transition-transform" size={16} />
+                    <span className="font-medium">+56 2 2933 6740</span>
+                  </a>
+                  <a href="https://wa.me/56965781253" target="_blank" rel="noopener noreferrer" className="flex gap-3 text-slate-600 dark:text-slate-300 hover:text-emerald-500 dark:hover:text-emerald-400 transition-colors group text-sm items-center text-left">
+                    <WhatsAppIcon className="text-emerald-500 shrink-0 group-hover:scale-110 transition-transform" size={16} />
+                    <span className="font-medium">+56 9 6578 1253</span>
+                  </a>
+                  <a href="mailto:recepciondental@policlinicotabancura.cl" className="flex gap-3 text-slate-600 dark:text-slate-300 hover:text-primary dark:hover:text-white transition-colors group text-sm items-center pt-1 text-left">
+                    <Mail className="text-secondary shrink-0 group-hover:scale-110 transition-transform" size={16} />
+                    <span className="font-medium text-[12px] break-all">recepciondental@policlinicotabancura.cl</span>
+                  </a>
+                  <a href="mailto:recepcionmedica@policlinicotabancura.cl" className="flex gap-3 text-slate-600 dark:text-slate-300 hover:text-primary dark:hover:text-white transition-colors group text-sm items-center text-left">
+                    <Mail className="text-secondary shrink-0 group-hover:scale-110 transition-transform" size={16} />
+                    <span className="font-medium text-[12px] break-all">recepcionmedica@policlinicotabancura.cl</span>
+                  </a>
+                </div>
               </div>
 
               {/* Sucursal Los Tribunales */}
-              <div className="space-y-3 pt-3 border-t border-slate-100 dark:border-white/5 flex flex-col items-center md:items-start">
-                <div className="flex items-center gap-2 mb-2">
-                  <div className="h-px w-4 bg-secondary/30"></div>
-                  <span className="text-slate-900 dark:text-white text-[11px] font-bold uppercase tracking-widest">Casa Matriz - Los Tribunales</span>
+              <div className="space-y-4 pt-6 border-t border-slate-100 dark:border-white/5 flex flex-col items-center md:items-start w-full">
+                <div className="flex items-center justify-center md:justify-start gap-2 mb-1 w-full">
+                  <div className="h-px w-4 bg-secondary/30 hidden md:block"></div>
+                  <span className="text-slate-900 dark:text-white text-[11px] font-bold uppercase tracking-widest text-center md:text-left">Casa Matriz - Los Tribunales</span>
                 </div>
-                <a href="https://www.google.com/maps/search/?api=1&query=Calle+Los+Tribunales+1268+Vitacura" target="_blank" rel="noopener noreferrer" className="flex gap-3 text-slate-600 dark:text-slate-300 hover:text-primary dark:hover:text-white transition-colors group text-sm items-start">
-                  <MapPin className="text-secondary shrink-0 mt-0.5 group-hover:scale-110 transition-transform" size={16} />
-                  <span className="font-medium">Calle Los Tribunales #1268</span>
-                </a>
-                <a href="tel:+56222172635" className="flex gap-3 text-slate-600 dark:text-slate-300 hover:text-primary dark:hover:text-white transition-colors group text-sm items-center">
-                  <Phone className="text-secondary shrink-0 group-hover:scale-110 transition-transform" size={16} />
-                  <span className="font-medium">+56 2 2217 2635</span>
-                </a>
-                <a href="https://wa.me/56966187736" target="_blank" rel="noopener noreferrer" className="flex gap-3 text-slate-600 dark:text-slate-300 hover:text-emerald-500 dark:hover:text-emerald-400 transition-colors group text-sm items-center">
-                  <WhatsAppIcon className="text-emerald-500 shrink-0 group-hover:scale-110 transition-transform" size={16} />
-                  <span className="font-medium">+56 9 6618 7736</span>
-                </a>
-                <a href="mailto:secretaria@policlinicotabancura.cl" className="flex gap-3 text-[12px] text-slate-400 dark:text-slate-300 hover:text-primary dark:hover:text-white transition-colors items-center pt-1">
-                  <Mail className="text-secondary shrink-0 opacity-80" size={15} />
-                  <span className="break-all font-medium">secretaria@policlinicotabancura.cl</span>
-                </a>
+                <div className="flex flex-col items-start space-y-3">
+                  <a href="https://www.google.com/maps/search/?api=1&query=Calle+Los+Tribunales+1268+Vitacura" target="_blank" rel="noopener noreferrer" className="flex gap-3 text-slate-600 dark:text-slate-300 hover:text-primary dark:hover:text-white transition-colors group text-sm items-start text-left">
+                    <MapPin className="text-secondary shrink-0 mt-0.5 group-hover:scale-110 transition-transform" size={16} />
+                    <span className="font-medium">Calle Los Tribunales #1268</span>
+                  </a>
+                  <a href="tel:+56222172635" className="flex gap-3 text-slate-600 dark:text-slate-300 hover:text-primary dark:hover:text-white transition-colors group text-sm items-center text-left">
+                    <Phone className="text-secondary shrink-0 group-hover:scale-110 transition-transform" size={16} />
+                    <span className="font-medium">+56 2 2217 2635</span>
+                  </a>
+                  <a href="https://wa.me/56966187736" target="_blank" rel="noopener noreferrer" className="flex gap-3 text-slate-600 dark:text-slate-300 hover:text-emerald-500 dark:hover:text-emerald-400 transition-colors group text-sm items-center text-left">
+                    <WhatsAppIcon className="text-emerald-500 shrink-0 group-hover:scale-110 transition-transform" size={16} />
+                    <span className="font-medium">+56 9 6618 7736</span>
+                  </a>
+                  <a href="mailto:secretaria@policlinicotabancura.cl" className="flex gap-3 text-[12px] text-slate-400 dark:text-slate-300 hover:text-primary dark:hover:text-white transition-colors items-center pt-1 text-left">
+                    <Mail className="text-secondary shrink-0 opacity-80" size={15} />
+                    <span className="break-all font-medium">secretaria@policlinicotabancura.cl</span>
+                  </a>
+                </div>
               </div>
             </div>
           </div>
