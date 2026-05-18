@@ -105,7 +105,7 @@ export const GoogleReviews = () => {
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -10 }}
-              className="bg-white dark:bg-slate-900 p-6 sm:p-8 rounded-[2.5rem] shadow-xl shadow-primary/5 border border-slate-100 dark:border-slate-800 flex items-center gap-6 relative overflow-hidden shrink-0"
+              className="bg-white dark:bg-slate-900 p-6 sm:p-8 rounded-[2.5rem] shadow-[0_20px_40px_-5px_rgba(15,23,42,0.08)] dark:shadow-none border border-slate-300 dark:border-slate-800 flex items-center gap-6 relative overflow-hidden shrink-0"
             >
               <svg className="absolute -right-4 -bottom-4 w-24 h-24 opacity-[0.03] dark:opacity-[0.05]" viewBox="0 0 24 24">
                  <path fill="currentColor" d="M12.545,10.239v3.821h5.445c-0.712,2.315-2.647,3.972-5.445,3.972c-3.332,0-6.033-2.701-6.033-6.032s2.701-6.032,6.033-6.032c1.498,0,2.866,0.549,3.921,1.453l2.814-2.814C17.503,2.988,15.139,2,12.545,2C7.021,2,2.543,6.477,2.543,12s4.478,10,10.002,10c8.396,0,10.249-7.85,9.426-11.748L12.545,10.239z"/>
@@ -149,7 +149,7 @@ export const GoogleReviews = () => {
             <motion.div 
               key={`${branch}-${idx}`}
               whileHover={{ y: -4 }}
-              className="w-[320px] md:w-[380px] bg-white dark:bg-slate-900 p-6 sm:p-8 rounded-[2rem] border border-slate-100 dark:border-slate-800 shadow-sm flex flex-col shrink-0 group/card transition-all duration-300"
+              className="w-[320px] md:w-[380px] bg-white dark:bg-slate-900 p-6 sm:p-8 rounded-[2rem] border border-slate-300/80 dark:border-slate-800 shadow-[0_8px_30px_rgba(0,0,0,0.03)] dark:shadow-none hover:shadow-2xl hover:shadow-slate-300/50 dark:hover:shadow-none flex flex-col shrink-0 group/card transition-all duration-300"
             >
               <div className="flex justify-between items-start mb-5">
                 <div className="flex gap-0.5">
@@ -164,7 +164,7 @@ export const GoogleReviews = () => {
                 "{review.text}"
               </p>
 
-              <div className="flex items-center gap-3 pt-4 border-t border-slate-50 dark:border-slate-800 mt-auto">
+              <div className="flex items-center gap-3 pt-4 border-t border-slate-200 dark:border-slate-800 mt-auto">
                 <div className="w-9 h-9 rounded-full bg-slate-100 dark:bg-slate-800 flex items-center justify-center text-xs font-black text-slate-500 dark:text-slate-400 shrink-0">
                   {review.author.split(' ').map((n: string) => n[0]).join('').substring(0, 2)}
                 </div>

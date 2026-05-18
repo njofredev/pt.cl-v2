@@ -5,6 +5,7 @@ import Link from 'next/link';
 import { Activity, Instagram, Facebook, MapPin, Phone, Mail, MessageCircle, ChevronDown, Heart } from 'lucide-react';
 import { motion, AnimatePresence, useAnimation } from 'framer-motion';
 import { useEffect } from 'react';
+import { usePathname } from 'next/navigation';
 
 const TikTokIcon = ({ size = 18, className = "" }: { size?: number, className?: string }) => (
   <svg width={size} height={size} fill="currentColor" viewBox="0 0 24 24" className={className}>
@@ -221,6 +222,9 @@ const LikeButton = () => {
 };
 
 export const Footer = () => {
+  const pathname = usePathname();
+  if (pathname === '/alianzas') return null;
+
   return (
     <footer className="bg-white dark:bg-transparent text-slate-900 dark:text-white pt-20 md:pt-24 pb-12 transition-colors duration-300 border-t border-slate-100 dark:border-none relative z-10">
       <div className="container mx-auto px-6">
@@ -287,9 +291,8 @@ export const Footer = () => {
               { name: 'Derechos y Deberes', href: '/derechos-y-deberes' },
               { name: 'Nuestras Sucursales', href: '/#sucursales' },
               { name: 'Convenios y Alianzas', href: '/convenios' },
-              { name: 'PAD Dental (Fonasa)', href: '/pad-dental' },
+              { name: 'PAD Dental (Fonasa)', href: '/bonopad' },
               { name: 'Cotizador Digital', href: '/novedades/cotizador' },
-              { name: 'Centro de Ayuda', href: 'https://politabancura.tawk.help/' },
               { name: 'Estado de Sistemas', href: 'https://uptime.policlinicotabancura.cl/status/estado' }
             ]}
           />

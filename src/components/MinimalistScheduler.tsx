@@ -209,9 +209,9 @@ export function MinimalistScheduler({ initialCategoryId }: { initialCategoryId?:
       viewport={{ once: true }}
       className="w-full"
     >
-      <div className="w-full bg-white dark:bg-slate-900 rounded-[2.5rem] border border-slate-200/80 dark:border-slate-800 overflow-hidden transition-colors shadow-[0_20px_60px_-15px_rgba(0,0,0,0.03)] dark:shadow-none">
+      <div className="w-full bg-white dark:bg-slate-900 rounded-[2.5rem] border border-slate-300 dark:border-slate-800 overflow-hidden transition-colors shadow-[0_30px_60px_-15px_rgba(15,23,42,0.12),0_15px_30px_-10px_rgba(0,0,0,0.06)] dark:shadow-none">
         {/* Header más Compacto */}
-        <div className="border-b border-slate-100 dark:border-slate-800 bg-slate-50/50 dark:bg-slate-950 px-4 md:px-8 py-4 md:py-6 relative">
+        <div className="border-b border-slate-300 dark:border-slate-800 bg-slate-50/70 dark:bg-slate-950 px-4 md:px-8 py-4 md:py-6 relative">
           <div className="max-w-5xl mx-auto flex items-center justify-between">
 
             <div className="w-24 sm:w-40 shrink-0">
@@ -225,7 +225,7 @@ export function MinimalistScheduler({ initialCategoryId }: { initialCategoryId?:
                     onClick={() => setSelectedCategory(null)}
                     className="flex items-center gap-2 text-sm font-bold text-slate-500 dark:text-slate-400 hover:text-primary dark:hover:text-secondary transition-all group"
                   >
-                    <div className="w-9 h-9 rounded-xl bg-white dark:bg-slate-800 border border-slate-100 dark:border-slate-700 flex items-center justify-center group-hover:bg-primary/10 transition-colors">
+                    <div className="w-9 h-9 rounded-xl bg-white dark:bg-slate-800 border border-slate-300 dark:border-slate-700 flex items-center justify-center group-hover:bg-primary/10 transition-colors">
                       <ArrowLeft size={16} />
                     </div>
                     <span>Volver</span>
@@ -241,7 +241,7 @@ export function MinimalistScheduler({ initialCategoryId }: { initialCategoryId?:
                   <div className={`w-10 h-10 rounded-xl border flex items-center justify-center shadow-sm transition-colors duration-300 [&>svg]:w-5 [&>svg]:h-5 ${
                     activeColors 
                       ? `${activeColors.bg} ${activeColors.text} ${activeColors.border}`
-                      : 'bg-slate-50 dark:bg-slate-800 border-slate-100 dark:border-slate-700 text-primary dark:text-slate-200'
+                      : 'bg-slate-50 dark:bg-slate-800 border-slate-300 dark:border-slate-700 text-primary dark:text-slate-200'
                   }`}>
                     <AnimatePresence mode="wait">
                       <motion.div
@@ -310,7 +310,7 @@ export function MinimalistScheduler({ initialCategoryId }: { initialCategoryId?:
                       <button
                         key={cat.id}
                         onClick={() => handleCategoryClick(cat)}
-                        className={`flex flex-col sm:flex-row items-center gap-3 sm:gap-5 p-4 sm:p-6 rounded-[1.5rem] sm:rounded-[2rem] bg-slate-50/50 dark:bg-slate-950/50 hover:bg-white dark:hover:bg-slate-900/80 border border-slate-200/80 dark:border-slate-800 transition-all text-center sm:text-left group min-h-[110px] w-full shadow-sm shadow-slate-200/40 dark:shadow-none hover:shadow-xl hover:shadow-slate-200/50 dark:hover:shadow-none hover:-translate-y-0.5 ${colors.hoverBorder}`}
+                        className={`flex flex-col sm:flex-row items-center gap-3 sm:gap-5 p-4 sm:p-6 rounded-[1.5rem] sm:rounded-[2rem] bg-slate-50/80 dark:bg-slate-950/50 hover:bg-white dark:hover:bg-slate-900/80 border border-slate-300/80 dark:border-slate-800 transition-all text-center sm:text-left group min-h-[110px] w-full shadow-sm shadow-slate-200/80 dark:shadow-none hover:shadow-2xl hover:shadow-slate-200/70 dark:hover:shadow-none hover:-translate-y-0.5 ${colors.hoverBorder}`}
                       >
                         <div className={`w-10 h-10 sm:w-14 sm:h-14 rounded-xl sm:rounded-2xl ${colors.bg} border ${colors.border} flex items-center justify-center ${colors.text} group-hover:scale-110 transition-transform shrink-0 [&>svg]:w-5 [&>svg]:h-5 sm:[&>svg]:w-[26px] sm:[&>svg]:h-[26px]`}>
                           {cat.icon}
@@ -333,7 +333,7 @@ export function MinimalistScheduler({ initialCategoryId }: { initialCategoryId?:
                   {selectedCategory.services?.map((svc, idx) => (
                     <div key={idx} className="w-full">
                       {svc.isMulti ? (
-                        <div className="p-4 sm:p-6 rounded-[1.5rem] sm:rounded-[2rem] bg-slate-50 dark:bg-slate-950 border border-slate-200/80 dark:border-slate-800 flex flex-col gap-4 min-h-[120px] sm:min-h-[110px] w-full h-full justify-between shadow-sm shadow-slate-200/20">
+                        <div className="p-4 sm:p-6 rounded-[1.5rem] sm:rounded-[2rem] bg-slate-50 dark:bg-slate-950 border border-slate-300/80 dark:border-slate-800 flex flex-col gap-4 min-h-[120px] sm:min-h-[110px] w-full h-full justify-between shadow-[0_4px_20px_rgba(0,0,0,0.02)]">
                           <div className="flex flex-col gap-1 items-center sm:items-start w-full">
                             <span className="text-sm sm:text-xl font-bold text-slate-700 dark:text-slate-200 leading-tight">{svc.label}</span>
                             <span className="text-[9px] sm:text-[10px] font-medium text-slate-500 dark:text-slate-400 transition-colors leading-tight">{svc.info}</span>
@@ -353,7 +353,7 @@ export function MinimalistScheduler({ initialCategoryId }: { initialCategoryId?:
                       ) : (
                         <button
                           onClick={() => window.open(svc.link, '_blank', 'noopener')}
-                          className="w-full h-full p-4 sm:p-6 rounded-[1.5rem] sm:rounded-[2rem] border border-slate-200/80 dark:border-slate-800 hover:border-secondary/20 dark:hover:border-secondary/40 bg-slate-50/50 dark:bg-slate-950/50 hover:bg-white dark:hover:bg-slate-900 transition-all group/btn min-h-[120px] sm:min-h-[110px] flex flex-col justify-between gap-4 shadow-sm shadow-slate-200/40 dark:shadow-none hover:shadow-xl hover:shadow-slate-200/50 dark:hover:shadow-none hover:-translate-y-0.5"
+                          className="w-full h-full p-4 sm:p-6 rounded-[1.5rem] sm:rounded-[2rem] border border-slate-300/80 dark:border-slate-800 hover:border-secondary/35 dark:hover:border-secondary/40 bg-slate-50/80 dark:bg-slate-950/50 hover:bg-white dark:hover:bg-slate-900 transition-all group/btn min-h-[120px] sm:min-h-[110px] flex flex-col justify-between gap-4 shadow-sm shadow-slate-200/80 dark:shadow-none hover:shadow-2xl hover:shadow-slate-200/70 dark:hover:shadow-none hover:-translate-y-0.5"
                         >
                           <div className="flex flex-col gap-1 items-start text-left w-full">
                             <span className="text-sm sm:text-xl font-bold text-slate-700 dark:text-slate-200 leading-tight group-hover/btn:text-secondary transition-colors">{svc.label}</span>

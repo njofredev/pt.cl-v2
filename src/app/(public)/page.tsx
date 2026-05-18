@@ -23,7 +23,8 @@ import {
   ChevronRight,
   Activity,
   LayoutDashboard,
-  ShieldCheck
+  ShieldCheck,
+  Phone
 } from 'lucide-react';
 import { Button } from "@/components/ui/button";
 import Image from 'next/image';
@@ -57,14 +58,13 @@ export default async function Home() {
           <PartnerCarousel />
         </div>
       </section>
-
       {/* 3. SERVICIOS DESTACADOS (Modern Grid) */}
-      <section id="servicios" className="pt-10 pb-32 relative">
-        <div className="container mx-auto px-6 relative z-10">
+      <section id="servicios" className="pt-10 pb-24 relative bg-slate-100/40 dark:bg-transparent transition-colors">
+        <div className="container mx-auto px-6 relative z-10 mb-0">
           {/* Nueva posición CTA del Programador */}
           <div id="agendar" className="mb-20 text-center scroll-mt-48">
             <div className="mb-12">
-              <p className="text-lg md:text-xl font-medium text-slate-600 dark:t ext-slate-400 mb-2">
+              <p className="text-lg md:text-xl font-medium text-slate-600 dark:text-slate-400 mb-2">
                 Somos una corporación <span className="text-secondary relative inline-block">sin fines de lucro.
                   <svg className="absolute -bottom-1.5 left-0 w-full h-2.5 text-secondary/40" viewBox="0 0 100 10" preserveAspectRatio="none">
                     <path d="M2,8 Q50,2 98,8" stroke="currentColor" strokeWidth="4" strokeLinecap="round" fill="none" />
@@ -78,19 +78,57 @@ export default async function Home() {
             <MinimalistScheduler />
           </div>
 
-          <div className="flex flex-col gap-10 mb-12 py-8">
-            <div className="max-w-4xl">
-              <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-primary text-white text-[10px] font-bold uppercase tracking-widest mb-8">
+          <div className="grid lg:grid-cols-12 gap-8 lg:gap-12 items-center mb-12 py-8 border-b border-slate-200 dark:border-slate-800/80 pb-12">
+            {/* Left: Title & Subtitle */}
+            <div className="lg:col-span-12">
+              <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-primary text-white text-[10px] font-bold uppercase tracking-widest mb-6">
                 <HeartPulse size={14} fill="currentColor" className="text-secondary shrink-0" /> Servicios Médicos
               </div>
-              <h2 className="text-4xl md:text-6xl font-bold text-primary dark:text-white tracking-tighter leading-[0.9] mb-8">
+              <h2 className="text-4xl sm:text-5xl md:text-6xl font-bold text-primary dark:text-white tracking-tighter leading-[0.95] mb-6">
                 Innovación en cada <br /> <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary via-teal-400 to-secondary dark:from-white dark:via-secondary dark:to-teal-400">especialidad.</span>
               </h2>
-              <p className="text-xl md:text-2xl text-slate-500 dark:text-slate-400 font-medium max-w-2xl leading-relaxed">Equipos de vanguardia y especialistas de primer nivel en un solo lugar.</p>
+              <p className="text-lg sm:text-xl text-slate-500 dark:text-slate-400 font-medium max-w-xl leading-relaxed">
+                Equipos de vanguardia y especialistas de primer nivel en un solo lugar.
+              </p>
             </div>
           </div>
 
           <ServiceCarousel />
+
+          {/* Centered Contact Banner */}
+          <div className="mt-16 mb-4 max-w-4xl mx-auto px-6">
+            <div className="flex justify-center mb-8">
+              <a href="tel:+56222172635" className="inline-flex items-center gap-2 px-6 py-3 bg-[#111827] hover:bg-[#1f2937] text-white rounded-full text-[11px] font-black uppercase tracking-[0.2em] transition-all shadow-lg border border-white/5">
+                <Phone size={14} className="text-emerald-400" />
+                ¿Aún con dudas? ¡Llámanos!
+              </a>
+            </div>
+            
+            <div className="flex flex-col md:flex-row justify-center items-center gap-10 md:gap-20 text-center">
+              <div>
+                <p className="text-[10px] font-bold text-emerald-500 dark:text-emerald-400 uppercase tracking-[0.2em] mb-2">Casa Matriz - Los Tribunales</p>
+                <a href="tel:+56222172635" className="text-3xl lg:text-4xl font-black text-slate-900 dark:text-white hover:text-emerald-500 transition-colors inline-block pb-2 border-b-4 border-slate-200 dark:border-white/10 hover:border-emerald-500 whitespace-nowrap">
+                  +56 2 2217 2635
+                </a>
+              </div>
+              <div className="hidden md:block w-px h-16 bg-slate-300 dark:bg-white/10 -rotate-12" />
+              <div>
+                <p className="text-[10px] font-bold text-emerald-500 dark:text-emerald-400 uppercase tracking-[0.2em] mb-2">Sucursal Vitacura</p>
+                <a href="tel:+56229336740" className="text-3xl lg:text-4xl font-black text-slate-900 dark:text-white hover:text-emerald-500 transition-colors inline-block pb-2 border-b-4 border-slate-200 dark:border-white/10 hover:border-emerald-500 whitespace-nowrap">
+                  +56 2 2933 6740
+                </a>
+              </div>
+            </div>
+            
+            <div className="mt-10 text-center space-y-2">
+              <p className="text-[9px] font-bold text-slate-500 dark:text-slate-500 uppercase tracking-[0.2em]">
+                CASA MATRIZ: LUNES A VIERNES DE 09:00 A 13:00 Y 14:00 A 18:30 HRS
+              </p>
+              <p className="text-[9px] font-bold text-slate-500 dark:text-slate-500 uppercase tracking-[0.2em]">
+                SUCURSAL VITACURA: LUNES A VIERNES DE 08:30 A 20:00 Y SÁBADOS DE 09:00 A 13:00 HRS
+              </p>
+            </div>
+          </div>
         </div>
       </section>
 
@@ -99,7 +137,7 @@ export default async function Home() {
 
 
         <div className="container mx-auto px-6 relative z-10">
-          <div className="bg-white dark:bg-slate-950 rounded-[2rem] sm:rounded-[2.5rem] md:rounded-[4rem] border border-slate-100 dark:border-slate-800 p-6 sm:p-8 md:p-20 shadow-[0_10px_60px_rgba(0,0,0,0.02)]">
+          <div className="bg-white dark:bg-slate-950 rounded-[2rem] sm:rounded-[2.5rem] md:rounded-[4rem] border border-slate-300 dark:border-slate-800 p-6 sm:p-8 md:p-20 shadow-[0_30px_60px_-15px_rgba(15,23,42,0.12),0_15px_30px_-10px_rgba(0,0,0,0.06)] dark:shadow-none transition-all">
             <div className="grid lg:grid-cols-2 gap-16 items-center">
 
               {/* Columna Izquierda: Contexto */}
@@ -135,15 +173,15 @@ export default async function Home() {
                   />
                 </div>
                 <div className="grid grid-cols-2 gap-3 sm:gap-6">
-                  <div className="group flex items-center gap-2 sm:gap-4 bg-slate-50 dark:bg-slate-900 p-3 sm:p-4 rounded-2xl border border-slate-100 dark:border-slate-800 hover:bg-slate-100 dark:hover:bg-slate-800/80 transition-all cursor-pointer">
-                    <div className="w-12 h-12 bg-white dark:bg-slate-950 border border-slate-100 dark:border-slate-800 rounded-xl shadow-sm flex items-center justify-center font-black text-secondary text-xl group-hover:scale-110 group-hover:-translate-y-2 transition-all duration-300">25%</div>
+                  <div className="group flex items-center gap-2 sm:gap-4 bg-slate-50 dark:bg-slate-900 p-3 sm:p-4 rounded-2xl border border-slate-200/80 dark:border-slate-800 hover:bg-slate-100 dark:hover:bg-slate-800/80 transition-all cursor-pointer">
+                    <div className="w-12 h-12 bg-white dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded-xl shadow-sm flex items-center justify-center font-black text-secondary text-xl group-hover:scale-110 group-hover:-translate-y-2 transition-all duration-300">25%</div>
                     <span className="text-[11px] font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider leading-tight">Sobre el<br />arancel general</span>
                   </div>
-                  <div className="group flex items-center gap-2 sm:gap-4 bg-slate-50 dark:bg-slate-900 p-3 sm:p-4 rounded-2xl border border-slate-100 dark:border-slate-800 hover:bg-slate-100 dark:hover:bg-slate-800/80 transition-all cursor-pointer">
+                  <div className="group flex items-center gap-2 sm:gap-4 bg-slate-50 dark:bg-slate-900 p-3 sm:p-4 rounded-2xl border border-slate-200/80 dark:border-slate-800 hover:bg-slate-100 dark:hover:bg-slate-800/80 transition-all cursor-pointer">
                     <div className="relative w-12 h-12 flex items-center justify-center shrink-0">
-                      <div className="absolute w-7 h-7 bg-white dark:bg-slate-950 border border-slate-100 dark:border-slate-800 rounded-lg shadow-sm flex items-center justify-center text-secondary/40 -translate-x-2.5 -translate-y-1.5 -rotate-12 group-hover:-translate-y-5 group-hover:-rotate-[20deg] group-hover:scale-110 transition-all duration-300"><Microscope size={14} /></div>
-                      <div className="absolute w-7 h-7 bg-white dark:bg-slate-950 border border-slate-100 dark:border-slate-800 rounded-lg shadow-sm flex items-center justify-center text-secondary/40 translate-x-2.5 -translate-y-1.5 rotate-12 group-hover:-translate-y-5 group-hover:rotate-[20deg] group-hover:scale-110 transition-all duration-300"><Brain size={14} /></div>
-                      <div className="absolute w-9 h-9 bg-white dark:bg-slate-950 border border-slate-100 dark:border-slate-800 rounded-xl shadow-md flex items-center justify-center text-secondary z-10 translate-y-1 group-hover:-translate-y-1 group-hover:scale-105 transition-all duration-300"><Stethoscope size={18} /></div>
+                      <div className="absolute w-7 h-7 bg-white dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded-lg shadow-sm flex items-center justify-center text-secondary/40 -translate-x-2.5 -translate-y-1.5 -rotate-12 group-hover:-translate-y-5 group-hover:-rotate-[20deg] group-hover:scale-110 transition-all duration-300"><Microscope size={14} /></div>
+                      <div className="absolute w-7 h-7 bg-white dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded-lg shadow-sm flex items-center justify-center text-secondary/40 translate-x-2.5 -translate-y-1.5 rotate-12 group-hover:-translate-y-5 group-hover:rotate-[20deg] group-hover:scale-110 transition-all duration-300"><Brain size={14} /></div>
+                      <div className="absolute w-9 h-9 bg-white dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded-xl shadow-md flex items-center justify-center text-secondary z-10 translate-y-1 group-hover:-translate-y-1 group-hover:scale-105 transition-all duration-300"><Stethoscope size={18} /></div>
                     </div>
                     <span className="text-[11px] font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider leading-tight">Descuentos en<br />todas las categorías</span>
                   </div>

@@ -58,6 +58,17 @@ const NAV_ITEMS = [
     ]
   },
   {
+    name: 'Pacientes',
+    href: '#',
+    isMega: true,
+    subItems: [
+      { name: 'Convenios y Alianzas', href: '/convenios', desc: 'Previsiones, convenios colectivos y descuentos.', icon: <HeartHandshake className="text-emerald-500" /> },
+      { name: 'PAD Dental (Fonasa)', href: '/bonopad', desc: 'Bono PAD Fonasa para atenciones dentales integrales.', icon: <SmilePlus className="text-cyan-500" /> },
+      { name: 'Cotizador Digital', href: '/cotizador-examenes', desc: 'Presupuestos de exámenes al instante.', icon: <Calculator className="text-emerald-500" /> },
+      { name: 'Resultados de Exámenes', href: 'http://190.215.215.125:9091/Pacientes.aspx', desc: 'Consulta tus resultados en laboratorio Laboval.', icon: <FileText className="text-cyan-600" /> },
+    ]
+  },
+  {
     name: 'Especialidades',
     href: '#servicios',
     isMega: true,
@@ -66,17 +77,6 @@ const NAV_ITEMS = [
       { name: 'Salud Mental', href: '/servicios/mental', desc: 'Apoyo psicológico y psiquiátrico.', icon: <Brain className="text-purple-500" /> },
       { name: 'Medicina General', href: '/servicios/medicina', desc: 'Tu salud primaria en buenas manos.', icon: <Stethoscope className="text-blue-600" /> },
       { name: 'Terapias Complementarias', href: '/servicios/terapias', desc: 'Bienestar integral y holístico.', icon: <Leaf className="text-green-500" /> },
-    ]
-  },
-  {
-    name: 'Pacientes',
-    href: '#',
-    isMega: true,
-    subItems: [
-      { name: 'Convenios y Alianzas', href: '/convenios', desc: 'Previsiones, convenios colectivos y descuentos.', icon: <HeartHandshake className="text-emerald-500" /> },
-      { name: 'PAD Dental (Fonasa)', href: '/pad-dental', desc: 'Bono PAD Fonasa para atenciones dentales integrales.', icon: <SmilePlus className="text-cyan-500" /> },
-      { name: 'Cotizador Digital', href: '/cotizador-examenes', desc: 'Presupuestos de exámenes al instante.', icon: <Calculator className="text-emerald-500" /> },
-      { name: 'Resultados de Exámenes', href: 'http://190.215.215.125:9091/Pacientes.aspx', desc: 'Consulta tus resultados en laboratorio Laboval.', icon: <FileText className="text-cyan-600" /> },
     ]
   },
   {
@@ -120,6 +120,45 @@ export const Navbar = () => {
   const [socialPhraseIndex, setSocialPhraseIndex] = useState(0);
   const [confirmLink, setConfirmLink] = useState<string | null>(null);
   const pathname = usePathname();
+
+  // Configuración dinámica del botón de agendamiento según la especialidad/página
+  const getBookingConfig = () => {
+    if (pathname?.startsWith('/servicios/dental')) {
+      return {
+        text: "Agenda aquí",
+        bgColor: "bg-cyan-500",
+        Icon: SmilePlus,
+      };
+    }
+    if (pathname?.startsWith('/servicios/mental')) {
+      return {
+        text: "Agenda aquí",
+        bgColor: "bg-purple-500",
+        Icon: Brain,
+      };
+    }
+    if (pathname?.startsWith('/servicios/medicina')) {
+      return {
+        text: "Agenda aquí",
+        bgColor: "bg-blue-500",
+        Icon: Stethoscope,
+      };
+    }
+    if (pathname?.startsWith('/servicios/terapias')) {
+      return {
+        text: "Agenda aquí",
+        bgColor: "bg-green-500",
+        Icon: Leaf,
+      };
+    }
+    return {
+      text: "Reservar Hora",
+      bgColor: "bg-secondary",
+      Icon: Calendar,
+    };
+  };
+
+  const bookingConfig = getBookingConfig();
 
   // Hide Navbar for specific routes
   if (pathname === '/alianzas') {
@@ -392,12 +431,12 @@ export const Navbar = () => {
                         if (item.href === '/') scrollToTop(e);
                         else handleAnchorClick(e, item.href);
                       }}
-                      className={`flex items-center gap-1.5 transition-all ${(item as any).highlight
-                        ? `border border-secondary px-4 py-1.5 rounded-full font-bold ${activeDropdown === item.name ? 'bg-secondary text-white dark:text-black' : 'text-secondary hover:bg-secondary hover:text-white dark:hover:text-black'}`
+                      className={`flex items-center gap-1.5 transition-all duration-300 ${(item as any).highlight
+                        ? `bg-emerald-50/90 dark:bg-emerald-950/20 text-emerald-700 dark:text-emerald-400 px-5 py-2 rounded-full font-extrabold border border-emerald-600/25 dark:border-emerald-500/20 hover:bg-emerald-100/90 dark:hover:bg-emerald-950/35 hover:scale-[1.02] active:scale-95`
                         : `hover:text-secondary ${activeDropdown === item.name ? 'text-secondary' : ''}`
                         }`}
                     >
-                      {(item as any).highlight && <Sparkles size={14} className="mr-1" />}
+                      {(item as any).highlight && <Sparkles size={14} className="mr-1 text-emerald-500 dark:text-emerald-400 fill-emerald-500/10" />}
                       {item.name}
                       {item.subItems && <ChevronDown size={12} className={`transition-transform duration-200 ${activeDropdown === item.name ? 'rotate-180' : ''}`} />}
                     </Link>
@@ -413,7 +452,7 @@ export const Navbar = () => {
                         opacity: 1,
                         y: 0,
                         scale: 1,
-                        left: activeDropdown === 'Nosotros' ? '0%' : activeDropdown === 'Especialidades' ? '8%' : '28%'
+                        left: activeDropdown === 'Nosotros' ? '0%' : activeDropdown === 'Pacientes' ? '8%' : activeDropdown === 'Especialidades' ? '20%' : '35%'
                       }}
                       exit={{ opacity: 0, y: 10, scale: 0.98 }}
                       transition={{ duration: 0.4, ease: [0.23, 1, 0.32, 1] }}
@@ -513,14 +552,14 @@ export const Navbar = () => {
 
               <div className="hidden xl:block relative group z-10">
                 <Button
-                  className="bg-gradient-to-r from-primary to-[#1e3a8a] text-white rounded-full px-8 h-11 font-bold text-[13px] tracking-tight transition-all duration-500 transform group-hover:-translate-y-1 group-active:scale-95 cursor-pointer shadow-lg shadow-black/10 border-0 relative z-10"
+                  className="bg-gradient-to-r from-primary to-[#1e3a8a] text-white rounded-full pl-7 pr-14 h-11 font-bold text-[13px] tracking-tight transition-all duration-500 transform group-hover:-translate-y-1 group-active:scale-95 cursor-pointer shadow-lg shadow-black/10 border-0 relative z-10"
                   onClick={scrollToScheduler}
                 >
-                  Reservar Hora
+                  {bookingConfig.text}
                 </Button>
                 {/* Icono Badge Flotante */}
-                <div className="absolute -top-2 -right-2 w-10 h-10 bg-secondary rounded-full flex items-center justify-center text-white shadow-lg transition-all duration-500 transform group-hover:-translate-y-1 group-hover:rotate-[-15deg] group-hover:scale-110 group-active:scale-95 z-30 border-4 border-white dark:border-slate-950 pointer-events-none">
-                  <Calendar className="w-4 h-4" strokeWidth={2.5} />
+                <div className={`absolute -top-2 -right-2 w-10 h-10 ${bookingConfig.bgColor} rounded-full flex items-center justify-center text-white shadow-lg transition-all duration-500 transform group-hover:-translate-y-1 group-hover:rotate-[-15deg] group-hover:scale-110 group-active:scale-95 z-30 border-4 border-white dark:border-slate-950 pointer-events-none`}>
+                  <bookingConfig.Icon className="w-4 h-4" strokeWidth={2.5} />
                 </div>
               </div>
 
@@ -644,10 +683,10 @@ export const Navbar = () => {
                 </button>
 
                 <Button
-                  className="w-full bg-primary h-14 rounded-2xl font-bold text-white mt-2 cursor-pointer"
+                  className="w-full bg-primary h-14 rounded-2xl font-bold text-white mt-2 cursor-pointer flex items-center justify-center gap-2"
                   onClick={scrollToScheduler}
                 >
-                  Reservar Hora <Calendar size={16} className="ml-2 shrink-0" />
+                  {bookingConfig.text} <bookingConfig.Icon size={16} className="shrink-0" />
                 </Button>
               </div>
             </motion.div>

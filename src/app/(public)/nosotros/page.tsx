@@ -164,7 +164,9 @@ export default function NosotrosPage() {
             <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-primary text-white text-[10px] md:text-[11px] font-black uppercase tracking-widest mb-6 shadow-md shadow-primary/10">
               <Award size={14} strokeWidth={2.5} className="text-secondary shrink-0" /> Liderazgo
             </div>
-            <h2 className="text-3xl md:text-5xl font-black text-slate-900 dark:text-white tracking-tight">Directorio Ejecutivo</h2>
+            <h2 className="text-3xl md:text-5xl font-black text-slate-900 dark:text-white tracking-tight">
+              Directorio <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary via-teal-400 to-secondary dark:from-white dark:via-secondary dark:to-teal-400">Ejecutivo</span>
+            </h2>
           </div>
 
           <div className="grid md:grid-cols-2 gap-8 lg:gap-12 max-w-5xl mx-auto">
@@ -249,7 +251,9 @@ export default function NosotrosPage() {
             <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-primary text-white text-[10px] font-black uppercase tracking-widest mb-6 shadow-md shadow-primary/10">
               <Sparkles size={14} strokeWidth={2.5} className="text-secondary shrink-0" /> Evolución Interactiva
             </div>
-            <h2 className="text-3xl md:text-5xl font-black text-slate-900 dark:text-white tracking-tight mb-4">Nuestra Línea de Tiempo</h2>
+            <h2 className="text-3xl md:text-5xl font-black text-slate-900 dark:text-white tracking-tight mb-4">
+              Nuestra <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary via-teal-400 to-secondary dark:from-white dark:via-secondary dark:to-teal-400">Línea de Tiempo</span>
+            </h2>
             <p className="text-slate-500 dark:text-slate-400 max-w-lg mx-auto text-sm font-medium">Navega a través de los años y revive los momentos que definieron nuestra historia.</p>
           </div>
 

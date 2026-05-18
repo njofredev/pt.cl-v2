@@ -199,7 +199,7 @@ function InfiniteScrollRow({
             <motion.div
               key={i}
               whileHover={{ scale: 1.05, y: -5 }}
-              className={`w-[170px] md:w-[280px] h-[220px] md:h-auto shrink-0 group/card rounded-2xl bg-white dark:bg-slate-900 border border-slate-100 dark:border-slate-800 transition-all duration-300 relative overflow-hidden shadow-sm hover:shadow-md ${colors.hoverBorder}`}
+              className={`w-[170px] md:w-[280px] h-[220px] md:h-auto shrink-0 group/card rounded-2xl bg-white dark:bg-slate-900 border border-slate-300/80 dark:border-slate-800 transition-all duration-300 relative overflow-hidden shadow-[0_8px_30px_rgba(0,0,0,0.03)] dark:shadow-none hover:shadow-2xl hover:shadow-slate-300/50 dark:hover:shadow-none ${colors.hoverBorder}`}
             >
               <Link
                 href={s.link}
@@ -248,7 +248,7 @@ export function ServiceCarousel() {
       <div className="w-full">
         <div className="px-8 mb-1">
           <h2 className="text-[9px] font-bold text-slate-500 dark:text-slate-400 uppercase tracking-[0.2em]">
-            Nuestras Especialidades
+            Conoce nuestras especialidades
           </h2>
         </div>
         <InfiniteScrollRow items={INFINITE_SERVICES} speed={0.9} direction="right" />
@@ -265,49 +265,6 @@ export function ServiceCarousel() {
         <InfiniteScrollRow items={INFINITE_MODALITIES} speed={0.9} direction="left" />
       </div>
       */}
-
-      {/* Sección de Ayuda Directa / Contacto */}
-      <div className="mt-16 md:mt-24 text-center animate-in fade-in slide-in-from-bottom-4 duration-1000">
-        <div className="inline-flex items-center gap-3 px-6 py-2.5 rounded-full bg-primary shadow-lg shadow-primary/20 mb-10">
-          <Phone size={15} className="text-secondary animate-pulse" />
-          <span className="text-[11px] font-black uppercase tracking-[0.2em] text-white">¿Aún con dudas? ¡Llámanos!</span>
-        </div>
-        
-        <div className="flex flex-col md:flex-row items-center justify-center gap-10 md:gap-24">
-          <a 
-            href="tel:+56222172635" 
-            className="group flex flex-col items-center no-underline"
-          >
-            <span className="text-[10px] font-black uppercase tracking-[0.25em] text-secondary mb-2 group-hover:scale-110 transition-transform text-center">Casa Matriz - Los Tribunales</span>
-            <span className="text-3xl md:text-4xl font-bold text-primary dark:text-white group-hover:text-secondary transition-all duration-300 tracking-tighter tabular-nums">
-              +56 2 2217 2635
-            </span>
-            <div className="h-[3px] w-8 group-hover:w-full bg-secondary/30 group-hover:bg-secondary transition-all duration-500 rounded-full mt-2" />
-          </a>
-          
-          <div className="hidden md:block w-px h-16 bg-gradient-to-b from-transparent via-slate-200 dark:via-slate-800 to-transparent rotate-[20deg]" />
-
-          <a 
-            href="tel:+56229336740" 
-            className="group flex flex-col items-center no-underline"
-          >
-            <span className="text-[10px] font-black uppercase tracking-[0.25em] text-secondary mb-2 group-hover:scale-110 transition-transform">Sucursal Vitacura</span>
-            <span className="text-3xl md:text-4xl font-bold text-primary dark:text-white group-hover:text-secondary transition-all duration-300 tracking-tighter tabular-nums">
-              +56 2 2933 6740
-            </span>
-            <div className="h-[3px] w-8 group-hover:w-full bg-secondary/30 group-hover:bg-secondary transition-all duration-500 rounded-full mt-2" />
-          </a>
-        </div>
-
-        <div className="mt-12 flex flex-col gap-2">
-          <p className="text-[10px] font-bold text-slate-400 dark:text-slate-500 uppercase tracking-widest">
-            Casa Matriz: Lunes a Viernes de 09:00 a 13:00 y 14:00 a 18:30 hrs
-          </p>
-          <p className="text-[10px] font-bold text-slate-400 dark:text-slate-500 uppercase tracking-widest">
-            Sucursal Vitacura: Lunes a Viernes de 08:30 a 20:00 y Sábados de 09:00 a 13:00 hrs
-          </p>
-        </div>
-      </div>
 
     </div>
   );

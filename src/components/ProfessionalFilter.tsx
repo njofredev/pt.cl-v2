@@ -186,7 +186,7 @@ const CustomSelect = ({
       <button
         type="button"
         onClick={() => setIsOpen(!isOpen)}
-        className="w-full h-14 flex items-center justify-between rounded-2xl border border-slate-100 dark:border-slate-800 bg-slate-50 dark:bg-slate-950 px-5 text-slate-900 dark:text-slate-100 font-bold hover:border-secondary/30 dark:hover:border-secondary/30 transition-all cursor-pointer focus:outline-none focus:ring-2 focus:ring-secondary/20"
+        className="w-full h-14 flex items-center justify-between rounded-2xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-950 px-5 text-slate-900 dark:text-slate-100 font-bold hover:border-secondary/30 dark:hover:border-secondary/30 transition-all cursor-pointer focus:outline-none focus:ring-2 focus:ring-secondary/20"
       >
         <span className="truncate text-sm sm:text-base">{activeOption?.label || placeholder}</span>
         <ChevronDown size={16} className={`text-slate-400 shrink-0 transition-transform duration-300 ${isOpen ? 'rotate-180' : ''}`} />
@@ -198,7 +198,7 @@ const CustomSelect = ({
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 5, scale: 0.98 }}
             transition={{ duration: 0.2 }}
-            className="absolute z-[100] top-full mt-2 w-full max-h-60 overflow-y-auto bg-white dark:bg-slate-900 border border-slate-100 dark:border-slate-800 rounded-2xl shadow-2xl shadow-black/10 p-2 backdrop-blur-xl custom-scrollbar"
+            className="absolute z-[100] top-full mt-2 w-full max-h-60 overflow-y-auto bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl shadow-2xl shadow-black/10 p-2 backdrop-blur-xl custom-scrollbar"
           >
             {options.map((opt) => (
               <button
@@ -339,113 +339,30 @@ const ProfessionalFilterContent = ({ initialArea, professionals }: { initialArea
   }, [initialArea]);
 
   return (
-    <section id="buscador-profesionales" className="pt-0 pb-24 bg-slate-50/50 dark:bg-slate-950 transition-colors">
+    <section id="buscador-profesionales" className="pt-0 pb-24 bg-slate-100/40 dark:bg-slate-950 transition-colors">
       <div className="container mx-auto px-6">
-        {/* Grilla de Especialidades del Área (Solo se muestra en vistas de área) */}
-        {specialtiesForGrid.length > 0 && (
-          <div className="mt-8 sm:-mt-8 relative z-10 mb-10 border-b border-slate-100 dark:border-white/5 pb-10 overflow-hidden">
-            <span className="inline-flex items-center gap-2 px-3 py-1 rounded-lg bg-slate-100 dark:bg-white/5 text-[10px] font-black uppercase tracking-[0.2em] text-slate-500 dark:text-slate-300 mb-6 ml-1 border border-slate-200 dark:border-white/5 shadow-sm">
-              Nuestras Especialidades
-            </span>
-            <style dangerouslySetInnerHTML={{ __html: `
-              @keyframes marquee-pro-1 {
-                0% { transform: translateX(0%); }
-                100% { transform: translateX(-50%); }
-              }
-              .animate-marquee-pro-1 {
-                animation: marquee-pro-1 120s linear infinite;
-              }
-            `}} />
-            <div className="relative w-full flex flex-col gap-3 group"
-                 style={{
-                   maskImage: 'linear-gradient(to right, transparent 0%, black 5%, black 95%, transparent 100%)',
-                   WebkitMaskImage: 'linear-gradient(to right, transparent 0%, black 5%, black 95%, transparent 100%)'
-                 }}>
-              
-              {/* Fila Única Infinita */}
-              <div className="flex gap-3 w-max animate-marquee-pro-1 group-hover:[animation-play-state:paused] py-2">
-                {[...specialtiesForGrid, ...specialtiesForGrid, ...specialtiesForGrid, ...specialtiesForGrid, ...specialtiesForGrid, ...specialtiesForGrid].map((item, idx) => {
-                  const Icon = item.Icon;
-                  const isSelected = selectedSpecialty === item.name;
-
-                  return (
-                    <div
-                      key={`r1-${item.name}-${idx}`}
-                      onClick={() => handleSpecialtyClick(item.name)}
-                      className={`shrink-0 cursor-pointer relative px-4 py-3 sm:px-5 sm:py-3.5 rounded-[1.25rem] border transition-all duration-300 flex items-center gap-3 hover:-translate-y-1 ${isSelected
-                        ? 'bg-primary text-white border-primary shadow-lg shadow-primary/20'
-                        : 'bg-white dark:bg-slate-900 border-slate-200/60 dark:border-white/[0.05] hover:shadow-md hover:border-secondary/40 shadow-sm dark:shadow-none'
-                        }`}
-                    >
-                      <div className={`w-9 h-9 rounded-xl flex items-center justify-center shrink-0 transition-colors duration-300 ${isSelected ? 'bg-white/20 text-secondary' : 'bg-secondary/15 text-secondary'
-                        }`}>
-                        <Icon size={16} strokeWidth={2.5} />
-                      </div>
-                      <h3 className={`font-bold text-[13px] tracking-tight transition-colors whitespace-nowrap ${isSelected ? 'text-white' : 'text-slate-700 dark:text-slate-200'}`}>
-                        {item.name}
-                      </h3>
-                    </div>
-                  );
-                })}
-              </div>
-            </div>
-          </div>
-        )}
-
-        {/* 
-        {initialArea === "Salud Dental" && selectedSpecialty === "Todas" && (
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="mb-16 bg-gradient-to-r from-primary/5 via-secondary/10 to-primary/5 rounded-[2.5rem] p-8 md:p-12 border border-secondary/20 relative overflow-hidden group shadow-2xl shadow-secondary/5"
-          >
-            <div className="absolute top-0 right-0 p-8 opacity-10 group-hover:scale-110 transition-transform duration-700">
-              <Zap size={140} className="text-secondary" />
-            </div>
-            <div className="relative z-10 grid md:grid-cols-3 gap-8 items-center">
-              <div className="md:col-span-2">
-                <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-secondary text-primary text-[10px] font-black uppercase tracking-widest mb-6">
-                  <Zap size={14} fill="currentColor" /> Innovación Dental 2026
+        {/* Unified Control Center Panel */}
+        <div id="controles-filtro" className="scroll-mt-32 bg-white dark:bg-slate-900 p-8 rounded-[2.5rem] shadow-[0_30px_60px_-15px_rgba(15,23,42,0.12),0_15px_30px_-10px_rgba(0,0,0,0.06)] dark:shadow-none border border-slate-300 dark:border-slate-800 mb-12 relative group/filters">
+          
+          {/* 1. Header (Title & Area Icon) */}
+          <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 pb-6 border-b border-slate-300/80 dark:border-white/5">
+            <div className="flex items-center gap-4">
+              {AreaIcon && (
+                <div className="w-14 h-14 rounded-2xl bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 flex items-center justify-center transform hover:scale-105 transition-all duration-500 shrink-0">
+                  {AreaIcon}
                 </div>
-                <h3 className="text-2xl md:text-5xl font-black text-primary dark:text-white mb-6 tracking-tighter leading-tight">
-                  Laboratorio <br />
-                  <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-secondary">Digital Dental</span>
-                </h3>
-                <p className="text-slate-600 dark:text-slate-300 font-medium max-w-xl text-base md:text-lg leading-relaxed">
-                  Creamos tus piezas dentales en una sola sesión mediante tecnología <strong>Chairside</strong>. Escaneamos con <strong>Primescan</strong> para modelos 3D procesados vía <strong>inLab CAD/CAM</strong> y fresados con <strong>CEREC MCX</strong>.
+              )}
+              <div>
+                <h2 className="text-2xl md:text-3xl font-bold text-primary dark:text-slate-50 tracking-tighter">
+                  Especialistas en <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary via-teal-400 to-secondary dark:from-white dark:via-secondary dark:to-teal-400">{areaLabel}</span>
+                </h2>
+                <p className="text-sm text-slate-500 dark:text-slate-400 font-medium mt-1">
+                  Profesionales de excelencia dedicados a brindar una atención integral y humana.
                 </p>
               </div>
-              <div className="flex justify-center md:justify-end">
-                <Link href="/servicios/dental?especialidad=Rehabilitación Oral#equipo">
-                  <Button className="bg-primary hover:bg-primary/90 text-white rounded-full px-10 h-16 text-base font-bold shadow-2xl shadow-primary/20 transform hover:-translate-y-1 transition-all duration-300 group/btn">
-                    Agendar Rehabilitación <ChevronRight className="ml-2 group-hover/btn:translate-x-1 transition-transform" />
-                  </Button>
-                </Link>
-              </div>
             </div>
-          </motion.div>
-        )}
-        */}
-
-        <div id="equipo" className="scroll-mt-32 text-center mb-10 flex flex-col items-center">
-          {AreaIcon && (
-            <div className="w-16 h-16 rounded-full bg-white dark:bg-slate-900 shadow-xl shadow-primary/5 dark:shadow-none border border-slate-100 dark:border-slate-800 flex items-center justify-center mb-6 transform hover:scale-110 transition-all duration-500">
-              {AreaIcon}
-            </div>
-          )}
-          <h2 className="text-3xl md:text-5xl font-bold text-primary dark:text-slate-50 tracking-tighter mb-4">
-            Especialistas en <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary via-teal-400 to-secondary dark:from-white dark:via-secondary dark:to-teal-400">{areaLabel}</span>
-          </h2>
-          <p className="text-slate-500 dark:text-slate-400 max-w-2xl mx-auto font-medium">
-            Profesionales de excelencia dedicados a brindar una atención integral y humana para tu bienestar.
-          </p>
-        </div>
-
-        {/* Barra de Filtros */}
-        <div id="controles-filtro" className="scroll-mt-32 bg-white dark:bg-slate-900 p-6 rounded-[2rem] shadow-xl shadow-primary/5 dark:shadow-none border border-slate-100 dark:border-slate-800 mb-12 relative group/filters">
-          {/* Botón Limpiar Filtros (Flotante Desktop/Tablet) */}
-          <div className="absolute top-6 right-6 z-20">
+            
+            {/* Trash / Reset Filters Button */}
             <button
               onClick={() => {
                 setSearchTerm("");
@@ -455,135 +372,186 @@ const ProfessionalFilterContent = ({ initialArea, professionals }: { initialArea
                 setSelectedAgeGroup("Todas");
               }}
               disabled={!searchTerm && selectedArea === (initialArea || "Todas") && selectedSpecialty === "Todas" && selectedSucursal === "Todas" && selectedAgeGroup === "Todas"}
-              className="w-10 h-10 rounded-xl flex items-center justify-center transition-all duration-300 disabled:opacity-0 disabled:pointer-events-none bg-slate-50 dark:bg-slate-950 border border-slate-100 dark:border-slate-800 text-slate-400 hover:text-red-500 hover:border-red-200 dark:hover:border-red-900/50 hover:bg-red-50 dark:hover:bg-red-950/30 group/trash"
+              className="self-start md:self-center px-4 h-11 rounded-xl flex items-center gap-2 transition-all duration-300 disabled:opacity-0 disabled:pointer-events-none bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 text-slate-400 hover:text-red-500 hover:border-red-200 dark:hover:border-red-900/50 hover:bg-red-50 dark:hover:bg-red-950/30 group/trash text-xs font-bold uppercase tracking-wider cursor-pointer"
               title="Limpiar todos los filtros"
             >
-              <Trash2 size={16} className="group-hover/trash:scale-110 transition-transform" />
+              <Trash2 size={14} className="group-hover/trash:scale-110 transition-transform" />
+              Limpiar Filtros
             </button>
           </div>
 
-          <div className={`grid grid-cols-1 md:grid-cols-2 gap-6 items-end ${!initialArea ? 'lg:grid-cols-5' : 'lg:grid-cols-4'}`}>
-            <div className="space-y-2 md:col-span-2 lg:col-span-1">
-              <label className="text-[10px] font-bold uppercase tracking-widest text-slate-500 dark:text-slate-400 ml-2">Buscar Profesional o Especialidad</label>
-              <div className="relative">
-                <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400" size={18} />
-                <Input
-                  placeholder="Ingresa el nombre del profesional o especialidad..."
-                  className="pl-12 h-14 rounded-2xl border-slate-100 dark:border-slate-800 bg-slate-50 dark:bg-slate-950 focus:bg-white dark:focus:bg-slate-950 focus:ring-secondary/20 dark:text-slate-100 transition-all text-base font-medium"
-                  value={searchTerm}
-                  onChange={(e) => setSearchTerm(e.target.value)}
-                />
-              </div>
-            </div>
+          {/* 2. Specialty Quick Explorer (Marquee Carousel - Only if relevant) */}
+          {specialtiesForGrid.length > 0 && (
+            <div className="pt-6 pb-6 border-b border-slate-200 dark:border-white/5 overflow-hidden">
+              <span className="inline-flex items-center gap-2 px-3 py-1 rounded-lg bg-slate-100 dark:bg-white/5 text-[9px] font-black uppercase tracking-[0.2em] text-slate-500 dark:text-slate-300 mb-4 ml-1 border border-slate-200 dark:border-slate-800 shadow-sm">
+                Explorar Especialidades
+              </span>
+              <style dangerouslySetInnerHTML={{ __html: `
+                @keyframes marquee-pro-1 {
+                  0% { transform: translateX(0%); }
+                  100% { transform: translateX(-50%); }
+                }
+                .animate-marquee-pro-1 {
+                  animation: marquee-pro-1 120s linear infinite;
+                }
+              `}} />
+              <div className="relative w-full flex flex-col gap-3 group"
+                   style={{
+                     maskImage: 'linear-gradient(to right, transparent 0%, black 5%, black 95%, transparent 100%)',
+                     WebkitMaskImage: 'linear-gradient(to right, transparent 0%, black 5%, black 95%, transparent 100%)'
+                   }}>
+                
+                {/* Fila Única Infinita */}
+                <div className="flex gap-3 w-max animate-marquee-pro-1 group-hover:[animation-play-state:paused] py-1">
+                  {[...specialtiesForGrid, ...specialtiesForGrid, ...specialtiesForGrid, ...specialtiesForGrid, ...specialtiesForGrid, ...specialtiesForGrid].map((item, idx) => {
+                    const Icon = item.Icon;
+                    const isSelected = selectedSpecialty === item.name;
 
-            {!initialArea && (
-              <div className="space-y-2">
-                <label className="text-[10px] font-bold uppercase tracking-widest text-slate-500 dark:text-slate-400 ml-2">Área</label>
-                <CustomSelect
-                  value={selectedArea}
-                  onChange={(val) => {
-                    setSelectedArea(val as Area | "Todas");
-                    setSelectedSpecialty("Todas");
-                  }}
-                  options={[
-                    { label: "Todas las Áreas", value: "Todas" },
-                    ...AREAS.map(a => ({ label: a, value: a }))
-                  ]}
-                />
-              </div>
-            )}
-
-            <div className="space-y-2">
-              <label className="text-[10px] font-bold uppercase tracking-widest text-slate-500 dark:text-slate-400 ml-2">Sucursal</label>
-              <CustomSelect
-                value={selectedSucursal}
-                onChange={(val) => setSelectedSucursal(val)}
-                options={sucursales.map(suc => ({
-                  label: suc === "Todas" ? "Todas las Sucursales" : suc,
-                  value: suc
-                }))}
-              />
-            </div>
-
-            <div className="space-y-2">
-              <label className="text-[10px] font-bold uppercase tracking-widest text-slate-500 dark:text-slate-400 ml-2">Edad de Atención</label>
-              <CustomSelect
-                value={selectedAgeGroup}
-                onChange={(val) => setSelectedAgeGroup(val)}
-                options={ageGroups.map(age => ({
-                  label: age === "Todas" ? "Todas las Edades" : age,
-                  value: age
-                }))}
-              />
-            </div>
-
-            <div className="space-y-2">
-              <label className="text-[10px] font-bold uppercase tracking-widest text-slate-500 dark:text-slate-400 ml-2">Especialidad</label>
-              <CustomSelect
-                value={selectedSpecialty}
-                onChange={(val) => setSelectedSpecialty(val)}
-                options={specialties.map(spec => ({
-                  label: spec === "Todas" ? "Todas las Especialidades" : spec,
-                  value: spec
-                }))}
-              />
-            </div>
-          </div>
-
-          {(searchTerm || (!initialArea && selectedArea !== "Todas") || selectedSpecialty !== "Todas" || selectedSucursal !== "Todas" || selectedAgeGroup !== "Todas") && (
-            <div className="mt-6">
-              <div className="w-32 h-px bg-gradient-to-r from-transparent via-slate-200 dark:via-slate-700 to-transparent mx-auto mb-6"></div>
-              <div className="flex flex-wrap gap-2">
-                <span className="text-[10px] font-bold text-slate-400 uppercase self-center mr-2">Filtros activos:</span>
-                {searchTerm && (
-                  <Badge variant="secondary" className="bg-secondary/10 text-secondary border-none rounded-lg px-3 py-1 flex items-center gap-1">
-                    &quot;{searchTerm}&quot; <X size={12} className="cursor-pointer" onClick={() => setSearchTerm("")} />
-                  </Badge>
-                )}
-                {!initialArea && selectedArea !== "Todas" && (
-                  <Badge variant="secondary" className="bg-secondary/10 text-secondary border-none rounded-lg px-3 py-1 flex items-center gap-1">
-                    {selectedArea} <X size={12} className="cursor-pointer" onClick={() => setSelectedArea("Todas")} />
-                  </Badge>
-                )}
-                {selectedSucursal !== "Todas" && (
-                  <Badge variant="secondary" className="bg-secondary/10 text-secondary border-none rounded-lg px-3 py-1 flex items-center gap-1">
-                    {selectedSucursal} <X size={12} className="cursor-pointer" onClick={() => setSelectedSucursal("Todas")} />
-                  </Badge>
-                )}
-                {selectedAgeGroup !== "Todas" && (
-                  <Badge variant="secondary" className="bg-secondary/10 text-secondary border-none rounded-lg px-3 py-1 flex items-center gap-1">
-                    {selectedAgeGroup} <X size={12} className="cursor-pointer" onClick={() => setSelectedAgeGroup("Todas")} />
-                  </Badge>
-                )}
-                {selectedSpecialty !== "Todas" && (
-                  <Badge variant="secondary" className="bg-secondary/10 text-secondary border-none rounded-lg px-3 py-1 flex items-center gap-1">
-                    {selectedSpecialty} <X size={12} className="cursor-pointer" onClick={() => setSelectedSpecialty("Todas")} />
-                  </Badge>
-                )}
-                <Button
-                  variant="ghost"
-                  size="sm"
-                  className="text-[10px] font-black uppercase tracking-widest text-red-500 dark:text-red-400 hover:bg-red-50 dark:hover:bg-red-900/20 hover:text-red-600 transition-colors flex items-center gap-1.5"
-                  onClick={() => {
-                    setSearchTerm("");
-                    setSelectedArea(initialArea || "Todas");
-                    setSelectedSpecialty("Todas");
-                    setSelectedSucursal("Todas");
-                  }}
-                >
-                  <X size={12} className="shrink-0" />
-                  Limpiar Todo
-                </Button>
+                    return (
+                      <div
+                        key={`r1-${item.name}-${idx}`}
+                        onClick={() => handleSpecialtyClick(item.name)}
+                        className={`shrink-0 cursor-pointer relative px-4 py-2.5 rounded-[1rem] border transition-all duration-300 flex items-center gap-3 hover:-translate-y-0.5 ${isSelected
+                          ? 'bg-primary text-white border-primary shadow-lg shadow-primary/20'
+                          : 'bg-slate-50 dark:bg-slate-950 border-slate-200/60 dark:border-white/[0.05] hover:shadow-md hover:border-secondary/40 shadow-sm dark:shadow-none'
+                          }`}
+                      >
+                        <div className={`w-7 h-7 rounded-lg flex items-center justify-center shrink-0 transition-colors duration-300 ${isSelected ? 'bg-white/20 text-secondary' : 'bg-secondary/15 text-secondary'
+                          }`}>
+                          <Icon size={14} strokeWidth={2.5} />
+                        </div>
+                        <h3 className={`font-bold text-[12px] tracking-tight transition-colors whitespace-nowrap ${isSelected ? 'text-white' : 'text-slate-700 dark:text-slate-200'}`}>
+                          {item.name}
+                        </h3>
+                      </div>
+                    );
+                  })}
+                </div>
               </div>
             </div>
           )}
 
-          {/* Descripción de Especialidad Escogida (Solo Desktop) - AHORA DENTRO DEL FILTRO */}
+          {/* 3. Filter Selectors Grid */}
+          <div className="pt-6 pb-6">
+            <div className={`grid grid-cols-1 md:grid-cols-2 gap-6 items-end ${!initialArea ? 'lg:grid-cols-5' : 'lg:grid-cols-4'}`}>
+              <div className="space-y-2 md:col-span-2 lg:col-span-1">
+                <label className="text-[10px] font-bold uppercase tracking-widest text-slate-500 dark:text-slate-400 ml-2 flex items-center gap-1.5">
+                  <User size={12} className="text-secondary shrink-0" /> Buscar Profesional
+                </label>
+                <div className="relative">
+                  <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400" size={18} />
+                  <Input
+                    placeholder="Ingresa el nombre del profesional..."
+                    className="pl-12 h-13 rounded-2xl border-slate-300/80 dark:border-slate-800 bg-slate-50 dark:bg-slate-950 focus:bg-white dark:focus:bg-slate-950 focus:ring-secondary/20 dark:text-slate-100 transition-all text-sm font-medium"
+                    value={searchTerm}
+                    onChange={(e) => setSearchTerm(e.target.value)}
+                  />
+                </div>
+              </div>
+
+              {!initialArea && (
+                <div className="space-y-2">
+                  <label className="text-[10px] font-bold uppercase tracking-widest text-slate-500 dark:text-slate-400 ml-2 flex items-center gap-1.5">
+                    <Activity size={12} className="text-secondary shrink-0" /> Área
+                  </label>
+                  <CustomSelect
+                    value={selectedArea}
+                    onChange={(val) => {
+                      setSelectedArea(val as Area | "Todas");
+                      setSelectedSpecialty("Todas");
+                    }}
+                    options={[
+                      { label: "Todas las Áreas", value: "Todas" },
+                      ...AREAS.map(a => ({ label: a, value: a }))
+                    ]}
+                  />
+                </div>
+              )}
+
+              <div className="space-y-2">
+                <label className="text-[10px] font-bold uppercase tracking-widest text-slate-500 dark:text-slate-400 ml-2 flex items-center gap-1.5">
+                  <MapPin size={12} className="text-secondary shrink-0" /> Sucursal
+                </label>
+                <CustomSelect
+                  value={selectedSucursal}
+                  onChange={(val) => setSelectedSucursal(val)}
+                  options={sucursales.map(suc => ({
+                    label: suc === "Todas" ? "Todas las Sucursales" : suc,
+                    value: suc
+                  }))}
+                />
+              </div>
+
+              <div className="space-y-2">
+                <label className="text-[10px] font-bold uppercase tracking-widest text-slate-500 dark:text-slate-400 ml-2 flex items-center gap-1.5">
+                  <Users size={12} className="text-secondary shrink-0" /> Edad de Atención
+                </label>
+                <CustomSelect
+                  value={selectedAgeGroup}
+                  onChange={(val) => setSelectedAgeGroup(val)}
+                  options={ageGroups.map(age => ({
+                    label: age === "Todas" ? "Todas las Edades" : age,
+                    value: age
+                  }))}
+                />
+              </div>
+
+              <div className="space-y-2">
+                <label className="text-[10px] font-bold uppercase tracking-widest text-slate-500 dark:text-slate-400 ml-2 flex items-center gap-1.5">
+                  <ShieldPlus size={12} className="text-secondary shrink-0" /> Especialidad
+                </label>
+                <CustomSelect
+                  value={selectedSpecialty}
+                  onChange={(val) => setSelectedSpecialty(val)}
+                  options={specialties.map(spec => ({
+                    label: spec === "Todas" ? "Todas las Especialidades" : spec,
+                    value: spec
+                  }))}
+                />
+              </div>
+            </div>
+          </div>
+
+          {/* 4. Active Badges / Tags */}
+          {(searchTerm || (!initialArea && selectedArea !== "Todas") || selectedSpecialty !== "Todas" || selectedSucursal !== "Todas" || selectedAgeGroup !== "Todas") && (
+            <div className="pt-4 pb-4 border-t border-slate-100 dark:border-white/5">
+              <div className="flex flex-wrap gap-2 items-center">
+                <span className="text-[10px] font-bold text-slate-400 uppercase mr-2">Filtros activos:</span>
+                {searchTerm && (
+                  <Badge variant="secondary" className="bg-secondary/10 text-secondary border-none rounded-lg px-3 py-1 flex items-center gap-1 text-[11px] font-bold">
+                    &quot;{searchTerm}&quot; <X size={12} className="cursor-pointer" onClick={() => setSearchTerm("")} />
+                  </Badge>
+                )}
+                {!initialArea && selectedArea !== "Todas" && (
+                  <Badge variant="secondary" className="bg-secondary/10 text-secondary border-none rounded-lg px-3 py-1 flex items-center gap-1 text-[11px] font-bold">
+                    {selectedArea} <X size={12} className="cursor-pointer" onClick={() => setSelectedArea("Todas")} />
+                  </Badge>
+                )}
+                {selectedSucursal !== "Todas" && (
+                  <Badge variant="secondary" className="bg-secondary/10 text-secondary border-none rounded-lg px-3 py-1 flex items-center gap-1 text-[11px] font-bold">
+                    {selectedSucursal} <X size={12} className="cursor-pointer" onClick={() => setSelectedSucursal("Todas")} />
+                  </Badge>
+                )}
+                {selectedAgeGroup !== "Todas" && (
+                  <Badge variant="secondary" className="bg-secondary/10 text-secondary border-none rounded-lg px-3 py-1 flex items-center gap-1 text-[11px] font-bold">
+                    {selectedAgeGroup} <X size={12} className="cursor-pointer" onClick={() => setSelectedAgeGroup("Todas")} />
+                  </Badge>
+                )}
+                {selectedSpecialty !== "Todas" && (
+                  <Badge variant="secondary" className="bg-secondary/10 text-secondary border-none rounded-lg px-3 py-1 flex items-center gap-1 text-[11px] font-bold">
+                    {selectedSpecialty} <X size={12} className="cursor-pointer" onClick={() => setSelectedSpecialty("Todas")} />
+                  </Badge>
+                )}
+              </div>
+            </div>
+          )}
+
+          {/* 5. Selected Specialty Explanation & Sub-navigation */}
           {selectedSpecialty !== "Todas" && (
             <motion.div 
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
-              className="hidden md:block mt-6 pt-6 border-t border-slate-100 dark:border-white/5 transition-all"
+              className="pt-6 border-t border-slate-100 dark:border-white/5 transition-all"
             >
               <div className="flex flex-col lg:flex-row items-start lg:items-center justify-between gap-6">
                 <div className="flex-1">
@@ -631,44 +599,51 @@ const ProfessionalFilterContent = ({ initialArea, professionals }: { initialArea
               </div>
             </motion.div>
           )}
-        </div>
-
-
-
-        {/* Grid de Profesionales */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-          <AnimatePresence mode='popLayout'>
-            {filteredProfessionals.map((pro, idx) => (
-              <ProfessionalCard key={`${pro.name}-${pro.specialty}`} pro={pro} idx={idx} />
-            ))}
-          </AnimatePresence>
-        </div>
-
-        {filteredProfessionals.length === 0 && (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            className="text-center py-24 bg-white dark:bg-slate-900 rounded-[3rem] border border-dashed border-slate-200 dark:border-slate-800"
-          >
-            <div className="w-20 h-20 bg-slate-50 dark:bg-slate-800 rounded-full flex items-center justify-center mx-auto mb-6">
-              <Filter className="text-slate-300 dark:text-slate-500" size={32} />
+          {/* 6. Professionals Grid Section */}
+          <div className="pt-8 mt-8 border-t border-slate-300/80 dark:border-slate-800 bg-slate-50/50 dark:bg-slate-950/20 -mx-8 -mb-8 p-8 rounded-b-[2.5rem]">
+            <div className="flex items-center justify-between gap-4 mb-6">
+              <h4 className="text-xs font-black uppercase tracking-widest text-slate-400 dark:text-slate-500 flex items-center gap-2">
+                <Users size={14} className="text-secondary" /> Especialistas Disponibles ({filteredProfessionals.length})
+              </h4>
+              <div className="h-px flex-1 bg-slate-300/60 dark:bg-white/5"></div>
             </div>
-            <h3 className="text-xl font-bold text-primary dark:text-white mb-2">No encontramos resultados</h3>
-            <p className="text-slate-500 dark:text-slate-400 font-medium">Intenta ajustando los filtros o el término de búsqueda.</p>
-            <Button
-              variant="outline"
-              className="mt-8 rounded-full border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800"
-              onClick={() => {
-                setSearchTerm("");
-                setSelectedArea(initialArea || "Todas");
-                setSelectedSpecialty("Todas");
-                setSelectedSucursal("Todas");
-              }}
-            >
-              Restablecer Filtros
-            </Button>
-          </motion.div>
-        )}
+            
+            {/* Grid of Professional Cards */}
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+              <AnimatePresence mode='popLayout'>
+                {filteredProfessionals.map((pro, idx) => (
+                  <ProfessionalCard key={`${pro.name}-${pro.specialty}`} pro={pro} idx={idx} />
+                ))}
+              </AnimatePresence>
+            </div>
+
+            {filteredProfessionals.length === 0 && (
+              <motion.div
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                className="text-center py-16 bg-slate-50/50 dark:bg-slate-950/20 rounded-[2rem] border border-dashed border-slate-200 dark:border-slate-800"
+              >
+                <div className="w-16 h-16 bg-slate-100 dark:bg-slate-900 rounded-full flex items-center justify-center mx-auto mb-4">
+                  <Filter className="text-slate-300 dark:text-slate-500" size={24} />
+                </div>
+                <h3 className="text-lg font-bold text-primary dark:text-white mb-1">No encontramos resultados</h3>
+                <p className="text-sm text-slate-500 dark:text-slate-400 font-medium">Intenta ajustando los filtros o el término de búsqueda.</p>
+                <Button
+                  variant="outline"
+                  className="mt-6 rounded-full border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800"
+                  onClick={() => {
+                    setSearchTerm("");
+                    setSelectedArea(initialArea || "Todas");
+                    setSelectedSpecialty("Todas");
+                    setSelectedSucursal("Todas");
+                  }}
+                >
+                  Restablecer Filtros
+                </Button>
+              </motion.div>
+            )}
+          </div>
+        </div>
       </div>
     </section>
   );
@@ -694,11 +669,11 @@ const ProfessionalCard = ({ pro, idx }: { pro: Professional, idx: number }) => {
       exit={{ opacity: 0, scale: 0.9 }}
       transition={{ duration: 0.2, delay: idx * 0.01 }}
     >
-      <div className="group h-full border border-slate-200/80 dark:border-slate-800 hover:border-secondary/30 dark:hover:border-secondary/30 shadow-md shadow-slate-200/30 dark:shadow-none hover:shadow-2xl hover:shadow-secondary/10 dark:hover:shadow-secondary/20 transition-all duration-500 rounded-[3rem] overflow-hidden bg-white dark:bg-slate-900 flex flex-col">
+      <div className="group h-full border border-slate-300/70 dark:border-slate-800 hover:border-secondary/30 dark:hover:border-secondary/30 shadow-[0_10px_30px_rgba(0,0,0,0.04)] dark:shadow-none hover:shadow-2xl hover:shadow-secondary/10 dark:hover:shadow-secondary/20 transition-all duration-500 rounded-[3rem] overflow-hidden bg-white dark:bg-slate-900 flex flex-col">
         <div className="p-0 flex flex-col h-full">
           {/* Área de Imagen - Avatar Circular Centrado */}
           <div className="pt-12 pb-6 flex justify-center">
-            <div className="relative w-40 h-40 bg-slate-50 dark:bg-slate-950 rounded-full overflow-hidden border-4 border-white dark:border-slate-800 shadow-lg group-hover:scale-105 transition-transform duration-500">
+            <div className="relative w-40 h-40 bg-slate-50 dark:bg-slate-950 rounded-full overflow-hidden border-4 border-slate-200 dark:border-slate-800 shadow-lg group-hover:scale-105 transition-transform duration-500">
               {proImage ? (
                 <Image
                   src={proImage}
@@ -743,9 +718,9 @@ const ProfessionalCard = ({ pro, idx }: { pro: Professional, idx: number }) => {
               </div>
 
               {pro.ageGroup && (
-                <div className="flex flex-wrap justify-center gap-1 mt-2 pt-2 border-t border-slate-100 dark:border-white/10 w-full">
+                <div className="flex flex-wrap justify-center gap-1.5 mt-2.5 pt-2 border-t border-slate-100 dark:border-white/10 w-full">
                   {pro.ageGroup.split(',').map(s => s.replace(/\./g, '').trim()).filter(Boolean).map((age, i) => (
-                    <span key={i} className="text-[8px] font-black tracking-wider uppercase bg-secondary/10 text-secondary px-2 py-0.5 rounded-md">
+                    <span key={i} className="text-[10px] font-extrabold tracking-wider uppercase bg-secondary/10 text-secondary px-2.5 py-1 rounded-md">
                       {age.includes('(') ? age.split('(')[0].trim() : age}
                     </span>
                   ))}
@@ -917,11 +892,11 @@ const ProfessionalCard = ({ pro, idx }: { pro: Professional, idx: number }) => {
 
                           {/* 3. Edades de atención */}
                           {pro.ageGroup && (
-                            <div className="flex flex-col items-center md:items-start gap-2 pt-4 border-t border-slate-100 dark:border-slate-800 w-full">
-                              <span className="hidden sm:block text-[9px] font-black uppercase tracking-[0.2em] text-slate-400 dark:text-slate-500">Edades de atención</span>
-                              <div className="flex flex-wrap justify-center md:justify-start gap-1.5">
+                            <div className="flex flex-col items-center md:items-start gap-2.5 pt-4 border-t border-slate-100 dark:border-slate-800 w-full">
+                              <span className="hidden sm:block text-[10px] font-black uppercase tracking-[0.2em] text-slate-400 dark:text-slate-500">Edades de atención</span>
+                              <div className="flex flex-wrap justify-center md:justify-start gap-2">
                                 {pro.ageGroup.split(',').map(s => s.replace(/\./g, '').trim()).filter(Boolean).map((age, i) => (
-                                  <span key={i} className="text-[8px] font-bold tracking-tight bg-secondary/10 text-secondary px-2.5 py-1 rounded-lg border border-secondary/10 whitespace-nowrap">
+                                  <span key={i} className="text-xs font-bold tracking-normal bg-secondary/10 text-secondary px-3.5 py-1.5 rounded-xl border border-secondary/10 whitespace-nowrap">
                                     {age}
                                   </span>
                                 ))}

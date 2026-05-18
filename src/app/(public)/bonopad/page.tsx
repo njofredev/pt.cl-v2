@@ -1,6 +1,6 @@
 "use client";
 
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import {
   SmilePlus,
@@ -15,13 +15,23 @@ import {
   HeartHandshake,
   Calendar,
   Building2,
-  Users
+  Users,
+  FileText
 } from 'lucide-react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { OtherServices } from '@/components/OtherServices';
 
 const PAD_TREATMENTS = [
+  {
+    code: '2503002',
+    title: 'Tapaduras (2 a 4 piezas)',
+    badge: 'BONO PAD',
+    color: 'border-l-emerald-500 bg-emerald-50/50 dark:bg-emerald-950/10',
+    dotColor: 'bg-emerald-500',
+    desc: 'Obturación (tapadura) y tratamiento complementario para 2 y hasta 4 piezas dentales.',
+    copago: '$55.700'
+  },
   {
     code: '2503001',
     title: 'Tapadura de un diente',
@@ -41,13 +51,13 @@ const PAD_TREATMENTS = [
     copago: '$80.050'
   },
   {
-    code: '2503002',
-    title: 'Tapaduras (2 a 4 piezas)',
+    code: '2503003',
+    title: 'Tapaduras (Más de 5 piezas)',
     badge: 'BONO PAD',
-    color: 'border-l-emerald-500 bg-emerald-50/50 dark:bg-emerald-950/10',
-    dotColor: 'bg-emerald-500',
-    desc: 'Obturación (tapadura) y tratamiento complementario para 2 y hasta 4 piezas dentales.',
-    copago: '$55.700'
+    color: 'border-l-sky-500 bg-sky-50/50 dark:bg-sky-950/10',
+    dotColor: 'bg-sky-500',
+    desc: 'Obturación (tapadura) y tratamiento complementario completo para más de cinco piezas dentales.',
+    copago: '$82.100'
   },
   {
     code: '2503005',
@@ -57,15 +67,6 @@ const PAD_TREATMENTS = [
     dotColor: 'bg-cyan-500',
     desc: 'Tratamiento de endodoncia completo para piezas premolares (una pieza dental).',
     copago: '$100.370'
-  },
-  {
-    code: '2503003',
-    title: 'Tapaduras (Más de 5 piezas)',
-    badge: 'BONO PAD',
-    color: 'border-l-sky-500 bg-sky-50/50 dark:bg-sky-950/10',
-    dotColor: 'bg-sky-500',
-    desc: 'Obturación (tapadura) y tratamiento complementario completo para más de cinco piezas dentales.',
-    copago: '$82.100'
   },
   {
     code: '2503006',
@@ -85,11 +86,20 @@ const WhatsAppIcon = ({ size = 18, className = "" }: { size?: number, className?
 );
 
 export default function PadDentalPage() {
+  const [confirmFonasa, setConfirmFonasa] = useState(false);
+
+  useEffect(() => {
+    if (confirmFonasa) {
+      const timer = setTimeout(() => setConfirmFonasa(false), 4500);
+      return () => clearTimeout(timer);
+    }
+  }, [confirmFonasa]);
+
   return (
     <main className="min-h-screen bg-slate-50 dark:bg-slate-950 transition-colors duration-500 overflow-x-hidden">
 
       {/* 1. HERO SECTION */}
-      <section className="relative pt-48 pb-20 overflow-hidden">
+      <section className="relative pt-60 pb-20 overflow-hidden">
         {/* Orbes de fondo */}
         <div className="absolute inset-0 overflow-hidden">
           <div className="absolute top-0 left-1/4 w-[600px] h-[600px] bg-secondary/5 rounded-full blur-[140px] -translate-y-1/3"></div>
@@ -114,24 +124,40 @@ export default function PadDentalPage() {
                 </div>
 
                 <h1 className="text-5xl md:text-7xl font-black text-slate-900 dark:text-white tracking-tight leading-[0.95]">
-                  PAD <br className="hidden md:inline" />
+                  Bono PAD <br className="hidden md:inline" />
                   <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary via-teal-400 to-secondary dark:from-white dark:via-secondary dark:to-teal-400">
-                    Dental.
+                    Dental
                   </span>
                 </h1>
 
                 <p className="text-xl text-slate-600 dark:text-slate-300 font-medium leading-relaxed max-w-xl">
-                  Más de 50 años acompañando a las familias en el cuidado de su salud. Accede a tratamientos dentales con copago fijo conocido, sin cobros sorpresa.
+                  Puedes acceder al Bono PAD para resolver problemas dentales frecuentes con un valor fijo, que incluye diagnóstico, tratamiento y controles.
                 </p>
 
                 <div className="flex flex-wrap gap-4 pt-4">
-                  <a
-                    href="#requisitos"
-                    className="group inline-flex items-center justify-center gap-3 px-8 py-4 rounded-2xl bg-primary text-white font-bold text-sm hover:bg-slate-800 transition-all hover:scale-105 shadow-xl shadow-primary/10 select-none cursor-pointer"
-                  >
-                    ¿Quiénes acceden?
-                    <ArrowRight size={16} className="text-secondary group-hover:translate-x-1.5 transition-transform" />
-                  </a>
+                  {confirmFonasa ? (
+                    <motion.a
+                      initial={{ scale: 0.95, opacity: 0 }}
+                      animate={{ scale: 1, opacity: 1 }}
+                      transition={{ duration: 0.2 }}
+                      href="https://mi.fonasa.gob.cl/login/"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      onClick={() => setConfirmFonasa(false)}
+                      className="group inline-flex items-center justify-center gap-3 px-8 py-4 rounded-2xl bg-amber-500 text-slate-900 font-bold text-sm hover:bg-amber-600 active:bg-amber-700 transition-all duration-300 hover:scale-105 active:scale-95 shadow-xl shadow-amber-500/20 select-none cursor-pointer animate-pulse"
+                    >
+                      <FileText size={16} className="text-slate-900 shrink-0" />
+                      <span>Ir al portal de Fonasa</span>
+                    </motion.a>
+                  ) : (
+                    <button
+                      onClick={() => setConfirmFonasa(true)}
+                      className="group inline-flex items-center justify-center gap-3 px-8 py-4 rounded-2xl bg-primary text-white font-bold text-sm hover:bg-orange-500 active:bg-orange-600 transition-all duration-300 hover:scale-105 active:scale-95 shadow-xl shadow-primary/10 hover:shadow-orange-500/20 select-none cursor-pointer"
+                    >
+                      <span>Comprar en Fonasa</span>
+                      <ArrowRight size={16} className="text-secondary group-hover:translate-x-1.5 transition-transform" />
+                    </button>
+                  )}
                   <a
                     href="#contacto"
                     className="inline-flex items-center justify-center gap-3 px-8 py-4 rounded-2xl bg-white dark:bg-slate-900 text-slate-700 dark:text-white font-bold text-sm border border-slate-200 dark:border-white/5 hover:border-slate-300 dark:hover:border-white/20 transition-all hover:scale-105 hover:bg-slate-50 dark:hover:bg-slate-800 select-none cursor-pointer"
@@ -187,7 +213,105 @@ export default function PadDentalPage() {
         </div>
       </section>
 
-      {/* 2. GRILLA DE TRATAMIENTOS PAD */}
+      {/* 2. ¿QUÉ ES EL BONO PAD? */}
+      <section id="que-es" className="py-24 bg-slate-100/40 dark:bg-transparent border-y border-slate-200/60 dark:border-slate-800/80 relative z-10 scroll-mt-24">
+        <div className="container mx-auto px-6 max-w-7xl">
+          
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
+            
+            {/* Columna Izquierda: Introducción Coherente */}
+            <div className="lg:col-span-6 space-y-6 text-left">
+              <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-primary text-white text-[10px] font-black uppercase tracking-widest shadow-md shadow-primary/10 animate-fade-in">
+                <SmilePlus size={14} className="text-secondary shrink-0" />
+                Beneficio Fonasa
+              </div>
+
+              <h2 className="text-4xl sm:text-5xl font-black text-slate-900 dark:text-white tracking-tight leading-[1.05]">
+                ¿Qué es el <br className="hidden sm:inline" />
+                <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary via-teal-400 to-secondary dark:from-white dark:via-secondary dark:to-teal-400">
+                  Bono PAD?
+                </span>
+              </h2>
+
+              <p className="text-lg sm:text-xl text-slate-600 dark:text-slate-400 font-semibold leading-relaxed">
+                El Bono PAD Dental es una modalidad de pago de FONASA que permite acceder a determinados tratamientos odontológicos pagando un precio único y previamente definido, sin copagos inesperados ni cobros posteriores.
+              </p>
+            </div>
+
+            {/* Columna Derecha: Stack de Preguntas Frecuentes estilo Glassmorphic */}
+            <div className="lg:col-span-6 space-y-4">
+              
+              {/* Pregunta 1 */}
+              <motion.div
+                initial={{ opacity: 0, y: 15 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5 }}
+                className="bg-white/80 dark:bg-slate-900/40 backdrop-blur-md border border-slate-300 dark:border-slate-800/80 rounded-[2rem] p-6 shadow-[0_10px_30px_rgba(15,23,42,0.02)] transition-all duration-300 hover:shadow-xl hover:border-slate-400 dark:hover:border-slate-700 flex gap-4 items-start"
+              >
+                <div className="w-10 h-10 rounded-xl bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 flex items-center justify-center shrink-0">
+                  <HelpCircle size={20} />
+                </div>
+                <div className="space-y-2 text-left">
+                  <h3 className="font-extrabold text-slate-800 dark:text-slate-200 text-base leading-snug">
+                    ¿El Bono PAD cubre todos los tratamientos dentales?
+                  </h3>
+                  <p className="text-slate-500 dark:text-slate-400 text-xs sm:text-sm font-semibold leading-relaxed">
+                    No. El Bono PAD aplica solo a ciertas prestaciones definidas por FONASA. En tu evaluación te indicaremos si tu caso entra dentro de la cobertura.
+                  </p>
+                </div>
+              </motion.div>
+
+              {/* Pregunta 2 */}
+              <motion.div
+                initial={{ opacity: 0, y: 15 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5, delay: 0.1 }}
+                className="bg-white/80 dark:bg-slate-900/40 backdrop-blur-md border border-slate-300 dark:border-slate-800/80 rounded-[2rem] p-6 shadow-[0_10px_30px_rgba(15,23,42,0.02)] transition-all duration-300 hover:shadow-xl hover:border-slate-400 dark:hover:border-slate-700 flex gap-4 items-start"
+              >
+                <div className="w-10 h-10 rounded-xl bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 flex items-center justify-center shrink-0">
+                  <HelpCircle size={20} />
+                </div>
+                <div className="space-y-2 text-left">
+                  <h3 className="font-extrabold text-slate-800 dark:text-slate-200 text-base leading-snug">
+                    ¿Puedo usar Bono PAD si tengo ISAPRE?
+                  </h3>
+                  <p className="text-slate-500 dark:text-slate-400 text-xs sm:text-sm font-semibold leading-relaxed">
+                    No. El Bono PAD es un beneficio exclusivo para afiliados a FONASA.
+                  </p>
+                </div>
+              </motion.div>
+
+              {/* Pregunta 3 */}
+              <motion.div
+                initial={{ opacity: 0, y: 15 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5, delay: 0.2 }}
+                className="bg-white/80 dark:bg-slate-900/40 backdrop-blur-md border border-slate-300 dark:border-slate-800/80 rounded-[2rem] p-6 shadow-[0_10px_30px_rgba(15,23,42,0.02)] transition-all duration-300 hover:shadow-xl hover:border-slate-400 dark:hover:border-slate-700 flex gap-4 items-start"
+              >
+                <div className="w-10 h-10 rounded-xl bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 flex items-center justify-center shrink-0">
+                  <HelpCircle size={20} />
+                </div>
+                <div className="space-y-2 text-left">
+                  <h3 className="font-extrabold text-slate-800 dark:text-slate-200 text-base leading-snug">
+                    ¿Puedo combinar Bono PAD con otros beneficios?
+                  </h3>
+                  <p className="text-slate-500 dark:text-slate-400 text-xs sm:text-sm font-semibold leading-relaxed">
+                    El Bono PAD ya incluye un precio fijo, por lo que no se combina con otros descuentos.
+                  </p>
+                </div>
+              </motion.div>
+
+            </div>
+
+          </div>
+
+        </div>
+      </section>
+
+      {/* 3. LISTADO DE TRATAMIENTOS PAD */}
       <section className="py-20 relative z-10">
         <div className="container mx-auto px-6 max-w-7xl">
 
@@ -199,57 +323,68 @@ export default function PadDentalPage() {
               Tratamientos Incluidos en el Bono
             </h2>
             <p className="text-lg text-slate-500 dark:text-slate-400 font-medium">
-              Conoce el valor exacto de tu copago para tapaduras y tratamientos de conducto en Policlínico Tabancura.
+              Conoce el valor exacto de tu copago fijo para tapaduras y tratamientos de conducto en Policlínico Tabancura.
             </p>
           </div>
 
-          {/* Grilla 3x2 de Tarjetas PAD */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {PAD_TREATMENTS.map((pad, idx) => (
-              <motion.div
-                key={pad.code}
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: idx * 0.05 }}
-                className={`relative overflow-hidden p-8 rounded-[2.5rem] bg-white dark:bg-slate-900 border border-slate-100 dark:border-white/5 hover:border-slate-200 dark:hover:border-white/10 hover:shadow-xl dark:shadow-none transition-all duration-500 group border-l-4 ${pad.color} flex flex-col justify-between`}
-              >
-                <div>
-                  {/* Fila superior: Badge y Código */}
-                  <div className="flex justify-between items-center mb-6">
-                    <span className="text-[9px] font-black uppercase tracking-[0.2em] text-slate-400 dark:text-slate-500 flex items-center gap-1.5">
-                      <span className={`w-1.5 h-1.5 rounded-full ${pad.dotColor}`} />
-                      {pad.badge}
-                    </span>
-                    <span className="text-[11px] font-bold text-primary dark:text-secondary bg-slate-50 dark:bg-slate-950 px-2.5 py-1 rounded-lg border border-slate-100 dark:border-white/5 font-mono">
-                      Cód: {pad.code}
+          {/* Listado Horizontal / Tabla Minimalista */}
+          <div className="max-w-5xl mx-auto bg-white dark:bg-slate-900/30 backdrop-blur-md border border-slate-200 dark:border-slate-800/80 rounded-[2.5rem] overflow-hidden shadow-2xl">
+            
+            {/* Cabecera del Listado (Sólo Desktop) */}
+            <div className="hidden lg:grid grid-cols-12 gap-6 px-10 py-5 bg-slate-50/50 dark:bg-slate-900/50 border-b border-slate-200 dark:border-slate-800/80 text-slate-400 dark:text-slate-500 text-[10px] font-black uppercase tracking-widest">
+              <div className="col-span-2">Código Minsal</div>
+              <div className="col-span-3">Tratamiento</div>
+              <div className="col-span-5">Descripción de la Cobertura</div>
+              <div className="col-span-2 text-right">Copago Fijo</div>
+            </div>
+
+            <div className="flex flex-col">
+              {PAD_TREATMENTS.map((pad, idx) => (
+                <motion.div
+                  key={pad.code}
+                  initial={{ opacity: 0, y: 10 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.3, delay: idx * 0.05 }}
+                  className={`grid grid-cols-1 lg:grid-cols-12 gap-4 lg:gap-6 items-center px-6 lg:px-10 py-6 lg:py-8 hover:bg-slate-50 dark:hover:bg-slate-800/40 transition-colors duration-300 ${idx !== PAD_TREATMENTS.length - 1 ? 'border-b border-slate-100 dark:border-slate-800/60' : ''}`}
+                >
+                  {/* Código */}
+                  <div className="lg:col-span-2 flex items-center gap-2">
+                    <span className={`w-2 h-2 rounded-full ${pad.dotColor} shrink-0 shadow-sm`} />
+                    <span className="text-xs font-bold text-slate-400 dark:text-slate-500 font-mono tracking-wider bg-slate-50 dark:bg-slate-950 px-2.5 py-1 rounded-lg border border-slate-200 dark:border-slate-800/50 shadow-sm">
+                      {pad.code}
                     </span>
                   </div>
 
-                  {/* Nombre y descripción */}
-                  <h3 className="text-xl font-black text-slate-900 dark:text-white tracking-tight leading-snug mb-3 group-hover:text-primary dark:group-hover:text-secondary transition-colors">
-                    {pad.title}
-                  </h3>
-                  <p className="text-slate-500 dark:text-slate-400 font-medium text-sm leading-relaxed mb-8">
+                  {/* Título */}
+                  <div className="lg:col-span-3 text-left">
+                    <h3 className="font-extrabold text-slate-900 dark:text-white text-base md:text-lg leading-snug tracking-tight">
+                      {pad.title}
+                    </h3>
+                  </div>
+
+                  {/* Descripción */}
+                  <div className="lg:col-span-5 text-left text-slate-500 dark:text-slate-400 text-xs sm:text-sm font-medium leading-relaxed pr-4">
                     {pad.desc}
-                  </p>
-                </div>
-
-                {/* Copago */}
-                <div className="pt-5 border-t border-slate-100 dark:border-white/5 flex items-center justify-between">
-                  <span className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Tu Copago Fijo</span>
-                  <div className="bg-slate-50 dark:bg-slate-950 border border-slate-100 dark:border-white/5 rounded-full px-5 py-2 flex items-center justify-center font-black text-slate-900 dark:text-white text-base group-hover:scale-105 group-hover:border-secondary/20 transition-all duration-300">
-                    <span className="text-secondary mr-1">$</span> {pad.copago.replace('$', '')}
                   </div>
-                </div>
-              </motion.div>
-            ))}
+
+                  {/* Copago */}
+                  <div className="lg:col-span-2 flex lg:flex-col items-center lg:items-end justify-between lg:justify-center border-t lg:border-t-0 border-slate-100 dark:border-slate-800/40 pt-4 lg:pt-0 mt-2 lg:mt-0">
+                    <span className="text-[10px] font-bold text-slate-400 uppercase tracking-widest lg:hidden">Copago Fijo</span>
+                    <div className="font-black text-slate-900 dark:text-white text-xl tracking-tight bg-slate-50 dark:bg-slate-950 px-5 py-2 rounded-xl border border-slate-200 dark:border-slate-800/50 shadow-sm">
+                      <span className="text-secondary font-extrabold mr-1">$</span>
+                      {pad.copago.replace('$', '')}
+                    </div>
+                  </div>
+                </motion.div>
+              ))}
+            </div>
           </div>
 
         </div>
       </section>
 
-      {/* 3. REQUISITOS Y PREGUNTAS CLAVE */}
+      {/* 4. REQUISITOS Y COBERTURA DENTAL */}
       <section id="requisitos" className="py-20 bg-white dark:bg-slate-900/40 relative overflow-hidden z-10 scroll-mt-24">
         {/* Accent Sphere */}
         <div className="absolute -left-20 top-1/2 w-80 h-80 bg-secondary/5 rounded-full blur-[100px] pointer-events-none" />
@@ -281,10 +416,10 @@ export default function PadDentalPage() {
                 </div>
 
                 <h3 className="text-3xl md:text-4xl font-black tracking-tight leading-none mb-6">
-                  ¿Quiénes pueden acceder al Bono PAD?
+                  ¿Quiénes pueden usar el Bono Pad?
                 </h3>
                 <p className="text-slate-300 font-medium leading-relaxed mb-8">
-                  El beneficio de Bono PAD Dental está diseñado específicamente para garantizar acceso de calidad a la salud bucal en afiliados Fonasa.
+                  Puedes acceder al Bono PAD Dental si:
                 </p>
 
                 <div className="space-y-6">
@@ -293,10 +428,9 @@ export default function PadDentalPage() {
                       <Check size={14} strokeWidth={3} />
                     </div>
                     <div>
-                      <h4 className="font-bold text-white text-lg">Tramos Fonasa Habilitados</h4>
-                      <p className="text-slate-300 text-sm font-medium mt-1">
-                        Afiliados o cargas acreditadas de Fonasa pertenecientes a los **Tramos B, C o D**.
-                      </p>
+                      <h4 className="font-bold text-white text-lg leading-snug">
+                        Eres afiliado a FONASA
+                      </h4>
                     </div>
                   </div>
 
@@ -305,18 +439,27 @@ export default function PadDentalPage() {
                       <Check size={14} strokeWidth={3} />
                     </div>
                     <div>
-                      <h4 className="font-bold text-white text-lg">Rango de Edad Autorizado</h4>
-                      <p className="text-slate-300 text-sm font-medium mt-1">
-                        Válido para niños, jóvenes y adultos entre **12 y 34 años** inclusive.
-                      </p>
+                      <h4 className="font-bold text-white text-lg leading-snug">
+                        Estás en los tramos B, C o D y tienes entre 12 y 34 años
+                      </h4>
+                    </div>
+                  </div>
+
+                  <div className="flex gap-4 items-start">
+                    <div className="w-6 h-6 rounded-full bg-secondary/20 flex items-center justify-center shrink-0 text-secondary mt-1">
+                      <Check size={14} strokeWidth={3} />
+                    </div>
+                    <div>
+                      <h4 className="font-bold text-white text-lg leading-snug">
+                        Eres carga de una persona afiliada a FONASA
+                      </h4>
                     </div>
                   </div>
                 </div>
               </div>
 
-              <div className="relative z-10 mt-12 pt-6 border-t border-white/5 flex items-center justify-between text-xs text-slate-400 font-bold uppercase tracking-wider">
-                <span>Tratamiento 100% Cubierto</span>
-                <span className="text-secondary font-black">Validación en Línea</span>
+              <div className="relative z-10 mt-12 pt-6 border-t border-white/5 flex flex-col sm:flex-row sm:items-center justify-between text-xs text-slate-400 font-semibold gap-3">
+                <span>Si no estás seguro de tu tramo, nuestro equipo puede revisarlo contigo en pocos minutos.</span>
               </div>
             </motion.div>
 
@@ -330,47 +473,61 @@ export default function PadDentalPage() {
               <div className="space-y-3">
                 <span className="text-[10px] font-black uppercase tracking-[0.25em] text-secondary">Garantías Policlínico Tabancura</span>
                 <h3 className="text-3xl md:text-4xl font-black text-slate-900 dark:text-white tracking-tight leading-none">
-                  ¿Qué cubre exactamente tu Bono PAD Dental?
+                  ¿Qué incluye y qué no incluye?
                 </h3>
                 <p className="text-slate-500 dark:text-slate-400 font-medium leading-relaxed">
                   Bajo la modalidad PAD, el precio es final e incluye todas las etapas del procedimiento clínico de forma garantizada:
                 </p>
               </div>
 
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-                <div className="p-5 rounded-2xl bg-slate-50 dark:bg-white/5 border border-slate-100 dark:border-white/5 hover:border-secondary/20 transition-all">
-                  <span className="block font-bold text-slate-900 dark:text-white mb-2">Diagnóstico y Examen</span>
-                  <p className="text-slate-500 dark:text-slate-400 text-xs font-medium leading-relaxed">
-                    Evaluación clínica, insumos y radiografías necesarias para planificar tu tratamiento.
-                  </p>
+              <div className="space-y-6">
+                
+                {/* ¿Qué incluye? Container */}
+                <div className="p-6 rounded-3xl bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-sm space-y-4">
+                  <div className="flex items-center gap-2 pb-2 border-b border-slate-200 dark:border-slate-800">
+                    <span className="w-2.5 h-2.5 rounded-full bg-emerald-500 shrink-0" />
+                    <h4 className="font-extrabold text-slate-800 dark:text-slate-200 text-sm uppercase tracking-wider">¿Qué incluye?</h4>
+                  </div>
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                    {[
+                      'Evaluación y diagnóstico',
+                      'Procedimientos',
+                      'Exámenes necesarios',
+                      'Controles y seguimientos'
+                    ].map((item, idx) => (
+                      <div key={idx} className="flex items-center gap-2 text-xs font-semibold text-slate-600 dark:text-slate-400">
+                        <Check size={14} className="text-emerald-500 shrink-0" />
+                        {item}
+                      </div>
+                    ))}
+                  </div>
                 </div>
 
-                <div className="p-5 rounded-2xl bg-slate-50 dark:bg-white/5 border border-slate-100 dark:border-white/5 hover:border-secondary/20 transition-all">
-                  <span className="block font-bold text-slate-900 dark:text-white mb-2">El Procedimiento</span>
-                  <p className="text-slate-500 dark:text-slate-400 text-xs font-medium leading-relaxed">
-                    Uso de pabellón dental, anestesia local, materiales de obturación y endodoncia de alta gama.
-                  </p>
+                {/* ¿Qué no incluye? Container */}
+                <div className="p-6 rounded-3xl bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-sm space-y-4">
+                  <div className="flex items-center gap-2 pb-2 border-b border-slate-200 dark:border-slate-800">
+                    <span className="w-2.5 h-2.5 rounded-full bg-amber-500 shrink-0" />
+                    <h4 className="font-extrabold text-slate-800 dark:text-slate-200 text-sm uppercase tracking-wider">¿Qué no incluye?</h4>
+                  </div>
+                  <div className="space-y-2">
+                    {[
+                      'Complicaciones después de 15 días posterior al alta',
+                      'Otras cirugías que se encuentren en el diagnóstico'
+                    ].map((item, idx) => (
+                      <div key={idx} className="flex items-start gap-2 text-xs font-semibold text-slate-600 dark:text-slate-400">
+                        <span className="text-amber-500 shrink-0 font-bold mt-0.5">•</span>
+                        <span>{item}</span>
+                      </div>
+                    ))}
+                  </div>
                 </div>
 
-                <div className="p-5 rounded-2xl bg-slate-50 dark:bg-white/5 border border-slate-100 dark:border-white/5 hover:border-secondary/20 transition-all">
-                  <span className="block font-bold text-slate-900 dark:text-white mb-2">Controles Post-Operarios</span>
-                  <p className="text-slate-500 dark:text-slate-400 text-xs font-medium leading-relaxed">
-                    Consultas posteriores de seguimiento y retiro de puntos si fuera necesario, sin costo adicional.
-                  </p>
-                </div>
-
-                <div className="p-5 rounded-2xl bg-slate-50 dark:bg-white/5 border border-slate-100 dark:border-white/5 hover:border-secondary/20 transition-all">
-                  <span className="block font-bold text-slate-900 dark:text-white mb-2">Insumos y Materiales</span>
-                  <p className="text-slate-500 dark:text-slate-400 text-xs font-medium leading-relaxed">
-                    Materiales dentales clínicamente testeados y sellados bajo estándares sanitarios de la Seremi.
-                  </p>
-                </div>
               </div>
 
               <div className="flex items-center gap-4 bg-teal-500/5 border border-teal-500/10 p-5 rounded-2xl">
                 <Info size={20} className="text-secondary shrink-0" />
-                <p className="text-xs font-medium text-slate-600 dark:text-slate-400 leading-relaxed">
-                  **Importante:** El Bono PAD no tiene cobros extras en sucursal. El valor del copago que adquieres en Fonasa es lo único que cancelas. ¡Nosotros te guiamos en todo el proceso!
+                <p className="text-xs font-semibold text-slate-600 dark:text-slate-400 leading-relaxed">
+                  Esto significa que no tendrás costos adicionales <span className="text-[#0f67fd] dark:text-blue-400 font-extrabold">mientras el tratamiento esté dentro de lo que cubre el PAD</span>
                 </p>
               </div>
             </motion.div>

@@ -109,17 +109,7 @@ export const Hero = ({
           transition={{ duration: 0.5 }}
           className="flex flex-col items-center sm:items-start text-center sm:text-left relative"
         >
-          {/* Premium Fluid SVG Background Backplate - ONLY IN LIGHT MODE */}
-          <div className="absolute -inset-x-8 -inset-y-12 -z-10 pointer-events-none opacity-100 dark:opacity-0 transition-opacity duration-300 select-none">
-            <svg viewBox="0 0 400 400" className="w-[130%] h-[130%] absolute -top-12 -left-12 text-slate-100/60 dark:text-transparent blur-xl">
-              <path
-                fill="currentColor"
-                d="M38.1,-66.2C48.7,-59.4,56.2,-48.5,63.1,-37C70,-25.6,76.2,-13.7,77.7,-1C79.2,11.7,75.9,25.3,69.5,37.3C63.1,49.3,53.5,59.8,41.9,67.8C30.3,75.7,16.7,81.1,2.8,80.4C-11,79.7,-24.8,72.9,-37.2,64.8C-49.7,56.7,-60.7,47.4,-67.9,35.5C-75.1,23.6,-78.4,9.2,-77.8,-4.9C-77.2,-19,-72.6,-32.8,-64.5,-44.3C-56.3,-55.9,-44.5,-65.2,-31.8,-70.8C-19.1,-76.3,-5.4,-78.2,5.8,-79.8C17.1,-81.4,27.5,-73.1,38.1,-66.2Z"
-                transform="translate(200, 200) scale(1.7)"
-              />
-            </svg>
-            <div className="absolute inset-0 bg-gradient-to-tr from-secondary/10 via-primary/5 to-transparent rounded-[3rem] blur-2xl" />
-          </div>
+
           <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-primary text-white text-[10px] font-bold uppercase tracking-widest mb-5 md:mb-8">
             <BadgeIcon size={14} fill="currentColor" className="text-secondary" /> {badgeText}
           </div>
@@ -131,37 +121,6 @@ export const Hero = ({
             {description}
           </p>
 
-          {showBranches && (
-            <motion.div
-              initial={{ opacity: 0, y: 10 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.2 }}
-              className="flex flex-col sm:flex-row gap-4 mb-8 justify-start"
-            >
-              {/* Sucursal Tribunales */}
-              <div className="flex items-center justify-center lg:justify-start gap-4 p-4 bg-white/5 dark:bg-slate-900/5 backdrop-blur-sm rounded-2xl border border-slate-100/50 dark:border-white/5">
-                <div className="w-10 h-10 bg-secondary/10 rounded-xl flex items-center justify-center text-secondary shrink-0">
-                  <MapPin size={20} />
-                </div>
-                <div className="text-left">
-                  <p className="text-[9px] font-black uppercase tracking-[0.2em] text-secondary mb-0.5">Casa Matriz</p>
-                  <p className="text-[13px] font-bold text-primary dark:text-white leading-tight">Los Tribunales 1268, Vitacura</p>
-                  <p className="text-[10px] text-slate-500 dark:text-slate-400 font-medium mt-0.5">Atención Médica y Dental</p>
-                </div>
-              </div>
-              {/* Sucursal Vitacura */}
-              <div className="flex items-center justify-center lg:justify-start gap-4 p-4 bg-white/5 dark:bg-slate-900/5 backdrop-blur-sm rounded-2xl border border-slate-100/50 dark:border-white/5">
-                <div className="w-10 h-10 bg-secondary/10 rounded-xl flex items-center justify-center text-secondary shrink-0">
-                  <MapPin size={20} />
-                </div>
-                <div className="text-left">
-                  <p className="text-[9px] font-black uppercase tracking-[0.2em] text-secondary mb-0.5">Centro Médico</p>
-                  <p className="text-[13px] font-bold text-primary dark:text-white leading-tight">Vitacura 8620, Vitacura</p>
-                  <p className="text-[10px] text-slate-500 dark:text-slate-400 font-medium mt-0.5">Atención Médica, Salud Mental y Toma de Muestras</p>
-                </div>
-              </div>
-            </motion.div>
-          )}
           <div className="flex flex-col sm:flex-row items-center sm:items-center gap-4 flex-wrap">
             <button
               type="button"
@@ -206,7 +165,7 @@ export const Hero = ({
                 
                 {/* Icono Badge Flotante Secundario */}
                 <div className="absolute -top-2 -right-2 sm:-top-3 sm:-right-3 w-10 h-10 sm:w-12 sm:h-12 bg-slate-800 dark:bg-slate-700 rounded-full flex items-center justify-center text-white shadow-lg transition-all duration-500 transform group-hover/sec:-translate-y-1 group-hover/sec:rotate-[15deg] group-hover/sec:scale-110 group-active/sec:scale-95 z-20 border-4 border-white dark:border-slate-950 border-solid">
-                  <Users className="w-4 h-4 sm:w-5 sm:h-5 text-secondary" strokeWidth={2.5} />
+                  <Users className="w-4 h-4 sm:w-5 sm:h-5 text-white" strokeWidth={2.5} />
                 </div>
               </div>
             )}
@@ -261,17 +220,19 @@ export const Hero = ({
               </div>
 
               {/* Indicador de Sucursal/Imagen Actual */}
-              <div className="absolute top-8 left-8 right-8 z-20 flex justify-between items-start">
-                <div className="bg-white/90 dark:bg-slate-900/90 backdrop-blur-md px-4 py-2 rounded-xl shadow-sm border border-white dark:border-slate-800 flex items-center gap-2">
-                  {images[currentImageIndex].src.includes('/logos_convenios_prevision/') ? (
-                    <Sparkles size={16} className="text-secondary shrink-0" />
-                  ) : (
-                    <MapPin size={16} className="text-secondary" />
-                  )}
-                  <span className="text-[11px] font-bold text-primary dark:text-slate-100 tracking-widest uppercase">
-                    {images[currentImageIndex].location}
-                  </span>
-                </div>
+              <div className="absolute top-4 sm:top-8 left-4 sm:left-8 right-4 sm:right-8 z-20 flex justify-end items-start">
+                {!showBranches && (
+                  <div className="bg-white/90 dark:bg-slate-900/90 backdrop-blur-md px-4 py-2 rounded-xl shadow-sm border border-white dark:border-slate-800 flex items-center gap-2 mr-auto">
+                    {images[currentImageIndex].src.includes('/logos_convenios_prevision/') ? (
+                      <Sparkles size={16} className="text-secondary shrink-0" />
+                    ) : (
+                      <MapPin size={16} className="text-secondary" />
+                    )}
+                    <span className="text-[11px] font-bold text-primary dark:text-slate-100 tracking-widest uppercase">
+                      {images[currentImageIndex].location}
+                    </span>
+                  </div>
+                )}
 
                 {/* Puntos de paginación */}
                 {images.length > 1 && (
@@ -291,6 +252,38 @@ export const Hero = ({
                   </div>
                 )}
               </div>
+
+              {/* Info de Sucursal Dinámica (Bottom Right) */}
+              {showBranches && (
+                <div className="absolute bottom-4 sm:bottom-8 right-4 sm:right-8 z-20 flex flex-col sm:flex-row gap-3">
+                  {/* Sucursal Tribunales */}
+                  {images[currentImageIndex].src.toLowerCase().includes('tribunales') && (
+                    <div className="flex items-center gap-3 sm:gap-4 p-3 sm:p-4 bg-white/90 dark:bg-slate-900/90 backdrop-blur-md rounded-2xl border border-white dark:border-slate-800 shadow-sm">
+                      <div className="w-8 h-8 sm:w-10 sm:h-10 bg-secondary/10 rounded-xl flex items-center justify-center text-secondary shrink-0">
+                        <MapPin className="w-4 h-4 sm:w-5 sm:h-5" />
+                      </div>
+                      <div className="text-left">
+                        <p className="text-[8px] sm:text-[9px] font-black uppercase tracking-[0.2em] text-secondary mb-0.5">Casa Matriz</p>
+                        <p className="text-[11px] sm:text-[13px] font-bold text-primary dark:text-white leading-tight">Los Tribunales 1268, Vitacura</p>
+                        <p className="hidden sm:block text-[10px] text-slate-500 dark:text-slate-400 font-medium mt-0.5">Atención Médica y Dental</p>
+                      </div>
+                    </div>
+                  )}
+                  {/* Sucursal Vitacura */}
+                  {images[currentImageIndex].src.toLowerCase().includes('vitacura') && (
+                    <div className="flex items-center gap-3 sm:gap-4 p-3 sm:p-4 bg-white/90 dark:bg-slate-900/90 backdrop-blur-md rounded-2xl border border-white dark:border-slate-800 shadow-sm">
+                      <div className="w-8 h-8 sm:w-10 sm:h-10 bg-secondary/10 rounded-xl flex items-center justify-center text-secondary shrink-0">
+                        <MapPin className="w-4 h-4 sm:w-5 sm:h-5" />
+                      </div>
+                      <div className="text-left">
+                        <p className="text-[8px] sm:text-[9px] font-black uppercase tracking-[0.2em] text-secondary mb-0.5">Centro Médico</p>
+                        <p className="text-[11px] sm:text-[13px] font-bold text-primary dark:text-white leading-tight">Vitacura 8620, Vitacura</p>
+                        <p className="hidden sm:block text-[10px] text-slate-500 dark:text-slate-400 font-medium mt-0.5">Salud Mental y Toma de Muestras</p>
+                      </div>
+                    </div>
+                  )}
+                </div>
+              )}
             </div>
             {/* Badge flotante de confianza */}
             <div className="absolute -bottom-6 -left-6 bg-white dark:bg-slate-900 p-4 md:p-6 rounded-3xl shadow-lg border border-slate-100 dark:border-slate-800 z-30">

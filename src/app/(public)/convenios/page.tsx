@@ -31,14 +31,16 @@ const FAQS = [
 
 // Categories definitions
 const CATEGORIES = [
-  { id: 'previsiones', name: 'Previsiones (Isapres)', icon: <Activity size={16} /> },
-  { id: 'colectivos', name: 'Convenios Institucionales', icon: <Building2 size={16} /> }
+  { id: 'colectivos', name: 'Convenios Institucionales', icon: <Building2 size={16} /> },
+  { id: 'previsiones', name: 'Previsiones', icon: <Activity size={16} /> }
 ];
 
 // Content maps
 const PREVISIONES = [
-  { name: 'Isapre Banmédica', type: 'Privada', desc: 'Validación en línea. 25% de descuento sobre el arancel dental.', color: 'from-cyan-500 to-blue-600', badge: 'Convenio Preferente', logo: 'banmedica.png' },
-  { name: 'Isapre Vida Tres', type: 'Privada', desc: 'Validación en línea. 25% de descuento sobre el arancel dental.', color: 'from-violet-500 to-purple-600', badge: 'Convenio Preferente', logo: 'vidatres.png' }
+  { name: 'Fonasa', type: 'Pública', desc: 'Bonificación a través de sistema I-Med en sucursales o venta de bonos web.', color: 'from-blue-500 to-blue-600', badge: 'Atención Directa', logo: 'fonasa.png' },
+  { name: 'Isapre Banmédica', type: 'Privada', desc: 'Bonificación a través de sistema I-Med en módulos de atención.', color: 'from-cyan-500 to-blue-600', badge: 'Convenio Preferente', logo: 'banmedica.png' },
+  { name: 'Isapre Vida Tres', type: 'Privada', desc: 'Bonificación a través de sistema I-Med en módulos de atención.', color: 'from-violet-500 to-purple-600', badge: 'Convenio Preferente', logo: 'vidatres.png' },
+  { name: 'Atención Particular', type: 'Privada', desc: 'Atención a pacientes sin previsión de salud o que requieran prestaciones no codificadas.', color: 'from-slate-500 to-slate-600', badge: '', logo: '' }
 ];
 
 const COLECTIVOS = [
@@ -79,7 +81,8 @@ function ConveniosMarquee() {
   return (
     <div className="flex flex-col gap-6 w-full max-w-lg lg:max-w-xl mx-auto py-8 relative overflow-hidden select-none">
       {/* Estilo local para animación en dirección opuesta */}
-      <style dangerouslySetInnerHTML={{__html: `
+      <style dangerouslySetInnerHTML={{
+        __html: `
         @keyframes marquee-reverse {
           from { transform: translateX(calc(-50% - 1rem)); }
           to { transform: translateX(0); }
@@ -142,7 +145,7 @@ function ConveniosMarquee() {
 }
 
 export default function ConveniosPage() {
-  const [activeTab, setActiveTab] = useState('previsiones');
+  const [activeTab, setActiveTab] = useState('colectivos');
   const [openFaq, setOpenFaq] = useState<number | null>(null);
 
   return (
@@ -154,7 +157,7 @@ export default function ConveniosPage() {
         badgeIconName="sparkles"
         titlePrefix="Convenios y"
         titleHighlight="Beneficios."
-        description="En Policlínico Tabancura trabajamos activamente para que accedas a una salud de excelencia con el menor costo posible. Contamos con validación en línea y múltiples alianzas."
+        description="En Policlínico Tabancura trabajamos activamente para que accedas a una salud de excelencia con el menor costo posible. "
         buttonText="Ver Previsiones"
         secondaryButtonText="¿Aún con dudas?"
         secondaryButtonAnchorId="faqs"
@@ -179,8 +182,8 @@ export default function ConveniosPage() {
                   key={cat.id}
                   onClick={() => setActiveTab(cat.id)}
                   className={`flex items-center justify-center gap-2.5 px-6 py-4 rounded-[1.5rem] font-bold text-xs uppercase tracking-widest transition-all w-full select-none cursor-pointer ${isActive
-                      ? 'bg-primary dark:bg-slate-800 text-white shadow-lg'
-                      : 'text-slate-400 dark:text-slate-500 hover:text-primary dark:hover:text-white hover:bg-slate-50 dark:hover:bg-slate-950'
+                    ? 'bg-primary dark:bg-slate-800 text-white shadow-lg'
+                    : 'text-slate-400 dark:text-slate-500 hover:text-primary dark:hover:text-white hover:bg-slate-50 dark:hover:bg-slate-950'
                     }`}
                 >
                   {cat.icon}
@@ -206,7 +209,7 @@ export default function ConveniosPage() {
                   {PREVISIONES.map((prev, idx) => (
                     <div
                       key={idx}
-                      className="bg-white dark:bg-slate-900 rounded-[2.5rem] p-8 border border-slate-100 dark:border-slate-800/60 shadow-xl shadow-slate-200/20 dark:shadow-none relative overflow-hidden group hover:shadow-2xl transition-all duration-300"
+                      className="bg-white dark:bg-slate-900 rounded-[2.5rem] p-8 border border-slate-200 dark:border-slate-800/60 shadow-xl shadow-slate-200/20 dark:shadow-none relative overflow-hidden group hover:shadow-2xl transition-all duration-300"
                     >
                       <div className="absolute top-0 right-0 w-32 h-32 bg-slate-50 dark:bg-slate-950 rounded-bl-[4rem] flex items-center justify-center -mr-4 -mt-4 group-hover:-translate-x-1 group-hover:translate-y-1 transition-transform">
                         <span className="text-[10px] font-black text-slate-400 uppercase tracking-widest">{prev.type}</span>
@@ -237,32 +240,37 @@ export default function ConveniosPage() {
               )}
 
               {activeTab === 'colectivos' && (
-                <div className="space-y-6">
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                   {COLECTIVOS.map((col, idx) => (
                     <div
                       key={idx}
-                      className="bg-white dark:bg-slate-900 rounded-[2rem] p-8 border border-slate-100 dark:border-slate-800/60 shadow-xl shadow-slate-200/20 dark:shadow-none flex flex-col md:flex-row md:items-center justify-between gap-6 hover:shadow-2xl transition-all duration-300"
+                      className="bg-white dark:bg-slate-900 rounded-3xl p-6 border border-slate-200 dark:border-slate-800/60 shadow-xl shadow-slate-200/20 dark:shadow-none flex flex-col h-full hover:-translate-y-1 hover:shadow-2xl transition-all duration-300 group relative overflow-hidden"
                     >
-                      <div className="flex flex-col sm:flex-row items-start sm:items-center gap-6 max-w-2xl">
-                        {col.logo && (
-                          <div className="relative w-32 h-20 shrink-0 flex items-center justify-center">
-                            <Image src={`/logos_convenios_prevision/${col.logo}`} alt={col.name} fill sizes="128px" className="object-contain drop-shadow-sm" />
+                      <div className="absolute top-0 right-0 w-24 h-24 bg-slate-50 dark:bg-slate-950 rounded-bl-full flex items-center justify-center -mr-4 -mt-4 opacity-50 pointer-events-none group-hover:scale-110 transition-transform duration-500" />
+                      
+                      <div className="flex justify-between items-start mb-5 relative z-10">
+                        {col.logo ? (
+                          <div className="relative w-24 h-14 shrink-0 flex items-center justify-start">
+                            <Image src={`/logos_convenios_prevision/${col.logo}`} alt={col.name} fill sizes="96px" className="object-contain object-left drop-shadow-sm group-hover:scale-105 transition-transform" />
+                          </div>
+                        ) : (
+                          <div className="w-14 h-14 bg-slate-50 dark:bg-slate-800 rounded-xl flex items-center justify-center shrink-0">
+                            <Building2 className="text-slate-400" size={24} />
                           </div>
                         )}
-                        <div className="space-y-2">
-                          <div className="flex flex-col items-start gap-1.5">
-                            <span className="bg-secondary/15 text-secondary px-3 py-1 rounded-full text-[9px] font-black uppercase tracking-wider">{col.type}</span>
-                            <h3 className="text-lg font-black text-primary dark:text-white">{col.name}</h3>
-                          </div>
-                          <p className="text-sm font-bold text-slate-700 dark:text-slate-200 mt-2">{col.benefit}</p>
-                          <p className="text-xs font-semibold text-slate-400 dark:text-slate-500">{col.detail}</p>
-                        </div>
+                        <span className="bg-secondary/10 text-secondary border border-secondary/20 px-2.5 py-1 rounded-full text-[8px] font-black uppercase tracking-widest shrink-0 mt-1">{col.type}</span>
+                      </div>
+                      
+                      <div className="flex-1 space-y-2.5 mb-6 relative z-10">
+                        <h3 className="text-base font-black text-primary dark:text-white leading-tight group-hover:text-secondary transition-colors">{col.name}</h3>
+                        <p className="text-xs font-bold text-emerald-800 dark:text-emerald-300 bg-emerald-50 dark:bg-emerald-900/30 p-2.5 rounded-lg border border-emerald-200 dark:border-emerald-800/50">{col.benefit}</p>
+                        <p className="text-[11px] font-semibold text-slate-400 dark:text-slate-500 leading-relaxed pt-1">{col.detail}</p>
                       </div>
 
-                      <div className="shrink-0 flex items-center justify-center md:justify-end">
-                        <div className="bg-slate-50 dark:bg-slate-950 p-4 rounded-2xl flex items-center gap-2 border border-slate-100 dark:border-slate-800">
-                          <ShieldCheck className="text-emerald-500" size={16} />
-                          <span className="text-[10px] font-black text-primary dark:text-white uppercase tracking-widest">Validado en Admisión</span>
+                      <div className="mt-auto pt-4 border-t border-slate-200 dark:border-slate-800/80 relative z-10">
+                        <div className="flex items-center gap-1.5 text-slate-500 dark:text-slate-400">
+                          <ShieldCheck className="text-emerald-500 shrink-0" size={16} />
+                          <span className="text-[10px] font-black uppercase tracking-widest">Validado en Admisión</span>
                         </div>
                       </div>
                     </div>

@@ -34,8 +34,8 @@ const SLUG_TO_HERO: Record<string, HeroProps> = {
     floatingIconName: 'smilePlus',
     floatingIconBg: 'bg-cyan-500',
     buttonText: "Agenda aquí",
-    secondaryButtonText: "Ver Especialistas",
-    secondaryButtonAnchorId: "equipo"
+    secondaryButtonText: "Conoce más",
+    secondaryButtonAnchorId: "controles-filtro"
   },
   'mental': {
     badgeText: "Compromiso con tu Bienestar",
@@ -51,8 +51,8 @@ const SLUG_TO_HERO: Record<string, HeroProps> = {
     floatingIconName: 'brain',
     floatingIconBg: 'bg-purple-500',
     buttonText: "Agenda aquí",
-    secondaryButtonText: "Ver Especialistas",
-    secondaryButtonAnchorId: "equipo"
+    secondaryButtonText: "Conoce más",
+    secondaryButtonAnchorId: "controles-filtro"
   },
   'medicina': {
     badgeText: "Cuidado Médico Integral",
@@ -68,8 +68,8 @@ const SLUG_TO_HERO: Record<string, HeroProps> = {
     floatingIconName: 'stethoscope',
     floatingIconBg: 'bg-blue-500',
     buttonText: "Agenda aquí",
-    secondaryButtonText: "Ver Especialistas",
-    secondaryButtonAnchorId: "equipo"
+    secondaryButtonText: "Conoce más",
+    secondaryButtonAnchorId: "controles-filtro"
   },
   'terapias': {
     badgeText: "Equilibrio y Salud Natural",
@@ -86,8 +86,8 @@ const SLUG_TO_HERO: Record<string, HeroProps> = {
     floatingIconName: 'leaf',
     floatingIconBg: 'bg-green-500',
     buttonText: "Agenda aquí",
-    secondaryButtonText: "Ver Especialistas",
-    secondaryButtonAnchorId: "equipo"
+    secondaryButtonText: "Conoce más",
+    secondaryButtonAnchorId: "controles-filtro"
   }
 };
 

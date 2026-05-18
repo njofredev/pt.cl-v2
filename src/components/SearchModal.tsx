@@ -33,7 +33,7 @@ const STATIC_RESULTS: SearchResult[] = [
   
   // BENEFICIOS Y CONVENIOS
   { id: "c1", title: "Convenios y Beneficios", category: "Convenios", type: "pagina", link: "/convenios", icon: <ShieldCheck size={20} /> },
-  { id: "c2", title: "PAD Dental (Bono Fonasa)", category: "Convenios", type: "pagina", link: "/pad-dental", icon: <Sparkles size={20} /> },
+  { id: "c2", title: "PAD Dental (Bono Fonasa)", category: "Convenios", type: "pagina", link: "/bonopad", icon: <Sparkles size={20} /> },
   { id: "c3", title: "Validador Mi Vita", category: "Beneficios", type: "servicio", link: "/#mivita", icon: <Sparkles size={20} /> },
   
   // HERRAMIENTAS Y PACIENTES
