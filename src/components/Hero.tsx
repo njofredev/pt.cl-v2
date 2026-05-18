@@ -42,6 +42,7 @@ export interface HeroProps {
   secondaryButtonAnchorId?: string;
   sliderAnchorId?: string;
   customRightElement?: React.ReactNode;
+  showBranches?: boolean;
 }
 
 const DEFAULT_IMAGES = [
@@ -67,7 +68,8 @@ export const Hero = ({
   secondaryButtonText,
   secondaryButtonAnchorId,
   sliderAnchorId,
-  customRightElement
+  customRightElement,
+  showBranches = false
 }: HeroProps) => {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
 
@@ -176,7 +178,42 @@ export const Hero = ({
                 </div>
               </div>
             )}
+              </div>
+            )}
           </div>
+
+          {showBranches && (
+            <motion.div
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.2 }}
+              className="flex flex-col sm:flex-row gap-4 mt-8 justify-start"
+            >
+              {/* Sucursal Tribunales */}
+              <div className="flex items-center justify-center lg:justify-start gap-4 p-4 bg-white/5 dark:bg-slate-900/5 backdrop-blur-sm rounded-2xl border border-slate-100/50 dark:border-white/5">
+                <div className="w-10 h-10 bg-secondary/10 rounded-xl flex items-center justify-center text-secondary shrink-0">
+                  <MapPin size={20} />
+                </div>
+                <div className="text-left">
+                  <p className="text-[9px] font-black uppercase tracking-[0.2em] text-secondary mb-0.5">Casa Matriz</p>
+                  <p className="text-[13px] font-bold text-primary dark:text-white leading-tight">Los Tribunales 1268, Vitacura</p>
+                  <p className="text-[10px] text-slate-500 dark:text-slate-400 font-medium mt-0.5">Atención Médica y Dental</p>
+                </div>
+              </div>
+              {/* Sucursal Vitacura */}
+              <div className="flex items-center justify-center lg:justify-start gap-4 p-4 bg-white/5 dark:bg-slate-900/5 backdrop-blur-sm rounded-2xl border border-slate-100/50 dark:border-white/5">
+                <div className="w-10 h-10 bg-secondary/10 rounded-xl flex items-center justify-center text-secondary shrink-0">
+                  <MapPin size={20} />
+                </div>
+                <div className="text-left">
+                  <p className="text-[9px] font-black uppercase tracking-[0.2em] text-secondary mb-0.5">Centro Médico</p>
+                  <p className="text-[13px] font-bold text-primary dark:text-white leading-tight">Vitacura 8620, Vitacura</p>
+                  <p className="text-[10px] text-slate-500 dark:text-slate-400 font-medium mt-0.5">Atención Médica, Salud Mental y Toma de Muestras</p>
+                </div>
+              </div>
+            </motion.div>
+          )}
+
         </motion.div>
 
         {/* Elemento Visual de Identidad: Slider de Sucursales / Especialidad o Elemento Personalizado */}

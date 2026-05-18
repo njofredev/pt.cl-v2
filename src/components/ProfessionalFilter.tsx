@@ -353,7 +353,7 @@ const ProfessionalFilterContent = ({ initialArea, professionals }: { initialArea
                 100% { transform: translateX(-50%); }
               }
               .animate-marquee-pro-1 {
-                animation: marquee-pro-1 50s linear infinite;
+                animation: marquee-pro-1 120s linear infinite;
               }
             `}} />
             <div className="relative w-full flex flex-col gap-3 group"

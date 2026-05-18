@@ -46,6 +46,7 @@ export default async function Home() {
         }
         statsNumber={`+${totalPros}`}
         statsLabel="Profesionales de salud"
+        showBranches={true}
       />
 
       <section className="py-8 bg-transparent dark:bg-transparent">
