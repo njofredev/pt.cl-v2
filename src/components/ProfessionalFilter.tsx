@@ -332,15 +332,8 @@ const ProfessionalFilterContent = ({ initialArea, professionals }: { initialArea
                 0% { transform: translateX(0%); }
                 100% { transform: translateX(-50%); }
               }
-              @keyframes marquee-pro-2 {
-                0% { transform: translateX(-50%); }
-                100% { transform: translateX(0%); }
-              }
               .animate-marquee-pro-1 {
                 animation: marquee-pro-1 50s linear infinite;
-              }
-              .animate-marquee-pro-2 {
-                animation: marquee-pro-2 50s linear infinite;
               }
             `}} />
             <div className="relative w-full flex flex-col gap-3 group"
@@ -349,9 +342,9 @@ const ProfessionalFilterContent = ({ initialArea, professionals }: { initialArea
                    WebkitMaskImage: 'linear-gradient(to right, transparent 0%, black 5%, black 95%, transparent 100%)'
                  }}>
               
-              {/* Fila 1 */}
-              <div className="flex gap-3 w-max animate-marquee-pro-1 group-hover:[animation-play-state:paused] pt-1 pb-1">
-                {[...specialtiesForGrid.slice(0, Math.ceil(specialtiesForGrid.length / 2)), ...specialtiesForGrid.slice(0, Math.ceil(specialtiesForGrid.length / 2)), ...specialtiesForGrid.slice(0, Math.ceil(specialtiesForGrid.length / 2)), ...specialtiesForGrid.slice(0, Math.ceil(specialtiesForGrid.length / 2)), ...specialtiesForGrid.slice(0, Math.ceil(specialtiesForGrid.length / 2)), ...specialtiesForGrid.slice(0, Math.ceil(specialtiesForGrid.length / 2))].map((item, idx) => {
+              {/* Fila Única Infinita */}
+              <div className="flex gap-3 w-max animate-marquee-pro-1 group-hover:[animation-play-state:paused] py-2">
+                {[...specialtiesForGrid, ...specialtiesForGrid, ...specialtiesForGrid, ...specialtiesForGrid, ...specialtiesForGrid, ...specialtiesForGrid].map((item, idx) => {
                   const Icon = item.Icon;
                   const isSelected = selectedSpecialty === item.name;
 
@@ -375,35 +368,6 @@ const ProfessionalFilterContent = ({ initialArea, professionals }: { initialArea
                   );
                 })}
               </div>
-
-              {/* Fila 2 (Inversa) */}
-              {specialtiesForGrid.length > 1 && (
-                <div className="flex gap-3 w-max animate-marquee-pro-2 group-hover:[animation-play-state:paused] pb-2">
-                  {[...specialtiesForGrid.slice(Math.ceil(specialtiesForGrid.length / 2)), ...specialtiesForGrid.slice(Math.ceil(specialtiesForGrid.length / 2)), ...specialtiesForGrid.slice(Math.ceil(specialtiesForGrid.length / 2)), ...specialtiesForGrid.slice(Math.ceil(specialtiesForGrid.length / 2)), ...specialtiesForGrid.slice(Math.ceil(specialtiesForGrid.length / 2)), ...specialtiesForGrid.slice(Math.ceil(specialtiesForGrid.length / 2))].map((item, idx) => {
-                    const Icon = item.Icon;
-                    const isSelected = selectedSpecialty === item.name;
-
-                    return (
-                      <div
-                        key={`r2-${item.name}-${idx}`}
-                        onClick={() => handleSpecialtyClick(item.name)}
-                        className={`shrink-0 cursor-pointer relative px-4 py-3 sm:px-5 sm:py-3.5 rounded-[1.25rem] border transition-all duration-300 flex items-center gap-3 hover:-translate-y-1 ${isSelected
-                          ? 'bg-primary text-white border-primary shadow-lg shadow-primary/20'
-                          : 'bg-white dark:bg-slate-900 border-slate-200/60 dark:border-white/[0.05] hover:shadow-md hover:border-secondary/40 shadow-sm dark:shadow-none'
-                          }`}
-                      >
-                        <div className={`w-9 h-9 rounded-xl flex items-center justify-center shrink-0 transition-colors duration-300 ${isSelected ? 'bg-white/20 text-secondary' : 'bg-secondary/15 text-secondary'
-                          }`}>
-                          <Icon size={16} strokeWidth={2.5} />
-                        </div>
-                        <h3 className={`font-bold text-[13px] tracking-tight transition-colors whitespace-nowrap ${isSelected ? 'text-white' : 'text-slate-700 dark:text-slate-200'}`}>
-                          {item.name}
-                        </h3>
-                      </div>
-                    );
-                  })}
-                </div>
-              )}
             </div>
           </div>
         )}
