@@ -212,8 +212,6 @@ export const Hero = ({
             )}
           </div>
 
-          </div>
-
         </motion.div>
 
         {/* Elemento Visual de Identidad: Slider de Sucursales / Especialidad o Elemento Personalizado */}
