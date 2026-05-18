@@ -69,8 +69,13 @@ const NAV_ITEMS = [
     ]
   },
   {
-    name: 'Convenios',
-    href: '/convenios'
+    name: 'Pacientes',
+    href: '#',
+    isMega: true,
+    subItems: [
+      { name: 'Convenios y Alianzas', href: '/convenios', desc: 'Previsiones, convenios colectivos y descuentos.', icon: <HeartHandshake className="text-emerald-500" /> },
+      { name: 'PAD Dental (Fonasa)', href: '/pad-dental', desc: 'Bono PAD Fonasa para atenciones dentales integrales.', icon: <SmilePlus className="text-cyan-500" /> },
+    ]
   },
   {
     name: 'Novedades 2026',

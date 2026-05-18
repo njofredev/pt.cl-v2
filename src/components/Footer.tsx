@@ -286,6 +286,7 @@ export const Footer = () => {
               { name: 'Derechos y Deberes', href: '/derechos-y-deberes' },
               { name: 'Nuestras Sucursales', href: '/#sucursales' },
               { name: 'Convenios y Alianzas', href: '/convenios' },
+              { name: 'PAD Dental (Fonasa)', href: '/pad-dental' },
               { name: 'Centro de Ayuda', href: 'https://politabancura.tawk.help/' },
               { name: 'Estado de Sistemas', href: 'https://uptime.policlinicotabancura.cl/status/estado' }
             ]}
