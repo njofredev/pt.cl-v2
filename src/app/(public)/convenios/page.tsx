@@ -214,8 +214,8 @@ export default function ConveniosPage() {
 
                       <div className="flex items-center gap-4 mb-6">
                         {prev.logo ? (
-                          <div className="relative w-12 h-12 shrink-0 bg-slate-50 dark:bg-slate-800 rounded-xl flex items-center justify-center p-2 border border-slate-100 dark:border-slate-700/50">
-                            <Image src={`/logos_convenios_prevision/${prev.logo}`} alt={prev.name} fill sizes="48px" className="object-contain p-2 mix-blend-multiply dark:mix-blend-normal dark:invert" />
+                          <div className="relative w-16 h-12 shrink-0 flex items-center justify-center">
+                            <Image src={`/logos_convenios_prevision/${prev.logo}`} alt={prev.name} fill sizes="64px" className="object-contain drop-shadow-sm" />
                           </div>
                         ) : (
                           <div className="w-3.5 h-3.5 rounded-full bg-secondary shrink-0" />
@@ -245,8 +245,8 @@ export default function ConveniosPage() {
                     >
                       <div className="flex flex-col sm:flex-row items-start gap-4 max-w-2xl">
                         {col.logo && (
-                          <div className="relative w-16 h-16 shrink-0 bg-slate-50 dark:bg-slate-800 rounded-xl flex items-center justify-center p-2 border border-slate-100 dark:border-slate-700/50">
-                            <Image src={`/logos_convenios_prevision/${col.logo}`} alt={col.name} fill sizes="64px" className="object-contain p-2 mix-blend-multiply dark:mix-blend-normal dark:invert" />
+                          <div className="relative w-24 h-16 shrink-0 flex items-center justify-center">
+                            <Image src={`/logos_convenios_prevision/${col.logo}`} alt={col.name} fill sizes="96px" className="object-contain drop-shadow-sm" />
                           </div>
                         )}
                         <div className="space-y-2">
