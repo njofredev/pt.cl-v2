@@ -63,13 +63,101 @@ const SEGUROS = [
   { name: 'Mapfre Seguros', desc: 'Cobertura en línea para exámenes de laboratorio y chequeos preventivos en sucursal Vitacura.' },
 ];
 
+import Image from 'next/image';
+
+const ROW1 = [
+  { name: 'Liceo Amanda Labarca', file: 'amanda_labarca.png' },
+  { name: 'Colegio Antártica Chilena', file: 'antartica_chilena.png' },
+  { name: 'Isapre Banmédica', file: 'banmedica.png' },
+  { name: 'Colegio Betterland', file: 'betterland.png' },
+  { name: 'Colegio Everest', file: 'colegio_everest.png' },
+];
+
+const ROW2 = [
+  { name: 'Tarjeta Mi Vita', file: 'mivita.png' },
+  { name: 'Liceo María Luisa Bombal', file: 'mraluisabombal.png' },
+  { name: 'Colegio Sirio', file: 'sirio.png' },
+  { name: 'Colegio Santa Úrsula', file: 'staursula.png' },
+  { name: 'Universidad Federico Santa María', file: 'utfsm.png' },
+  { name: 'Isapre Vida Tres', file: 'vidatres.png' },
+];
+
+const INFINITE_ROW1 = [...ROW1, ...ROW1, ...ROW1];
+const INFINITE_ROW2 = [...ROW2, ...ROW2, ...ROW2];
+
+function ConveniosMarquee() {
+  return (
+    <div className="flex flex-col gap-6 w-full max-w-lg lg:max-w-xl mx-auto py-8 relative overflow-hidden select-none">
+      {/* Estilo local para animación en dirección opuesta */}
+      <style dangerouslySetInnerHTML={{__html: `
+        @keyframes marquee-reverse {
+          from { transform: translateX(calc(-50% - 1rem)); }
+          to { transform: translateX(0); }
+        }
+        .animate-marquee-reverse {
+          animation: marquee-reverse 60s linear infinite;
+        }
+        .animate-marquee-normal {
+          animation: marquee 60s linear infinite;
+        }
+      `}} />
+
+      {/* Máscara de desvanecimiento suave a los lados */}
+      <div className="absolute inset-y-0 left-0 w-16 bg-gradient-to-r from-slate-50 dark:from-slate-950 to-transparent z-10 pointer-events-none" />
+      <div className="absolute inset-y-0 right-0 w-16 bg-gradient-to-l from-slate-50 dark:from-slate-950 to-transparent z-10 pointer-events-none" />
+
+      {/* Fila 1: Izquierda a Derecha (Normal) */}
+      <div className="w-full overflow-hidden [mask-image:linear-gradient(to_right,transparent,black_15%,black_85%,transparent)]">
+        <div className="flex w-fit animate-marquee-normal hover:[animation-play-state:paused] py-2">
+          {INFINITE_ROW1.map((partner, i) => (
+            <div
+              key={`row1-${i}`}
+              className="relative shrink-0 h-10 w-24 md:h-14 md:w-32 transition-all duration-500 hover:scale-110 mx-6 md:mx-8 block group"
+            >
+              <Image
+                src={`/logos_convenios_prevision/${partner.file}`}
+                alt={partner.name}
+                fill
+                sizes="120px"
+                className="object-contain opacity-40 grayscale dark:invert group-hover:opacity-100 group-hover:grayscale-0 group-hover:invert-0 dark:group-hover:invert-0 transition-all duration-500 cursor-pointer"
+                priority={i < 4}
+              />
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* Fila 2: Derecha a Izquierda (Reversa) */}
+      <div className="w-full overflow-hidden [mask-image:linear-gradient(to_right,transparent,black_15%,black_85%,transparent)]">
+        <div className="flex w-fit animate-marquee-reverse hover:[animation-play-state:paused] py-2">
+          {INFINITE_ROW2.map((partner, i) => (
+            <div
+              key={`row2-${i}`}
+              className="relative shrink-0 h-10 w-24 md:h-14 md:w-32 transition-all duration-500 hover:scale-110 mx-6 md:mx-8 block group"
+            >
+              <Image
+                src={`/logos_convenios_prevision/${partner.file}`}
+                alt={partner.name}
+                fill
+                sizes="120px"
+                className="object-contain opacity-40 grayscale dark:invert group-hover:opacity-100 group-hover:grayscale-0 group-hover:invert-0 dark:group-hover:invert-0 transition-all duration-500 cursor-pointer"
+                priority={i < 4}
+              />
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  );
+}
+
 export default function ConveniosPage() {
   const [activeTab, setActiveTab] = useState('previsiones');
   const [openFaq, setOpenFaq] = useState<number | null>(null);
 
   return (
     <div className="min-h-screen bg-slate-50 dark:bg-slate-950 transition-colors duration-500 pb-24 relative overflow-hidden">
-      
+
       {/* Usamos el Hero global para que tenga la misma estructura e impida quedar debajo del nav */}
       <Hero
         badgeText="Salud Accesible"
@@ -78,10 +166,11 @@ export default function ConveniosPage() {
         titleHighlight="Beneficios."
         description="En Policlínico Tabancura trabajamos activamente para que accedas a una salud de excelencia con el menor costo posible. Contamos con validación en línea y múltiples alianzas."
         buttonText="Ver Previsiones"
-        secondaryButtonText="¿Dudas?"
+        secondaryButtonText="¿Aún con dudas?"
         secondaryButtonAnchorId="faqs"
         statsNumber="100%"
         statsLabel="Validación I-Med"
+        customRightElement={<ConveniosMarquee />}
       />
 
       {/* Light mode organic blob backplate */}
@@ -99,11 +188,10 @@ export default function ConveniosPage() {
                 <button
                   key={cat.id}
                   onClick={() => setActiveTab(cat.id)}
-                  className={`flex items-center justify-center gap-2.5 px-6 py-4 rounded-[1.5rem] font-bold text-xs uppercase tracking-widest transition-all w-full select-none cursor-pointer ${
-                    isActive
+                  className={`flex items-center justify-center gap-2.5 px-6 py-4 rounded-[1.5rem] font-bold text-xs uppercase tracking-widest transition-all w-full select-none cursor-pointer ${isActive
                       ? 'bg-primary dark:bg-slate-800 text-white shadow-lg'
                       : 'text-slate-400 dark:text-slate-500 hover:text-primary dark:hover:text-white hover:bg-slate-50 dark:hover:bg-slate-950'
-                  }`}
+                    }`}
                 >
                   {cat.icon}
                   <span>{cat.name}</span>
@@ -133,14 +221,14 @@ export default function ConveniosPage() {
                       <div className="absolute top-0 right-0 w-32 h-32 bg-slate-50 dark:bg-slate-950 rounded-bl-[4rem] flex items-center justify-center -mr-4 -mt-4 group-hover:-translate-x-1 group-hover:translate-y-1 transition-transform">
                         <span className="text-[10px] font-black text-slate-400 uppercase tracking-widest">{prev.type}</span>
                       </div>
-                      
+
                       <div className="flex items-center gap-3 mb-6">
                         <div className="w-3.5 h-3.5 rounded-full bg-secondary" />
                         <h3 className="text-xl font-black text-primary dark:text-white group-hover:text-secondary transition-colors">{prev.name}</h3>
                       </div>
 
                       <p className="text-sm font-medium text-slate-500 dark:text-slate-400 leading-relaxed pr-8">{prev.desc}</p>
-                      
+
                       {prev.badge && (
                         <div className="mt-6 inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 text-[9px] font-black uppercase tracking-wider">
                           <Check size={10} strokeWidth={3} />
@@ -209,7 +297,7 @@ export default function ConveniosPage() {
         <section className="max-w-5xl mx-auto mb-28">
           <div className="bg-primary dark:bg-slate-900 rounded-[4rem] p-12 md:p-20 text-white relative overflow-hidden shadow-2xl shadow-primary/25">
             <div className="absolute top-0 right-0 w-[400px] h-[400px] bg-white/5 rounded-full -mr-48 -mt-48 blur-3xl" />
-            
+
             <div className="relative z-10 max-w-3xl mx-auto text-center mb-16">
               <h2 className="text-3xl md:text-4xl font-black mb-4 tracking-tighter">¿Cómo utilizar tus convenios?</h2>
               <p className="text-white/70 text-sm md:text-base font-semibold">Validar tus descuentos o coberturas de salud en nuestro policlínico es un proceso sencillo de 3 pasos.</p>

@@ -41,6 +41,7 @@ export interface HeroProps {
   secondaryButtonText?: string;
   secondaryButtonAnchorId?: string;
   sliderAnchorId?: string;
+  customRightElement?: React.ReactNode;
 }
 
 const DEFAULT_IMAGES = [
@@ -65,7 +66,8 @@ export const Hero = ({
   isInlineIcon = false,
   secondaryButtonText,
   secondaryButtonAnchorId,
-  sliderAnchorId
+  sliderAnchorId,
+  customRightElement
 }: HeroProps) => {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
 
@@ -177,78 +179,91 @@ export const Hero = ({
           </div>
         </motion.div>
 
-        {/* Elemento Visual de Identidad: Slider de Sucursales / Especialidad */}
-        <motion.div
-          initial={{ opacity: 0.01, scale: 0.98 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 0.4 }}
-          className="relative"
-        >
-          <div 
-            onClick={handleSliderClick}
-            className={`relative z-10 bg-slate-100 dark:bg-slate-900 rounded-[2rem] sm:rounded-[3rem] p-3 sm:p-4 shadow-lg shadow-slate-200/50 dark:shadow-none border-4 sm:border-8 border-white dark:border-slate-900 overflow-hidden aspect-[4/3] group/slider hover:shadow-2xl transition-all duration-500 transform active:scale-[0.99] ${
-              (sliderAnchorId || images === DEFAULT_IMAGES) ? 'cursor-pointer' : 'cursor-default'
-            }`}
+        {/* Elemento Visual de Identidad: Slider de Sucursales / Especialidad o Elemento Personalizado */}
+        {customRightElement ? (
+          <div className="relative w-full flex items-center justify-center">
+            {customRightElement}
+          </div>
+        ) : (
+          <motion.div
+            initial={{ opacity: 0.01, scale: 0.98 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.4 }}
+            className="relative w-full"
           >
-            <div className="relative w-full h-full rounded-[1.7rem] sm:rounded-[2.5rem] overflow-hidden">
-              <AnimatePresence initial={false}>
-                <motion.div
-                  key={currentImageIndex}
-                  initial={currentImageIndex === 0 ? { opacity: 1 } : { opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  exit={{ opacity: 0 }}
-                  transition={{ duration: currentImageIndex === 0 ? 0 : 1.2, ease: "easeInOut" }}
-                  className="absolute inset-0 w-full h-full"
-                >
-                    <Image
-                    src={images[currentImageIndex].src}
-                    alt={images[currentImageIndex].alt}
-                    fill
-                    priority={currentImageIndex === 0}
-                    {...({ fetchPriority: currentImageIndex === 0 ? "high" : undefined } as any)}
-                    className="object-cover group-hover/slider:scale-105 transition-transform duration-700"
-                    sizes="(max-width: 640px) 100vw, (max-width: 1024px) 80vw, 1200px"
-                    quality={currentImageIndex === 0 ? 90 : 75}
-                  />
-                </motion.div>
-              </AnimatePresence>
-            </div>
-
-            {/* Indicador de Sucursal/Imagen Actual */}
-            <div className="absolute top-8 left-8 right-8 z-20 flex justify-between items-start">
-              <div className="bg-white/90 dark:bg-slate-900/90 backdrop-blur-md px-4 py-2 rounded-xl shadow-sm border border-white dark:border-slate-800 flex items-center gap-2">
-                <MapPin size={16} className="text-secondary" />
-                <span className="text-[11px] font-bold text-primary dark:text-slate-100 tracking-widest uppercase">
-                  {images[currentImageIndex].location}
-                </span>
+            <div 
+              onClick={handleSliderClick}
+              className={`relative z-10 bg-slate-100 dark:bg-slate-900 rounded-[2rem] sm:rounded-[3rem] p-3 sm:p-4 shadow-lg shadow-slate-200/50 dark:shadow-none border-4 sm:border-8 border-white dark:border-slate-900 overflow-hidden aspect-[4/3] group/slider hover:shadow-2xl transition-all duration-500 transform active:scale-[0.99] ${
+                (sliderAnchorId || images === DEFAULT_IMAGES) ? 'cursor-pointer' : 'cursor-default'
+              }`}
+            >
+              <div className="relative w-full h-full rounded-[1.7rem] sm:rounded-[2.5rem] overflow-hidden">
+                <AnimatePresence initial={false}>
+                  <motion.div
+                    key={currentImageIndex}
+                    initial={currentImageIndex === 0 ? { opacity: 1 } : { opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    exit={{ opacity: 0 }}
+                    transition={{ duration: currentImageIndex === 0 ? 0 : 1.2, ease: "easeInOut" }}
+                    className="absolute inset-0 w-full h-full"
+                  >
+                      <Image
+                      src={images[currentImageIndex].src}
+                      alt={images[currentImageIndex].alt}
+                      fill
+                      priority={currentImageIndex === 0}
+                      {...({ fetchPriority: currentImageIndex === 0 ? "high" : undefined } as any)}
+                      className={`${
+                        images[currentImageIndex].src.includes('/logos_convenios_prevision/')
+                          ? 'object-contain p-12 bg-white dark:bg-slate-900'
+                          : 'object-cover'
+                      } group-hover/slider:scale-105 transition-transform duration-700`}
+                      sizes="(max-width: 640px) 100vw, (max-width: 1024px) 80vw, 1200px"
+                      quality={currentImageIndex === 0 ? 90 : 75}
+                    />
+                  </motion.div>
+                </AnimatePresence>
               </div>
 
-              {/* Puntos de paginación */}
-              {images.length > 1 && (
-                <div className="flex gap-1 bg-black/20 p-1 rounded-full backdrop-blur-sm">
-                  {images.map((_, i) => (
-                    <button
-                      key={i}
-                      onClick={(e) => { e.stopPropagation(); setCurrentImageIndex(i); }}
-                      aria-label={`Ver imagen ${i + 1}`}
-                      className="w-6 h-6 flex items-center justify-center cursor-pointer focus:outline-none group"
-                    >
-                      <div className={`h-2 rounded-full transition-all duration-300 ${
-                        i === currentImageIndex ? 'w-4 bg-white' : 'w-2 bg-white/50 group-hover:bg-white'
-                      }`} />
-                    </button>
-                  ))}
+              {/* Indicador de Sucursal/Imagen Actual */}
+              <div className="absolute top-8 left-8 right-8 z-20 flex justify-between items-start">
+                <div className="bg-white/90 dark:bg-slate-900/90 backdrop-blur-md px-4 py-2 rounded-xl shadow-sm border border-white dark:border-slate-800 flex items-center gap-2">
+                  {images[currentImageIndex].src.includes('/logos_convenios_prevision/') ? (
+                    <Sparkles size={16} className="text-secondary shrink-0" />
+                  ) : (
+                    <MapPin size={16} className="text-secondary" />
+                  )}
+                  <span className="text-[11px] font-bold text-primary dark:text-slate-100 tracking-widest uppercase">
+                    {images[currentImageIndex].location}
+                  </span>
                 </div>
-              )}
-            </div>
-          </div>
-          {/* Badge flotante de confianza */}
-          <div className="absolute -bottom-6 -left-6 bg-white dark:bg-slate-900 p-4 md:p-6 rounded-3xl shadow-lg border border-slate-100 dark:border-slate-800 z-30">
-            <p className="text-3xl font-bold text-primary dark:text-slate-50">{statsNumber}</p>
-            <p className="text-[10px] font-bold text-slate-500 dark:text-slate-300 uppercase tracking-widest">{statsLabel}</p>
-          </div>
 
-        </motion.div>
+                {/* Puntos de paginación */}
+                {images.length > 1 && (
+                  <div className="flex gap-1 bg-black/20 p-1 rounded-full backdrop-blur-sm">
+                    {images.map((_, i) => (
+                      <button
+                        key={i}
+                        onClick={(e) => { e.stopPropagation(); setCurrentImageIndex(i); }}
+                        aria-label={`Ver imagen ${i + 1}`}
+                        className="w-6 h-6 flex items-center justify-center cursor-pointer focus:outline-none group"
+                      >
+                        <div className={`h-2 rounded-full transition-all duration-300 ${
+                          i === currentImageIndex ? 'w-4 bg-white' : 'w-2 bg-white/50 group-hover:bg-white'
+                        }`} />
+                      </button>
+                    ))}
+                  </div>
+                )}
+              </div>
+            </div>
+            {/* Badge flotante de confianza */}
+            <div className="absolute -bottom-6 -left-6 bg-white dark:bg-slate-900 p-4 md:p-6 rounded-3xl shadow-lg border border-slate-100 dark:border-slate-800 z-30">
+              <p className="text-3xl font-bold text-primary dark:text-slate-50">{statsNumber}</p>
+              <p className="text-[10px] font-bold text-slate-500 dark:text-slate-300 uppercase tracking-widest">{statsLabel}</p>
+            </div>
+          </motion.div>
+        )}
       </div>
     </section>
   );

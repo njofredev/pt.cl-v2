@@ -254,7 +254,8 @@ export function ServiceCarousel() {
         <InfiniteScrollRow items={INFINITE_SERVICES} speed={0.9} direction="right" />
       </div>
 
-      {/* Fila 2: Modalidades (A la izquierda) */}
+      {/* Fila 2: Modalidades (Deshabilitado temporalmente para uso futuro) */}
+      {/* 
       <div className="w-full hidden md:block">
         <div className="px-8 mb-1">
           <h2 className="text-[9px] font-bold text-slate-500 dark:text-slate-400 uppercase tracking-[0.2em]">
@@ -263,6 +264,7 @@ export function ServiceCarousel() {
         </div>
         <InfiniteScrollRow items={INFINITE_MODALITIES} speed={0.9} direction="left" />
       </div>
+      */}
 
       {/* Sección de Ayuda Directa / Contacto */}
       <div className="mt-16 md:mt-24 text-center animate-in fade-in slide-in-from-bottom-4 duration-1000">
