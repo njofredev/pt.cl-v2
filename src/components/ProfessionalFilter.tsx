@@ -402,7 +402,7 @@ const ProfessionalFilterContent = ({ initialArea, professionals }: { initialArea
             </div>
           )}
           <h2 className="text-3xl md:text-5xl font-bold text-primary dark:text-slate-50 tracking-tighter mb-4">
-            Especialistas en <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary via-teal-500 to-secondary">{areaLabel}</span>
+            Especialistas en <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary via-teal-400 to-secondary dark:from-white dark:via-secondary dark:to-teal-400">{areaLabel}</span>
           </h2>
           <p className="text-slate-500 dark:text-slate-400 max-w-2xl mx-auto font-medium">
             Profesionales de excelencia dedicados a brindar una atención integral y humana para tu bienestar.

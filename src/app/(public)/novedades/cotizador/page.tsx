@@ -59,9 +59,9 @@ export default function CotizadorPage() {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.4 }}
               >
-                <Link href="https://cotizador.policlinicotabancura.cl" target="_blank" rel="noopener noreferrer">
+                <Link href="/cotizador-examenes">
                   <Button className="bg-emerald-600 hover:bg-emerald-700 text-white rounded-full px-8 shadow-lg shadow-emerald-600/20">
-                    Ir al Cotizador Externo
+                    Comenzar Cotización
                   </Button>
                 </Link>
               </motion.div>

@@ -103,14 +103,25 @@ export const Hero = ({
           initial={{ opacity: 0, x: -30 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.5 }}
-          className="flex flex-col items-center sm:items-start text-center sm:text-left"
+          className="flex flex-col items-center sm:items-start text-center sm:text-left relative"
         >
+          {/* Premium Fluid SVG Background Backplate - ONLY IN LIGHT MODE */}
+          <div className="absolute -inset-x-8 -inset-y-12 -z-10 pointer-events-none opacity-100 dark:opacity-0 transition-opacity duration-300 select-none">
+            <svg viewBox="0 0 400 400" className="w-[130%] h-[130%] absolute -top-12 -left-12 text-slate-100/60 dark:text-transparent blur-xl">
+              <path
+                fill="currentColor"
+                d="M38.1,-66.2C48.7,-59.4,56.2,-48.5,63.1,-37C70,-25.6,76.2,-13.7,77.7,-1C79.2,11.7,75.9,25.3,69.5,37.3C63.1,49.3,53.5,59.8,41.9,67.8C30.3,75.7,16.7,81.1,2.8,80.4C-11,79.7,-24.8,72.9,-37.2,64.8C-49.7,56.7,-60.7,47.4,-67.9,35.5C-75.1,23.6,-78.4,9.2,-77.8,-4.9C-77.2,-19,-72.6,-32.8,-64.5,-44.3C-56.3,-55.9,-44.5,-65.2,-31.8,-70.8C-19.1,-76.3,-5.4,-78.2,5.8,-79.8C17.1,-81.4,27.5,-73.1,38.1,-66.2Z"
+                transform="translate(200, 200) scale(1.7)"
+              />
+            </svg>
+            <div className="absolute inset-0 bg-gradient-to-tr from-secondary/10 via-primary/5 to-transparent rounded-[3rem] blur-2xl" />
+          </div>
           <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-primary text-white text-[10px] font-bold uppercase tracking-widest mb-5 md:mb-8">
             <BadgeIcon size={14} fill="currentColor" className="text-secondary" /> {badgeText}
           </div>
           <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold text-primary dark:text-slate-50 leading-[1.15] md:leading-[1] tracking-tighter mb-3 md:mb-8">
             {titlePrefix} <br />
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary via-teal-500 to-secondary">{titleHighlight}</span>
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary via-teal-400 to-secondary dark:from-white dark:via-secondary dark:to-teal-400">{titleHighlight}</span>
           </h1>
           <p className="text-base md:text-xl text-slate-500 dark:text-slate-400 font-medium max-w-md leading-relaxed mb-6 md:mb-10">
             {description}

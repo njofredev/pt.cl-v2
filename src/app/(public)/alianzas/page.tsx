@@ -17,26 +17,6 @@ export default function AlianzasPage() {
   return (
     <main className="min-h-screen bg-white dark:bg-slate-950 font-sans selection:bg-secondary/30">
       
-      {/* 1. NAVEGACIÓN SIMPLIFICADA (Aislada) */}
-      <nav className="fixed top-0 w-full z-50 bg-white/80 dark:bg-slate-950/80 backdrop-blur-md border-b border-slate-100 dark:border-slate-900">
-        <div className="container mx-auto px-6 h-20 flex justify-between items-center">
-          <div className="flex items-center gap-2">
-            <Image 
-              src="/logo.svg" 
-              alt="Logo" 
-              width={120} 
-              height={40} 
-              className="dark:brightness-0 dark:invert"
-            />
-          </div>
-          <Button 
-            className="bg-primary text-white rounded-full px-6 font-bold text-xs uppercase tracking-widest hidden sm:flex"
-            onClick={() => document.getElementById('agendar')?.scrollIntoView({ behavior: 'smooth' })}
-          >
-            Quiero Agendar
-          </Button>
-        </div>
-      </nav>
 
       {/* 2. HERO SECTION */}
       <section className="relative pt-20 overflow-hidden">
@@ -56,7 +36,7 @@ export default function AlianzasPage() {
               
               <h1 className="text-5xl md:text-7xl font-black text-primary dark:text-white mb-8 tracking-tighter leading-[0.95]">
                 Vuelve a sonreír <br />
-                <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary via-teal-500 to-secondary italic">
+                <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary via-teal-400 to-secondary dark:from-white dark:via-secondary dark:to-teal-400 italic">
                   sin preocuparte
                 </span> <br />
                 por nada.
@@ -107,8 +87,11 @@ export default function AlianzasPage() {
       <section className="py-24 bg-white dark:bg-slate-950">
         <div className="container mx-auto px-6">
           <div className="text-center mb-20">
-            <h2 className="text-4xl md:text-5xl font-black text-primary dark:text-white mb-4 tracking-tighter">
-              Sigue los pasos para poder <br /> <span className="text-secondary">optar al beneficio</span>
+            <h2 className="text-4xl md:text-5xl font-black text-primary dark:text-white mb-4 tracking-tighter leading-tight">
+              Sigue los pasos para <br /> 
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary via-teal-400 to-secondary dark:from-white dark:via-secondary dark:to-teal-400">
+                optar al beneficio
+              </span>
             </h2>
             <div className="inline-flex items-center gap-2 text-slate-400 dark:text-slate-500 font-bold uppercase tracking-[0.3em] text-xs">
               <ChevronRight size={14} className="text-secondary" /> ¿Cómo funciona?
@@ -170,8 +153,11 @@ export default function AlianzasPage() {
         
         <div className="container mx-auto px-6 relative z-10">
           <div className="max-w-4xl mx-auto text-center mb-16">
-            <h2 className="text-4xl md:text-5xl font-black text-primary dark:text-white mb-6 tracking-tighter italic">
-              Agenda una hora
+            <h2 className="text-4xl md:text-5xl font-black text-primary dark:text-white mb-6 tracking-tighter leading-tight">
+              Agenda una <br />
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary via-teal-400 to-secondary dark:from-white dark:via-secondary dark:to-teal-400 italic">
+                hora médica
+              </span>
             </h2>
             <p className="text-xl text-slate-500 dark:text-slate-400 font-medium">
               Antes de empezar, necesitamos saber un poco de ti

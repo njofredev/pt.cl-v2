@@ -43,6 +43,7 @@ import { Button } from "@/components/ui/button";
 import { motion, AnimatePresence } from 'framer-motion';
 import { SearchModal } from './SearchModal';
 import { useTheme } from 'next-themes';
+import { usePathname } from 'next/navigation';
 
 const NAV_ITEMS = [
   { name: 'Inicio', href: '/' },
@@ -68,6 +69,10 @@ const NAV_ITEMS = [
     ]
   },
   {
+    name: 'Convenios',
+    href: '/convenios'
+  },
+  {
     name: 'Novedades 2026',
     href: '#',
     isMega: true,
@@ -76,7 +81,7 @@ const NAV_ITEMS = [
       { name: 'Centro Radiológico', href: '/novedades/centro-radiologico', desc: 'Imágenes diagnósticas de alta precisión.', icon: <Activity className="text-indigo-600" /> },
       { name: 'Laboratorio Digital Dental', href: '/novedades/laboratorio', desc: 'Tecnología chairside CAD/CAM y CEREC.', icon: <Sparkles className="text-rose-500" /> },
       { name: 'Validador Mi Vita', href: '/#mivita', desc: 'Verifica tus beneficios exclusivos.', icon: <Sparkles className="text-amber-500" /> },
-      { name: 'Cotizador Digital', href: '/novedades/cotizador', desc: 'Presupuestos de exámenes al instante.', icon: <Calculator className="text-emerald-500" /> },
+      { name: 'Cotizador Digital', href: '/cotizador-examenes', desc: 'Presupuestos de exámenes al instante.', icon: <Calculator className="text-emerald-500" /> },
       { name: 'Resultados de Exámenes', href: 'http://190.215.215.125:9091/Pacientes.aspx', desc: 'Consulta y descarga de reportes.', icon: <FileText className="text-cyan-600" /> },
     ]
   },
@@ -109,6 +114,12 @@ export const Navbar = () => {
   const [currentTime, setCurrentTime] = useState<Date | null>(null);
   const [socialPhraseIndex, setSocialPhraseIndex] = useState(0);
   const [confirmLink, setConfirmLink] = useState<string | null>(null);
+  const pathname = usePathname();
+
+  // Hide Navbar for specific routes
+  if (pathname === '/alianzas') {
+    return null;
+  }
 
   useEffect(() => {
     setMounted(true);

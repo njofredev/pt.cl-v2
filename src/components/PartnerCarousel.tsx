@@ -2,6 +2,7 @@
 
 import React from "react";
 import Image from "next/image";
+import Link from "next/link";
 
 const PARTNERS = [
   { name: 'Fonasa', file: 'fonasa.png' },
@@ -26,22 +27,26 @@ export function PartnerCarousel() {
     <div 
       className="relative w-full overflow-hidden py-4 group [mask-image:linear-gradient(to_right,transparent,black_10%,black_90%,transparent)]"
     >
-      {/* Contenedor del Carrusel con Animación CSS Marquee (definida en globals.css) */}
-      <div className="flex w-fit animate-marquee hover:[animation-play-state:paused] py-4">
+      {/* Contenedor del Carrusel con Animación CSS Marquee y velocidad reducida a 80s (más pausada y legible) */}
+      <div 
+        className="flex w-fit animate-marquee hover:[animation-play-state:paused] py-4"
+        style={{ animationDuration: '80s' }}
+      >
         {INFINITE_PARTNERS.map((partner, i) => (
-          <div
+          <Link
             key={i}
-            className="relative shrink-0 h-14 w-28 md:h-20 md:w-40 transition-all duration-700 hover:scale-110 mx-10 md:mx-16"
+            href="/convenios"
+            className="relative shrink-0 h-14 w-28 md:h-20 md:w-40 transition-all duration-700 hover:scale-110 mx-10 md:mx-16 block group"
           >
             <Image 
               src={`/logos_convenios_prevision/${partner.file}`} 
               alt={partner.name} 
               fill
               sizes="160px"
-              className="object-contain opacity-50 grayscale dark:invert hover:opacity-100 hover:grayscale-0 hover:invert-0 dark:hover:invert-0 transition-all duration-700 cursor-pointer dark:drop-shadow-[0_0_3px_rgba(255,255,255,0.15)]" 
+              className="object-contain opacity-50 grayscale dark:invert group-hover:opacity-100 group-hover:grayscale-0 group-hover:invert-0 dark:group-hover:invert-0 transition-all duration-700 cursor-pointer dark:drop-shadow-[0_0_3px_rgba(255,255,255,0.15)]" 
               priority={i < 3}
             />
-          </div>
+          </Link>
         ))}
       </div>
     </div>

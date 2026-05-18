@@ -266,9 +266,9 @@ export function ServiceCarousel() {
 
       {/* Sección de Ayuda Directa / Contacto */}
       <div className="mt-16 md:mt-24 text-center animate-in fade-in slide-in-from-bottom-4 duration-1000">
-        <div className="inline-flex items-center gap-3 px-6 py-2.5 rounded-full bg-white dark:bg-slate-900 border border-slate-100 dark:border-slate-800 shadow-lg shadow-slate-200/50 dark:shadow-none mb-10">
+        <div className="inline-flex items-center gap-3 px-6 py-2.5 rounded-full bg-primary shadow-lg shadow-primary/20 mb-10">
           <Phone size={15} className="text-secondary animate-pulse" />
-          <span className="text-[11px] font-black uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400">¿Aún con dudas? ¡Llámanos!</span>
+          <span className="text-[11px] font-black uppercase tracking-[0.2em] text-white">¿Aún con dudas? ¡Llámanos!</span>
         </div>
         
         <div className="flex flex-col md:flex-row items-center justify-center gap-10 md:gap-24">

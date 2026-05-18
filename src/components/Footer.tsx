@@ -39,17 +39,22 @@ const FooterSection = ({ title, links }: FooterSectionProps) => {
       <div className="hidden md:block">
         <h3 className="text-[10px] font-bold uppercase tracking-[0.3em] text-secondary mb-8">{title}</h3>
         <ul className="space-y-4">
-          {links.map((item) => (
-            <li key={item.name}>
-              <Link 
-                href={item.href} 
-                onClick={(e) => scrollToTop(e, item.href)}
-                className="text-slate-500 dark:text-slate-300 hover:text-primary dark:hover:text-white transition-colors font-medium text-sm sm:text-base"
-              >
-                {item.name}
-              </Link>
-            </li>
-          ))}
+          {links.map((item) => {
+            const isExternal = item.href.startsWith('http');
+            return (
+              <li key={item.name}>
+                <Link
+                  href={item.href}
+                  onClick={(e) => scrollToTop(e, item.href)}
+                  target={isExternal ? "_blank" : undefined}
+                  rel={isExternal ? "noopener noreferrer" : undefined}
+                  className="text-slate-500 dark:text-slate-300 hover:text-primary dark:hover:text-white transition-colors font-medium text-sm sm:text-base"
+                >
+                  {item.name}
+                </Link>
+              </li>
+            );
+          })}
         </ul>
       </div>
 
@@ -61,12 +66,12 @@ const FooterSection = ({ title, links }: FooterSectionProps) => {
           className="w-full flex items-center justify-center gap-3 text-center group cursor-pointer"
         >
           <h3 className="text-[10px] font-bold uppercase tracking-[0.3em] text-secondary">{title}</h3>
-          <ChevronDown 
-            size={16} 
-            className={`text-slate-600 transition-transform duration-300 ${isOpen ? 'rotate-180 text-secondary' : ''}`} 
+          <ChevronDown
+            size={16}
+            className={`text-slate-600 transition-transform duration-300 ${isOpen ? 'rotate-180 text-secondary' : ''}`}
           />
         </button>
-        
+
         <AnimatePresence initial={false}>
           {isOpen && (
             <motion.div
@@ -77,20 +82,25 @@ const FooterSection = ({ title, links }: FooterSectionProps) => {
               className="overflow-hidden"
             >
               <ul className="pt-4 pb-2 space-y-3 text-center">
-                {links.map((item) => (
-                  <li key={item.name}>
-                    <Link 
-                      href={item.href} 
-                      onClick={(e) => {
-                        scrollToTop(e, item.href);
-                        setIsOpen(false);
-                      }}
-                      className="text-slate-500 dark:text-slate-300 active:text-secondary transition-colors font-medium text-sm block py-1"
-                    >
-                      {item.name}
-                    </Link>
-                  </li>
-                ))}
+                {links.map((item) => {
+                  const isExternal = item.href.startsWith('http');
+                  return (
+                    <li key={item.name}>
+                      <Link
+                        href={item.href}
+                        onClick={(e) => {
+                          scrollToTop(e, item.href);
+                          setIsOpen(false);
+                        }}
+                        target={isExternal ? "_blank" : undefined}
+                        rel={isExternal ? "noopener noreferrer" : undefined}
+                        className="text-slate-500 dark:text-slate-300 active:text-secondary transition-colors font-medium text-sm block py-1"
+                      >
+                        {item.name}
+                      </Link>
+                    </li>
+                  );
+                })}
               </ul>
             </motion.div>
           )}
@@ -109,33 +119,33 @@ const LogoTicker = ({ title, logos, speed = 15 }: { title: string, logos: string
       <span className="text-[8px] font-bold uppercase tracking-[0.25em] text-slate-600 dark:text-slate-400 block">
         {title}
       </span>
-      <div 
-        className="relative w-full overflow-hidden flex items-center py-1.5" 
-        style={{ 
+      <div
+        className="relative w-full overflow-hidden flex items-center py-1.5"
+        style={{
           maskImage: 'linear-gradient(to right, transparent 0%, white 15%, white 85%, transparent 100%)',
-          WebkitMaskImage: 'linear-gradient(to right, transparent 0%, white 15%, white 85%, transparent 100%)' 
+          WebkitMaskImage: 'linear-gradient(to right, transparent 0%, white 15%, white 85%, transparent 100%)'
         }}
       >
-        <motion.div 
+        <motion.div
           className="flex gap-8 items-center shrink-0 pr-8"
           animate={{ x: ["0%", "-33.333%"] }}
-          transition={{ 
-            ease: "linear", 
-            duration: speed, 
-            repeat: Infinity 
+          transition={{
+            ease: "linear",
+            duration: speed,
+            repeat: Infinity
           }}
         >
           {repeatedLogos.map((src, idx) => (
-            <div 
-              key={idx} 
+            <div
+              key={idx}
               className="h-14 flex items-center justify-center shrink-0 grayscale opacity-75 hover:grayscale-0 hover:opacity-100 transition-all duration-300 ease-out cursor-pointer"
             >
-              <img 
-                src={src} 
-                alt="Convenio o Tecnología Integrada" 
+              <img
+                src={src}
+                alt="Convenio o Tecnología Integrada"
                 width={120}
                 height={40}
-                className="h-9 w-auto object-contain px-1" 
+                className="h-9 w-auto object-contain px-1"
               />
             </div>
           ))}
@@ -153,7 +163,7 @@ const LikeButton = () => {
   useEffect(() => {
     const savedLikes = localStorage.getItem('footer-likes-v2');
     const userLiked = localStorage.getItem('footer-is-liked-v2');
-    
+
     // Si no hay likes guardados, empezamos desde 0
     if (savedLikes) {
       setLikes(parseInt(savedLikes));
@@ -162,17 +172,17 @@ const LikeButton = () => {
       setLikes(baseLikes);
       localStorage.setItem('footer-likes-v2', baseLikes.toString());
     }
-    
+
     if (userLiked) setIsLiked(true);
   }, []);
 
   const handleLike = async () => {
     const newLiked = !isLiked;
     const newLikes = newLiked ? likes + 1 : likes - 1;
-    
+
     setLikes(newLikes);
     setIsLiked(newLiked);
-    
+
     localStorage.setItem('footer-likes-v2', newLikes.toString());
     if (newLiked) {
       localStorage.setItem('footer-is-liked-v2', 'true');
@@ -190,16 +200,15 @@ const LikeButton = () => {
       onClick={handleLike}
       whileHover={{ scale: 1.05 }}
       whileTap={{ scale: 0.95 }}
-      className={`flex items-center gap-2 px-3 py-1.5 rounded-full border transition-all duration-300 ${
-        isLiked 
-          ? 'bg-rose-500/10 border-rose-500/20 text-rose-500' 
+      className={`flex items-center gap-2 px-3 py-1.5 rounded-full border transition-all duration-300 ${isLiked
+          ? 'bg-rose-500/10 border-rose-500/20 text-rose-500'
           : 'bg-slate-50 dark:bg-white/5 border-slate-100 dark:border-white/5 text-slate-400 dark:text-slate-500 hover:text-rose-500 hover:border-rose-500/20'
-      }`}
+        }`}
     >
       <motion.div animate={controls}>
-        <Heart 
-          size={12} 
-          fill={isLiked ? "currentColor" : "none"} 
+        <Heart
+          size={12}
+          fill={isLiked ? "currentColor" : "none"}
           className={isLiked ? "drop-shadow-[0_0_8px_rgba(244,63,94,0.4)]" : ""}
         />
       </motion.div>
@@ -220,12 +229,12 @@ export const Footer = () => {
           <div className="space-y-6 mb-4 md:mb-0 flex flex-col h-full">
             <div>
               <Link href="/" className="flex items-center justify-center md:justify-start gap-3 mb-6">
-                <img 
-                  src="/logo.svg" 
-                  alt="Logo" 
+                <img
+                  src="/logo.svg"
+                  alt="Logo"
                   width={150}
                   height={50}
-                  className="h-12 w-auto dark:brightness-0 dark:invert" 
+                  className="h-12 w-auto dark:brightness-0 dark:invert"
                 />
               </Link>
               <p className="text-slate-600 dark:text-slate-300 font-medium leading-relaxed text-sm sm:text-base mb-6 text-center md:text-left">
@@ -246,7 +255,7 @@ export const Footer = () => {
 
             {/* Carruseles de Apoyo Tecnológico & Métodos de Pago (Solo Desktop) */}
             <div className="hidden lg:flex flex-col gap-5 pt-6 mt-auto border-t border-slate-100 dark:border-white/5 w-full overflow-hidden select-none">
-              <LogoTicker 
+              <LogoTicker
                 title="Apoyo Tecnológico"
                 speed={14}
                 logos={[
@@ -256,7 +265,7 @@ export const Footer = () => {
                   "/logos_convenios_prevision/logoDentsply.svg"
                 ]}
               />
-              <LogoTicker 
+              <LogoTicker
                 title="Métodos de Pago"
                 speed={12}
                 logos={[
@@ -269,21 +278,21 @@ export const Footer = () => {
           </div>
 
           {/* Site Map: Nosotros */}
-          <FooterSection 
+          <FooterSection
             title="Institucional"
             links={[
               { name: 'Inicio', href: '/' },
               { name: 'Quiénes Somos', href: '/nosotros' },
               { name: 'Derechos y Deberes', href: '/derechos-y-deberes' },
-              { name: 'Misión y Visión', href: '/nosotros#mision' },
-              { name: 'Equipo Médico', href: '/nosotros#equipo' },
-              { name: 'Convenios', href: '/#convenios' },
-              { name: 'Preguntas Frecuentes', href: '#' }
+              { name: 'Nuestras Sucursales', href: '/#sucursales' },
+              { name: 'Convenios y Alianzas', href: '/convenios' },
+              { name: 'Centro de Ayuda', href: 'https://politabancura.tawk.help/' },
+              { name: 'Estado de Sistemas', href: 'https://uptime.policlinicotabancura.cl/status/estado' }
             ]}
           />
 
           {/* Site Map: Servicios */}
-          <FooterSection 
+          <FooterSection
             title="Especialidades"
             links={[
               { name: 'Salud Dental', href: '/servicios/dental' },
@@ -295,7 +304,7 @@ export const Footer = () => {
           />
 
           {/* Site Map: Novedades */}
-          <FooterSection 
+          <FooterSection
             title="Novedades 2026"
             links={[
               { name: 'Centro Radiológico', href: '/novedades/centro-radiologico' },
@@ -309,7 +318,7 @@ export const Footer = () => {
           <div className="col-span-1 mt-6 md:mt-0 flex flex-col items-center md:items-start text-center md:text-left">
             <h3 className="text-[10px] font-bold uppercase tracking-[0.3em] text-secondary mb-8 w-full">Contacto</h3>
             <div className="space-y-6">
-              
+
               {/* Sucursal Vitacura */}
               <div className="space-y-3 flex flex-col items-center md:items-start">
                 <div className="flex items-center gap-2 mb-2">
@@ -371,7 +380,7 @@ export const Footer = () => {
             <div className="flex items-center gap-2 text-slate-600 dark:text-slate-400 text-[10px] font-bold uppercase tracking-widest">
               <Activity size={14} className="text-secondary" /> Diseñado y desarrollado en Policlínico Tabancura
             </div>
-            
+
             {/* Botón de Like / Apoyo */}
             <LikeButton />
           </div>

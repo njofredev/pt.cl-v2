@@ -25,7 +25,9 @@ const SLUG_TO_HERO: Record<string, HeroProps> = {
     titleHighlight: "Dental",
     description: "Cuidado integral de tu sonrisa con especialistas de elite y tecnología de vanguardia para resultados excepcionales.",
     images: [
-      { src: '/generated/dental_hero.png', alt: 'Clínica Dental Premium', location: 'Casa Matriz - Los Tribunales' },
+      { src: '/generated/heroDental.webp', alt: 'Clínica Dental Premium', location: 'Casa Matriz - Los Tribunales' },
+      { src: '/generated/heroDental2.webp', alt: 'Equipamiento Odontológico Moderno', location: 'Centro Odontológico Vitacura' },
+      { src: '/generated/heroDental3.webp', alt: 'Box de Atención Dental', location: 'Sala de Procedimientos' }
     ],
     statsNumber: "+5k",
     statsLabel: "Nuevas Sonrisas",
@@ -59,7 +61,7 @@ const SLUG_TO_HERO: Record<string, HeroProps> = {
     titleHighlight: "General",
     description: "Atención primaria de excelencia con un enfoque preventivo y humano para cuidar lo que más importa: tu familia.",
     images: [
-      { src: '/generated/medicina_hero.png', alt: 'Atención Médica Integral', location: 'Policlínico Tabancura' },
+      { src: '/generated/heroMedica.webp', alt: 'Atención Médica Integral', location: 'Sala de Kinesiología' },
     ],
     statsNumber: "+8k",
     statsLabel: "Consultas de Calidad",
@@ -76,7 +78,8 @@ const SLUG_TO_HERO: Record<string, HeroProps> = {
     titleHighlight: "Complementarias",
     description: "Integración de sabiduría y ciencia para potenciar tu salud natural en un entorno de armonía absoluta.",
     images: [
-      { src: '/generated/terapias_hero.png', alt: 'Terapias de Bienestar', location: 'Sala de Bienestar' },
+      { src: '/generated/heroComplementarias.webp', alt: 'Terapias de Bienestar - Biomagnetismo', location: 'Biomagnetismo' },
+      { src: '/generated/heroComplementaria2.webp', alt: 'Terapias de Bienestar - Masoterapia', location: 'Masoterapia' }
     ],
     statsNumber: "+3k",
     statsLabel: "Sesiones de Sanación",

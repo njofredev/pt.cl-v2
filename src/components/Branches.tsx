@@ -91,7 +91,7 @@ export const Branches = () => {
                 className="text-3xl sm:text-4xl md:text-5xl font-black mb-4 tracking-tight leading-tight sm:leading-none"
               >
                 Conoce nuestros centros <br className="hidden sm:inline" />
-                <span className="text-transparent bg-clip-text bg-gradient-to-r from-secondary to-teal-400">médicos y dentales.</span>
+                <span className="text-transparent bg-clip-text bg-gradient-to-r from-secondary via-teal-400 to-emerald-400 dark:from-white dark:via-secondary dark:to-teal-400">médicos y dentales.</span>
               </motion.h2>
               <motion.p
                 initial={{ opacity: 0, y: 15 }}

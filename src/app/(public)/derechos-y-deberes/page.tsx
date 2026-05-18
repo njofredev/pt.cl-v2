@@ -57,7 +57,7 @@ export default function DerechosDeberesPage() {
               </div>
               <h1 className="text-4xl md:text-6xl lg:text-7xl font-black text-slate-900 dark:text-white tracking-tight leading-[1.1] mb-8">
                 Derechos y Deberes <br/>
-                <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary via-teal-500 to-secondary">
+                <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary via-teal-400 to-secondary dark:from-white dark:via-secondary dark:to-teal-400">
                   del paciente.
                 </span>
               </h1>
