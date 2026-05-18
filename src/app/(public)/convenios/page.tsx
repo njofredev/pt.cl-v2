@@ -37,20 +37,20 @@ const CATEGORIES = [
 
 // Content maps
 const PREVISIONES = [
-  { name: 'Isapre Banmédica', type: 'Privada', desc: 'Validación en línea. 25% de descuento sobre el arancel dental.', color: 'from-cyan-500 to-blue-600', badge: 'Convenio Preferente' },
-  { name: 'Isapre Vida Tres', type: 'Privada', desc: 'Validación en línea. 25% de descuento sobre el arancel dental.', color: 'from-violet-500 to-purple-600', badge: 'Convenio Preferente' }
+  { name: 'Isapre Banmédica', type: 'Privada', desc: 'Validación en línea. 25% de descuento sobre el arancel dental.', color: 'from-cyan-500 to-blue-600', badge: 'Convenio Preferente', logo: 'banmedica.png' },
+  { name: 'Isapre Vida Tres', type: 'Privada', desc: 'Validación en línea. 25% de descuento sobre el arancel dental.', color: 'from-violet-500 to-purple-600', badge: 'Convenio Preferente', logo: 'vidatres.png' }
 ];
 
 const COLECTIVOS = [
-  { name: 'Tarjeta Mi Vita', benefit: '25% de descuento sobre el arancel.', type: 'Municipalidad', detail: 'Exclusivo para residentes de Vitacura presentando tarjeta vigente.' },
-  { name: 'Liceo Amanda Labarca', benefit: '25% de descuento sobre el arancel.', type: 'Educacional', detail: 'Beneficio exclusivo para alumnos y comunidad educativa.' },
-  { name: 'Colegio Antártica Chilena', benefit: '25% de descuento sobre el arancel.', type: 'Educacional', detail: 'Beneficio exclusivo para alumnos y comunidad educativa.' },
-  { name: 'Colegio Betterland', benefit: '25% de descuento sobre el arancel.', type: 'Educacional', detail: 'Beneficio exclusivo para alumnos y comunidad educativa.' },
-  { name: 'Colegio Everest', benefit: '25% de descuento sobre el arancel.', type: 'Educacional', detail: 'Beneficio exclusivo para alumnos y comunidad educativa.' },
-  { name: 'Liceo María Luisa Bombal', benefit: '25% de descuento sobre el arancel.', type: 'Educacional', detail: 'Beneficio exclusivo para alumnos y comunidad educativa.' },
-  { name: 'Colegio Sirio', benefit: '25% de descuento sobre el arancel.', type: 'Educacional', detail: 'Beneficio exclusivo para alumnos y comunidad educativa.' },
-  { name: 'Colegio Santa Úrsula', benefit: '25% de descuento sobre el arancel.', type: 'Educacional', detail: 'Beneficio exclusivo para alumnos y comunidad educativa.' },
-  { name: 'Universidad Federico Santa María', benefit: '25% de descuento sobre el arancel.', type: 'Educacional', detail: 'Beneficio exclusivo para alumnos y comunidad educativa.' },
+  { name: 'Tarjeta Mi Vita', benefit: '25% de descuento sobre el arancel.', type: 'Municipalidad', detail: 'Exclusivo para residentes de Vitacura presentando tarjeta vigente.', logo: 'mivita.png' },
+  { name: 'Liceo Amanda Labarca', benefit: '25% de descuento sobre el arancel.', type: 'Educacional', detail: 'Beneficio exclusivo para alumnos y comunidad educativa.', logo: 'amanda_labarca.png' },
+  { name: 'Colegio Antártica Chilena', benefit: '25% de descuento sobre el arancel.', type: 'Educacional', detail: 'Beneficio exclusivo para alumnos y comunidad educativa.', logo: 'antartica_chilena.png' },
+  { name: 'Colegio Betterland', benefit: '25% de descuento sobre el arancel.', type: 'Educacional', detail: 'Beneficio exclusivo para alumnos y comunidad educativa.', logo: 'betterland.png' },
+  { name: 'Colegio Everest', benefit: '25% de descuento sobre el arancel.', type: 'Educacional', detail: 'Beneficio exclusivo para alumnos y comunidad educativa.', logo: 'colegio_everest.png' },
+  { name: 'Liceo María Luisa Bombal', benefit: '25% de descuento sobre el arancel.', type: 'Educacional', detail: 'Beneficio exclusivo para alumnos y comunidad educativa.', logo: 'mraluisabombal.png' },
+  { name: 'Colegio Sirio', benefit: '25% de descuento sobre el arancel.', type: 'Educacional', detail: 'Beneficio exclusivo para alumnos y comunidad educativa.', logo: 'sirio.png' },
+  { name: 'Colegio Santa Úrsula', benefit: '25% de descuento sobre el arancel.', type: 'Educacional', detail: 'Beneficio exclusivo para alumnos y comunidad educativa.', logo: 'staursula.png' },
+  { name: 'Universidad Federico Santa María', benefit: '25% de descuento sobre el arancel.', type: 'Educacional', detail: 'Beneficio exclusivo para alumnos y comunidad educativa.', logo: 'utfsm.png' },
 ];
 
 import Image from 'next/image';
@@ -212,8 +212,14 @@ export default function ConveniosPage() {
                         <span className="text-[10px] font-black text-slate-400 uppercase tracking-widest">{prev.type}</span>
                       </div>
 
-                      <div className="flex items-center gap-3 mb-6">
-                        <div className="w-3.5 h-3.5 rounded-full bg-secondary" />
+                      <div className="flex items-center gap-4 mb-6">
+                        {prev.logo ? (
+                          <div className="relative w-12 h-12 shrink-0 bg-slate-50 dark:bg-slate-800 rounded-xl flex items-center justify-center p-2 border border-slate-100 dark:border-slate-700/50">
+                            <Image src={`/logos_convenios_prevision/${prev.logo}`} alt={prev.name} fill sizes="48px" className="object-contain p-2 mix-blend-multiply dark:mix-blend-normal dark:invert" />
+                          </div>
+                        ) : (
+                          <div className="w-3.5 h-3.5 rounded-full bg-secondary shrink-0" />
+                        )}
                         <h3 className="text-xl font-black text-primary dark:text-white group-hover:text-secondary transition-colors">{prev.name}</h3>
                       </div>
 
@@ -237,13 +243,20 @@ export default function ConveniosPage() {
                       key={idx}
                       className="bg-white dark:bg-slate-900 rounded-[2rem] p-8 border border-slate-100 dark:border-slate-800/60 shadow-xl shadow-slate-200/20 dark:shadow-none flex flex-col md:flex-row md:items-center justify-between gap-6 hover:shadow-2xl transition-all duration-300"
                     >
-                      <div className="space-y-2 max-w-2xl">
-                        <div className="flex flex-wrap items-center gap-3">
-                          <span className="bg-secondary/15 text-secondary px-3 py-1 rounded-full text-[9px] font-black uppercase tracking-wider">{col.type}</span>
-                          <h3 className="text-lg font-black text-primary dark:text-white">{col.name}</h3>
+                      <div className="flex flex-col sm:flex-row items-start gap-4 max-w-2xl">
+                        {col.logo && (
+                          <div className="relative w-16 h-16 shrink-0 bg-slate-50 dark:bg-slate-800 rounded-xl flex items-center justify-center p-2 border border-slate-100 dark:border-slate-700/50">
+                            <Image src={`/logos_convenios_prevision/${col.logo}`} alt={col.name} fill sizes="64px" className="object-contain p-2 mix-blend-multiply dark:mix-blend-normal dark:invert" />
+                          </div>
+                        )}
+                        <div className="space-y-2">
+                          <div className="flex flex-wrap items-center gap-3">
+                            <span className="bg-secondary/15 text-secondary px-3 py-1 rounded-full text-[9px] font-black uppercase tracking-wider">{col.type}</span>
+                            <h3 className="text-lg font-black text-primary dark:text-white">{col.name}</h3>
+                          </div>
+                          <p className="text-sm font-bold text-slate-700 dark:text-slate-200 mt-2">{col.benefit}</p>
+                          <p className="text-xs font-semibold text-slate-400 dark:text-slate-500">{col.detail}</p>
                         </div>
-                        <p className="text-sm font-bold text-slate-700 dark:text-slate-200 mt-2">{col.benefit}</p>
-                        <p className="text-xs font-semibold text-slate-400 dark:text-slate-500">{col.detail}</p>
                       </div>
 
                       <div className="shrink-0 flex items-center justify-center md:justify-end">
