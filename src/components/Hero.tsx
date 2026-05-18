@@ -178,8 +178,6 @@ export const Hero = ({
                 </div>
               </div>
             )}
-              </div>
-            )}
           </div>
 
           {showBranches && (
