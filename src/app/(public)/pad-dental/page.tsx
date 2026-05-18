@@ -2,16 +2,16 @@
 
 import React from 'react';
 import { motion } from 'framer-motion';
-import { 
-  SmilePlus, 
-  ShieldCheck, 
-  Check, 
-  Activity, 
-  Phone, 
-  ArrowRight, 
-  Sparkles, 
-  HelpCircle, 
-  Info, 
+import {
+  SmilePlus,
+  ShieldCheck,
+  Check,
+  Activity,
+  Phone,
+  ArrowRight,
+  Sparkles,
+  HelpCircle,
+  Info,
   HeartHandshake,
   Calendar,
   Building2,
@@ -87,7 +87,7 @@ const WhatsAppIcon = ({ size = 18, className = "" }: { size?: number, className?
 export default function PadDentalPage() {
   return (
     <main className="min-h-screen bg-slate-50 dark:bg-slate-950 transition-colors duration-500 overflow-x-hidden">
-      
+
       {/* 1. HERO SECTION */}
       <section className="relative pt-48 pb-20 overflow-hidden">
         {/* Orbes de fondo */}
@@ -98,7 +98,7 @@ export default function PadDentalPage() {
 
         <div className="container mx-auto px-6 relative z-10">
           <div className="grid lg:grid-cols-12 gap-12 items-center max-w-7xl mx-auto">
-            
+
             {/* Texto Hero */}
             <div className="lg:col-span-7 text-left space-y-8">
               <motion.div
@@ -136,7 +136,7 @@ export default function PadDentalPage() {
                     href="#contacto"
                     className="inline-flex items-center justify-center gap-3 px-8 py-4 rounded-2xl bg-white dark:bg-slate-900 text-slate-700 dark:text-white font-bold text-sm border border-slate-200 dark:border-white/5 hover:border-slate-300 dark:hover:border-white/20 transition-all hover:scale-105 hover:bg-slate-50 dark:hover:bg-slate-800 select-none cursor-pointer"
                   >
-                    Consultar Bono
+                    ¿Cómo adquirir?
                   </a>
                 </div>
               </motion.div>
@@ -151,13 +151,13 @@ export default function PadDentalPage() {
                 className="relative overflow-hidden p-8 rounded-[3rem] bg-gradient-to-br from-white to-slate-50 dark:from-slate-900 dark:to-slate-950 border border-slate-100 dark:border-white/5 shadow-2xl dark:shadow-none flex flex-col items-center text-center group"
               >
                 <div className="absolute top-0 right-0 w-32 h-32 bg-secondary/10 rounded-full blur-2xl pointer-events-none" />
-                
+
                 {/* Logo Institucional Fonasa */}
                 <div className="relative w-36 h-20 mb-6 flex items-center justify-center">
-                  <Image 
-                    src="/logos_convenios_prevision/fonasa.png" 
-                    alt="Logo Fonasa" 
-                    fill 
+                  <Image
+                    src="/logos_convenios_prevision/fonasa.png"
+                    alt="Logo Fonasa"
+                    fill
                     style={{ objectFit: 'contain' }}
                     className="dark:brightness-105 dark:drop-shadow-[0_0_15px_rgba(255,255,255,0.15)]"
                   />
@@ -190,7 +190,7 @@ export default function PadDentalPage() {
       {/* 2. GRILLA DE TRATAMIENTOS PAD */}
       <section className="py-20 relative z-10">
         <div className="container mx-auto px-6 max-w-7xl">
-          
+
           <div className="text-center max-w-3xl mx-auto mb-16 space-y-4">
             <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-secondary/15 text-secondary text-[10px] font-bold uppercase tracking-wider">
               Códigos de Prestación Minsal
@@ -256,7 +256,7 @@ export default function PadDentalPage() {
 
         <div className="container mx-auto px-6 max-w-7xl">
           <div className="grid lg:grid-cols-2 gap-16 items-stretch">
-            
+
             {/* Columna Requisitos */}
             <motion.div
               initial={{ opacity: 0, x: -30 }}
@@ -273,7 +273,7 @@ export default function PadDentalPage() {
                 <div className="w-14 h-14 bg-secondary/15 rounded-2xl border border-secondary/20 flex items-center justify-center text-secondary mb-8">
                   <ShieldCheck size={28} />
                 </div>
-                
+
                 <h3 className="text-3xl md:text-4xl font-black tracking-tight leading-none mb-6">
                   ¿Quiénes pueden acceder al Bono PAD?
                 </h3>
@@ -377,11 +377,11 @@ export default function PadDentalPage() {
       <section id="contacto" className="py-20 relative z-10 scroll-mt-24">
         <div className="container mx-auto px-6 max-w-7xl">
           <div className="bg-white dark:bg-slate-900 border border-slate-100 dark:border-white/5 p-8 md:p-16 rounded-[3.5rem] shadow-xl dark:shadow-none relative overflow-hidden">
-            
+
             <div className="absolute top-0 right-0 w-80 h-80 bg-primary/5 rounded-full blur-[100px] pointer-events-none" />
 
             <div className="grid lg:grid-cols-2 gap-12 items-center">
-              
+
               {/* Texto Asistencia */}
               <div className="space-y-6">
                 <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary text-white text-[10px] font-bold uppercase tracking-wider">
@@ -419,7 +419,7 @@ export default function PadDentalPage() {
                     <span className="text-[9px] font-bold text-slate-400 uppercase tracking-widest">Los Tribunales</span>
                     <p className="text-slate-500 dark:text-slate-400 text-xs font-semibold mt-3">Calle Los Tribunales #1268</p>
                   </div>
-                  
+
                   <div className="mt-6 pt-4 border-t border-slate-100 dark:border-white/5 space-y-2">
                     <a href="tel:+56222172635" className="flex items-center gap-2 text-slate-600 dark:text-slate-300 hover:text-primary dark:hover:text-white transition-colors text-xs font-bold font-mono">
                       <Phone size={12} className="text-secondary shrink-0" /> +56 2 2217 2635
@@ -440,7 +440,7 @@ export default function PadDentalPage() {
                     <span className="text-[9px] font-bold text-slate-400 uppercase tracking-widest">Vitacura</span>
                     <p className="text-slate-500 dark:text-slate-400 text-xs font-semibold mt-3">Av. Vitacura #8620</p>
                   </div>
-                  
+
                   <div className="mt-6 pt-4 border-t border-slate-100 dark:border-white/5 space-y-2">
                     <a href="tel:+56229336740" className="flex items-center gap-2 text-slate-600 dark:text-slate-300 hover:text-primary dark:hover:text-white transition-colors text-xs font-bold font-mono">
                       <Phone size={12} className="text-secondary shrink-0" /> +56 2 2933 6740

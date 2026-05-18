@@ -323,38 +323,87 @@ const ProfessionalFilterContent = ({ initialArea, professionals }: { initialArea
       <div className="container mx-auto px-6">
         {/* Grilla de Especialidades del Área (Solo se muestra en vistas de área) */}
         {specialtiesForGrid.length > 0 && (
-          <div className="mt-8 sm:-mt-8 relative z-10 mb-10 border-b border-slate-100 dark:border-white/5 pb-10">
+          <div className="mt-8 sm:-mt-8 relative z-10 mb-10 border-b border-slate-100 dark:border-white/5 pb-10 overflow-hidden">
             <span className="inline-flex items-center gap-2 px-3 py-1 rounded-lg bg-slate-100 dark:bg-white/5 text-[10px] font-black uppercase tracking-[0.2em] text-slate-500 dark:text-slate-300 mb-6 ml-1 border border-slate-200 dark:border-white/5 shadow-sm">
               Nuestras Especialidades
             </span>
-            <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-2">
-              {specialtiesForGrid.map((item, idx) => {
-                const Icon = item.Icon;
-                const isSelected = selectedSpecialty === item.name;
+            <style dangerouslySetInnerHTML={{ __html: `
+              @keyframes marquee-pro-1 {
+                0% { transform: translateX(0%); }
+                100% { transform: translateX(-50%); }
+              }
+              @keyframes marquee-pro-2 {
+                0% { transform: translateX(-50%); }
+                100% { transform: translateX(0%); }
+              }
+              .animate-marquee-pro-1 {
+                animation: marquee-pro-1 50s linear infinite;
+              }
+              .animate-marquee-pro-2 {
+                animation: marquee-pro-2 50s linear infinite;
+              }
+            `}} />
+            <div className="relative w-full flex flex-col gap-3 group"
+                 style={{
+                   maskImage: 'linear-gradient(to right, transparent 0%, black 5%, black 95%, transparent 100%)',
+                   WebkitMaskImage: 'linear-gradient(to right, transparent 0%, black 5%, black 95%, transparent 100%)'
+                 }}>
+              
+              {/* Fila 1 */}
+              <div className="flex gap-3 w-max animate-marquee-pro-1 group-hover:[animation-play-state:paused] pt-1 pb-1">
+                {[...specialtiesForGrid.slice(0, Math.ceil(specialtiesForGrid.length / 2)), ...specialtiesForGrid.slice(0, Math.ceil(specialtiesForGrid.length / 2)), ...specialtiesForGrid.slice(0, Math.ceil(specialtiesForGrid.length / 2)), ...specialtiesForGrid.slice(0, Math.ceil(specialtiesForGrid.length / 2)), ...specialtiesForGrid.slice(0, Math.ceil(specialtiesForGrid.length / 2)), ...specialtiesForGrid.slice(0, Math.ceil(specialtiesForGrid.length / 2))].map((item, idx) => {
+                  const Icon = item.Icon;
+                  const isSelected = selectedSpecialty === item.name;
 
-                return (
-                  <motion.div
-                    key={item.name}
-                    initial={{ opacity: 0, y: 8 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ delay: idx * 0.02 }}
-                    onClick={() => handleSpecialtyClick(item.name)}
-                    className={`group cursor-pointer relative px-3 py-2.5 sm:px-4 sm:py-3 rounded-xl sm:rounded-2xl border transition-all duration-300 flex items-center gap-2.5 sm:gap-3 min-h-[52px] sm:min-h-[60px] hover:-translate-y-0.5 ${isSelected
-                      ? 'bg-primary text-white border-primary shadow-md shadow-primary/10'
-                      : 'bg-white dark:bg-slate-900 border-slate-100/80 dark:border-white/[0.03] hover:shadow-md hover:border-secondary/30 shadow-sm dark:shadow-none'
-                      }`}
-                  >
-                    <div className={`w-7 h-7 sm:w-8 sm:h-8 rounded-lg sm:rounded-xl flex items-center justify-center shrink-0 transition-colors ${isSelected ? 'bg-white/20 text-secondary' : 'bg-secondary/10 text-secondary group-hover:bg-secondary group-hover:text-white'
-                      }`}>
-                      <Icon size={15} strokeWidth={2} />
+                  return (
+                    <div
+                      key={`r1-${item.name}-${idx}`}
+                      onClick={() => handleSpecialtyClick(item.name)}
+                      className={`shrink-0 cursor-pointer relative px-4 py-3 sm:px-5 sm:py-3.5 rounded-[1.25rem] border transition-all duration-300 flex items-center gap-3 hover:-translate-y-1 ${isSelected
+                        ? 'bg-primary text-white border-primary shadow-lg shadow-primary/20'
+                        : 'bg-white dark:bg-slate-900 border-slate-200/60 dark:border-white/[0.05] hover:shadow-md hover:border-secondary/40 shadow-sm dark:shadow-none'
+                        }`}
+                    >
+                      <div className={`w-9 h-9 rounded-xl flex items-center justify-center shrink-0 transition-colors duration-300 ${isSelected ? 'bg-white/20 text-secondary' : 'bg-secondary/15 text-secondary'
+                        }`}>
+                        <Icon size={16} strokeWidth={2.5} />
+                      </div>
+                      <h3 className={`font-bold text-[13px] tracking-tight transition-colors whitespace-nowrap ${isSelected ? 'text-white' : 'text-slate-700 dark:text-slate-200'}`}>
+                        {item.name}
+                      </h3>
                     </div>
-                    <h3 className={`font-bold text-[11.5px] sm:text-[12.5px] leading-tight tracking-tight transition-colors flex-1 line-clamp-2 ${isSelected ? 'text-white' : 'text-slate-900 dark:text-white/90 group-hover:text-secondary'}`}>
-                      {item.name}
-                    </h3>
-                  </motion.div>
-                );
-              })}
+                  );
+                })}
+              </div>
+
+              {/* Fila 2 (Inversa) */}
+              {specialtiesForGrid.length > 1 && (
+                <div className="flex gap-3 w-max animate-marquee-pro-2 group-hover:[animation-play-state:paused] pb-2">
+                  {[...specialtiesForGrid.slice(Math.ceil(specialtiesForGrid.length / 2)), ...specialtiesForGrid.slice(Math.ceil(specialtiesForGrid.length / 2)), ...specialtiesForGrid.slice(Math.ceil(specialtiesForGrid.length / 2)), ...specialtiesForGrid.slice(Math.ceil(specialtiesForGrid.length / 2)), ...specialtiesForGrid.slice(Math.ceil(specialtiesForGrid.length / 2)), ...specialtiesForGrid.slice(Math.ceil(specialtiesForGrid.length / 2))].map((item, idx) => {
+                    const Icon = item.Icon;
+                    const isSelected = selectedSpecialty === item.name;
+
+                    return (
+                      <div
+                        key={`r2-${item.name}-${idx}`}
+                        onClick={() => handleSpecialtyClick(item.name)}
+                        className={`shrink-0 cursor-pointer relative px-4 py-3 sm:px-5 sm:py-3.5 rounded-[1.25rem] border transition-all duration-300 flex items-center gap-3 hover:-translate-y-1 ${isSelected
+                          ? 'bg-primary text-white border-primary shadow-lg shadow-primary/20'
+                          : 'bg-white dark:bg-slate-900 border-slate-200/60 dark:border-white/[0.05] hover:shadow-md hover:border-secondary/40 shadow-sm dark:shadow-none'
+                          }`}
+                      >
+                        <div className={`w-9 h-9 rounded-xl flex items-center justify-center shrink-0 transition-colors duration-300 ${isSelected ? 'bg-white/20 text-secondary' : 'bg-secondary/15 text-secondary'
+                          }`}>
+                          <Icon size={16} strokeWidth={2.5} />
+                        </div>
+                        <h3 className={`font-bold text-[13px] tracking-tight transition-colors whitespace-nowrap ${isSelected ? 'text-white' : 'text-slate-700 dark:text-slate-200'}`}>
+                          {item.name}
+                        </h3>
+                      </div>
+                    );
+                  })}
+                </div>
+              )}
             </div>
           </div>
         )}
@@ -718,20 +767,27 @@ const ProfessionalCard = ({ pro, idx }: { pro: Professional, idx: number }) => {
                   </DialogHeader>
 
                   {/* Categoría y Especialidad */}
-                  <div className="flex flex-col items-center gap-2 w-full mt-auto pt-6 border-t border-white/10">
+                  <div className="flex flex-col items-center gap-3 w-full mt-auto pt-6 border-t border-white/10">
                     <span className="hidden sm:block text-[9px] font-black uppercase tracking-[0.2em] text-white/40">Categoría</span>
-                    <div className="flex flex-wrap justify-center gap-1.5">
-                      <button
-                        onClick={() => setShowSpecInfo(!showSpecInfo)}
-                        className={`group/specbtn inline-flex items-center gap-1 px-3 py-1 rounded-full border-none transition-all duration-300 relative ${showSpecInfo
-                          ? 'bg-white text-primary shadow-xl scale-105'
-                          : 'bg-secondary text-primary font-bold shadow-lg shadow-secondary/20 hover:scale-105'
-                          }`}
-                      >
-                        <SpecIcon size={10} strokeWidth={2.5} className={showSpecInfo ? 'text-secondary' : ''} />
-                        <span className="text-[9px] font-bold uppercase tracking-widest">{pro.specialty}</span>
-                        <ChevronRight size={10} className={`ml-1 transition-transform duration-300 ${showSpecInfo ? 'rotate-180 text-secondary' : 'group-hover/specbtn:translate-x-0.5'}`} />
-                      </button>
+                    <div className="flex flex-col items-center gap-2">
+                      <div className="flex flex-col items-center">
+                        <button
+                          onClick={() => setShowSpecInfo(!showSpecInfo)}
+                          className={`group/specbtn inline-flex items-center gap-1.5 px-4 py-1.5 rounded-full border-none transition-all duration-300 relative ${showSpecInfo
+                            ? 'bg-white text-primary shadow-xl scale-105'
+                            : 'bg-secondary text-primary font-bold shadow-lg shadow-secondary/20 hover:scale-105'
+                            }`}
+                        >
+                          <SpecIcon size={11} strokeWidth={2.5} className={showSpecInfo ? 'text-secondary' : ''} />
+                          <span className="text-[9px] font-bold uppercase tracking-widest">{pro.specialty}</span>
+                          <ChevronRight size={11} className={`ml-1 transition-transform duration-300 ${showSpecInfo ? 'rotate-180 text-secondary' : 'group-hover/specbtn:translate-x-0.5'}`} />
+                        </button>
+                        {!showSpecInfo && (
+                          <span className="text-[7.5px] font-bold text-secondary/90 tracking-[0.15em] uppercase mt-1.5 animate-pulse">
+                            Clic para ver detalle
+                          </span>
+                        )}
+                      </div>
                       <Badge variant="outline" className="text-white border-white/20 text-[9px] py-1 px-3 rounded-full backdrop-blur-sm">
                         {pro.area}
                       </Badge>

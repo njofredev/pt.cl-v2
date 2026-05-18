@@ -38,9 +38,13 @@ export default async function Home() {
     <main className="relative min-h-screen bg-transparent dark:bg-transparent antialiased overflow-x-hidden transition-colors duration-300">
       {/* 1. HERO SECTION DINÁMICO */}
       <Hero
-        badgeText={`150+ prestaciones  •  ${totalPros}+ profesionales.`}
-        badgeIconName="stethoscope"
-        description="En Policlínico Tabancura te acompañamos en cada etapa con especialistas de excelencia y el trato humano que tú y tu familia merecen."
+        badgeText="Compromiso con tu bienestar"
+        description={
+          <>
+            En Policlínico Tabancura te acompañamos en cada etapa con especialistas de excelencia y el trato humano que tú y tu familia merecen.
+            <span className="block mt-4 font-bold text-slate-700 dark:text-white">150+ prestaciones <span className="text-secondary">{totalPros}+ profesionales.</span></span>
+          </>
+        }
         statsNumber={`+${totalPros}`}
         statsLabel="Profesionales de salud"
       />
@@ -60,7 +64,7 @@ export default async function Home() {
           {/* Nueva posición CTA del Programador */}
           <div id="agendar" className="mb-20 text-center scroll-mt-48">
             <div className="mb-12">
-              <p className="text-lg md:text-xl font-medium text-slate-600 dark:text-slate-400 mb-2">
+              <p className="text-lg md:text-xl font-medium text-slate-600 dark:t ext-slate-400 mb-2">
                 Somos una corporación <span className="text-secondary relative inline-block">sin fines de lucro.
                   <svg className="absolute -bottom-1.5 left-0 w-full h-2.5 text-secondary/40" viewBox="0 0 100 10" preserveAspectRatio="none">
                     <path d="M2,8 Q50,2 98,8" stroke="currentColor" strokeWidth="4" strokeLinecap="round" fill="none" />
