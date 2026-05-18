@@ -31,36 +31,26 @@ const FAQS = [
 
 // Categories definitions
 const CATEGORIES = [
-  { id: 'previsiones', name: 'Previsiones (Isapres & Fonasa)', icon: <Activity size={16} /> },
-  { id: 'colectivos', name: 'Convenios Colectivos', icon: <Building2 size={16} /> },
-  { id: 'seguros', name: 'Seguros Complementarios', icon: <ShieldCheck size={16} /> },
+  { id: 'previsiones', name: 'Previsiones (Isapres)', icon: <Activity size={16} /> },
+  { id: 'colectivos', name: 'Convenios Institucionales', icon: <Building2 size={16} /> }
 ];
 
 // Content maps
 const PREVISIONES = [
-  { name: 'Fonasa', type: 'Pública', desc: 'Bonos I-Med en línea para consultas médicas, dental y exámenes de laboratorio (Nivel 1, 2 y 3).', color: 'from-emerald-500 to-teal-600', badge: 'Convenio Preferente' },
-  { name: 'Isapre Colmena', type: 'Privada', desc: 'Validación en línea (I-Med). Cobertura inmediata según tu plan de salud en todas las especialidades.', color: 'from-amber-500 to-orange-600' },
-  { name: 'Isapre Consalud', type: 'Privada', desc: 'Convenio directo para consultas generales, dentales y exámenes. Copago automático por I-Med.', color: 'from-rose-500 to-red-600' },
-  { name: 'Isapre CruzBlanca', type: 'Privada', desc: 'Reembolso automático en línea. Cobertura preferente en odontología integral y laboratorio.', color: 'from-blue-500 to-indigo-600' },
-  { name: 'Isapre Banmédica', type: 'Privada', desc: 'Acceso directo a aranceles preferenciales. Bonificación en línea para todas las consultas médicas.', color: 'from-cyan-500 to-blue-600' },
-  { name: 'Isapre Vida Tres', type: 'Privada', desc: 'Cobertura de alta gama en consultas de medicina general, especialidades y kinesiología.', color: 'from-violet-500 to-purple-600' },
-  { name: 'Nueva Masvida', type: 'Privada', desc: 'Bonificación automatizada para exámenes de laboratorio clínico y especialidades médicas.', color: 'from-teal-500 to-emerald-600' },
+  { name: 'Isapre Banmédica', type: 'Privada', desc: 'Validación en línea. 25% de descuento sobre el arancel dental.', color: 'from-cyan-500 to-blue-600', badge: 'Convenio Preferente' },
+  { name: 'Isapre Vida Tres', type: 'Privada', desc: 'Validación en línea. 25% de descuento sobre el arancel dental.', color: 'from-violet-500 to-purple-600', badge: 'Convenio Preferente' }
 ];
 
 const COLECTIVOS = [
-  { name: 'Tarjeta Mi Vita (Vitacura)', benefit: 'Hasta 20% de descuento en aranceles de especialidades dentales, kinesiología y medicina general.', type: 'Municipalidad', detail: 'Exclusivo para residentes de Vitacura presentando tarjeta vigente.' },
-  { name: 'Caja Los Andes', benefit: '15% de descuento en el copago de atenciones dentales integrales y consultas médicas generales.', type: 'Caja Compensación', detail: 'Válido para afiliados y cargas familiares acreditadas.' },
-  { name: 'Caja La Araucana', benefit: 'Aranceles preferenciales y bonificaciones directas en consultas dentales de diagnóstico y profilaxis.', type: 'Caja Compensación', detail: 'Presentar certificado de afiliación digital al momento de ingresar.' },
-  { name: 'Convenios Escolares Oriente', benefit: '15% de descuento en odontopediatría y ortodoncia para alumnos de colegios asociados.', type: 'Institucional', detail: 'Aplica a colegios de Vitacura y comunas del sector oriente.' },
-  { name: 'Alianzas Corporativas', benefit: 'Programas de salud preventiva corporativa y chequeos anuales con tarifas especiales.', type: 'Empresas', detail: 'Convenio corporativo firmado entre tu empresa y nuestro policlínico.' },
-];
-
-const SEGUROS = [
-  { name: 'Bupa Seguros', desc: 'Reembolso en línea inmediato a través del sistema I-Med. Cobertura en consultas y procedimientos dentales.' },
-  { name: 'MetLife Seguros', desc: 'Convenio directo para seguros colectivos e individuales. Cobertura preferente en medicina general y exámenes.' },
-  { name: 'Consorcio Seguros', desc: 'Validación automatizada en recepción. Reembolso directo según la póliza de salud complementaria contratada.' },
-  { name: 'Chilena Consolidada', desc: 'Descuentos y coberturas directas en consultas de salud mental (psicología) y terapias complementarias.' },
-  { name: 'Mapfre Seguros', desc: 'Cobertura en línea para exámenes de laboratorio y chequeos preventivos en sucursal Vitacura.' },
+  { name: 'Tarjeta Mi Vita', benefit: '25% de descuento sobre el arancel.', type: 'Municipalidad', detail: 'Exclusivo para residentes de Vitacura presentando tarjeta vigente.' },
+  { name: 'Liceo Amanda Labarca', benefit: '25% de descuento sobre el arancel.', type: 'Educacional', detail: 'Beneficio exclusivo para alumnos y comunidad educativa.' },
+  { name: 'Colegio Antártica Chilena', benefit: '25% de descuento sobre el arancel.', type: 'Educacional', detail: 'Beneficio exclusivo para alumnos y comunidad educativa.' },
+  { name: 'Colegio Betterland', benefit: '25% de descuento sobre el arancel.', type: 'Educacional', detail: 'Beneficio exclusivo para alumnos y comunidad educativa.' },
+  { name: 'Colegio Everest', benefit: '25% de descuento sobre el arancel.', type: 'Educacional', detail: 'Beneficio exclusivo para alumnos y comunidad educativa.' },
+  { name: 'Liceo María Luisa Bombal', benefit: '25% de descuento sobre el arancel.', type: 'Educacional', detail: 'Beneficio exclusivo para alumnos y comunidad educativa.' },
+  { name: 'Colegio Sirio', benefit: '25% de descuento sobre el arancel.', type: 'Educacional', detail: 'Beneficio exclusivo para alumnos y comunidad educativa.' },
+  { name: 'Colegio Santa Úrsula', benefit: '25% de descuento sobre el arancel.', type: 'Educacional', detail: 'Beneficio exclusivo para alumnos y comunidad educativa.' },
+  { name: 'Universidad Federico Santa María', benefit: '25% de descuento sobre el arancel.', type: 'Educacional', detail: 'Beneficio exclusivo para alumnos y comunidad educativa.' },
 ];
 
 import Image from 'next/image';
@@ -267,28 +257,7 @@ export default function ConveniosPage() {
                 </div>
               )}
 
-              {activeTab === 'seguros' && (
-                <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-                  {SEGUROS.map((seg, idx) => (
-                    <div
-                      key={idx}
-                      className="bg-white dark:bg-slate-900 rounded-[2rem] p-8 border border-slate-100 dark:border-slate-800/60 shadow-xl shadow-slate-200/10 dark:shadow-none flex flex-col justify-between hover:shadow-2xl transition-all duration-300"
-                    >
-                      <div>
-                        <div className="w-10 h-10 bg-primary/5 dark:bg-slate-800 rounded-xl flex items-center justify-center text-primary dark:text-white mb-6">
-                          <ShieldCheck size={20} className="text-secondary" />
-                        </div>
-                        <h3 className="text-md font-black text-primary dark:text-white mb-3">{seg.name}</h3>
-                        <p className="text-xs font-medium text-slate-500 dark:text-slate-400 leading-relaxed">{seg.desc}</p>
-                      </div>
-                      <div className="mt-8 border-t border-slate-50 dark:border-slate-850 pt-4 flex items-center justify-between text-[9px] font-black uppercase tracking-widest text-slate-400">
-                        <span>Reembolso en Línea</span>
-                        <Check size={12} className="text-emerald-500" strokeWidth={3} />
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              )}
+
             </motion.div>
           </AnimatePresence>
         </section>
