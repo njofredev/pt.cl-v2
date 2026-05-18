@@ -24,26 +24,25 @@ interface SearchResult {
 const STATIC_RESULTS: SearchResult[] = [
   // NAVEGACIÓN PRINCIPAL
   { id: "home", title: "Inicio", category: "Navegación", type: "pagina", link: "/", icon: <Home size={20} /> },
-  { id: "contact", title: "Contacto y Ubicación", category: "Navegación", type: "pagina", link: "#contacto", icon: <Phone size={20} /> },
+  { id: "contact", title: "Contacto y Ubicación", category: "Navegación", type: "pagina", link: "/#contacto", icon: <Phone size={20} /> },
   
   // ESPECIALIDADES
   { id: "p1", title: "Salud Dental", category: "Especialidades", type: "pagina", link: "/servicios/dental", icon: <HeartPulse size={20} /> },
   { id: "p2", title: "Salud Mental", category: "Especialidades", type: "pagina", link: "/servicios/mental", icon: <Brain size={20} /> },
   { id: "p3", title: "Medicina General", category: "Especialidades", type: "pagina", link: "/servicios/medicina", icon: <Stethoscope size={20} /> },
-  { id: "p4", title: "Terapias Complementarias", category: "Especialidades", type: "pagina", link: "/servicios/terapias", icon: <Zap size={20} /> },
   
-  // NOVEDADES 2026
-  { id: "n1", title: "Centro Radiológico", category: "Novedades 2026", type: "servicio", link: "#", icon: <Activity size={20} /> },
-  { id: "n2", title: "Laboratorio Digital de Exámenes", category: "Novedades 2026", type: "servicio", link: "#", icon: <Microscope size={20} /> },
-  { id: "t1", title: "Validador Mi Vita", category: "Beneficios", type: "servicio", link: "#mivita", icon: <Sparkles size={20} /> },
-  { id: "t2", title: "Cotizador Digital", category: "Herramientas", type: "servicio", link: "https://cotizador.policlinicotabancura.cl", icon: <Calculator size={20} /> },
+  // BENEFICIOS Y CONVENIOS
+  { id: "c1", title: "Convenios y Beneficios", category: "Convenios", type: "pagina", link: "/convenios", icon: <ShieldCheck size={20} /> },
+  { id: "c2", title: "PAD Dental (Bono Fonasa)", category: "Convenios", type: "pagina", link: "/pad-dental", icon: <Sparkles size={20} /> },
+  { id: "c3", title: "Validador Mi Vita", category: "Beneficios", type: "servicio", link: "/#mivita", icon: <Sparkles size={20} /> },
+  
+  // HERRAMIENTAS Y PACIENTES
+  { id: "t2", title: "Cotizador de Exámenes", category: "Herramientas", type: "pagina", link: "/cotizador-examenes", icon: <Calculator size={20} /> },
+  { id: "t3", title: "Intranet Pacientes", category: "Mi Cuenta", type: "servicio", link: "#", icon: <Laptop size={20} /> },
   
   // INSTITUCIONAL
   { id: "p5", title: "Quiénes Somos", category: "Institucional", type: "pagina", link: "/nosotros", icon: <Activity size={20} /> },
-  { id: "p6", title: "Misión y Visión", category: "Institucional", type: "pagina", link: "/mision", icon: <ShieldCheck size={20} /> },
-  
-  // EXTRAS
-  { id: "t3", title: "Intranet Pacientes", category: "Mi Cuenta", type: "servicio", link: "#", icon: <Laptop size={20} /> },
+  { id: "p6", title: "Derechos y Deberes", category: "Institucional", type: "pagina", link: "/derechos-y-deberes", icon: <Info size={20} /> },
 ];
 
 export function SearchModal({ isOpen, onClose }: { isOpen: boolean; onClose: () => void }) {
