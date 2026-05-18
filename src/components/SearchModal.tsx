@@ -37,7 +37,7 @@ const STATIC_RESULTS: SearchResult[] = [
   { id: "c3", title: "Validador Mi Vita", category: "Beneficios", type: "servicio", link: "/#mivita", icon: <Sparkles size={20} /> },
   
   // HERRAMIENTAS Y PACIENTES
-  { id: "t2", title: "Cotizador de Exámenes", category: "Herramientas", type: "pagina", link: "/cotizador-examenes", icon: <Calculator size={20} /> },
+  // { id: "t2", title: "Cotizador de Exámenes", category: "Herramientas", type: "pagina", link: "/cotizador-examenes", icon: <Calculator size={20} /> },
   { id: "t3", title: "Intranet Pacientes", category: "Mi Cuenta", type: "servicio", link: "#", icon: <Laptop size={20} /> },
   
   // INSTITUCIONAL

@@ -64,7 +64,7 @@ const NAV_ITEMS = [
     subItems: [
       { name: 'Convenios y Alianzas', href: '/convenios', desc: 'Previsiones, convenios colectivos y descuentos.', icon: <HeartHandshake className="text-emerald-500" /> },
       { name: 'PAD Dental (Fonasa)', href: '/bonopad', desc: 'Bono PAD Fonasa para atenciones dentales integrales.', icon: <SmilePlus className="text-cyan-500" /> },
-      { name: 'Cotizador Digital', href: '/cotizador-examenes', desc: 'Presupuestos de exámenes al instante.', icon: <Calculator className="text-emerald-500" /> },
+      // { name: 'Cotizador Digital', href: '/cotizador-examenes', desc: 'Presupuestos de exámenes al instante.', icon: <Calculator className="text-emerald-500" /> },
       { name: 'Resultados de Exámenes', href: 'http://190.215.215.125:9091/Pacientes.aspx', desc: 'Consulta tus resultados en laboratorio Laboval.', icon: <FileText className="text-cyan-600" /> },
     ]
   },
