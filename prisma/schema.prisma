@@ -29,3 +29,20 @@ model Professional {
   imageUrl    String?  @map("Imagen:")
   timestamp   String?  @map("Marca temporal")
 }
+
+model Arancel {
+  id                 Int      @id @default(autoincrement())
+  source             String   // "dentalink" o "medilink"
+  category           String
+  name               String
+  priceBase          Int?
+  pricePref          Int?
+  hasDiscount        Boolean  @default(false)
+  discountPercentage Int      @default(0)
+  createdAt          DateTime @default(now())
+  updatedAt          DateTime @updatedAt
+
+  @@index([source])
+  @@index([category])
+}
+

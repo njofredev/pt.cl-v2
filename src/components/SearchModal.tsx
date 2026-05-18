@@ -42,7 +42,8 @@ const STATIC_RESULTS: SearchResult[] = [
   
   // INSTITUCIONAL
   { id: "p5", title: "Quiénes Somos", category: "Institucional", type: "pagina", link: "/nosotros", icon: <Activity size={20} /> },
-  { id: "p6", title: "Derechos y Deberes", category: "Institucional", type: "pagina", link: "/derechos-y-deberes", icon: <Info size={20} /> },
+  { id: "p6", title: "Derechos y Deberes", category: "Pacientes", type: "pagina", link: "/derechos-y-deberes", icon: <Info size={20} /> },
+  { id: "p7", title: "Aranceles y Precios", category: "Institucional", type: "pagina", link: "/aranceles", icon: <Calculator size={20} /> },
 ];
 
 export function SearchModal({ isOpen, onClose }: { isOpen: boolean; onClose: () => void }) {

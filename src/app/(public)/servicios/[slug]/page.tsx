@@ -44,7 +44,7 @@ const SLUG_TO_HERO: Record<string, HeroProps> = {
     titleHighlight: "Mental",
     description: "Un espacio seguro de acompañamiento profesional para fortalecer tu equilibrio emocional y calidad de vida.",
     images: [
-      { src: '/generated/mental_hero.png', alt: 'Terapia Psicológica Especializada', location: 'Centro Médico Vitacura' },
+      { src: '/generated/heroMental.webp', alt: 'Terapia Psicológica Especializada', location: 'Consulta Tabancura' },
     ],
     statsNumber: "+2k",
     statsLabel: "Vidas Transformadas",

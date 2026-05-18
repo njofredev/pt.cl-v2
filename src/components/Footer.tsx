@@ -288,6 +288,7 @@ export const Footer = () => {
             links={[
               { name: 'Inicio', href: '/' },
               { name: 'Quiénes Somos', href: '/nosotros' },
+              { name: 'Aranceles', href: '/aranceles' },
               { name: 'Derechos y Deberes', href: '/derechos-y-deberes' },
               { name: 'Nuestras Sucursales', href: '/#sucursales' },
               { name: 'Convenios y Alianzas', href: '/convenios' },
