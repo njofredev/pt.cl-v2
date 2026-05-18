@@ -243,10 +243,10 @@ export default function ConveniosPage() {
                       key={idx}
                       className="bg-white dark:bg-slate-900 rounded-[2rem] p-8 border border-slate-100 dark:border-slate-800/60 shadow-xl shadow-slate-200/20 dark:shadow-none flex flex-col md:flex-row md:items-center justify-between gap-6 hover:shadow-2xl transition-all duration-300"
                     >
-                      <div className="flex flex-col sm:flex-row items-start gap-4 max-w-2xl">
+                      <div className="flex flex-col sm:flex-row items-start sm:items-center gap-6 max-w-2xl">
                         {col.logo && (
-                          <div className="relative w-24 h-16 shrink-0 flex items-center justify-center">
-                            <Image src={`/logos_convenios_prevision/${col.logo}`} alt={col.name} fill sizes="96px" className="object-contain drop-shadow-sm" />
+                          <div className="relative w-32 h-20 shrink-0 flex items-center justify-center">
+                            <Image src={`/logos_convenios_prevision/${col.logo}`} alt={col.name} fill sizes="128px" className="object-contain drop-shadow-sm" />
                           </div>
                         )}
                         <div className="space-y-2">
