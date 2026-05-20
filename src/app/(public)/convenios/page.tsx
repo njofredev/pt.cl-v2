@@ -8,24 +8,20 @@ import { Hero } from '@/components/Hero';
 // Frequently Asked Questions array with 5 comprehensive elements
 const FAQS = [
   {
-    q: "¿Cómo funciona la validación por I-Med?",
-    a: "Contamos con lectores de huella dactilar integrados con el sistema I-Med en todos nuestros módulos de admisión. Al pasar tu huella dactilar, el sistema consulta de forma inmediata tu cobertura y calcula tu copago neto en tiempo real para Isapres y Fonasa."
+    q: "¿Cómo funciona la validación por IMED?",
+    a: "Contamos con lectores de huella dactilar integrados con el sistema IMED en todos nuestros módulos de recepción. Al pasar tu huella dactilar, el sistema consulta de forma inmediata tu cobertura y calcula tu copago para Isapres y Fonasa."
   },
   {
     q: "¿Los descuentos son acumulables?",
-    a: "Los convenios de descuento directo (como Tarjeta Mi Vita o Cajas de Compensación) no son acumulables entre sí ni con otras promociones activas. Al momento del cobro, nuestro equipo aplicará siempre el beneficio más conveniente para el paciente."
+    a: "Los convenios de descuento directo (como Tarjeta Mi Vita) no son acumulables entre sí ni con otras promociones activas. Al momento del cobro, nuestro equipo aplicará siempre el beneficio más conveniente para el paciente."
   },
   {
     q: "¿Qué hago si mi seguro complementario o Isapre no valida en línea?",
-    a: "Si por alguna intermitencia temporal del sistema I-Med o de tu propia aseguradora no es posible realizar la bonificación en línea al instante, emitiremos una boleta electrónica detallada con todos los códigos de prestación. Con este documento podrás realizar la solicitud de reembolso de forma manual y digital en el sitio web de tu Isapre o seguro complementario para recibir el 100% de la cobertura de tu plan."
+    a: "Si por alguna intermitencia temporal del sistema I-Med o de tu propia aseguradora no es posible realizar la bonificación en línea al instante, puedes comprar el bono directamente en el sitio de tu previsión."
   },
   {
     q: "¿Cómo asocio mi Tarjeta Mi Vita a mi ficha para obtener el descuento?",
-    a: "Solo debes presentar tu cédula de identidad y tu Tarjeta Mi Vita vigente (ya sea en formato físico o digital a través de la aplicación oficial de la Municipalidad de Vitacura) en cualquiera de nuestros mesones de recepción. Una vez validada, nuestro personal la dejará registrada permanentemente en tu ficha para aplicar descuentos automáticos en todas tus siguientes atenciones."
-  },
-  {
-    q: "¿Los convenios colectivos cubren a todo el grupo familiar?",
-    a: "Sí. La gran mayoría de nuestras alianzas e integraciones (con empresas, colegios e instituciones asociadas) extienden sus aranceles preferenciales tanto para el trabajador o afiliado titular como para sus cargas familiares acreditadas (cónyuge, conviviente civil e hijos) al momento de registrarse en admisión."
+    a: "Solo debes presentar tu cédula de identidad y validaremos tu beneficio en cualquiera de nuestros mesones de recepción. Una vez validada, nuestro personal la dejará registrada permanentemente en tu ficha digital para aplicar descuentos automáticos en todas tus siguientes atenciones."
   }
 ];
 
@@ -50,7 +46,7 @@ const COLECTIVOS = [
   { name: 'Colegio Betterland', benefit: '25% de descuento sobre el arancel.', type: 'Educacional', detail: 'Beneficio exclusivo para alumnos y comunidad educativa.', logo: 'betterland.png' },
   { name: 'Colegio Everest', benefit: '25% de descuento sobre el arancel.', type: 'Educacional', detail: 'Beneficio exclusivo para alumnos y comunidad educativa.', logo: 'colegio_everest.png' },
   { name: 'Liceo María Luisa Bombal', benefit: '25% de descuento sobre el arancel.', type: 'Educacional', detail: 'Beneficio exclusivo para alumnos y comunidad educativa.', logo: 'mraluisabombal.png' },
-  { name: 'Colegio Sirio', benefit: '25% de descuento sobre el arancel.', type: 'Educacional', detail: 'Beneficio exclusivo para alumnos y comunidad educativa.', logo: 'sirio.png' },
+  { name: 'Club Sirio', benefit: '25% de descuento sobre el arancel.', type: 'Educacional', detail: 'Beneficio exclusivo para alumnos y comunidad educativa.', logo: 'sirio.png' },
   { name: 'Colegio Santa Úrsula', benefit: '25% de descuento sobre el arancel.', type: 'Educacional', detail: 'Beneficio exclusivo para alumnos y comunidad educativa.', logo: 'staursula.png' },
   { name: 'Universidad Federico Santa María', benefit: '25% de descuento sobre el arancel.', type: 'Educacional', detail: 'Beneficio exclusivo para alumnos y comunidad educativa.', logo: 'utfsm.png' },
 ];
@@ -247,7 +243,7 @@ export default function ConveniosPage() {
                       className="bg-white dark:bg-slate-900 rounded-3xl p-6 border border-slate-200 dark:border-slate-800/60 shadow-xl shadow-slate-200/20 dark:shadow-none flex flex-col h-full hover:-translate-y-1 hover:shadow-2xl transition-all duration-300 group relative overflow-hidden"
                     >
                       <div className="absolute top-0 right-0 w-24 h-24 bg-slate-50 dark:bg-slate-950 rounded-bl-full flex items-center justify-center -mr-4 -mt-4 opacity-50 pointer-events-none group-hover:scale-110 transition-transform duration-500" />
-                      
+
                       <div className="flex justify-between items-start mb-5 relative z-10">
                         {col.logo ? (
                           <div className="relative w-24 h-14 shrink-0 flex items-center justify-start">
@@ -260,7 +256,7 @@ export default function ConveniosPage() {
                         )}
                         <span className="bg-secondary/10 text-secondary border border-secondary/20 px-2.5 py-1 rounded-full text-[8px] font-black uppercase tracking-widest shrink-0 mt-1">{col.type}</span>
                       </div>
-                      
+
                       <div className="flex-1 space-y-2.5 mb-6 relative z-10">
                         <h3 className="text-base font-black text-primary dark:text-white leading-tight group-hover:text-secondary transition-colors">{col.name}</h3>
                         <p className="text-xs font-bold text-emerald-800 dark:text-emerald-300 bg-emerald-50 dark:bg-emerald-900/30 p-2.5 rounded-lg border border-emerald-200 dark:border-emerald-800/50">{col.benefit}</p>
@@ -319,7 +315,7 @@ export default function ConveniosPage() {
         <section id="faqs" className="max-w-3xl mx-auto mt-28 scroll-mt-36">
           <h3 className="text-2xl font-black text-primary dark:text-white text-center tracking-tight mb-12 flex items-center justify-center gap-2">
             <HelpCircle className="text-secondary" size={24} />
-            Preguntas Frecuentes de Convenios
+            Preguntas Frecuentes
           </h3>
 
           <div className="space-y-4">

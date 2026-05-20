@@ -53,7 +53,7 @@ export default async function Home() {
       <section className="py-8 bg-transparent dark:bg-transparent">
         <div className="container mx-auto px-6">
           <p className="text-[10px] font-bold text-slate-500 dark:text-slate-400 uppercase tracking-[0.3em] text-center mb-4">
-            Atención con Previsión y Convenios Directos
+            ¿Conoces nuestras alianzas y previsiones?
           </p>
           <PartnerCarousel />
         </div>
@@ -71,8 +71,8 @@ export default async function Home() {
                   </svg>
                 </span>
               </p>
-              <h2 className="text-3xl md:text-5xl font-bold text-primary dark:text-white mb-4">Atención especializada por áreas</h2>
-              <p className="text-base md:text-lg text-slate-500 dark:text-slate-400 font-medium tracking-wide">Agenda en línea y obtén valores preferenciales</p>
+              <h2 className="text-3xl md:text-5xl font-bold text-primary dark:text-white mb-4">Cuidado integral para ti y tu familia</h2>
+              <p className="text-base md:text-lg text-slate-500 dark:text-slate-400 font-medium tracking-wide">Reserva tu atención de forma rápida, fácil y sin salir de casa.</p>
             </div>
 
             <MinimalistScheduler />
@@ -88,7 +88,7 @@ export default async function Home() {
                 Innovación en cada <br /> <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary via-teal-400 to-secondary dark:from-white dark:via-secondary dark:to-teal-400">especialidad.</span>
               </h2>
               <p className="text-lg sm:text-xl text-slate-500 dark:text-slate-400 font-medium max-w-xl leading-relaxed">
-                Equipos de vanguardia y especialistas de primer nivel en un solo lugar.
+                Todo lo que tu salud necesita: 55+ especialistas y más de 150 servicios a tu disposición.
               </p>
             </div>
           </div>
@@ -98,12 +98,12 @@ export default async function Home() {
           {/* Centered Contact Banner */}
           <div className="mt-16 mb-4 max-w-4xl mx-auto px-6">
             <div className="flex justify-center mb-8">
-              <a href="tel:+56222172635" className="inline-flex items-center gap-2 px-6 py-3 bg-[#111827] hover:bg-[#1f2937] text-white rounded-full text-[11px] font-black uppercase tracking-[0.2em] transition-all shadow-lg border border-white/5">
+              <a className="inline-flex items-center gap-2 px-6 py-3 bg-[#111827] hover:bg-[#1f2937] text-white rounded-full text-[11px] font-black uppercase tracking-[0.2em] transition-all shadow-lg border border-white/5">
                 <Phone size={14} className="text-emerald-400" />
                 ¿Aún con dudas? ¡Llámanos!
               </a>
             </div>
-            
+
             <div className="flex flex-col md:flex-row justify-center items-center gap-10 md:gap-20 text-center">
               <div>
                 <p className="text-[10px] font-bold text-emerald-500 dark:text-emerald-400 uppercase tracking-[0.2em] mb-2">Casa Matriz - Los Tribunales</p>
@@ -119,7 +119,7 @@ export default async function Home() {
                 </a>
               </div>
             </div>
-            
+
             <div className="mt-10 text-center space-y-2">
               <p className="text-[9px] font-bold text-slate-500 dark:text-slate-500 uppercase tracking-[0.2em]">
                 CASA MATRIZ: LUNES A VIERNES DE 09:00 A 13:00 Y 14:00 A 18:30 HRS
@@ -200,7 +200,7 @@ export default async function Home() {
                       <div className="w-3 h-3 rounded-full bg-green-400" />
                     </div>
                     <div className="mx-auto text-[10px] font-bold text-slate-400 uppercase tracking-widest flex items-center gap-2">
-                      Portal Mi Vita <ShieldCheck size={12} className="text-secondary" />
+                      Valida tu Convenio en Línea <ShieldCheck size={12} className="text-secondary" />
                     </div>
                   </div>
                   {/* Adaptive High-Bottom Crop Iframe */}

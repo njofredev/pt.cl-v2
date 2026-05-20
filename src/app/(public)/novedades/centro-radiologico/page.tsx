@@ -13,7 +13,7 @@ export default function CentroRadiologicoPage() {
         <div className="max-w-4xl mx-auto">
           <div className="grid md:grid-cols-2 gap-12 items-center bg-white dark:bg-slate-900/60 backdrop-blur-xl border border-slate-100 dark:border-white/10 rounded-[2.5rem] p-8 md:p-12 shadow-2xl">
             <div>
-              <motion.div 
+              <motion.div
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
                 className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-indigo-500/10 text-indigo-600 dark:text-indigo-400 text-[9px] font-bold uppercase tracking-widest mb-6"
@@ -21,26 +21,26 @@ export default function CentroRadiologicoPage() {
                 <Activity size={12} />
                 Novedades 2026
               </motion.div>
-              
-              <motion.h1 
+
+              <motion.h1
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.1 }}
                 className="text-3xl md:text-5xl font-black text-slate-900 dark:text-white mb-6 tracking-tight"
               >
-                Centro <br/> <span className="text-indigo-600 dark:text-indigo-400">Radiológico</span>
+                Centro <br /> <span className="text-indigo-600 dark:text-indigo-400">Radiológico</span>
               </motion.h1>
-              
-              <motion.p 
+
+              <motion.p
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.2 }}
                 className="text-slate-600 dark:text-slate-400 leading-relaxed mb-8"
               >
-                Próximamente incorporaremos la tecnología de diagnóstico por imagen más avanzada de la región. Imágenes de alta resolución para diagnósticos exactos y seguros.
+                Innovación tecnológica dental al servicio de tu salud. Próximamente contaremos con un nuevo centro digitalizado para ofrecerte imágenes de alta resolución y la máxima precisión médica.
               </motion.p>
 
-              <motion.ul 
+              <motion.ul
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 transition={{ delay: 0.3 }}
@@ -67,7 +67,7 @@ export default function CentroRadiologicoPage() {
               </motion.div>
             </div>
 
-            <motion.div 
+            <motion.div
               initial={{ opacity: 0, scale: 0.9 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ duration: 0.5 }}
@@ -76,7 +76,7 @@ export default function CentroRadiologicoPage() {
               <div className="absolute inset-0 bg-gradient-to-br from-indigo-500/20 to-transparent opacity-50"></div>
               <Activity size={80} className="text-indigo-500 opacity-20 group-hover:scale-110 transition-transform duration-700" />
               <div className="absolute inset-0 flex items-center justify-center">
-                 <span className="text-xs font-bold uppercase tracking-[0.3em] text-indigo-600/50 dark:text-indigo-400/50 bg-white dark:bg-slate-900 px-4 py-2 rounded-full shadow-xl border border-indigo-500/20">En Construcción</span>
+                <span className="text-xs font-bold uppercase tracking-[0.3em] text-indigo-600/50 dark:text-indigo-400/50 bg-white dark:bg-slate-900 px-4 py-2 rounded-full shadow-xl border border-indigo-500/20">En Construcción</span>
               </div>
             </motion.div>
           </div>

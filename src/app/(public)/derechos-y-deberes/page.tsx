@@ -35,7 +35,7 @@ const DEBERES = [
 export default function DerechosDeberesPage() {
   return (
     <main className="min-h-screen bg-white dark:bg-slate-950 transition-colors duration-500 overflow-x-hidden">
-      
+
       {/* HERO SECTION MODERNO - Estilo Nosotros */}
       <section className="relative pt-56 pb-20 overflow-hidden">
         {/* Background accents */}
@@ -56,7 +56,7 @@ export default function DerechosDeberesPage() {
                 Cartilla de Atención
               </div>
               <h1 className="text-4xl md:text-6xl lg:text-7xl font-black text-slate-900 dark:text-white tracking-tight leading-[1.1] mb-8">
-                Derechos y Deberes <br/>
+                Derechos y Deberes <br />
                 <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary via-teal-400 to-secondary dark:from-white dark:via-secondary dark:to-teal-400">
                   del paciente.
                 </span>
@@ -71,7 +71,7 @@ export default function DerechosDeberesPage() {
 
       {/* Main Content Stacked */}
       <div className="container mx-auto px-6 pb-24 space-y-12 relative z-10">
-        
+
         {/* Section: DERECHOS (Ancho total, lista distribuida) */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
@@ -91,8 +91,8 @@ export default function DerechosDeberesPage() {
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
             {DERECHOS.map((item, idx) => (
-              <motion.div 
-                key={idx} 
+              <motion.div
+                key={idx}
                 initial={{ opacity: 0, y: 10 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
@@ -107,7 +107,7 @@ export default function DerechosDeberesPage() {
         </motion.div>
 
         <div className="grid lg:grid-cols-12 gap-12 items-stretch">
-          
+
           {/* Section: DEBERES */}
           <motion.div
             initial={{ opacity: 0, y: 30 }}
@@ -127,8 +127,8 @@ export default function DerechosDeberesPage() {
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               {DEBERES.map((item, idx) => (
-                <motion.div 
-                  key={idx} 
+                <motion.div
+                  key={idx}
                   initial={{ opacity: 0, y: 10 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
@@ -145,7 +145,7 @@ export default function DerechosDeberesPage() {
           </motion.div>
 
           {/* Quote Box: Se usa para equilibrar la fila con los Deberes */}
-          <motion.div 
+          <motion.div
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}

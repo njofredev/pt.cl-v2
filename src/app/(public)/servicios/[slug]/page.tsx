@@ -25,7 +25,7 @@ const SLUG_TO_HERO: Record<string, HeroProps> = {
     titleHighlight: "Dental",
     description: "Cuidado integral de tu sonrisa con especialistas de elite y tecnología de vanguardia para resultados excepcionales.",
     images: [
-      { src: '/generated/heroDental.webp', alt: 'Clínica Dental Premium', location: 'Casa Matriz - Los Tribunales' },
+      { src: '/generated/heroDental.webp', alt: 'Clínica Dental Premium', location: '+9 especialidades' },
       { src: '/generated/heroDental2.webp', alt: 'Equipamiento Odontológico Moderno', location: 'Centro Odontológico Vitacura' },
       { src: '/generated/heroDental3.webp', alt: 'Box de Atención Dental', location: 'Sala de Procedimientos' }
     ],
@@ -38,7 +38,7 @@ const SLUG_TO_HERO: Record<string, HeroProps> = {
     secondaryButtonAnchorId: "controles-filtro"
   },
   'mental': {
-    badgeText: "Compromiso con tu Bienestar",
+    badgeText: "Atención presencial y Teleconsulta",
     badgeIconName: 'brain',
     titlePrefix: "Salud",
     titleHighlight: "Mental",
@@ -146,33 +146,33 @@ export default async function ServicePage({ params }: { params: Promise<{ slug: 
     <div id="top" className="min-h-screen bg-white dark:bg-slate-950 transition-colors duration-300">
       {/* Usamos el Hero global pero con props inyectadas para la categoría */}
       <Hero {...dynamicHeroProps} />
-      
+
       <ProfessionalFilter key={slug} initialArea={area} professionals={professionals} />
 
       <div id="agendar" className="container mx-auto px-6 pb-20 pt-10 scroll-mt-28">
         <div className="max-w-5xl mx-auto">
-           <div className="text-center mb-12">
-             <span className={`font-bold uppercase tracking-widest text-xs px-4 py-1.5 rounded-full ${SLUG_TO_SCHEDULER_CONFIG[slug]?.accent || 'text-secondary bg-secondary/10'}`}>
-               {SLUG_TO_SCHEDULER_CONFIG[slug]?.badge || 'Agenda Ahora'}
-             </span>
-             <h2 className="text-3xl sm:text-4xl font-black text-primary dark:text-white mt-4 tracking-tight">
-               {SLUG_TO_SCHEDULER_CONFIG[slug]?.title || 'Reserva tu Atención Especializada'}
-             </h2>
-           </div>
-           <MinimalistScheduler initialCategoryId={SLUG_TO_SCHEDULER_ID[slug]} />
-           
-           {/* Botón Volver al Inicio de la Categoría */}
-           <div className="mt-12 flex justify-center">
-             <Link 
-               href="#top"
-               className="flex items-center gap-3 px-6 py-2.5 rounded-full bg-slate-50/50 dark:bg-slate-900/50 border border-slate-100 dark:border-slate-800 transition-all hover:scale-105 active:scale-95 cursor-pointer shadow-sm group"
-             >
-               <ArrowLeft size={16} className={`group-hover:-translate-x-1 transition-transform duration-300 ${SLUG_TO_SCHEDULER_CONFIG[slug]?.accent.split(' ')[0] || 'text-secondary'}`} />
-               <span className={`text-[11px] font-black uppercase tracking-widest ${SLUG_TO_SCHEDULER_CONFIG[slug]?.accent.split(' ')[0] || 'text-secondary'}`}>
-                 Volver al Inicio
-               </span>
-             </Link>
-           </div>
+          <div className="text-center mb-12">
+            <span className={`font-bold uppercase tracking-widest text-xs px-4 py-1.5 rounded-full ${SLUG_TO_SCHEDULER_CONFIG[slug]?.accent || 'text-secondary bg-secondary/10'}`}>
+              {SLUG_TO_SCHEDULER_CONFIG[slug]?.badge || 'Agenda Ahora'}
+            </span>
+            <h2 className="text-3xl sm:text-4xl font-black text-primary dark:text-white mt-4 tracking-tight">
+              {SLUG_TO_SCHEDULER_CONFIG[slug]?.title || 'Reserva tu Atención Especializada'}
+            </h2>
+          </div>
+          <MinimalistScheduler initialCategoryId={SLUG_TO_SCHEDULER_ID[slug]} />
+
+          {/* Botón Volver al Inicio de la Categoría */}
+          <div className="mt-12 flex justify-center">
+            <Link
+              href="#top"
+              className="flex items-center gap-3 px-6 py-2.5 rounded-full bg-slate-50/50 dark:bg-slate-900/50 border border-slate-100 dark:border-slate-800 transition-all hover:scale-105 active:scale-95 cursor-pointer shadow-sm group"
+            >
+              <ArrowLeft size={16} className={`group-hover:-translate-x-1 transition-transform duration-300 ${SLUG_TO_SCHEDULER_CONFIG[slug]?.accent.split(' ')[0] || 'text-secondary'}`} />
+              <span className={`text-[11px] font-black uppercase tracking-widest ${SLUG_TO_SCHEDULER_CONFIG[slug]?.accent.split(' ')[0] || 'text-secondary'}`}>
+                Volver al Inicio
+              </span>
+            </Link>
+          </div>
         </div>
       </div>
 

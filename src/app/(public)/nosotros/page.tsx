@@ -2,8 +2,8 @@
 
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
-import { 
-  Users, Target, Award, CheckCircle2, 
+import {
+  Users, Target, Award, CheckCircle2,
   Calendar, Building, Stethoscope, Sparkles,
   ArrowRight, ArrowUp, ChevronDown, Clock, History, Heart,
   SmilePlus, Brain, Leaf, ChevronLeft, ChevronRight
@@ -31,13 +31,13 @@ export default function NosotrosPage() {
   ];
 
   const [activeHito, setActiveHito] = useState(0);
-  
+
   const nextHito = () => setActiveHito((prev) => (prev + 1) % hitos.length);
   const prevHito = () => setActiveHito((prev) => (prev - 1 + hitos.length) % hitos.length);
 
   return (
     <main className="min-h-screen bg-white dark:bg-slate-950 transition-colors duration-500 overflow-x-hidden">
-      
+
       {/* HERO SECTION MODERNO */}
       <section className="relative pt-56 pb-28 overflow-hidden">
         {/* Background accents */}
@@ -58,7 +58,7 @@ export default function NosotrosPage() {
                 Nuestra Trayectoria
               </div>
               <h1 className="text-4xl md:text-6xl lg:text-7xl font-black text-slate-900 dark:text-white tracking-tight leading-[1.1] mb-8">
-                Medio siglo cuidando <br/>
+                Medio siglo cuidando <br />
                 <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary via-teal-400 to-secondary dark:from-white dark:via-secondary dark:to-teal-400">
                   tu salud y bienestar.
                 </span>
@@ -74,9 +74,9 @@ export default function NosotrosPage() {
       {/* SECCIÓN FUNDADORAS & MISIÓN */}
       <section className="container mx-auto px-6 mb-32 relative z-10">
         <div className="flex flex-col gap-12 lg:gap-16">
-          
+
           {/* Card de Foto Fundadoras - Centrada Top */}
-          <motion.div 
+          <motion.div
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
@@ -84,7 +84,7 @@ export default function NosotrosPage() {
           >
             <div className="relative rounded-[2.5rem] bg-slate-50 dark:bg-slate-900 p-3 sm:p-4 border border-slate-100 dark:border-white/5 overflow-hidden shadow-xl shadow-slate-200/30 dark:shadow-none transition-all hover:shadow-2xl hover:-translate-y-1 duration-500">
               <div className="relative aspect-[16/9] w-full rounded-[1.8rem] sm:rounded-[2rem] overflow-hidden border border-white/20">
-                <Image 
+                <Image
                   src="/imagenes_general/Fundadoras.jpeg"
                   alt="Nuestras Fundadoras"
                   fill
@@ -102,16 +102,16 @@ export default function NosotrosPage() {
 
               {/* Texto debajo de la imagen - Solo Mobile */}
               <div className="lg:hidden px-4 py-8 text-center sm:text-left bg-white dark:bg-slate-900/50 rounded-b-[2rem]">
-                 <p className="text-[10px] font-black uppercase tracking-widest text-secondary mb-3">Identidad Histórica</p>
-                 <p className="text-sm text-slate-600 dark:text-slate-300 font-medium leading-relaxed">
-                    <span className="font-black text-primary dark:text-secondary">De izq a der:</span> Sra. Paz Correa, Beatriz Lambert, Isabel Prieto, Patricia Braun, Gloria Correa, Isabel Braun.
-                 </p>
+                <p className="text-[10px] font-black uppercase tracking-widest text-secondary mb-3">Identidad Histórica</p>
+                <p className="text-sm text-slate-600 dark:text-slate-300 font-medium leading-relaxed">
+                  <span className="font-black text-primary dark:text-secondary">De izq a der:</span> Sra. Paz Correa, Beatriz Lambert, Isabel Prieto, Patricia Braun, Gloria Correa, Isabel Braun.
+                </p>
               </div>
             </div>
           </motion.div>
 
           {/* Subgrid de Misión & Datos - Abajo */}
-          <motion.div 
+          <motion.div
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
@@ -129,12 +129,12 @@ export default function NosotrosPage() {
                 </div>
               </div>
               <div className="bg-slate-50 dark:bg-white/5 p-6 rounded-2xl border border-slate-100 dark:border-white/5">
-                 <p className="text-base text-slate-600 dark:text-slate-300 font-medium leading-relaxed">
-                   &quot;Entregar oportunamente prestaciones de excelencia en el ámbito de la salud, a toda persona que requiera atención, al menor costo posible.&quot;
-                 </p>
+                <p className="text-base text-slate-600 dark:text-slate-300 font-medium leading-relaxed">
+                  &quot;Entregar oportunamente prestaciones de excelencia en el ámbito de la salud, a toda persona que requiera atención, al menor costo posible.&quot;
+                </p>
               </div>
             </div>
-            
+
             {/* Cita de Visión Complementaria */}
             <div className="p-8 bg-white dark:bg-slate-900/60 border border-slate-100 dark:border-white/10 rounded-[2.5rem] shadow-md shadow-slate-200/20 dark:shadow-none flex flex-col justify-center gap-6 group hover:-translate-y-1 transition-transform duration-300">
               <div className="flex items-center gap-5">
@@ -147,9 +147,9 @@ export default function NosotrosPage() {
                 </div>
               </div>
               <div className="bg-slate-50 dark:bg-white/5 p-6 rounded-2xl border border-slate-100 dark:border-white/5">
-                 <p className="text-base text-slate-600 dark:text-slate-300 font-medium leading-relaxed">
-                   &quot;Trabajamos día a día para mantener vivo el espíritu solidario de nuestras fundadoras, asegurando un trato digno y cercano en cada consulta.&quot;
-                 </p>
+                <p className="text-base text-slate-600 dark:text-slate-300 font-medium leading-relaxed">
+                  &quot;Trabajamos día a día para mantener vivo el espíritu solidario de nuestras fundadoras, asegurando un trato digno y cercano en cada consulta.&quot;
+                </p>
               </div>
             </div>
           </motion.div>
@@ -165,12 +165,12 @@ export default function NosotrosPage() {
               <Award size={14} strokeWidth={2.5} className="text-secondary shrink-0" /> Liderazgo
             </div>
             <h2 className="text-3xl md:text-5xl font-black text-slate-900 dark:text-white tracking-tight">
-              Directorio <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary via-teal-400 to-secondary dark:from-white dark:via-secondary dark:to-teal-400">Ejecutivo</span>
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary via-teal-400 to-secondary dark:from-white dark:via-secondary dark:to-teal-400">Directorio</span>
             </h2>
           </div>
 
           <div className="grid md:grid-cols-2 gap-8 lg:gap-12 max-w-5xl mx-auto">
-            
+
             {/* Panel 1: Policlínico */}
             <motion.div
               initial={{ opacity: 0, y: 30 }}
@@ -184,13 +184,13 @@ export default function NosotrosPage() {
                 </div>
                 <h3 className="text-xl font-black text-primary dark:text-slate-100 tracking-tight">Policlínico Tabancura</h3>
               </div>
-              
+
               <div className="space-y-6">
                 <div className="flex flex-col group">
                   <span className="text-[10px] font-black uppercase tracking-widest text-secondary mb-1 group-hover:translate-x-1 transition-transform">Directora General</span>
                   <span className="text-lg font-bold text-slate-900 dark:text-slate-200">Sra. Teresa Covarrubias Correa</span>
                 </div>
-                
+
                 <div className="flex flex-col group">
                   <span className="text-[10px] font-black uppercase tracking-widest text-secondary mb-1 group-hover:translate-x-1 transition-transform">Director Médico</span>
                   <span className="text-lg font-bold text-slate-900 dark:text-slate-200">Dra. Gloria Reti Malusa</span>
@@ -217,13 +217,13 @@ export default function NosotrosPage() {
                 </div>
                 <h3 className="text-xl font-black text-primary dark:text-slate-100 tracking-tight">Cuerpo Administrativo</h3>
               </div>
-              
+
               <div className="space-y-6">
                 <div className="flex flex-col group">
                   <span className="text-[10px] font-black uppercase tracking-widest text-secondary mb-1 group-hover:translate-x-1 transition-transform">Presidenta</span>
                   <span className="text-lg font-bold text-slate-900 dark:text-slate-200">Sra. Beatriz Lambert Pereira</span>
                 </div>
-                
+
                 <div className="flex flex-col group">
                   <span className="text-[10px] font-black uppercase tracking-widest text-secondary mb-1 group-hover:translate-x-1 transition-transform">Vicepresidenta</span>
                   <span className="text-lg font-bold text-slate-900 dark:text-slate-200">Sra. Gloria Correa Opaso</span>
@@ -236,13 +236,13 @@ export default function NosotrosPage() {
               </div>
             </motion.div>
           </div>
-          
+
         </div>
       </section>
 
       {/* SECCIÓN DE HITOS / HORIZONTAL INTERACTIVE SLIDER */}
       <section id="hitos" className="py-16 md:py-20 bg-white dark:bg-slate-950 relative overflow-hidden border-b border-slate-100 dark:border-white/5">
-        
+
         {/* Acentos de fondo abstractos */}
         <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-6xl h-full bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-primary/5 via-transparent to-transparent pointer-events-none"></div>
 
@@ -258,7 +258,7 @@ export default function NosotrosPage() {
           </div>
 
           <div className="max-w-6xl mx-auto">
-            
+
             {/* Track de Años Horizontal */}
             <div className="relative mb-12 pb-4">
               {/* Línea de fondo constante - Centrada verticalmente a la altura de los nodos */}
@@ -266,7 +266,7 @@ export default function NosotrosPage() {
                 <div className="w-2 h-2 border-l-2 border-t-2 border-secondary/40 -rotate-45 -translate-x-1 shrink-0"></div>
                 <div className="w-2 h-2 border-r-2 border-t-2 border-secondary/40 rotate-45 translate-x-1 shrink-0"></div>
               </div>
-              
+
               {/* Contenedor deslizable para mobile */}
               <div className="flex justify-between items-center gap-4 md:gap-6 overflow-x-auto custom-scrollbar pt-8 pb-6 px-4 relative z-10 snap-x">
                 {hitos.map((hito, index) => {
@@ -279,24 +279,22 @@ export default function NosotrosPage() {
                       className={`group flex flex-col items-center shrink-0 transition-all duration-500 outline-none focus:ring-0 snap-center`}
                     >
                       {/* El Nodo Circular */}
-                      <div className={`w-12 h-12 rounded-full flex items-center justify-center border-4 transition-all duration-500 ${
-                        isActive 
-                          ? 'bg-primary border-white dark:border-slate-950 shadow-xl shadow-primary/30 scale-125 z-20' 
-                          : 'bg-white dark:bg-slate-900 border-slate-200 dark:border-slate-800 hover:border-secondary group-hover:scale-110'
-                      }`}>
+                      <div className={`w-12 h-12 rounded-full flex items-center justify-center border-4 transition-all duration-500 ${isActive
+                        ? 'bg-primary border-white dark:border-slate-950 shadow-xl shadow-primary/30 scale-125 z-20'
+                        : 'bg-white dark:bg-slate-900 border-slate-200 dark:border-slate-800 hover:border-secondary group-hover:scale-110'
+                        }`}>
                         {isActive ? (
                           <Clock size={16} className="text-secondary animate-pulse" />
                         ) : (
                           <div className={`w-2 h-2 rounded-full transition-colors duration-300 ${isActive ? 'bg-secondary' : 'bg-slate-300 dark:bg-slate-600 group-hover:bg-secondary'}`}></div>
                         )}
                       </div>
-                      
+
                       {/* La Etiqueta del Año */}
-                      <span className={`mt-4 text-sm font-black tracking-tighter transition-all duration-500 ${
-                        isActive 
-                          ? 'text-primary dark:text-secondary scale-110 translate-y-1' 
-                          : 'text-slate-400 dark:text-slate-600 hover:text-slate-800 dark:hover:text-slate-300'
-                      }`}>
+                      <span className={`mt-4 text-sm font-black tracking-tighter transition-all duration-500 ${isActive
+                        ? 'text-primary dark:text-secondary scale-110 translate-y-1'
+                        : 'text-slate-400 dark:text-slate-600 hover:text-slate-800 dark:hover:text-slate-300'
+                        }`}>
                         {hito.year}
                       </span>
                     </button>
@@ -307,17 +305,17 @@ export default function NosotrosPage() {
 
             {/* Visualización del Contenido Activo con Transición Cinemática */}
             <div className="relative flex items-center justify-center min-h-[280px]">
-              
+
               {/* Botones de navegación rápidos desktop */}
               <div className="absolute inset-y-0 left-0 right-0 hidden md:flex justify-between items-center pointer-events-none px-4 z-20">
-                <button 
-                  onClick={prevHito} 
+                <button
+                  onClick={prevHito}
                   className="w-12 h-12 rounded-full bg-white dark:bg-slate-900 border border-slate-100 dark:border-white/10 shadow-xl flex items-center justify-center text-primary dark:text-white pointer-events-auto hover:scale-110 active:scale-95 transition-all group"
                 >
                   <ArrowRight size={20} className="rotate-180 text-slate-400 group-hover:text-primary dark:group-hover:text-secondary transition-colors" />
                 </button>
-                <button 
-                  onClick={nextHito} 
+                <button
+                  onClick={nextHito}
                   className="w-12 h-12 rounded-full bg-white dark:bg-slate-900 border border-slate-100 dark:border-white/10 shadow-xl flex items-center justify-center text-primary dark:text-white pointer-events-auto hover:scale-110 active:scale-95 transition-all group"
                 >
                   <ArrowRight size={20} className="text-slate-400 group-hover:text-primary dark:group-hover:text-secondary transition-colors" />

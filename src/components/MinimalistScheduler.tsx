@@ -181,7 +181,7 @@ export function MinimalistScheduler({ initialCategoryId }: { initialCategoryId?:
         let mergedServices = [...base.services];
         if (kine) mergedServices.push(...kine.services);
         if (toma) mergedServices.push(...toma.services);
-        
+
         return {
           ...base,
           services: mergedServices
@@ -203,7 +203,7 @@ export function MinimalistScheduler({ initialCategoryId }: { initialCategoryId?:
   const activeColors = selectedCategory ? COLOR_MAP[selectedCategory.color || 'blue'] : null;
 
   return (
-    <motion.div 
+    <motion.div
       initial={{ opacity: 0, y: 20 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
@@ -238,11 +238,10 @@ export function MinimalistScheduler({ initialCategoryId }: { initialCategoryId?:
               <div className="relative">
                 {/* Icono posicionado absolutamente para no desplazar el centro del texto */}
                 <div className="absolute right-full mr-4 top-1/2 -translate-y-1/2 hidden md:block">
-                  <div className={`w-10 h-10 rounded-xl border flex items-center justify-center shadow-sm transition-colors duration-300 [&>svg]:w-5 [&>svg]:h-5 ${
-                    activeColors 
-                      ? `${activeColors.bg} ${activeColors.text} ${activeColors.border}`
-                      : 'bg-slate-50 dark:bg-slate-800 border-slate-300 dark:border-slate-700 text-primary dark:text-slate-200'
-                  }`}>
+                  <div className={`w-10 h-10 rounded-xl border flex items-center justify-center shadow-sm transition-colors duration-300 [&>svg]:w-5 [&>svg]:h-5 ${activeColors
+                    ? `${activeColors.bg} ${activeColors.text} ${activeColors.border}`
+                    : 'bg-slate-50 dark:bg-slate-800 border-slate-300 dark:border-slate-700 text-primary dark:text-slate-200'
+                    }`}>
                     <AnimatePresence mode="wait">
                       <motion.div
                         key={selectedCategory ? selectedCategory.id : 'calendar'}

@@ -58,7 +58,7 @@ export const Hero = ({
   titlePrefix = "Tu salud, ",
   titleHighlight = "nuestra prioridad",
   description = "Reserva tu hora, revisa exámenes y gestiona tu bienestar desde cualquier lugar, fácil y rápido.",
-  buttonText = "¡Agenda Hoy!",
+  buttonText = "Reserva tu atención",
   statsNumber = "+10k",
   statsLabel = "Pacientes Atendidos",
   images = DEFAULT_IMAGES,
@@ -87,7 +87,7 @@ export const Hero = ({
     // Si estamos en una página de servicio (donde images != DEFAULT_IMAGES), 
     // no redirigimos a la home a menos que sliderAnchorId esté definido.
     const targetId = sliderAnchorId || (images === DEFAULT_IMAGES ? 'sucursales' : null);
-    
+
     if (!targetId) return;
 
     const el = document.getElementById(targetId);
@@ -162,7 +162,7 @@ export const Hero = ({
                 >
                   <span>{secondaryButtonText}</span>
                 </button>
-                
+
                 {/* Icono Badge Flotante Secundario */}
                 <div className="absolute -top-2 -right-2 sm:-top-3 sm:-right-3 w-10 h-10 sm:w-12 sm:h-12 bg-slate-800 dark:bg-slate-700 rounded-full flex items-center justify-center text-white shadow-lg transition-all duration-500 transform group-hover/sec:-translate-y-1 group-hover/sec:rotate-[15deg] group-hover/sec:scale-110 group-active/sec:scale-95 z-20 border-4 border-white dark:border-slate-950 border-solid">
                   <Users className="w-4 h-4 sm:w-5 sm:h-5 text-white" strokeWidth={2.5} />
@@ -185,11 +185,10 @@ export const Hero = ({
             transition={{ duration: 0.4 }}
             className="relative w-full"
           >
-            <div 
+            <div
               onClick={handleSliderClick}
-              className={`relative z-10 bg-slate-100 dark:bg-slate-900 rounded-[2rem] sm:rounded-[3rem] p-3 sm:p-4 shadow-lg shadow-slate-200/50 dark:shadow-none border-4 sm:border-8 border-white dark:border-slate-900 overflow-hidden aspect-[4/3] group/slider hover:shadow-2xl transition-all duration-500 transform active:scale-[0.99] ${
-                (sliderAnchorId || images === DEFAULT_IMAGES) ? 'cursor-pointer' : 'cursor-default'
-              }`}
+              className={`relative z-10 bg-slate-100 dark:bg-slate-900 rounded-[2rem] sm:rounded-[3rem] p-3 sm:p-4 shadow-lg shadow-slate-200/50 dark:shadow-none border-4 sm:border-8 border-white dark:border-slate-900 overflow-hidden aspect-[4/3] group/slider hover:shadow-2xl transition-all duration-500 transform active:scale-[0.99] ${(sliderAnchorId || images === DEFAULT_IMAGES) ? 'cursor-pointer' : 'cursor-default'
+                }`}
             >
               <div className="relative w-full h-full rounded-[1.7rem] sm:rounded-[2.5rem] overflow-hidden">
                 <AnimatePresence initial={false}>
@@ -201,17 +200,16 @@ export const Hero = ({
                     transition={{ duration: currentImageIndex === 0 ? 0 : 1.2, ease: "easeInOut" }}
                     className="absolute inset-0 w-full h-full"
                   >
-                      <Image
+                    <Image
                       src={images[currentImageIndex].src}
                       alt={images[currentImageIndex].alt}
                       fill
                       priority={currentImageIndex === 0}
                       {...({ fetchPriority: currentImageIndex === 0 ? "high" : undefined } as any)}
-                      className={`${
-                        images[currentImageIndex].src.includes('/logos_convenios_prevision/')
-                          ? 'object-contain p-12 bg-white dark:bg-slate-900'
-                          : 'object-cover'
-                      } group-hover/slider:scale-105 transition-transform duration-700`}
+                      className={`${images[currentImageIndex].src.includes('/logos_convenios_prevision/')
+                        ? 'object-contain p-12 bg-white dark:bg-slate-900'
+                        : 'object-cover'
+                        } group-hover/slider:scale-105 transition-transform duration-700`}
                       sizes="(max-width: 640px) 100vw, (max-width: 1024px) 80vw, 1200px"
                       quality={currentImageIndex === 0 ? 90 : 75}
                     />
@@ -244,9 +242,8 @@ export const Hero = ({
                         aria-label={`Ver imagen ${i + 1}`}
                         className="w-6 h-6 flex items-center justify-center cursor-pointer focus:outline-none group"
                       >
-                        <div className={`h-2 rounded-full transition-all duration-300 ${
-                          i === currentImageIndex ? 'w-4 bg-white' : 'w-2 bg-white/50 group-hover:bg-white'
-                        }`} />
+                        <div className={`h-2 rounded-full transition-all duration-300 ${i === currentImageIndex ? 'w-4 bg-white' : 'w-2 bg-white/50 group-hover:bg-white'
+                          }`} />
                       </button>
                     ))}
                   </div>
@@ -264,8 +261,8 @@ export const Hero = ({
                       </div>
                       <div className="text-left">
                         <p className="text-[8px] sm:text-[9px] font-black uppercase tracking-[0.2em] text-secondary mb-0.5">Casa Matriz</p>
-                        <p className="text-[11px] sm:text-[13px] font-bold text-primary dark:text-white leading-tight">Los Tribunales 1268, Vitacura</p>
-                        <p className="hidden sm:block text-[10px] text-slate-500 dark:text-slate-400 font-medium mt-0.5">Atención Médica y Dental</p>
+                        <p className="text-[11px] sm:text-[13px] font-bold text-primary dark:text-white leading-tight">Los Tribunales #1268</p>
+                        <p className="hidden sm:block text-[10px] text-slate-500 dark:text-slate-400 font-medium mt-0.5">+56 2 2217 2635</p>
                       </div>
                     </div>
                   )}
@@ -277,8 +274,8 @@ export const Hero = ({
                       </div>
                       <div className="text-left">
                         <p className="text-[8px] sm:text-[9px] font-black uppercase tracking-[0.2em] text-secondary mb-0.5">Centro Médico</p>
-                        <p className="text-[11px] sm:text-[13px] font-bold text-primary dark:text-white leading-tight">Vitacura 8620, Vitacura</p>
-                        <p className="hidden sm:block text-[10px] text-slate-500 dark:text-slate-400 font-medium mt-0.5">Salud Mental y Toma de Muestras</p>
+                        <p className="text-[11px] sm:text-[13px] font-bold text-primary dark:text-white leading-tight">Av. Vitacura #8620</p>
+                        <p className="hidden sm:block text-[10px] text-slate-500 dark:text-slate-400 font-medium mt-0.5">+56 2 2933 6740</p>
                       </div>
                     </div>
                   )}
