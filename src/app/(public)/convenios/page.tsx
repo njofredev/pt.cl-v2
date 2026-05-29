@@ -75,33 +75,37 @@ const INFINITE_ROW2 = [...ROW2, ...ROW2, ...ROW2];
 
 function ConveniosMarquee() {
   return (
-    <div className="flex flex-col gap-6 w-full max-w-lg lg:max-w-xl mx-auto py-8 relative overflow-hidden select-none">
+    <div className="flex flex-col gap-3 md:gap-6 w-full max-w-lg lg:max-w-xl mx-auto py-4 md:py-8 relative overflow-hidden select-none">
       {/* Estilo local para animación en dirección opuesta */}
       <style dangerouslySetInnerHTML={{
         __html: `
+        @keyframes marquee-normal {
+          from { transform: translateX(0); }
+          to { transform: translateX(calc(-50% - 1rem)); }
+        }
         @keyframes marquee-reverse {
           from { transform: translateX(calc(-50% - 1rem)); }
           to { transform: translateX(0); }
         }
         .animate-marquee-reverse {
-          animation: marquee-reverse 60s linear infinite;
+          animation: marquee-reverse 50s linear infinite;
         }
         .animate-marquee-normal {
-          animation: marquee 60s linear infinite;
+          animation: marquee-normal 50s linear infinite;
         }
       `}} />
 
       {/* Máscara de desvanecimiento suave a los lados */}
-      <div className="absolute inset-y-0 left-0 w-16 bg-gradient-to-r from-slate-50 dark:from-slate-950 to-transparent z-10 pointer-events-none" />
-      <div className="absolute inset-y-0 right-0 w-16 bg-gradient-to-l from-slate-50 dark:from-slate-950 to-transparent z-10 pointer-events-none" />
+      <div className="absolute inset-y-0 left-0 w-8 md:w-16 bg-gradient-to-r from-slate-50 dark:from-slate-950 to-transparent z-10 pointer-events-none" />
+      <div className="absolute inset-y-0 right-0 w-8 md:w-16 bg-gradient-to-l from-slate-50 dark:from-slate-950 to-transparent z-10 pointer-events-none" />
 
       {/* Fila 1: Izquierda a Derecha (Normal) */}
-      <div className="w-full overflow-hidden [mask-image:linear-gradient(to_right,transparent,black_15%,black_85%,transparent)]">
+      <div className="w-full overflow-hidden [mask-image:linear-gradient(to_right,transparent,black_10%,black_90%,transparent)] md:[mask-image:linear-gradient(to_right,transparent,black_15%,black_85%,transparent)]">
         <div className="flex w-fit animate-marquee-normal hover:[animation-play-state:paused] py-2">
           {INFINITE_ROW1.map((partner, i) => (
             <div
               key={`row1-${i}`}
-              className="relative shrink-0 h-10 w-24 md:h-14 md:w-32 transition-all duration-500 hover:scale-110 mx-6 md:mx-8 block group"
+              className="relative shrink-0 h-10 w-24 md:h-14 md:w-32 transition-all duration-500 hover:scale-110 mx-4 md:mx-8 block group"
             >
               <Image
                 src={`/logos_convenios_prevision/${partner.file}`}
@@ -117,12 +121,12 @@ function ConveniosMarquee() {
       </div>
 
       {/* Fila 2: Derecha a Izquierda (Reversa) */}
-      <div className="w-full overflow-hidden [mask-image:linear-gradient(to_right,transparent,black_15%,black_85%,transparent)]">
+      <div className="w-full overflow-hidden [mask-image:linear-gradient(to_right,transparent,black_10%,black_90%,transparent)] md:[mask-image:linear-gradient(to_right,transparent,black_15%,black_85%,transparent)]">
         <div className="flex w-fit animate-marquee-reverse hover:[animation-play-state:paused] py-2">
           {INFINITE_ROW2.map((partner, i) => (
             <div
               key={`row2-${i}`}
-              className="relative shrink-0 h-10 w-24 md:h-14 md:w-32 transition-all duration-500 hover:scale-110 mx-6 md:mx-8 block group"
+              className="relative shrink-0 h-10 w-24 md:h-14 md:w-32 transition-all duration-500 hover:scale-110 mx-4 md:mx-8 block group"
             >
               <Image
                 src={`/logos_convenios_prevision/${partner.file}`}

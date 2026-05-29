@@ -107,7 +107,7 @@ export const Hero = ({
           initial={{ opacity: 0, x: -30 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.5 }}
-          className="flex flex-col items-center sm:items-start text-center sm:text-left relative"
+          className="flex flex-col items-center sm:items-start text-center sm:text-left relative w-full min-w-0"
         >
 
           <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-primary text-white text-[10px] font-bold uppercase tracking-widest mb-5 md:mb-8">
@@ -121,10 +121,10 @@ export const Hero = ({
             {description}
           </p>
 
-          <div className="flex flex-col sm:flex-row items-center sm:items-center gap-4 flex-wrap">
+          <div className="flex flex-col sm:flex-row items-center sm:items-center gap-4 flex-wrap w-full justify-center sm:justify-start">
             <button
               type="button"
-              className="relative inline-flex cursor-pointer select-none group border-none bg-transparent p-0 outline-none"
+              className="relative inline-flex cursor-pointer select-none group border-none bg-transparent p-0 outline-none w-60 sm:w-64"
               onClick={() => {
                 const el = document.getElementById('agendar');
                 if (el) el.scrollIntoView({ behavior: 'smooth' });
@@ -150,7 +150,7 @@ export const Hero = ({
 
             {/* Botón Secundario Condicional */}
             {secondaryButtonText && (
-              <div className="relative inline-flex select-none group/sec">
+              <div className="relative inline-flex select-none group/sec w-60 sm:w-64">
                 <button
                   onClick={() => {
                     if (secondaryButtonAnchorId) {
@@ -175,7 +175,7 @@ export const Hero = ({
 
         {/* Elemento Visual de Identidad: Slider de Sucursales / Especialidad o Elemento Personalizado */}
         {customRightElement ? (
-          <div className="relative w-full flex items-center justify-center">
+          <div className="relative w-full min-w-0 overflow-hidden flex items-center justify-center">
             {customRightElement}
           </div>
         ) : (
