@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState } from 'react';
+import { trackEvent } from '@/lib/analytics';
 import Link from 'next/link';
 import { Activity, Instagram, Facebook, MapPin, Phone, Mail, MessageCircle, ChevronDown, Heart } from 'lucide-react';
 import { motion, AnimatePresence, useAnimation } from 'framer-motion';
@@ -226,7 +227,7 @@ export const Footer = () => {
   if (pathname === '/alianzas') return null;
 
   return (
-    <footer className="bg-white dark:bg-transparent text-slate-900 dark:text-white pt-20 md:pt-24 pb-12 transition-colors duration-300 border-t border-slate-100 dark:border-none relative z-10">
+    <footer className="bg-clinical-bg dark:bg-transparent text-slate-900 dark:text-white pt-20 md:pt-24 pb-12 transition-colors duration-300 border-t border-slate-200 dark:border-none relative z-10">
       <div className="container mx-auto px-6">
         {/* La grilla en mobile ya no usará gap-y-16 completo, lo dejaremos adaptado */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-x-8 gap-y-8 md:gap-y-16 mb-24">
@@ -305,8 +306,7 @@ export const Footer = () => {
               { name: 'Salud Dental', href: '/servicios/dental' },
               { name: 'Salud Mental', href: '/servicios/mental' },
               { name: 'Medicina General', href: '/servicios/medicina' },
-              { name: 'Terapias Complementarias', href: '/servicios/terapias' },
-              { name: 'Toma de Muestras', href: '/servicios/medicina' }
+              { name: 'Terapias Complementarias', href: '/servicios/terapias' }
             ]}
           />
 
@@ -332,15 +332,31 @@ export const Footer = () => {
                   <span className="text-slate-900 dark:text-white text-[11px] font-bold uppercase tracking-widest text-center md:text-left">Sucursal Vitacura</span>
                 </div>
                 <div className="flex flex-col items-start space-y-3">
-                  <a href="https://www.google.com/maps/search/?api=1&query=Avenida+Vitacura+8620+Vitacura" target="_blank" rel="noopener noreferrer" className="flex gap-3 text-slate-600 dark:text-slate-300 hover:text-primary dark:hover:text-white transition-colors group text-sm items-start text-left">
+                  <a
+                    href="https://www.google.com/maps/search/?api=1&query=Avenida+Vitacura+8620+Vitacura"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    onClick={() => trackEvent('click_mapa', { label: 'Footer Vitacura Map' })}
+                    className="flex gap-3 text-slate-600 dark:text-slate-300 hover:text-primary dark:hover:text-white transition-colors group text-sm items-start text-left"
+                  >
                     <MapPin className="text-secondary shrink-0 mt-0.5 group-hover:scale-110 transition-transform" size={16} />
                     <span className="font-medium">Av. Vitacura 8620</span>
                   </a>
-                  <a href="tel:+56229336740" className="flex gap-3 text-slate-600 dark:text-slate-300 hover:text-primary dark:hover:text-white transition-colors group text-sm items-center text-left">
+                  <a
+                    href="tel:+56229336740"
+                    onClick={() => trackEvent('click_llamar', { label: 'Footer Vitacura Phone' })}
+                    className="flex gap-3 text-slate-600 dark:text-slate-300 hover:text-primary dark:hover:text-white transition-colors group text-sm items-center text-left"
+                  >
                     <Phone className="text-secondary shrink-0 group-hover:scale-110 transition-transform" size={16} />
                     <span className="font-medium">+56 2 2933 6740</span>
                   </a>
-                  <a href="https://wa.me/56965781253" target="_blank" rel="noopener noreferrer" className="flex gap-3 text-slate-600 dark:text-slate-300 hover:text-emerald-500 dark:hover:text-emerald-400 transition-colors group text-sm items-center text-left">
+                  <a
+                    href="https://wa.me/56965781253"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    onClick={() => trackEvent('click_whatsapp', { label: 'Footer Vitacura WhatsApp' })}
+                    className="flex gap-3 text-slate-600 dark:text-slate-300 hover:text-emerald-500 dark:hover:text-emerald-400 transition-colors group text-sm items-center text-left"
+                  >
                     <WhatsAppIcon className="text-emerald-500 shrink-0 group-hover:scale-110 transition-transform" size={16} />
                     <span className="font-medium">+56 9 6578 1253</span>
                   </a>
@@ -362,15 +378,31 @@ export const Footer = () => {
                   <span className="text-slate-900 dark:text-white text-[11px] font-bold uppercase tracking-widest text-center md:text-left">Casa Matriz - Los Tribunales</span>
                 </div>
                 <div className="flex flex-col items-start space-y-3">
-                  <a href="https://www.google.com/maps/search/?api=1&query=Calle+Los+Tribunales+1268+Vitacura" target="_blank" rel="noopener noreferrer" className="flex gap-3 text-slate-600 dark:text-slate-300 hover:text-primary dark:hover:text-white transition-colors group text-sm items-start text-left">
+                  <a
+                    href="https://www.google.com/maps/search/?api=1&query=Calle+Los+Tribunales+1268+Vitacura"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    onClick={() => trackEvent('click_mapa', { label: 'Footer Tribunales Map' })}
+                    className="flex gap-3 text-slate-600 dark:text-slate-300 hover:text-primary dark:hover:text-white transition-colors group text-sm items-start text-left"
+                  >
                     <MapPin className="text-secondary shrink-0 mt-0.5 group-hover:scale-110 transition-transform" size={16} />
                     <span className="font-medium">Calle Los Tribunales #1268</span>
                   </a>
-                  <a href="tel:+56222172635" className="flex gap-3 text-slate-600 dark:text-slate-300 hover:text-primary dark:hover:text-white transition-colors group text-sm items-center text-left">
+                  <a
+                    href="tel:+56222172635"
+                    onClick={() => trackEvent('click_llamar', { label: 'Footer Tribunales Phone' })}
+                    className="flex gap-3 text-slate-600 dark:text-slate-300 hover:text-primary dark:hover:text-white transition-colors group text-sm items-center text-left"
+                  >
                     <Phone className="text-secondary shrink-0 group-hover:scale-110 transition-transform" size={16} />
                     <span className="font-medium">+56 2 2217 2635</span>
                   </a>
-                  <a href="https://wa.me/56966187736" target="_blank" rel="noopener noreferrer" className="flex gap-3 text-slate-600 dark:text-slate-300 hover:text-emerald-500 dark:hover:text-emerald-400 transition-colors group text-sm items-center text-left">
+                  <a
+                    href="https://wa.me/56966187736"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    onClick={() => trackEvent('click_whatsapp', { label: 'Footer Tribunales WhatsApp' })}
+                    className="flex gap-3 text-slate-600 dark:text-slate-300 hover:text-emerald-500 dark:hover:text-emerald-400 transition-colors group text-sm items-center text-left"
+                  >
                     <WhatsAppIcon className="text-emerald-500 shrink-0 group-hover:scale-110 transition-transform" size={16} />
                     <span className="font-medium">+56 9 6618 7736</span>
                   </a>

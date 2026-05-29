@@ -2,41 +2,263 @@
 
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Star, Quote, Building2 } from 'lucide-react';
+import { Star, StarHalf, Quote, Building2 } from 'lucide-react';
 
 const VITACURA_RAW = [
   {
     author: "Paula Urrutia M.",
-    text: "El lugar es buenísimo, vine por las recomendaciones de los otros usuarios y me encantó. Me atendí por la parte dental, y todos fueron muy amables. Lo más importante y que me dio confianza, es que el lugar es muy limpio, me atendieron a la hora y quedé feliz.",
-    nota: 5
+    text: "El lugar es buenísimo, vine por las recomendaciones de los otros usuarios y me encantó. Me atendí por la parte dental, y todos fueron muy amables. Lo más importante y que me dio confianza, es que el lugar es muy limpio, me atendieron a la hora y quedé feliz con el resultado. La foto es de la sala de esperas.",
+    nota: 5,
+    date: "Julio 2025"
   },
   {
     author: "Andrea Ponce",
-    text: "Excelente experiencia en el área Dental. Tanto las recepcionistas, asistentes dentales como los profesionales odontólogos nos han brindado un servicio excepcional, siempre muy atentos y preocupados por nuestro bienestar. Se nota el compromiso.",
-    nota: 5
+    text: "Personalmente, junto a mis hijos, hemos tenido una excelente experiencia en el área Dental. Tanto las recepcionistas, asistentes dentales como los profesionales odontólogos nos han brindado un servicio excepcional, siempre muy atentos y preocupados por nuestro bienestar. Se nota el compromiso del equipo con ofrecer una atención de calidad, haciendo que uno se sienta cómodo y bien cuidado en todo momento. ¡Totalmente recomendable!",
+    nota: 5,
+    date: "Junio 2025"
   },
   {
     author: "Cristina Gonzalez",
-    text: "El edificio es moderno, muy limpio y bien ubicado.. Me sentí bien atendida en mis procedimientos.",
-    nota: 5
+    text: "El edificio es moderno, muy limpio y bien ubicado.. sin embargo, las instalaciones del área dental me parecen antiguas para ser un lugar privado. Al llamarse Policlínico se puede pensar que es económico y no es así. Lo que realmente destaco es la atención de las chicas de recepción, son súper amables y profesionales.",
+    nota: 5,
+    date: "Julio 2025"
+  },
+  {
+    author: "Maca Urra",
+    text: "Me gusto mucho la atencion, muy calidos, pacientes y dedicados todo el personal, doctor, asistente y recepcionista. Precios accesibles. Lugar muy bien cuidado y con detalles que lo hacen mas amable para el paciente.",
+    nota: 5,
+    date: "Junio 2025"
+  },
+  {
+    author: "Gisella Guajardo",
+    text: "Buenísima atención, tanto de las recepcionistas como de los profesionales (dentista y tons), información clara, instrumentos de calidad, lugar impecable, acceso cómodo, puntualidad.",
+    nota: 5,
+    date: "Junio 2025"
+  },
+  {
+    author: "Carolina",
+    text: "Muy buena atención y valores. Lugar limpio,ordenado y con equipos moderno. Lo recomiendo.",
+    nota: 5,
+    date: "Julio 2025"
+  },
+  {
+    author: "Veronica Palma",
+    text: "Se atendió mi nieto adolescente y quedó muy contento con la atención cercana de la profesional dental. Yo satisfecha con el precio preferencial como vecino Vitacura",
+    nota: 5,
+    date: "Junio 2025"
+  },
+  {
+    author: "Sandra Trampe",
+    text: "Excelente atención....  la persona que me atendió  es Verónica Palma... muy amable ...muy agradecida de ella...",
+    nota: 5,
+    date: "Julio 2025"
+  },
+  {
+    author: "Maribel Dezerega",
+    text: "Excelente atención de la podologa y  de Tamara Además muy preocupadas ambas de los pacientes 10 de 10",
+    nota: 5,
+    date: "Agosto 2025"
+  },
+  {
+    author: "Daniela Labarthe",
+    text: "Muy bien recepciónada por Karen Mazry,   y excelente atención del profesional Antonio Alvear.",
+    nota: 5,
+    date: "Junio 2025"
+  },
+  {
+    author: "Tomás Fuentes Cantillana",
+    text: "Tengo una grata experiencia cuando me atiendo. Muy eficientes y amables.",
+    nota: 5,
+    date: "Junio 2025"
+  },
+  {
+    author: "Mary",
+    text: "Excelente atención. Me sentí muy cómoda",
+    nota: 5,
+    date: "Junio 2025"
+  },
+  {
+    author: "olivia paul",
+    text: "Todo bien. Buena atención y super puntuales.",
+    nota: 5,
+    date: "Junio 2025"
+  },
+  {
+    author: "Vereliz",
+    text: "Muy atentos y atención excelente..",
+    nota: 5,
+    date: "Julio 2025"
+  },
+  {
+    author: "carlos kinast feliu",
+    text: "Óptima desde la recepción hasta la despedida.",
+    nota: 5,
+    date: "Julio 2025"
+  },
+  {
+    author: "Francisca Arancibia",
+    text: "Amables y resolutivos. El Dr Patricio Merino un 7.",
+    nota: 5,
+    date: "Julio 2025"
+  },
+  {
+    author: "Macarena Sanfeliú",
+    text: "Excelente atención",
+    nota: 5,
+    date: "Julio 2025"
+  },
+  {
+    author: "Giovanna Ceballos",
+    text: "Me encanta",
+    nota: 5,
+    date: "Septiembre 2025"
+  },
+  {
+    author: "Constanza Jimenez",
+    text: "Un lugar de profesionalismo en recepción y dentistas",
+    nota: 5,
+    date: "Julio 2025"
+  },
+  {
+    author: "Vale Neira",
+    text: "Excelente servicio",
+    nota: 5,
+    date: "Julio 2025"
+  },
+  {
+    author: "Florencia Poblete",
+    text: "¡Excelente atención!",
+    nota: 5,
+    date: "Junio 2025"
+  },
+  {
+    author: "Belkis Velásquez",
+    text: "Excelente servicio!!",
+    nota: 5,
+    date: "Julio 2025"
+  },
+  {
+    author: "Julia Vega",
+    text: "Excelente atención.",
+    nota: 5,
+    date: "Junio 2025"
+  },
+  {
+    author: "Gabriela Vergara Ortega",
+    text: "Atienden bien. Pero especialmente la tecnóloga de oftalmolgia es amorosa y explica todo muy bien, tiene paciencia con los exámenes largos. 10 de 10 ni en el sistema privado me habían atendido tan bien. El dr también es muy preocupado.",
+    nota: 5,
+    date: "Mayo 2026"
+  },
+  {
+    author: "Eduardo Delgado Pino",
+    text: "Muy amables, excelentes profesionales",
+    nota: 5,
+    date: "Abril 2026"
+  },
+  {
+    author: "Francisco Miño Kraus",
+    text: "Grandes profesionales. Excelente ambiente y trato desde Gabriela, Cony en recepcion y los profesionales. Precios muy convenientes siempre",
+    nota: 5,
+    date: "Marzo 2026"
   }
 ];
 
 const TRIBUNALES_RAW = [
   {
     author: "Francisca Miquel",
-    text: "Atienden muy bien todos muy amables y precios muy razonables. Se agradece la disposición de todo el personal.",
-    nota: 5
-  },
-  {
-    author: "Francisco Miño Kraus",
-    text: "Constanza y todo el equipo son de verdad muy buenas. Médicos excelentes. Mi experiencia fue fantástica.",
-    nota: 5
+    text: "Atienden muy bien todos muy amables y precios muy razonables",
+    nota: 5,
+    date: "Diciembre 2025"
   },
   {
     author: "Juan Pablo Verschueren",
-    text: "Todo impecable y excelente atención. Instalaciones muy cómodas y buena disposición horaria.",
-    nota: 5
+    text: "Todo impecable y excelente atención",
+    nota: 5,
+    date: "Diciembre 2025"
+  },
+  {
+    author: "romina martin",
+    text: "Excelentes profesionales and servicio",
+    nota: 5,
+    date: "Octubre 2025"
+  },
+  {
+    author: "Francisco Miño Kraus",
+    text: "Constanza y todo el equipo son de verdad muy buenas. Médicos excelentes.",
+    nota: 5,
+    date: "Octubre 2025"
+  },
+  {
+    author: "Amalia Echeverria Griffin",
+    text: "Excelentes profesionales",
+    nota: 5,
+    date: "Agosto 2025"
+  },
+  {
+    author: "Gustavo van der Goes",
+    text: "Excelente atención de todos. Se pasaron atendiendo a Santiago!  Muy agradecido",
+    nota: 5,
+    date: "Agosto 2025"
+  },
+  {
+    author: "Benjamín Massad",
+    text: "muy buena atención todos muy simpáticos, increíble servicio",
+    nota: 5,
+    date: "Julio 2025"
+  },
+  {
+    author: "María Inés Cáceres",
+    text: "Mi hijo le sacaron una muela y lo trataron muy bien",
+    nota: 5,
+    date: "Julio 2025"
+  },
+  {
+    author: "Rosa Gana contreras",
+    text: "Desde hace más de  30 años que visito al Policlínico junto a toda mi familia lis especialistas son muy profesionales y el personal con muy buena predisposición",
+    nota: 5,
+    date: "Julio 2025"
+  },
+  {
+    author: "Soledad Iturra",
+    text: "Muy buena recepción",
+    nota: 5,
+    date: "Julio 2025"
+  },
+  {
+    author: "Juli Baez",
+    text: "Excelente atención de todo el personal! Divino lugar!",
+    nota: 5,
+    date: "Julio 2025"
+  },
+  {
+    author: "luis salas",
+    text: "Excelente atención y muy profesional a precios razonables",
+    nota: 5,
+    date: "Julio 2025"
+  },
+  {
+    author: "Barbara Garcia",
+    text: "Muy buena la atención",
+    nota: 5,
+    date: "Enero 2025"
+  },
+  {
+    author: "Diego Villamizar",
+    text: "Llevo a mi hijo a odontología. Siempre excelente atención por la doctora y su equipo.",
+    nota: 5,
+    date: "Enero 2023"
+  },
+  {
+    author: "Tere Covarrubias Correa",
+    text: "Excelente lugar y servicio!!!",
+    nota: 5,
+    date: "Julio 2022"
+  },
+  {
+    author: "Barbarafresia2016 Medina",
+    text: "Exelente muy bueno",
+    nota: 5,
+    date: "Julio 2019"
   }
 ];
 
@@ -44,19 +266,20 @@ const DATA = {
   vitacura: {
     name: "Sucursal Vitacura",
     rating: "4.9",
-    count: 53,
-    reviews: [...VITACURA_RAW, ...VITACURA_RAW, ...VITACURA_RAW, ...VITACURA_RAW]
+    count: 56,
+    reviews: [...VITACURA_RAW, ...VITACURA_RAW]
   },
   tribunales: {
     name: "Sucursal Tribunales",
     rating: "4.4",
-    count: 30,
-    reviews: [...TRIBUNALES_RAW, ...TRIBUNALES_RAW, ...TRIBUNALES_RAW, ...TRIBUNALES_RAW]
+    count: 31,
+    reviews: [...TRIBUNALES_RAW, ...TRIBUNALES_RAW]
   }
 };
 
 export const GoogleReviews = () => {
   const [branch, setBranch] = useState<'vitacura' | 'tribunales'>('vitacura');
+  const [isPaused, setIsPaused] = useState(false);
   const activeData = DATA[branch];
 
   return (
@@ -111,11 +334,38 @@ export const GoogleReviews = () => {
               </svg>
 
               <div className="flex flex-col items-center shrink-0">
-                <span className="text-5xl font-black text-primary dark:text-white tracking-tighter leading-none">{activeData.rating}</span>
+                <span className="text-5xl font-black text-primary dark:text-white tracking-tighter leading-none flex items-baseline">
+                  {activeData.rating}
+                  <span className="text-lg font-bold text-slate-400 dark:text-slate-500 ml-0.5">/5.0</span>
+                </span>
                 <div className="flex gap-0.5 mt-2">
-                  {[...Array(5)].map((_, i) => (
-                    <Star key={i} size={14} fill="#FBBC05" className="text-[#FBBC05]" />
-                  ))}
+                  {[...Array(5)].map((_, i) => {
+                    const isVitacura = branch === 'vitacura';
+                    let fillPercent = 100;
+                    if (isVitacura && i === 4) {
+                      fillPercent = 90; // Vitacura 4.9 has 90% fill on 5th star
+                    } else if (!isVitacura && i === 4) {
+                      fillPercent = 40; // Tribunales 4.4 has 40% fill on 5th star
+                    }
+
+                    if (fillPercent === 100) {
+                      return <Star key={i} size={14} fill="#FBBC05" className="text-[#FBBC05] shrink-0" />;
+                    } else {
+                      return (
+                        <div key={i} className="relative w-[14px] h-[14px] shrink-0">
+                          {/* Background unfilled star */}
+                          <Star size={14} className="absolute inset-0 text-slate-200 dark:text-slate-800" />
+                          {/* Foreground clipped star */}
+                          <div
+                            className="absolute inset-0 overflow-hidden"
+                            style={{ clipPath: `polygon(0 0, ${fillPercent}% 0, ${fillPercent}% 100%, 0 100%)` }}
+                          >
+                            <Star size={14} fill="#FBBC05" className="text-[#FBBC05]" />
+                          </div>
+                        </div>
+                      );
+                    }
+                  })}
                 </div>
               </div>
               <div className="h-16 w-px bg-slate-100 dark:bg-slate-800"></div>
@@ -142,7 +392,16 @@ export const GoogleReviews = () => {
         className="relative w-full [mask-image:linear-gradient(to_right,transparent,black_10%,black_90%,transparent)] py-2"
       >
         <div
-          className="flex w-fit animate-marquee hover:[animation-play-state:paused] gap-6 py-4 px-6"
+          className="flex w-fit gap-6 py-4 px-6"
+          style={{
+            animationName: 'marquee',
+            animationDuration: branch === 'vitacura' ? '140s' : '90s',
+            animationTimingFunction: 'linear',
+            animationIterationCount: 'infinite',
+            animationPlayState: isPaused ? 'paused' : 'running'
+          }}
+          onMouseEnter={() => setIsPaused(true)}
+          onMouseLeave={() => setIsPaused(false)}
         >
           {activeData.reviews.map((review, idx) => (
             <motion.div
@@ -170,7 +429,7 @@ export const GoogleReviews = () => {
                 <div className="flex flex-col min-w-0">
                   <span className="text-sm font-bold text-primary dark:text-white truncate leading-tight">{review.author}</span>
                   <div className="flex items-center gap-1 text-[9px] text-slate-400 font-bold uppercase tracking-wider mt-0.5">
-                    Google Local Guide
+                    Paciente • {review.date}
                   </div>
                 </div>
               </div>

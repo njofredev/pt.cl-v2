@@ -1,6 +1,7 @@
 import React from 'react';
 import dynamic from 'next/dynamic';
 import { Hero } from '@/components/Hero';
+import { MiVitaLink } from '@/components/MiVitaLink';
 import { MinimalistScheduler } from '@/components/MinimalistScheduler';
 import { PartnerCarousel } from '@/components/PartnerCarousel';
 import { ServiceCarousel } from '@/components/ServiceCarousel';
@@ -154,23 +155,26 @@ export default async function Home() {
                   Accede a valores preferenciales en tus atenciones médicas y dentales. Ingresa tu RUT a continuación y verifica tu estado de convenio vigente al instante.
                 </p>
 
-                <div className="mb-10 group hidden md:block">
-                  <Image
-                    src="/logos_convenios_prevision/mivita_v2_light.png"
-                    alt="Logo Tarjeta Mi Vita"
-                    width={220}
-                    height={88}
-                    style={{ width: 'auto', height: 'auto' }}
-                    className="block dark:hidden object-contain drop-shadow-md transition-transform duration-500 group-hover:scale-105 group-hover:-rotate-1"
-                  />
-                  <Image
-                    src="/logos_convenios_prevision/mivita_v2_dark.png"
-                    alt="Logo Tarjeta Mi Vita"
-                    width={220}
-                    height={88}
-                    style={{ width: 'auto', height: 'auto' }}
-                    className="hidden dark:block object-contain drop-shadow-md transition-transform duration-500 group-hover:scale-105 group-hover:-rotate-1"
-                  />
+                <div className="mb-10 flex items-start gap-4 flex-wrap">
+                  <div className="group shrink-0">
+                    <Image
+                      src="/logos_convenios_prevision/mivita_v2_light.png"
+                      alt="Logo Tarjeta Mi Vita"
+                      width={180}
+                      height={72}
+                      style={{ width: 'auto', height: 'auto' }}
+                      className="block dark:hidden object-contain drop-shadow-md transition-transform duration-500 group-hover:scale-105 group-hover:-rotate-1"
+                    />
+                    <Image
+                      src="/logos_convenios_prevision/mivita_v2_dark.png"
+                      alt="Logo Tarjeta Mi Vita"
+                      width={180}
+                      height={72}
+                      style={{ width: 'auto', height: 'auto' }}
+                      className="hidden dark:block object-contain drop-shadow-md transition-transform duration-500 group-hover:scale-105 group-hover:-rotate-1"
+                    />
+                  </div>
+                  <MiVitaLink />
                 </div>
                 <div className="grid grid-cols-2 gap-3 sm:gap-6">
                   <div className="group flex items-center gap-2 sm:gap-4 bg-slate-50 dark:bg-slate-900 p-3 sm:p-4 rounded-2xl border border-slate-200/80 dark:border-slate-800 hover:bg-slate-100 dark:hover:bg-slate-800/80 transition-all cursor-pointer">
@@ -186,6 +190,7 @@ export default async function Home() {
                     <span className="text-[11px] font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider leading-tight">Descuentos en<br />todas las categorías</span>
                   </div>
                 </div>
+
               </div>
 
               {/* Columna Derecha: Iframe del Validador */}

@@ -29,7 +29,7 @@ export default function CotizadorPage() {
   }, [step]);
 
   return (
-    <div className="min-h-screen bg-slate-50 dark:bg-slate-950 transition-colors duration-500">
+    <div className="min-h-screen bg-clinical-bg dark:bg-slate-950 transition-colors duration-500">
 
       <AnimatePresence mode="wait">
         {step === 0 && (

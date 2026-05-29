@@ -45,7 +45,7 @@ export default function AlianzasPage() {
   }, []);
 
   return (
-    <main className="min-h-screen bg-white dark:bg-slate-950 font-sans selection:bg-secondary/30">
+    <main className="min-h-screen bg-clinical-bg dark:bg-slate-950 font-sans selection:bg-secondary/30">
       
       {/* 1. CUSTOM NAVBAR FOR ALIANZAS ONLY */}
       <nav className="fixed top-0 left-0 right-0 z-50 bg-white/80 dark:bg-slate-950/80 backdrop-blur-md border-b border-slate-100 dark:border-slate-900 transition-all duration-300 py-4 shadow-sm">

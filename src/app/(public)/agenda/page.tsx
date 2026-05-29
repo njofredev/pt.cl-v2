@@ -11,7 +11,7 @@ export const metadata = {
 
 export default function AgendaPage() {
   return (
-    <main className="min-h-screen bg-slate-50 dark:bg-slate-950 pt-44 md:pt-52 pb-20 relative overflow-hidden">
+    <main className="min-h-screen bg-clinical-bg dark:bg-slate-950 pt-44 md:pt-52 pb-20 relative overflow-hidden">
       {/* Background Decor */}
       <div className="absolute top-0 left-0 w-full h-full pointer-events-none overflow-hidden z-0">
         <div className="absolute top-[-10%] right-[-10%] w-[50%] h-[50%] bg-secondary/5 rounded-full blur-[120px]" />

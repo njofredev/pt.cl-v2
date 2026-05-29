@@ -143,7 +143,7 @@ export default async function ServicePage({ params }: { params: Promise<{ slug: 
   };
 
   return (
-    <div id="top" className="min-h-screen bg-white dark:bg-slate-950 transition-colors duration-300">
+    <div id="top" className="min-h-screen bg-clinical-bg dark:bg-slate-950 transition-colors duration-300">
       {/* Usamos el Hero global pero con props inyectadas para la categoría */}
       <Hero {...dynamicHeroProps} />
 

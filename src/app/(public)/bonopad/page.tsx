@@ -96,7 +96,7 @@ export default function PadDentalPage() {
   }, [confirmFonasa]);
 
   return (
-    <main className="min-h-screen bg-slate-50 dark:bg-slate-950 transition-colors duration-500 overflow-x-hidden">
+    <main className="min-h-screen bg-clinical-bg dark:bg-slate-950 transition-colors duration-500 overflow-x-hidden">
 
       {/* 1. HERO SECTION */}
       <section className="relative pt-60 pb-20 overflow-hidden">

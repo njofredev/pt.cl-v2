@@ -1,6 +1,7 @@
 "use client";
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
+import { trackEvent } from '@/lib/analytics';
 import {
   Phone,
   MapPin,
@@ -224,6 +225,9 @@ export const Navbar = () => {
 
   const scrollToScheduler = (e: React.MouseEvent) => {
     e.preventDefault();
+    trackEvent('click_reservar_hora', { label: 'Boton Reservar Navbar' });
+    trackEvent('reserva_iniciada', { label: 'Flujo desde Navbar' });
+    
     const el = document.getElementById('agendar');
 
     if (el) {
@@ -313,6 +317,7 @@ export const Navbar = () => {
                     href="https://ff.healthatom.io/77H8tW"
                     target="_blank"
                     rel="noopener noreferrer"
+                    onClick={() => trackEvent('click_promocion', { label: 'Promo Limpieza Dental Sticky Bar' })}
                     className="bg-white text-cyan-900 hover:bg-cyan-50 dark:bg-purple-50 dark:text-purple-900 dark:hover:bg-white px-2 sm:px-4 py-1 rounded-full text-[8px] sm:text-[10px] font-black uppercase hover:scale-105 transition-all shrink-0 shadow-sm flex items-center gap-1 active:scale-95"
                   >
                     Agendar <ChevronRight className="w-2.5 h-2.5 sm:w-3 sm:h-3" />
@@ -337,6 +342,7 @@ export const Navbar = () => {
                 href="https://www.google.com/maps/search/?api=1&query=Calle+Los+Tribunales+1268+Vitacura"
                 target="_blank"
                 rel="noopener noreferrer"
+                onClick={() => trackEvent('click_mapa', { label: 'Top Bar Tribunales Map' })}
                 className="flex items-center gap-2 hover:text-secondary transition-colors group"
               >
                 <MapPin size={12} className="text-secondary group-hover:scale-110 transition-transform" />
@@ -346,6 +352,7 @@ export const Navbar = () => {
                 href="https://www.google.com/maps/search/?api=1&query=Avenida+Vitacura+8620+Vitacura"
                 target="_blank"
                 rel="noopener noreferrer"
+                onClick={() => trackEvent('click_mapa', { label: 'Top Bar Vitacura Map' })}
                 className="flex items-center gap-2 hover:text-secondary transition-colors group"
               >
                 <MapPin size={12} className="text-secondary group-hover:scale-110 transition-transform" />
@@ -356,6 +363,7 @@ export const Navbar = () => {
             <div className="flex flex-wrap gap-x-3 sm:gap-x-4 gap-y-1.5 justify-center lg:justify-end items-center">
               <a
                 href="tel:+56222172635"
+                onClick={() => trackEvent('click_llamar', { label: 'Top Bar Tribunales Phone' })}
                 className="flex items-center gap-2 hover:text-secondary transition-colors group"
               >
                 <Phone size={12} className="text-secondary group-hover:scale-110 transition-transform" />
@@ -364,6 +372,7 @@ export const Navbar = () => {
               <span className="text-white/20 hidden md:inline">|</span>
               <a
                 href="tel:+56229336740"
+                onClick={() => trackEvent('click_llamar', { label: 'Top Bar Vitacura Phone' })}
                 className="flex items-center gap-2 hover:text-secondary transition-colors group"
               >
                 <Phone size={12} className="text-secondary group-hover:scale-110 transition-transform" />
@@ -402,8 +411,8 @@ export const Navbar = () => {
         </div>
 
         {/* Main Nav */}
-        <div className={`transition-all duration-300 ${isScrolled ? 'bg-white dark:bg-slate-950/40 py-2' : 'bg-white/95 dark:bg-transparent backdrop-blur-sm py-4'
-          } border-b border-transparent dark:border-white/5 backdrop-blur-md`}>
+        <div className={`transition-all duration-300 ${isScrolled ? 'bg-clinical-bg/95 dark:bg-slate-950/40 py-2 backdrop-blur-md' : 'bg-clinical-bg/90 dark:bg-transparent backdrop-blur-md py-4'
+          } ${isMobileMenuOpen ? 'bg-white dark:bg-slate-950' : ''} border-b border-transparent dark:border-white/5 backdrop-blur-md`}>
           <div className="container mx-auto px-6 flex justify-between items-center">
             <div className="flex items-center xl:gap-12 gap-4">
               <Link href="/" onClick={scrollToTop} className="flex items-center group shrink-0">
@@ -461,7 +470,6 @@ export const Navbar = () => {
                       onMouseLeave={() => setActiveDropdown(null)}
                       className="absolute top-full pt-6 w-[720px] z-50 origin-top cursor-default"
                     >
-                      {/* Sub-contenedor con los estilos visuales reales */}
                       <div className="border border-slate-100 dark:border-slate-800 bg-white dark:bg-slate-950 rounded-3xl shadow-[0_20px_50px_rgba(0,0,0,0.08)] dark:shadow-none overflow-hidden">
                         <div className="p-5 pb-3">
                           <motion.div

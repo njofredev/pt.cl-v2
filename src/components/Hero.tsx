@@ -5,6 +5,8 @@ import Image from 'next/image';
 import { Button } from "@/components/ui/button";
 import { Zap, CalendarDays, MapPin, Activity, HeartPulse, Sparkles, Brain, SmilePlus, Stethoscope, Leaf, Microscope, Accessibility, Users } from 'lucide-react';
 
+import { trackEvent } from '@/lib/analytics';
+
 const ICON_MAP = {
   zap: Zap,
   sparkles: Sparkles,
@@ -126,6 +128,8 @@ export const Hero = ({
               type="button"
               className="relative inline-flex cursor-pointer select-none group border-none bg-transparent p-0 outline-none w-60 sm:w-64"
               onClick={() => {
+                trackEvent('click_reservar_hora', { label: 'Boton Principal Hero' });
+                trackEvent('reserva_iniciada', { label: 'Flujo desde Hero' });
                 const el = document.getElementById('agendar');
                 if (el) el.scrollIntoView({ behavior: 'smooth' });
               }}

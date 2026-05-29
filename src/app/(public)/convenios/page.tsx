@@ -149,7 +149,7 @@ export default function ConveniosPage() {
   const [openFaq, setOpenFaq] = useState<number | null>(null);
 
   return (
-    <div className="min-h-screen bg-slate-50 dark:bg-slate-950 transition-colors duration-500 pb-24 relative overflow-hidden">
+    <div className="min-h-screen bg-clinical-bg dark:bg-slate-950 transition-colors duration-500 pb-24 relative overflow-hidden">
 
       {/* Usamos el Hero global para que tenga la misma estructura e impida quedar debajo del nav */}
       <Hero

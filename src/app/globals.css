@@ -6,9 +6,9 @@
    /* Colores Institucionales */
    --color-primary: var(--color-primary); /* Azul Dinámico */
    --color-secondary: var(--color-secondary); /* Turquesa Dinámico */
-   --color-clinical-bg: #FDFBF7; /* Tono crema cálido premium */
+   --color-clinical-bg: #F8FAFC; /* Tono muy claro y limpio, sin nada de amarillo (slate-50) */
    
-   --font-sans: var(--font-google-sans), ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+   --font-sans: var(--font-plus-jakarta-sans), ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
   
   --radius-xl: 1.25rem;
   --radius-2xl: 2rem;

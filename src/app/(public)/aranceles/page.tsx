@@ -115,7 +115,7 @@ export default function ArancelesPage() {
   };
 
   return (
-    <main className="min-h-screen bg-white dark:bg-slate-950 transition-colors duration-500 overflow-x-hidden">
+    <main className="min-h-screen bg-clinical-bg dark:bg-slate-950 transition-colors duration-500 overflow-x-hidden">
       
       {/* HERO SECTION PREMIUM */}
       <section className="relative pt-56 pb-20 overflow-hidden">

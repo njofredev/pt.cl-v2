@@ -36,7 +36,7 @@ export default function NosotrosPage() {
   const prevHito = () => setActiveHito((prev) => (prev - 1 + hitos.length) % hitos.length);
 
   return (
-    <main className="min-h-screen bg-white dark:bg-slate-950 transition-colors duration-500 overflow-x-hidden">
+    <main className="min-h-screen bg-clinical-bg dark:bg-slate-950 transition-colors duration-500 overflow-x-hidden">
 
       {/* HERO SECTION MODERNO */}
       <section className="relative pt-56 pb-28 overflow-hidden">
