@@ -126,10 +126,13 @@ pt.cl-v2/
 
 ### Qué Partes Requieren Intervención Técnica (Requiere desarrollador)
 
-* Modificaciones estructurales en el diseño y maquetación de componentes.
+Modificaciones estructurales en el diseño y maquetación de componentes.
+
 * Creación de nuevas páginas o cambio en las rutas dinámicas.
-* Modificación del esquema de base de datos (`schema.prisma`) o adición de nuevos campos de datos.
-* Configuración de nuevas integraciones externas basadas en APIs.
+
+Modificación del esquema de base de datos (`schema.prisma`) o adición de nuevos campos de datos.
+
+Configuración de nuevas integraciones externas basadas en APIs.
 
 ### Cómo se Hacen Respaldos (Backups)
 
@@ -149,47 +152,75 @@ pt.cl-v2/
 El sitio web cuenta con una arquitectura de medición y analítica avanzada e interactiva (sin CMS ni plugins pesados de terceros) diseñada para recopilar datos de conversión de manera ágil y 100% compatible con Serverless.
 
 ### Herramientas Integradas de Medición
+
 1. **Google Analytics 4 (GA4):** Medición de audiencias, comportamiento en el sitio y eventos dinámicos.
 2. **Google Tag Manager (GTM):** Contenedor de etiquetas centralizado para administración ágil de tags.
 3. **Meta Pixel (Facebook Pixel):** Trackeo de conversiones y audiencias personalizadas para campañas de marketing en Meta Ads.
 
 ### Estructura de la Solución (3 Capas)
+
 * **Cargador Asíncrono de Scripts (`src/components/AnalyticsScripts.tsx`):** Inyecta de forma asíncrona y no bloqueante los scripts base de GA4, GTM y Meta Pixel. Además, monitoriza de forma automatizada las vistas de página (`PageView`) al navegar de forma virtual en Next.js.
 * **Capa Intermedia Tipada (`src/lib/analytics.ts`):** Centraliza la lógica en una única función segura en TypeScript (`trackEvent`). Esta utilidad despacha los eventos a todas las plataformas en paralelo y los mapea a los eventos estándar requeridos por Meta Ads (ej. `InitiateCheckout`, `Lead`, `Purchase`).
 * **Instrumentación en Componentes:** Todos los llamados a eventos de conversión se asocian de forma nativa a los manejadores de clics de los botones de la interfaz.
 
 ### Eventos de Conversión Instrumentados
+
 El sistema recopila automáticamente los siguientes **10 eventos de conversión clave**:
 
-| Evento | Qué mide | Disparador en el Código |
-| :--- | :--- | :--- |
-| `click_reservar_hora` | Clic en botones de reserva de horas | Botones de reserva del Navbar, del Hero principal y de las secciones de especialidades. |
-| `click_whatsapp` | Clic en canales de WhatsApp | Widget flotante acordeón de WhatsApp (`WhatsAppFab`) y enlaces del footer. |
-| `form_contacto_enviado` | Envío exitoso de formulario de Alianzas | Al completarse la petición de envío del formulario corporativo. |
-| `click_llamar` | Clic en los números telefónicos directos | Enlaces de marcación telefónica (`tel:`) del top bar del Navbar y del Footer. |
-| `click_mapa` | Clic en enlaces de direcciones físicas (Maps) | Enlaces e iconos de ubicación de las sedes (Vitacura y Tribunales) en barra superior y Footer. |
-| `view_especialidad` | Visualización de páginas de especialidades | Al acceder a las vistas específicas de dental, mental, medicina y terapias. |
-| `click_promocion` | Interacción con la barra de promoción (Sticky Bar) | Botón "Agendar" de la barra superior de promoción (limpieza dental). |
-| `click_convenio` | Clic en convenios del Policlínico | Botón de "Ver más" de la tarjeta de convenio del vecino (**Tarjeta Mi Vita**). |
-| `reserva_iniciada` | Inicio real del flujo de reserva del paciente | Al presionar el botón principal del Hero o Navbar para desplegar el selector de reserva. |
-| `reserva_completada` | Confirmación de reserva exitosa | Integrado y preparado al completarse la confirmación de agenda. |
+| Evento                    | Qué mide                                            | Disparador en el Código                                                                        |
+| :------------------------ | :--------------------------------------------------- | :---------------------------------------------------------------------------------------------- |
+| `click_reservar_hora`   | Clic en botones de reserva de horas                  | Botones de reserva del Navbar, del Hero principal y de las secciones de especialidades.         |
+| `click_whatsapp`        | Clic en canales de WhatsApp                          | Widget flotante acordeón de WhatsApp (`WhatsAppFab`) y enlaces del footer.                   |
+| `form_contacto_enviado` | Envío exitoso de formulario de Alianzas             | Al completarse la petición de envío del formulario corporativo.                               |
+| `click_llamar`          | Clic en los números telefónicos directos           | Enlaces de marcación telefónica (`tel:`) del top bar del Navbar y del Footer.               |
+| `click_mapa`            | Clic en enlaces de direcciones físicas (Maps)       | Enlaces e iconos de ubicación de las sedes (Vitacura y Tribunales) en barra superior y Footer. |
+| `view_especialidad`     | Visualización de páginas de especialidades         | Al acceder a las vistas específicas de dental, mental, medicina y terapias.                    |
+| `click_promocion`       | Interacción con la barra de promoción (Sticky Bar) | Botón "Agendar" de la barra superior de promoción (limpieza dental).                          |
+| `click_convenio`        | Clic en convenios del Policlínico                   | Botón de "Ver más" de la tarjeta de convenio del vecino (**Tarjeta Mi Vita**).          |
+| `reserva_iniciada`      | Inicio real del flujo de reserva del paciente        | Al presionar el botón principal del Hero o Navbar para desplegar el selector de reserva.       |
+| `reserva_completada`    | Confirmación de reserva exitosa                     | Integrado y preparado al completarse la confirmación de agenda.                                |
 
 ### Configuración en Producción (Variables de Entorno)
+
 Para la correcta puesta en marcha del sitio web en producción y la activación de todos los servicios, integraciones y herramientas de analítica, se deben configurar las siguientes variables de entorno en el servidor de hosting (ej. Vercel) o en el archivo `.env.local` de producción:
 
 #### Variables de Analítica y Marketing
+
 * `NEXT_PUBLIC_GA_ID`: ID de medición de Google Analytics 4 (ej. `G-XXXXXXXXXX`).
 * `NEXT_PUBLIC_GTM_ID`: ID de Google Tag Manager (ej. `GTM-XXXXXXX`).
 * `NEXT_PUBLIC_PIXEL_ID`: ID de Meta Pixel (ej. `123456789012345`).
 
 #### Variables de Sistema y Base de Datos
+
 * `DATABASE_URL`: URI de conexión a la base de datos PostgreSQL (utilizada por Prisma ORM para gestionar y sincronizar profesionales, aranceles y convenios).
 * `ADMIN_PASSWORD`: Contraseña administrativa del sistema para resguardar el acceso a los paneles privados del sitio web.
 
 ### Validación Técnica (Pruebas Locales)
+
 En el entorno local de desarrollo (`npm run dev`), el sistema está diseñado para actuar de forma "silenciosa" (evitando peticiones externas innecesarias si las variables no existen) e **imprimir un log sumamente legible directamente en la Consola del Navegador** cada vez que el usuario realiza una acción medida:
+
 ```js
 [Analytics Event] 📊 Disparado: "click_whatsapp" { label: "WhatsApp Vitacura" }
 [Analytics Event] 📊 Disparado: "click_reservar_hora" { label: "Boton Principal Hero" }
 ```
 
+---
+
+## 6. Glosario de Términos
+
+Para facilitar el entendimiento de la plataforma por parte del equipo técnico y administrativo, se definen los siguientes conceptos de manera concisa y formal:
+
+* **Next.js:** Framework de desarrollo basado en React que permite renderizado híbrido (servidor/cliente) y optimizaciones automáticas de carga y SEO.
+* **React:** Librería de JavaScript utilizada para construir interfaces de usuario interactivas basadas en componentes reutilizables.
+* **TypeScript:** Superconjunto de JavaScript que añade tipado estático, permitiendo detectar y corregir errores durante la fase de desarrollo.
+* **Prisma:** ORM (mapeador objeto-relacional) que facilita la comunicación segura y tipada con la base de datos PostgreSQL desde el código de la aplicación.
+* **PostgreSQL:** Sistema de gestión de bases de datos relacionales donde se almacena toda la información estructurada de la plataforma (profesionales, convenios, aranceles).
+* **SSR / SSG:** Estrategias de renderizado (Server-Side Rendering y Static Site Generation) que entregan páginas web pre-construidas o generadas al vuelo para maximizar el rendimiento.
+* **Tailwind CSS:** Framework de diseño utilitario utilizado para estructurar y aplicar estilos visuales responsivos de forma ágil y optimizada.
+* **SEO:** Técnicas de optimización aplicadas a la estructura y el código para mejorar el posicionamiento orgánico del sitio en motores de búsqueda.
+* **CLS (Cumulative Layout Shift):** Métrica de rendimiento web que evalúa la estabilidad visual de una página web durante su proceso de carga.
+* **API:** Interfaz que permite el intercambio estructurado de datos y la integración directa entre la plataforma y servicios externos (como Dentalink o el validador).
+* **I-Med:** Servicio de validación biométrica en tiempo real para autorizar bonificaciones y copagos de Fonasa e Isapres en la recepción física del centro.
+* **Google Analytics 4 (GA4):** Plataforma analítica para medir la audiencia, comportamiento de los usuarios y registrar los eventos de conversión instrumentados.
+* **Google Tag Manager (GTM):** Sistema de gestión de etiquetas que permite inyectar y administrar scripts de medición de forma centralizada sin modificar el código fuente.
+* **Meta Pixel:** Fragmento de código de seguimiento utilizado para medir y optimizar las conversiones obtenidas a través de campañas publicitarias en Meta Ads.
