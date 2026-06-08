@@ -45,20 +45,18 @@ export interface HeroProps {
   sliderAnchorId?: string;
   customRightElement?: React.ReactNode;
   showBranches?: boolean;
+  hideFloatingIcon?: boolean;
 }
 
 const DEFAULT_IMAGES = [
-  { src: '/Sucursales/sucursal_tribunales.webp', alt: 'Sucursal Tribunales', location: 'Los Tribunales #1268' },
-  { src: '/Sucursales/sucursal_vitacura.webp', alt: 'Sucursal Vitacura', location: 'Av. Vitacura #8620' },
-  { src: '/Sucursales/sucursal_tribunales2.webp', alt: 'Sucursal Tribunales 2', location: 'Los Tribunales #1268' },
-  { src: '/Sucursales/sucursal_vitacura2.webp', alt: 'Sucursal Vitacura 2', location: 'Av. Vitacura #8620' }
+  { src: '/Sucursales/heroFamilia.webp', alt: 'Policlínico Tabancura', location: 'Atención Familiar' }
 ];
 
 export const Hero = ({
   badgeText = "Agenda 100% Digital",
   badgeIconName = "zap",
-  titlePrefix = "Tu salud, ",
-  titleHighlight = "nuestra prioridad",
+  titlePrefix = "Salud de calidad, ",
+  titleHighlight = "más cerca de ti.",
   description = "Reserva tu hora, revisa exámenes y gestiona tu bienestar desde cualquier lugar, fácil y rápido.",
   buttonText = "Reserva tu atención",
   statsNumber = "+10k",
@@ -71,7 +69,8 @@ export const Hero = ({
   secondaryButtonAnchorId,
   sliderAnchorId,
   customRightElement,
-  showBranches = false
+  showBranches = false,
+  hideFloatingIcon = false
 }: HeroProps) => {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
 
@@ -112,12 +111,12 @@ export const Hero = ({
           className="flex flex-col items-center sm:items-start text-center sm:text-left relative w-full min-w-0"
         >
 
-          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-primary text-white text-[10px] font-bold uppercase tracking-widest mb-5 md:mb-8">
-            <BadgeIcon size={14} fill="currentColor" className="text-secondary" /> {badgeText}
+          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#259CF4] text-white text-[10px] font-bold uppercase tracking-widest mb-5 md:mb-8">
+            <BadgeIcon size={14} fill="currentColor" className="text-white" /> {badgeText}
           </div>
           <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold text-primary dark:text-slate-50 leading-[1.15] md:leading-[1] tracking-tighter mb-3 md:mb-8">
             {titlePrefix} <br />
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary via-teal-400 to-secondary dark:from-white dark:via-secondary dark:to-teal-400">{titleHighlight}</span>
+            <span>{titleHighlight}</span>
           </h1>
           <p className="text-base md:text-xl text-slate-500 dark:text-slate-400 font-medium max-w-md leading-relaxed mb-6 md:mb-8">
             {description}
@@ -134,18 +133,18 @@ export const Hero = ({
                 if (el) el.scrollIntoView({ behavior: 'smooth' });
               }}
             >
-              {/* Cuerpo del Botón principal con Degradado Premium y Ancho Normalizado */}
-              <div className="bg-gradient-to-r from-primary to-[#1e3a8a] text-white w-60 sm:w-64 h-16 flex items-center justify-center gap-4 rounded-full text-sm sm:text-lg font-black tracking-tight shadow-xl shadow-black/10 transition-all duration-500 transform group-hover:-translate-y-1 group-active:scale-95 relative z-10 whitespace-nowrap">
+              {/* Cuerpo del Botón principal con Degradado Premium o Color Sólido y Ancho Normalizado */}
+              <div className={`${hideFloatingIcon ? 'bg-primary hover:bg-primary/90' : 'bg-gradient-to-r from-primary to-[#1e3a8a]'} text-white w-60 sm:w-64 h-16 flex items-center justify-center gap-4 rounded-full text-sm sm:text-lg font-black tracking-tight shadow-xl shadow-black/10 transition-all duration-500 transform group-hover:-translate-y-1 group-active:scale-95 relative z-10 whitespace-nowrap`}>
                 {buttonText}
-                {isInlineIcon && (
+                {!hideFloatingIcon && isInlineIcon && (
                   <div className={`w-10 h-10 rounded-full ${floatingIconBg} flex items-center justify-center text-primary shadow-sm shrink-0 group-hover:scale-110 group-hover:rotate-[10deg] transition-transform duration-500 mr-[-12px] ml-1`}>
                     <FloatingIcon size={18} strokeWidth={2.5} />
                   </div>
                 )}
               </div>
 
-              {/* Icono Badge Flotante en la Esquina Superior Derecha (Solo si NO es Inline) */}
-              {!isInlineIcon && (
+              {/* Icono Badge Flotante en la Esquina Superior Derecha (Solo si NO es Inline y NO está oculto) */}
+              {!hideFloatingIcon && !isInlineIcon && (
                 <div className={`absolute -top-2 -right-2 sm:-top-3 sm:-right-3 w-10 h-10 sm:w-12 sm:h-12 ${floatingIconBg} rounded-full flex items-center justify-center text-white shadow-lg transition-all duration-500 transform group-hover:-translate-y-1 group-hover:rotate-[-15deg] group-hover:scale-110 group-active:scale-95 z-20 border-4 border-white dark:border-slate-950`}>
                   <FloatingIcon className="w-4 h-4 sm:w-5 sm:h-5" strokeWidth={2.5} />
                 </div>
@@ -191,7 +190,7 @@ export const Hero = ({
           >
             <div
               onClick={handleSliderClick}
-              className={`relative z-10 bg-slate-100 dark:bg-slate-900 rounded-[2rem] sm:rounded-[3rem] p-3 sm:p-4 shadow-lg shadow-slate-200/50 dark:shadow-none border-4 sm:border-8 border-white dark:border-slate-900 overflow-hidden aspect-[4/3] group/slider hover:shadow-2xl transition-all duration-500 transform active:scale-[0.99] ${(sliderAnchorId || images === DEFAULT_IMAGES) ? 'cursor-pointer' : 'cursor-default'
+              className={`relative z-10 bg-[#259CF4] rounded-[2rem] sm:rounded-[3rem] p-1.5 sm:p-2 shadow-lg shadow-slate-200/50 dark:shadow-none border-2 sm:border-4 border-[#259CF4] overflow-hidden aspect-[4/3] group/slider hover:shadow-2xl transition-all duration-500 transform active:scale-[0.99] ${(sliderAnchorId || images === DEFAULT_IMAGES) ? 'cursor-pointer' : 'cursor-default'
                 }`}
             >
               <div className="relative w-full h-full rounded-[1.7rem] sm:rounded-[2.5rem] overflow-hidden">
@@ -223,19 +222,6 @@ export const Hero = ({
 
               {/* Indicador de Sucursal/Imagen Actual */}
               <div className="absolute top-4 sm:top-8 left-4 sm:left-8 right-4 sm:right-8 z-20 flex justify-end items-start">
-                {!showBranches && (
-                  <div className="bg-white/90 dark:bg-slate-900/90 backdrop-blur-md px-4 py-2 rounded-xl shadow-sm border border-white dark:border-slate-800 flex items-center gap-2 mr-auto">
-                    {images[currentImageIndex].src.includes('/logos_convenios_prevision/') ? (
-                      <Sparkles size={16} className="text-secondary shrink-0" />
-                    ) : (
-                      <MapPin size={16} className="text-secondary" />
-                    )}
-                    <span className="text-[11px] font-bold text-primary dark:text-slate-100 tracking-widest uppercase">
-                      {images[currentImageIndex].location}
-                    </span>
-                  </div>
-                )}
-
                 {/* Puntos de paginación */}
                 {images.length > 1 && (
                   <div className="flex gap-1 bg-black/20 p-1 rounded-full backdrop-blur-sm">
@@ -253,43 +239,6 @@ export const Hero = ({
                   </div>
                 )}
               </div>
-
-              {/* Info de Sucursal Dinámica (Bottom Right) */}
-              {showBranches && (
-                <div className="absolute bottom-4 sm:bottom-8 right-4 sm:right-8 z-20 flex flex-col sm:flex-row gap-3">
-                  {/* Sucursal Tribunales */}
-                  {images[currentImageIndex].src.toLowerCase().includes('tribunales') && (
-                    <div className="flex items-center gap-3 sm:gap-4 p-3 sm:p-4 bg-white/90 dark:bg-slate-900/90 backdrop-blur-md rounded-2xl border border-white dark:border-slate-800 shadow-sm">
-                      <div className="w-8 h-8 sm:w-10 sm:h-10 bg-secondary/10 rounded-xl flex items-center justify-center text-secondary shrink-0">
-                        <MapPin className="w-4 h-4 sm:w-5 sm:h-5" />
-                      </div>
-                      <div className="text-left">
-                        <p className="text-[8px] sm:text-[9px] font-black uppercase tracking-[0.2em] text-secondary mb-0.5">Casa Matriz</p>
-                        <p className="text-[11px] sm:text-[13px] font-bold text-primary dark:text-white leading-tight">Los Tribunales #1268</p>
-                        <p className="hidden sm:block text-[10px] text-slate-500 dark:text-slate-400 font-medium mt-0.5">+56 2 2217 2635</p>
-                      </div>
-                    </div>
-                  )}
-                  {/* Sucursal Vitacura */}
-                  {images[currentImageIndex].src.toLowerCase().includes('vitacura') && (
-                    <div className="flex items-center gap-3 sm:gap-4 p-3 sm:p-4 bg-white/90 dark:bg-slate-900/90 backdrop-blur-md rounded-2xl border border-white dark:border-slate-800 shadow-sm">
-                      <div className="w-8 h-8 sm:w-10 sm:h-10 bg-secondary/10 rounded-xl flex items-center justify-center text-secondary shrink-0">
-                        <MapPin className="w-4 h-4 sm:w-5 sm:h-5" />
-                      </div>
-                      <div className="text-left">
-                        <p className="text-[8px] sm:text-[9px] font-black uppercase tracking-[0.2em] text-secondary mb-0.5">Centro Médico</p>
-                        <p className="text-[11px] sm:text-[13px] font-bold text-primary dark:text-white leading-tight">Av. Vitacura #8620</p>
-                        <p className="hidden sm:block text-[10px] text-slate-500 dark:text-slate-400 font-medium mt-0.5">+56 2 2933 6740</p>
-                      </div>
-                    </div>
-                  )}
-                </div>
-              )}
-            </div>
-            {/* Badge flotante de confianza */}
-            <div className="absolute -bottom-6 -left-6 bg-white dark:bg-slate-900 p-4 md:p-6 rounded-3xl shadow-lg border border-slate-100 dark:border-slate-800 z-30">
-              <p className="text-3xl font-bold text-primary dark:text-slate-50">{statsNumber}</p>
-              <p className="text-[10px] font-bold text-slate-500 dark:text-slate-300 uppercase tracking-widest">{statsLabel}</p>
             </div>
           </motion.div>
         )}

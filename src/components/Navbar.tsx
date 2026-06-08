@@ -54,22 +54,22 @@ const NAV_ITEMS = [
     isMega: true,
     subItems: [
       { name: 'Quiénes Somos', href: '/nosotros', desc: 'Conoce nuestra historia y valores.', icon: <HeartHandshake className="text-pink-500" /> },
-      { name: 'Aranceles', href: '/aranceles', desc: 'Consulta el valor de nuestras prestaciones médicas y dentales.', icon: <Calculator className="text-amber-500" /> },
+      // { name: 'Aranceles', href: '/aranceles', desc: 'Consulta el valor de nuestras prestaciones médicas y dentales.', icon: <Calculator className="text-amber-500" /> },
       { name: 'Nuestras Sucursales', href: '/#sucursales', desc: 'Ubícanos y conoce nuestros horarios.', icon: <MapPin className="text-amber-500" /> },
     ]
   },
-  {
-    name: 'Pacientes',
-    href: '#',
-    isMega: true,
-    subItems: [
-      { name: 'Convenios y Alianzas', href: '/convenios', desc: 'Previsiones, convenios colectivos y descuentos.', icon: <HeartHandshake className="text-emerald-500" /> },
-      { name: 'PAD Dental (Fonasa)', href: '/bonopad', desc: 'Bono PAD Fonasa para atenciones dentales integrales.', icon: <SmilePlus className="text-cyan-500" /> },
-      { name: 'Derechos y Deberes', href: '/derechos-y-deberes', desc: 'Conoce tus derechos y responsabilidades.', icon: <FileText className="text-emerald-500" /> },
-      // { name: 'Cotizador Digital', href: '/cotizador-examenes', desc: 'Presupuestos de exámenes al instante.', icon: <Calculator className="text-emerald-500" /> },
-      { name: 'Resultados de Exámenes', href: 'http://190.215.215.125:9091/Pacientes.aspx', desc: 'Consulta tus resultados en laboratorio Laboval.', icon: <FileText className="text-cyan-600" /> },
-    ]
-  },
+  // {
+  //   name: 'Pacientes',
+  //   href: '#',
+  //   isMega: true,
+  //   subItems: [
+  //     { name: 'Convenios y Alianzas', href: '/convenios', desc: 'Previsiones, convenios colectivos y descuentos.', icon: <HeartHandshake className="text-emerald-500" /> },
+  //     { name: 'PAD Dental (Fonasa)', href: '/bonopad', desc: 'Bono PAD Fonasa para atenciones dentales integrales.', icon: <SmilePlus className="text-cyan-500" /> },
+  //     { name: 'Derechos y Deberes', href: '/derechos-y-deberes', desc: 'Conoce tus derechos y responsabilidades.', icon: <FileText className="text-emerald-500" /> },
+  //     // { name: 'Cotizador Digital', href: '/cotizador-examenes', desc: 'Presupuestos de exámenes al instante.', icon: <Calculator className="text-emerald-500" /> },
+  //     { name: 'Resultados de Exámenes', href: 'http://190.215.215.125:9091/Pacientes.aspx', desc: 'Consulta tus resultados en laboratorio Laboval.', icon: <FileText className="text-cyan-600" /> },
+  //   ]
+  // },
   {
     name: 'Especialidades',
     href: '#servicios',
@@ -284,125 +284,79 @@ export const Navbar = () => {
     };
   }, []);
 
-  const [showPromo, setShowPromo] = useState(true);
+
 
   return (
     <>
       <SearchModal isOpen={isSearchOpen} onClose={() => setIsSearchOpen(false)} />
       <nav className="fixed top-0 w-full z-50">
-        <AnimatePresence>
-          {showPromo && (
-            <motion.div
-              initial={{ height: 0, opacity: 0 }}
-              animate={{ height: 'auto', opacity: 1 }}
-              exit={{ height: 0, opacity: 0 }}
-              transition={{ duration: 0.3, ease: "easeInOut" }}
-              className="bg-gradient-to-r from-cyan-700 via-teal-600 to-emerald-500 dark:from-indigo-950 dark:via-purple-900 dark:to-indigo-950 text-white overflow-hidden relative z-[60] shadow-md border-b border-white/10"
-            >
-              <div className="container mx-auto px-4 py-2 md:py-2.5 flex items-center justify-center gap-x-2 sm:gap-x-4 text-center relative pr-28 md:pr-32">
-                <SmilePlus className="w-5 h-5 shrink-0 hidden sm:block text-yellow-200 animate-pulse" />
-                <p className="text-[9px] sm:text-[11px] md:text-xs font-bold tracking-wide flex flex-wrap items-center justify-center gap-x-1">
-                  <span className="hidden md:inline-flex items-center bg-white/20 px-2 py-0.5 rounded-full text-[9px] mr-1">
-                    <Megaphone className="w-2.5 h-2.5 mr-1 -rotate-12 shrink-0" /> PROMOCIÓN LIMITADA
-                  </span>
-                  <span>Limpieza Dental: Evaluación + RX Bitewing Bilateral + Profilaxis por</span>
-                  <span className="text-yellow-200 text-xs sm:text-sm font-black flex items-center ml-1 underline underline-offset-2">
-                    $24.000.-
-                  </span>
-                  <span className="hidden lg:inline bg-black/10 px-2 py-0.5 rounded-full text-[8px] ml-2 border border-white/10 tracking-widest">HASTA 30 de MAYO | PARA MAYORES DE 15 AÑOS</span>
-                </p>
-
-                <div className="absolute right-2 sm:right-4 top-1/2 -translate-y-1/2 flex items-center gap-x-1 sm:gap-x-2">
-                  <a
-                    href="https://ff.healthatom.io/77H8tW"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    onClick={() => trackEvent('click_promocion', { label: 'Promo Limpieza Dental Sticky Bar' })}
-                    className="bg-white text-cyan-900 hover:bg-cyan-50 dark:bg-purple-50 dark:text-purple-900 dark:hover:bg-white px-2 sm:px-4 py-1 rounded-full text-[8px] sm:text-[10px] font-black uppercase hover:scale-105 transition-all shrink-0 shadow-sm flex items-center gap-1 active:scale-95"
-                  >
-                    Agendar <ChevronRight className="w-2.5 h-2.5 sm:w-3 sm:h-3" />
-                  </a>
-
-                  <button
-                    onClick={() => setShowPromo(false)}
-                    className="p-1 sm:p-1.5 text-white/70 hover:text-white hover:bg-white/20 rounded-full transition-colors shrink-0"
-                    aria-label="Cerrar promoción"
-                  >
-                    <X className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
-                  </button>
-                </div>
-              </div>
-            </motion.div>
-          )}
-        </AnimatePresence>
         <div className={`bg-primary text-white hidden md:block transition-all duration-300 ${isScrolled ? 'py-1' : 'py-2'} border-b border-white/5`}>
-          <div className="container mx-auto px-4 md:px-6 flex flex-col lg:flex-row justify-center lg:justify-between items-center gap-y-2 py-0.5 text-[7.5px] sm:text-[9px] md:text-[10px] font-bold uppercase tracking-[0.12em] sm:tracking-[0.15em] text-center md:text-left">
-            <div className="flex flex-wrap gap-x-3 sm:gap-x-4 gap-y-1.5 justify-center lg:justify-start">
+          <div className="container mx-auto px-4 md:px-6 flex flex-col lg:flex-row justify-center lg:justify-between items-center gap-y-2 py-0.5 text-[11px] sm:text-xs font-semibold tracking-wide text-center md:text-left">
+            <div className="flex flex-wrap gap-x-6 gap-y-1.5 justify-center lg:justify-start">
               <a
                 href="https://www.google.com/maps/search/?api=1&query=Calle+Los+Tribunales+1268+Vitacura"
                 target="_blank"
                 rel="noopener noreferrer"
                 onClick={() => trackEvent('click_mapa', { label: 'Top Bar Tribunales Map' })}
-                className="flex items-center gap-2 hover:text-secondary transition-colors group"
+                className="flex items-center gap-2 hover:text-[#259CF4] transition-colors group"
               >
-                <MapPin size={12} className="text-secondary group-hover:scale-110 transition-transform" />
-                LOS TRIBUNALES #1268
+                <span>Sucursal Los Tribunales</span>
+                <MapPin size={12} className="text-white/90 group-hover:scale-110 transition-transform" />
               </a>
               <a
                 href="https://www.google.com/maps/search/?api=1&query=Avenida+Vitacura+8620+Vitacura"
                 target="_blank"
                 rel="noopener noreferrer"
                 onClick={() => trackEvent('click_mapa', { label: 'Top Bar Vitacura Map' })}
-                className="flex items-center gap-2 hover:text-secondary transition-colors group"
+                className="flex items-center gap-2 hover:text-[#259CF4] transition-colors group"
               >
-                <MapPin size={12} className="text-secondary group-hover:scale-110 transition-transform" />
-                AV. VITACURA #8620
+                <span>Sucursal Vitacura</span>
+                <MapPin size={12} className="text-white/90 group-hover:scale-110 transition-transform" />
               </a>
             </div>
 
-            <div className="flex flex-wrap gap-x-3 sm:gap-x-4 gap-y-1.5 justify-center lg:justify-end items-center">
+            <div className="flex flex-wrap gap-x-6 gap-y-1.5 justify-center lg:justify-end items-center">
               <a
                 href="tel:+56222172635"
                 onClick={() => trackEvent('click_llamar', { label: 'Top Bar Tribunales Phone' })}
-                className="flex items-center gap-2 hover:text-secondary transition-colors group"
+                className="flex items-center gap-2 hover:text-[#259CF4] transition-colors group"
               >
-                <Phone size={12} className="text-secondary group-hover:scale-110 transition-transform" />
-                TRIBUNALES: +56 2 2217 2635
+                <span>Sucursal Los Tribunales</span>
+                <Phone size={12} className="text-white/90 group-hover:scale-110 transition-transform" />
               </a>
-              <span className="text-white/20 hidden md:inline">|</span>
               <a
                 href="tel:+56229336740"
                 onClick={() => trackEvent('click_llamar', { label: 'Top Bar Vitacura Phone' })}
-                className="flex items-center gap-2 hover:text-secondary transition-colors group"
+                className="flex items-center gap-2 hover:text-[#259CF4] transition-colors group"
               >
-                <Phone size={12} className="text-secondary group-hover:scale-110 transition-transform" />
-                VITACURA: +56 2 2933 6740
+                <span>Sucursal Vitacura</span>
+                <Phone size={12} className="text-white/90 group-hover:scale-110 transition-transform" />
               </a>
 
               <div className="h-3 w-[1px] bg-white/20 hidden md:block mx-1" />
 
-              <div className="flex items-center gap-3 text-white/80">
+              <div className="flex items-center gap-3 text-white/85">
                 <div className="hidden sm:flex relative items-center h-4 min-w-[95px] overflow-hidden">
                   <AnimatePresence mode="wait">
                     <motion.span
                       key={socialPhraseIndex}
                       initial={{ opacity: 0, y: 10 }}
-                      animate={{ opacity: 0.6, y: 0 }}
+                      animate={{ opacity: 0.7, y: 0 }}
                       exit={{ opacity: 0, y: -10 }}
                       transition={{ duration: 0.3, ease: "easeOut" }}
-                      className="absolute left-0 text-[7.5px] sm:text-[9px] md:text-[10px] tracking-widest font-bold uppercase flex items-center gap-1 whitespace-nowrap"
+                      className="absolute left-0 text-[11px] sm:text-xs tracking-wide font-semibold flex items-center gap-1 whitespace-nowrap"
                     >
                       {SOCIAL_PHRASES[socialPhraseIndex]}
                     </motion.span>
                   </AnimatePresence>
                 </div>
-                <a href="https://www.instagram.com/politabancura/" target="_blank" rel="noopener noreferrer" aria-label="Ir a nuestro Instagram" className="hover:text-secondary transition-colors transform hover:scale-110">
+                <a href="https://www.instagram.com/politabancura/" target="_blank" rel="noopener noreferrer" aria-label="Ir a nuestro Instagram" className="hover:text-[#259CF4] transition-colors transform hover:scale-110">
                   <Instagram size={14} />
                 </a>
-                <a href="https://www.facebook.com/profile.php?id=61568214167163" target="_blank" rel="noopener noreferrer" aria-label="Ir a nuestro Facebook" className="hover:text-secondary transition-colors transform hover:scale-110">
+                <a href="https://www.facebook.com/profile.php?id=61568214167163" target="_blank" rel="noopener noreferrer" aria-label="Ir a nuestro Facebook" className="hover:text-[#259CF4] transition-colors transform hover:scale-110">
                   <Facebook size={14} />
                 </a>
-                <a href="https://www.tiktok.com/@politabancura" target="_blank" rel="noopener noreferrer" aria-label="Ir a nuestro TikTok" className="hover:text-secondary transition-colors transform hover:scale-110">
+                <a href="https://www.tiktok.com/@politabancura" target="_blank" rel="noopener noreferrer" aria-label="Ir a nuestro TikTok" className="hover:text-[#259CF4] transition-colors transform hover:scale-110">
                   <TikTokIcon size={14} />
                 </a>
               </div>
@@ -411,22 +365,21 @@ export const Navbar = () => {
         </div>
 
         {/* Main Nav */}
-        <div className={`transition-all duration-300 ${isScrolled ? 'bg-clinical-bg/95 dark:bg-slate-950/40 py-2 backdrop-blur-md' : 'bg-clinical-bg/90 dark:bg-transparent backdrop-blur-md py-4'
-          } ${isMobileMenuOpen ? 'bg-white dark:bg-slate-950' : ''} border-b border-transparent dark:border-white/5 backdrop-blur-md`}>
+        <div className={`transition-all duration-300 bg-[#259CF4] ${isScrolled ? 'py-2 shadow-md' : 'py-4'} border-b border-transparent backdrop-blur-md`}>
           <div className="container mx-auto px-6 flex justify-between items-center">
             <div className="flex items-center xl:gap-12 gap-4">
               <Link href="/" onClick={scrollToTop} className="flex items-center group shrink-0">
                 <img
                   src="/logo.svg"
                   alt="Policlínico Tabancura"
-                  className="h-14 md:h-16 w-auto group-hover:scale-105 transition-transform duration-300 dark:brightness-0 dark:invert"
+                  className="h-14 md:h-16 w-auto group-hover:scale-105 transition-transform duration-300 brightness-0 invert"
                 />
               </Link>
 
 
               {/* Desktop Menu */}
               <div
-                className="hidden xl:flex items-center space-x-0.5 text-[13.5px] font-bold text-slate-600 dark:text-slate-300 relative"
+                className="hidden xl:flex items-center space-x-0.5 text-[13.5px] font-bold text-white relative"
                 onMouseLeave={() => setActiveDropdown(null)}
               >
                 {NAV_ITEMS.map((item) => (
@@ -442,11 +395,11 @@ export const Navbar = () => {
                         else handleAnchorClick(e, item.href);
                       }}
                       className={`flex items-center gap-1.5 transition-all duration-300 ${(item as any).highlight
-                        ? `bg-emerald-50/90 dark:bg-emerald-950/20 text-emerald-700 dark:text-emerald-400 px-5 py-2 rounded-full font-extrabold border border-emerald-600/25 dark:border-emerald-500/20 hover:bg-emerald-100/90 dark:hover:bg-emerald-950/35 hover:scale-[1.02] active:scale-95`
-                        : `hover:text-secondary ${activeDropdown === item.name ? 'text-secondary' : ''}`
+                        ? `bg-white/20 text-white px-5 py-2 rounded-full font-extrabold border border-white/30 hover:bg-white/30 hover:scale-[1.02] active:scale-95`
+                        : `hover:text-white/80 ${activeDropdown === item.name ? 'text-white/80' : ''}`
                         }`}
                     >
-                      {(item as any).highlight && <Sparkles size={14} className="mr-1 text-emerald-500 dark:text-emerald-400 fill-emerald-500/10" />}
+                      {(item as any).highlight && <Sparkles size={14} className="mr-1 text-white fill-white/10" />}
                       {item.name}
                       {item.subItems && <ChevronDown size={12} className={`transition-transform duration-200 ${activeDropdown === item.name ? 'rotate-180' : ''}`} />}
                     </Link>
@@ -535,55 +488,38 @@ export const Navbar = () => {
             </div>
 
             <div className="flex items-center gap-4">
-              {/* Theme Toggle */}
-              <button
-                onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
-                className="flex items-center gap-2.5 px-3 h-10 rounded-xl bg-slate-50 border border-slate-100 hover:bg-white dark:bg-slate-900 dark:border-slate-800 dark:hover:bg-slate-800 transition-all text-slate-500 dark:text-slate-400 shadow-sm active:scale-95 cursor-pointer"
-                aria-label="Cambiar tema visual"
-              >
-                {mounted && theme === 'dark' ? <Moon size={16} /> : <Sun size={16} />}
-                <span className="text-[9px] font-bold uppercase tracking-wider hidden lg:block leading-none relative top-[0.5px]">
-                  {mounted && theme === 'dark' ? 'Oscuro' : 'Claro'}
-                </span>
-              </button>
 
               {/* Search Bar Trigger */}
               <button
                 onClick={() => setIsSearchOpen(true)}
-                className="hidden md:flex items-center gap-3 px-4 py-2 bg-slate-50 border border-slate-100 rounded-2xl hover:bg-white hover:border-secondary/20 dark:bg-slate-900 dark:border-slate-800 dark:hover:bg-slate-800 dark:hover:border-secondary/30 transition-all group"
+                className="hidden md:flex items-center gap-3 px-4 py-2 bg-white/10 border border-white/20 rounded-2xl hover:bg-white/20 transition-all group"
               >
-                <Search size={16} className="text-slate-400 group-hover:text-secondary transition-colors" />
-                <span className="text-[10px] font-bold text-slate-400 uppercase tracking-widest mr-2">Buscar...</span>
-                <div className="flex items-center gap-1 px-1.5 py-0.5 bg-white dark:bg-slate-800 border border-slate-100 dark:border-slate-700 rounded-md text-[9px] font-black text-slate-300">
+                <Search size={16} className="text-white/80 group-hover:text-white transition-colors" />
+                <span className="text-[10px] font-bold text-white/80 uppercase tracking-widest mr-2">Buscar...</span>
+                <div className="flex items-center gap-1 px-1.5 py-0.5 bg-white/20 border border-white/10 rounded-md text-[9px] font-black text-white/95">
                   <span className="text-[8px]">ALT</span> + K
                 </div>
               </button>
 
-              <div className="hidden xl:block relative group z-10">
-                <Button
-                  className="bg-gradient-to-r from-primary to-[#1e3a8a] text-white rounded-full pl-7 pr-14 h-11 font-bold text-[13px] tracking-tight transition-all duration-500 transform group-hover:-translate-y-1 group-active:scale-95 cursor-pointer shadow-lg shadow-black/10 border-0 relative z-10"
-                  onClick={scrollToScheduler}
-                >
-                  {bookingConfig.text}
-                </Button>
-                {/* Icono Badge Flotante */}
-                <div className={`absolute -top-2 -right-2 w-10 h-10 ${bookingConfig.bgColor} rounded-full flex items-center justify-center text-white shadow-lg transition-all duration-500 transform group-hover:-translate-y-1 group-hover:rotate-[-15deg] group-hover:scale-110 group-active:scale-95 z-30 border-4 border-white dark:border-slate-950 pointer-events-none`}>
-                  <bookingConfig.Icon className="w-4 h-4" strokeWidth={2.5} />
-                </div>
-              </div>
+              <Button
+                className="hidden xl:inline-flex bg-[#e8effe] hover:bg-[#162158] text-[#162158] hover:text-[#259CF4] rounded-full px-8 h-11 font-semibold text-[14.5px] transition-all duration-300 active:scale-95 cursor-pointer border-0 shadow-sm"
+                onClick={scrollToScheduler}
+              >
+                Agendar una hora
+              </Button>
 
               {/* Mobile Search Trigger */}
               <button
                 onClick={() => setIsSearchOpen(true)}
                 aria-label="Abrir buscador móvil"
-                className="xl:hidden w-12 h-12 bg-slate-50 border border-slate-100 dark:bg-slate-900 dark:border-slate-800 rounded-2xl flex items-center justify-center text-slate-500 dark:text-slate-400 shadow-sm hover:border-secondary/20 transition-all active:scale-95"
+                className="xl:hidden w-12 h-12 bg-white/10 border border-white/20 rounded-2xl flex items-center justify-center text-white shadow-sm hover:bg-white/20 transition-all active:scale-95"
               >
                 <Search size={20} />
               </button>
 
               {/* Mobile Toggle */}
               <button
-                className="xl:hidden w-12 h-12 bg-slate-50 border border-slate-100 dark:bg-slate-900 dark:border-slate-800 rounded-2xl flex items-center justify-center text-primary dark:text-white shadow-sm hover:border-secondary/20 transition-all active:scale-95"
+                className="xl:hidden w-12 h-12 bg-white/10 border border-white/20 rounded-2xl flex items-center justify-center text-white shadow-sm hover:bg-white/20 transition-all active:scale-95"
                 onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
                 aria-label={isMobileMenuOpen ? "Cerrar menú de navegación" : "Abrir menú de navegación"}
               >

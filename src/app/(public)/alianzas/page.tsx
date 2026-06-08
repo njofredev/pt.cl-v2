@@ -61,17 +61,6 @@ export default function AlianzasPage() {
 
           {/* Right Actions */}
           <div className="flex items-center gap-4">
-            {/* Theme Toggle */}
-            <button
-              onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
-              className="flex items-center gap-2.5 px-3 h-10 rounded-xl bg-slate-50 border border-slate-100 hover:bg-white dark:bg-slate-900 dark:border-slate-800 dark:hover:bg-slate-800 transition-all text-slate-500 dark:text-slate-400 shadow-sm active:scale-95 cursor-pointer"
-              aria-label="Cambiar tema visual"
-            >
-              {mounted && theme === 'dark' ? <Moon size={16} /> : <Sun size={16} />}
-              <span className="text-[9px] font-bold uppercase tracking-wider hidden sm:block leading-none relative top-[0.5px]">
-                {mounted && theme === 'dark' ? 'Oscuro' : 'Claro'}
-              </span>
-            </button>
 
             {/* "Quiero agendar" Button */}
             <Button

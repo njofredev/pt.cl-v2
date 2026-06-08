@@ -26,8 +26,9 @@ export default function RootLayout({
       <body className="antialiased text-slate-900 bg-clinical-bg dark:bg-slate-950 dark:text-slate-50 transition-colors duration-300" suppressHydrationWarning>
         <ThemeProvider
           attribute="class"
-          defaultTheme="dark"
-          enableSystem
+          defaultTheme="light"
+          forcedTheme="light"
+          enableSystem={false}
           disableTransitionOnChange
         >
           <AnalyticsScripts />
