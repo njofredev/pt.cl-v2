@@ -94,7 +94,7 @@ export default function TomaMuestrasPage() {
     <div className="min-h-screen bg-clinical-bg dark:bg-slate-950 transition-colors duration-500">
       
       {/* 1. HERO SECTION */}
-      <section className="relative pt-48 pb-24 overflow-hidden">
+      <section className="relative pt-40 pb-24 overflow-hidden">
         {/* Background Ornaments */}
         <div className="absolute top-[-10%] right-[-5%] w-[800px] h-[800px] bg-secondary/5 rounded-full blur-[120px] -z-10 animate-pulse" />
 
