@@ -73,7 +73,7 @@ const NAV_ITEMS = [
   // },
   {
     name: 'Especialidades',
-    href: '#servicios',
+    href: '#',
     isMega: true,
     subItems: [
       { name: 'Salud Dental', href: '/servicios/dental', desc: 'Odontología avanzada y estética.', icon: <SmilePlus className="text-cyan-500" /> },
@@ -246,8 +246,16 @@ export const Navbar = () => {
   };
 
   const handleAnchorClick = (e: React.MouseEvent, href: string) => {
+    if (href === '#') {
+      e.preventDefault();
+      return;
+    }
     if (href.includes('#')) {
       const id = href.split('#')[1];
+      if (!id) {
+        e.preventDefault();
+        return;
+      }
       const el = document.getElementById(id);
       if (el) {
         e.preventDefault();
