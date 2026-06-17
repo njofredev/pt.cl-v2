@@ -116,6 +116,7 @@ export const Navbar = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isSearchOpen, setIsSearchOpen] = useState(false);
   const [openMobileSubmenu, setOpenMobileSubmenu] = useState<string | null>(null);
+  const [showPromo, setShowPromo] = useState(true);
 
   const { theme, setTheme } = useTheme();
   const [mounted, setMounted] = useState(false);
@@ -293,6 +294,51 @@ export const Navbar = () => {
     <>
       <SearchModal isOpen={isSearchOpen} onClose={() => setIsSearchOpen(false)} />
       <nav className="fixed top-0 w-full z-50">
+        <AnimatePresence>
+          {showPromo && (
+            <motion.div
+              initial={{ height: 0, opacity: 0 }}
+              animate={{ height: 'auto', opacity: 1 }}
+              exit={{ height: 0, opacity: 0 }}
+              transition={{ duration: 0.3, ease: "easeInOut" }}
+              className="bg-gradient-to-r from-cyan-700 via-teal-600 to-emerald-500 dark:from-indigo-950 dark:via-purple-900 dark:to-indigo-950 text-white overflow-hidden relative z-[60] shadow-md border-b border-white/10"
+            >
+              <div className="container mx-auto px-4 py-2 md:py-2.5 flex items-center justify-center gap-x-2 sm:gap-x-4 text-center relative pr-28 md:pr-32">
+                <SmilePlus className="w-5 h-5 shrink-0 hidden sm:block text-yellow-200 animate-pulse" />
+                <p className="text-[9px] sm:text-[11px] md:text-xs font-bold tracking-wide flex flex-wrap items-center justify-center gap-x-1">
+                  <span className="hidden md:inline-flex items-center bg-white/20 px-2 py-0.5 rounded-full text-[9px] mr-1">
+                    <Megaphone className="w-2.5 h-2.5 mr-1 -rotate-12 shrink-0" /> PROMOCIÓN LIMITADA
+                  </span>
+                  <span>Limpieza Dental: Evaluación + Profilaxis + RX Bitewing Bilateral por</span>
+                  <span className="text-yellow-200 text-xs sm:text-sm font-black flex items-center ml-1 underline underline-offset-2">
+                    $24.000.-
+                  </span>
+                  <span className="hidden lg:inline bg-black/10 px-2 py-0.5 rounded-full text-[8px] ml-2 border border-white/10 tracking-widest">HASTA 30 DE JUNIO | PARA MAYORES DE 15 AÑOS</span>
+                </p>
+
+                <div className="absolute right-2 sm:right-4 top-1/2 -translate-y-1/2 flex items-center gap-x-1 sm:gap-x-2">
+                  <a
+                    href="https://ff.healthatom.io/be3WhX"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    onClick={() => trackEvent('click_promocion', { label: 'Promo Limpieza Dental Sticky Bar' })}
+                    className="bg-white text-cyan-900 hover:bg-cyan-50 dark:bg-purple-50 dark:text-purple-900 dark:hover:bg-white px-2 sm:px-4 py-1 rounded-full text-[8px] sm:text-[10px] font-black uppercase hover:scale-105 transition-all shrink-0 shadow-sm flex items-center gap-1 active:scale-95"
+                  >
+                    Agendar <ChevronRight className="w-2.5 h-2.5 sm:w-3 sm:h-3" />
+                  </a>
+
+                  <button
+                    onClick={() => setShowPromo(false)}
+                    className="p-1 sm:p-1.5 text-white/70 hover:text-white hover:bg-white/20 rounded-full transition-colors shrink-0"
+                    aria-label="Cerrar promoción"
+                  >
+                    <X className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
+                  </button>
+                </div>
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
         <div className={`bg-primary text-white hidden md:block transition-all duration-300 ${isScrolled ? 'py-1' : 'py-2'} border-b border-white/5`}>
           <div className="container mx-auto px-4 md:px-6 flex flex-col lg:flex-row justify-center lg:justify-between items-center gap-y-2 py-0.5 text-[11px] sm:text-xs font-semibold tracking-wide text-center md:text-left">
             <div className="flex flex-wrap gap-x-6 gap-y-1.5 justify-center lg:justify-start">
