@@ -53,13 +53,13 @@ export default function NosotrosPage() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6 }}
             >
-              <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-primary text-white text-[10px] font-black uppercase tracking-widest mb-8 shadow-md shadow-primary/10">
-                <History size={14} strokeWidth={2.5} className="text-secondary" />
+              <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#259CF4] text-white text-[10px] font-black uppercase tracking-widest mb-8">
+                <History size={14} strokeWidth={2.5} className="text-white" />
                 Nuestra Trayectoria
               </div>
-              <h1 className="text-4xl md:text-6xl lg:text-7xl font-black text-slate-900 dark:text-white tracking-tight leading-[1.1] mb-8">
+              <h1 className="text-4xl md:text-6xl lg:text-7xl font-black text-primary dark:text-white tracking-tight leading-[1.1] mb-8">
                 Medio siglo cuidando <br />
-                <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary via-teal-400 to-secondary dark:from-white dark:via-secondary dark:to-teal-400">
+                <span className="text-[#259CF4] dark:text-[#259CF4]">
                   tu salud y bienestar.
                 </span>
               </h1>
@@ -161,11 +161,11 @@ export default function NosotrosPage() {
       <section id="directorio" className="py-24 bg-slate-50/50 dark:bg-slate-950 border-t border-slate-100 dark:border-white/5 relative scroll-mt-24">
         <div className="container mx-auto px-6 relative z-10">
           <div className="text-center max-w-3xl mx-auto mb-16">
-            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-primary text-white text-[10px] md:text-[11px] font-black uppercase tracking-widest mb-6 shadow-md shadow-primary/10">
-              <Award size={14} strokeWidth={2.5} className="text-secondary shrink-0" /> Liderazgo
+            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#259CF4] text-white text-[10px] md:text-[11px] font-black uppercase tracking-widest mb-6">
+              <Award size={14} strokeWidth={2.5} className="text-white shrink-0" /> Liderazgo
             </div>
-            <h2 className="text-3xl md:text-5xl font-black text-slate-900 dark:text-white tracking-tight">
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary via-teal-400 to-secondary dark:from-white dark:via-secondary dark:to-teal-400">Directorio</span>
+            <h2 className="text-3xl md:text-5xl font-black text-primary dark:text-white tracking-tight">
+              Nuestro <span className="text-[#259CF4] dark:text-[#259CF4]">Directorio</span>
             </h2>
           </div>
 
@@ -248,11 +248,11 @@ export default function NosotrosPage() {
 
         <div className="container mx-auto px-6 relative z-10">
           <div className="text-center mb-16">
-            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-primary text-white text-[10px] font-black uppercase tracking-widest mb-6 shadow-md shadow-primary/10">
-              <Sparkles size={14} strokeWidth={2.5} className="text-secondary shrink-0" /> Evolución Interactiva
+            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#259CF4] text-white text-[10px] font-black uppercase tracking-widest mb-6">
+              <Sparkles size={14} strokeWidth={2.5} className="text-white shrink-0" /> Evolución Interactiva
             </div>
-            <h2 className="text-3xl md:text-5xl font-black text-slate-900 dark:text-white tracking-tight mb-4">
-              Nuestra <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary via-teal-400 to-secondary dark:from-white dark:via-secondary dark:to-teal-400">Línea de Tiempo</span>
+            <h2 className="text-3xl md:text-5xl font-black text-primary dark:text-white tracking-tight mb-4">
+              Nuestra <span className="text-[#259CF4] dark:text-[#259CF4]">Línea de Tiempo</span>
             </h2>
             <p className="text-slate-500 dark:text-slate-400 max-w-lg mx-auto text-sm font-medium">Navega a través de los años y revive los momentos que definieron nuestra historia.</p>
           </div>

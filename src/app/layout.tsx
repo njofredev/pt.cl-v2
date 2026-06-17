@@ -12,7 +12,10 @@ const plusJakartaSans = Plus_Jakarta_Sans({
 });
 
 export const metadata: Metadata = {
-  title: "Policlínico Tabancura | Salud Dental, Mental y Medicina General",
+  title: {
+    template: "%s | Policlínico Tabancura",
+    default: "Salud Dental, Mental y Medicina General | Policlínico Tabancura",
+  },
   description: "Atención especializada en Vitacura. Convenios, agendamiento online y profesionales de primer nivel.",
 };
 

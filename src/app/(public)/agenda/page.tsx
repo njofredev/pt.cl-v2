@@ -5,7 +5,7 @@ import Link from 'next/link';
 import { ChevronLeft } from 'lucide-react';
 
 export const metadata = {
-  title: 'Agenda en Línea | Policlínico Tabancura',
+  title: 'Agenda en Línea',
   description: 'Reserva tu hora médica o dental en línea de forma rápida y sencilla.',
 };
 

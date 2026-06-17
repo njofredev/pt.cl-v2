@@ -54,6 +54,7 @@ const NAV_ITEMS = [
     isMega: true,
     subItems: [
       { name: 'Quiénes Somos', href: '/nosotros', desc: 'Conoce nuestra historia y valores.', icon: <HeartHandshake className="text-pink-500" /> },
+      { name: 'Convenios y Beneficios', href: '/convenios', desc: 'Previsiones, convenios colectivos y descuentos.', icon: <HeartHandshake className="text-emerald-500" /> },
       // { name: 'Aranceles', href: '/aranceles', desc: 'Consulta el valor de nuestras prestaciones médicas y dentales.', icon: <Calculator className="text-amber-500" /> },
       { name: 'Nuestras Sucursales', href: '/#sucursales', desc: 'Ubícanos y conoce nuestros horarios.', icon: <MapPin className="text-amber-500" /> },
     ]
@@ -162,10 +163,7 @@ export const Navbar = () => {
 
   const bookingConfig = getBookingConfig();
 
-  // Hide Navbar for specific routes
-  if (pathname === '/alianzas') {
-    return null;
-  }
+
 
   useEffect(() => {
     setMounted(true);
@@ -214,6 +212,11 @@ export const Navbar = () => {
     }
   }, [confirmLink]);
 
+  // Hide Navbar for specific routes
+  if (pathname === '/alianzas' || pathname === '/marialuisabombal') {
+    return null;
+  }
+
   const scrollToTop = (e: React.MouseEvent) => {
     // Si estamos en la home, hacemos scroll suave al inicio.
     if (window.location.pathname === '/') {
@@ -227,7 +230,7 @@ export const Navbar = () => {
     e.preventDefault();
     trackEvent('click_reservar_hora', { label: 'Boton Reservar Navbar' });
     trackEvent('reserva_iniciada', { label: 'Flujo desde Navbar' });
-    
+
     const el = document.getElementById('agendar');
 
     if (el) {
@@ -294,7 +297,7 @@ export const Navbar = () => {
           <div className="container mx-auto px-4 md:px-6 flex flex-col lg:flex-row justify-center lg:justify-between items-center gap-y-2 py-0.5 text-[11px] sm:text-xs font-semibold tracking-wide text-center md:text-left">
             <div className="flex flex-wrap gap-x-6 gap-y-1.5 justify-center lg:justify-start">
               <a
-                href="https://www.google.com/maps/search/?api=1&query=Calle+Los+Tribunales+1268+Vitacura"
+                href="https://maps.app.goo.gl/WoWQ6CKgtLpBphgr9"
                 target="_blank"
                 rel="noopener noreferrer"
                 onClick={() => trackEvent('click_mapa', { label: 'Top Bar Tribunales Map' })}
@@ -304,7 +307,7 @@ export const Navbar = () => {
                 <MapPin size={12} className="text-white/90 group-hover:scale-110 transition-transform" />
               </a>
               <a
-                href="https://www.google.com/maps/search/?api=1&query=Avenida+Vitacura+8620+Vitacura"
+                href="https://maps.app.goo.gl/L3TNhpYTvyNwCqdS6"
                 target="_blank"
                 rel="noopener noreferrer"
                 onClick={() => trackEvent('click_mapa', { label: 'Top Bar Vitacura Map' })}
@@ -321,7 +324,7 @@ export const Navbar = () => {
                 onClick={() => trackEvent('click_llamar', { label: 'Top Bar Tribunales Phone' })}
                 className="flex items-center gap-2 hover:text-[#259CF4] transition-colors group"
               >
-                <span>Sucursal Los Tribunales</span>
+                <span>Contacto Tribunales</span>
                 <Phone size={12} className="text-white/90 group-hover:scale-110 transition-transform" />
               </a>
               <a
@@ -329,7 +332,7 @@ export const Navbar = () => {
                 onClick={() => trackEvent('click_llamar', { label: 'Top Bar Vitacura Phone' })}
                 className="flex items-center gap-2 hover:text-[#259CF4] transition-colors group"
               >
-                <span>Sucursal Vitacura</span>
+                <span>Contacto Vitacura</span>
                 <Phone size={12} className="text-white/90 group-hover:scale-110 transition-transform" />
               </a>
 
@@ -395,11 +398,11 @@ export const Navbar = () => {
                         else handleAnchorClick(e, item.href);
                       }}
                       className={`flex items-center gap-1.5 transition-all duration-300 ${(item as any).highlight
-                        ? `bg-white/20 text-white px-5 py-2 rounded-full font-extrabold border border-white/30 hover:bg-white/30 hover:scale-[1.02] active:scale-95`
+                        ? `bg-[#1ad1a5] hover:bg-[#15af8a] text-white px-5 py-2 rounded-full font-extrabold shadow-md hover:scale-[1.02] active:scale-95`
                         : `hover:text-white/80 ${activeDropdown === item.name ? 'text-white/80' : ''}`
                         }`}
                     >
-                      {(item as any).highlight && <Sparkles size={14} className="mr-1 text-white fill-white/10" />}
+                      {(item as any).highlight && <Sparkles size={14} className="mr-1 text-white fill-white/20" />}
                       {item.name}
                       {item.subItems && <ChevronDown size={12} className={`transition-transform duration-200 ${activeDropdown === item.name ? 'rotate-180' : ''}`} />}
                     </Link>

@@ -28,10 +28,11 @@ export interface HeroImage {
 }
 
 export interface HeroProps {
-  badgeText?: string;
+  badgeText?: React.ReactNode;
   badgeIconName?: keyof typeof ICON_MAP;
   titlePrefix?: string;
   titleHighlight?: string;
+  highlightClassName?: string;
   description?: React.ReactNode;
   buttonText?: string;
   statsNumber?: string;
@@ -49,7 +50,7 @@ export interface HeroProps {
 }
 
 const DEFAULT_IMAGES = [
-  { src: '/Sucursales/heroFamilia.webp', alt: 'Policlínico Tabancura', location: 'Atención Familiar' }
+  { src: '/Sucursales/heroActual.webp', alt: 'Policlínico Tabancura', location: 'Atención Familiar' }
 ];
 
 export const Hero = ({
@@ -57,6 +58,7 @@ export const Hero = ({
   badgeIconName = "zap",
   titlePrefix = "Salud de calidad, ",
   titleHighlight = "más cerca de ti.",
+  highlightClassName,
   description = "Reserva tu hora, revisa exámenes y gestiona tu bienestar desde cualquier lugar, fácil y rápido.",
   buttonText = "Reserva tu atención",
   statsNumber = "+10k",
@@ -111,12 +113,24 @@ export const Hero = ({
           className="flex flex-col items-center sm:items-start text-center sm:text-left relative w-full min-w-0"
         >
 
-          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#259CF4] text-white text-[10px] font-bold uppercase tracking-widest mb-5 md:mb-8">
-            <BadgeIcon size={14} fill="currentColor" className="text-white" /> {badgeText}
+          <div className="flex flex-wrap gap-2.5 mb-5 md:mb-8 justify-center sm:justify-start">
+            {Array.isArray(badgeText) ? (
+              badgeText.map((badge, index) => (
+                <div key={index} className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#259CF4] text-white text-[10px] font-bold uppercase tracking-widest">
+                  <BadgeIcon size={14} fill="currentColor" className="text-white shrink-0" />
+                  <span>{badge}</span>
+                </div>
+              ))
+            ) : (
+              <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#259CF4] text-white text-[10px] font-bold uppercase tracking-widest">
+                <BadgeIcon size={14} fill="currentColor" className="text-white shrink-0" />
+                <span>{badgeText}</span>
+              </div>
+            )}
           </div>
           <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold text-primary dark:text-slate-50 leading-[1.15] md:leading-[1] tracking-tighter mb-3 md:mb-8">
             {titlePrefix} <br />
-            <span>{titleHighlight}</span>
+            <span className={highlightClassName || "text-[#259CF4] dark:text-[#259CF4]"}>{titleHighlight}</span>
           </h1>
           <p className="text-base md:text-xl text-slate-500 dark:text-slate-400 font-medium max-w-md leading-relaxed mb-6 md:mb-8">
             {description}
@@ -167,9 +181,11 @@ export const Hero = ({
                 </button>
 
                 {/* Icono Badge Flotante Secundario */}
-                <div className="absolute -top-2 -right-2 sm:-top-3 sm:-right-3 w-10 h-10 sm:w-12 sm:h-12 bg-slate-800 dark:bg-slate-700 rounded-full flex items-center justify-center text-white shadow-lg transition-all duration-500 transform group-hover/sec:-translate-y-1 group-hover/sec:rotate-[15deg] group-hover/sec:scale-110 group-active/sec:scale-95 z-20 border-4 border-white dark:border-slate-950 border-solid">
-                  <Users className="w-4 h-4 sm:w-5 sm:h-5 text-white" strokeWidth={2.5} />
-                </div>
+                {!hideFloatingIcon && (
+                  <div className="absolute -top-2 -right-2 sm:-top-3 sm:-right-3 w-10 h-10 sm:w-12 sm:h-12 bg-slate-800 dark:bg-slate-700 rounded-full flex items-center justify-center text-white shadow-lg transition-all duration-500 transform group-hover/sec:-translate-y-1 group-hover/sec:rotate-[15deg] group-hover/sec:scale-110 group-active/sec:scale-95 z-20 border-4 border-white dark:border-slate-950 border-solid">
+                    <Users className="w-4 h-4 sm:w-5 sm:h-5 text-white" strokeWidth={2.5} />
+                  </div>
+                )}
               </div>
             )}
           </div>
@@ -186,14 +202,17 @@ export const Hero = ({
             initial={{ opacity: 0.01, scale: 0.98 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.4 }}
-            className="relative w-full"
+            className="relative w-full group/slider"
           >
+            {/* Diffuse light blue glow effect behind the image */}
+            <div className="absolute -inset-2 bg-[#259CF4]/45 rounded-[2.2rem] sm:rounded-[3.2rem] blur-3xl opacity-80 group-hover/slider:opacity-95 group-hover/slider:scale-[1.03] transition-all duration-500" />
+
             <div
               onClick={handleSliderClick}
-              className={`relative z-10 bg-[#259CF4] rounded-[2rem] sm:rounded-[3rem] p-1.5 sm:p-2 shadow-lg shadow-slate-200/50 dark:shadow-none border-2 sm:border-4 border-[#259CF4] overflow-hidden aspect-[4/3] group/slider hover:shadow-2xl transition-all duration-500 transform active:scale-[0.99] ${(sliderAnchorId || images === DEFAULT_IMAGES) ? 'cursor-pointer' : 'cursor-default'
+              className={`relative z-10 bg-white dark:bg-slate-950 rounded-[2rem] sm:rounded-[3rem] overflow-hidden aspect-[4/3] transition-all duration-500 transform active:scale-[0.99] ${(sliderAnchorId || images === DEFAULT_IMAGES) ? 'cursor-pointer' : 'cursor-default'
                 }`}
             >
-              <div className="relative w-full h-full rounded-[1.7rem] sm:rounded-[2.5rem] overflow-hidden">
+              <div className="relative w-full h-full overflow-hidden">
                 <AnimatePresence initial={false}>
                   <motion.div
                     key={currentImageIndex}

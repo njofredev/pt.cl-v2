@@ -224,7 +224,7 @@ const LikeButton = () => {
 
 export const Footer = () => {
   const pathname = usePathname();
-  if (pathname === '/alianzas') return null;
+  if (pathname === '/alianzas' || pathname === '/marialuisabombal') return null;
 
   return (
     <footer className="bg-clinical-bg dark:bg-transparent text-slate-900 dark:text-white pt-20 md:pt-24 pb-12 transition-colors duration-300 border-t border-slate-200 dark:border-none relative z-10">

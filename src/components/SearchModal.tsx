@@ -188,7 +188,7 @@ export function SearchModal({ isOpen, onClose }: { isOpen: boolean; onClose: () 
                     className="w-full flex flex-col max-h-[85vh]"
                   >
                     {/* Sticky Header - SUPER COMPACT */}
-                    <div className="bg-primary px-6 py-6 text-white relative shrink-0">
+                    <div className="bg-[#1d8cdb] px-6 py-6 text-white relative shrink-0">
                       <button 
                         onClick={() => setSelectedPro(null)}
                         className="absolute top-4 left-4 p-2 bg-white/10 text-white rounded-full hover:bg-white/20 transition-all flex items-center gap-1.5 text-[10px] font-bold pr-3"
@@ -202,7 +202,7 @@ export function SearchModal({ isOpen, onClose }: { isOpen: boolean; onClose: () 
                         <X className="w-5 h-5" />
                       </button>
 
-                      <div className="relative w-20 h-20 bg-white/10 rounded-full flex items-center justify-center mb-4 overflow-hidden mx-auto border-2 border-white/20 mt-6">
+                      <div className="relative w-20 h-20 bg-white/15 rounded-full flex items-center justify-center mb-4 overflow-hidden mx-auto border-2 border-white/20 mt-6">
                         {selectedPro.image ? (
                           <Image 
                             src={selectedPro.image} 
@@ -212,15 +212,15 @@ export function SearchModal({ isOpen, onClose }: { isOpen: boolean; onClose: () 
                             sizes="80px"
                           />
                         ) : (
-                          <User size={40} className="text-secondary" />
+                          <User size={40} className="text-white" />
                         )}
                       </div>
                       
                       <div className="text-center px-2">
-                        <h3 className="text-xl sm:text-2xl font-bold tracking-tight leading-[1.2] mb-3 text-center w-full">{selectedPro.name}</h3>
+                        <h3 className="text-xl sm:text-2xl font-black tracking-tight leading-[1.2] mb-3 text-center w-full text-white">{selectedPro.name}</h3>
                         <div className="flex gap-1.5 justify-center flex-wrap">
-                          <Badge className="bg-secondary text-primary font-bold text-[10px] py-0.5">{selectedPro.specialty}</Badge>
-                          <Badge variant="outline" className="text-white border-white/20 text-[10px] py-0.5">{selectedPro.area}</Badge>
+                          <Badge className="bg-primary text-white font-bold text-[10px] py-1 px-3.5 rounded-full border-none shadow-sm">{selectedPro.specialty}</Badge>
+                          <Badge variant="outline" className="text-white border-white/30 text-[10px] py-1 px-3.5 rounded-full bg-white/10 backdrop-blur-sm">{selectedPro.area}</Badge>
                         </div>
                       </div>
                     </div>
@@ -240,7 +240,7 @@ export function SearchModal({ isOpen, onClose }: { isOpen: boolean; onClose: () 
                       {selectedPro.description && (
                         <div className="space-y-1.5">
                           <h3 className="text-[9px] font-bold uppercase tracking-widest text-slate-500 dark:text-slate-400 flex items-center gap-1.5">
-                            <Info size={12} className="text-secondary" /> Perfil
+                            <Info size={12} className="text-[#1d8cdb]" /> Perfil
                           </h3>
                           <p className="text-slate-600 dark:text-slate-300 font-medium leading-relaxed text-xs sm:text-sm">{selectedPro.description}</p>
                         </div>
@@ -248,7 +248,7 @@ export function SearchModal({ isOpen, onClose }: { isOpen: boolean; onClose: () 
                       {selectedPro.education && (
                         <div className="space-y-1.5">
                           <h3 className="text-[9px] font-bold uppercase tracking-widest text-slate-500 dark:text-slate-400 flex items-center gap-1.5">
-                            <GraduationCap size={12} className="text-secondary" /> Formación Académica
+                            <GraduationCap size={12} className="text-[#1d8cdb]" /> Formación Académica
                           </h3>
                           <p className="text-slate-600 dark:text-slate-300 font-medium leading-relaxed text-xs sm:text-sm">{selectedPro.education}</p>
                         </div>
@@ -256,7 +256,7 @@ export function SearchModal({ isOpen, onClose }: { isOpen: boolean; onClose: () 
                       {selectedPro.sucursal && (
                         <div className="space-y-1.5">
                           <h3 className="text-[9px] font-bold uppercase tracking-widest text-slate-500 dark:text-slate-400 flex items-center gap-1.5">
-                            <MapPin size={12} className="text-secondary" /> Ubicación
+                            <MapPin size={12} className="text-[#1d8cdb]" /> Ubicación
                           </h3>
                           <p className="text-slate-600 dark:text-slate-300 font-medium leading-relaxed text-xs sm:text-sm">{selectedPro.sucursal}</p>
                         </div>
@@ -265,21 +265,20 @@ export function SearchModal({ isOpen, onClose }: { isOpen: boolean; onClose: () 
 
                     {/* Sticky Action Footer ALWAYS VISIBLE */}
                     <div className="bg-white dark:bg-slate-950 p-5 border-t border-slate-100 dark:border-slate-800 shrink-0">
-                      <button 
-                        onClick={() => {
-                          onClose();
-                          window.location.href = "https://ff.healthatom.io/9p2Sq9";
-                        }}
-                        className="relative inline-flex w-full cursor-pointer select-none group"
-                      >
-                        <div className="bg-gradient-to-r from-primary to-[#1e3a8a] text-white w-full px-6 h-14 flex items-center justify-center rounded-full text-sm sm:text-base font-black tracking-tight shadow-lg shadow-primary/20 dark:shadow-primary/20 transition-all duration-500 transform group-hover:-translate-y-0.5 group-active:scale-95 relative z-10 whitespace-nowrap">
-                          Agendar Hora Ahora
-                        </div>
-                        
-                        <div className="absolute top-0 -right-1 sm:-right-2 w-10 h-10 bg-secondary rounded-full flex items-center justify-center text-primary shadow-md transition-all duration-500 transform group-hover:-translate-y-0.5 group-hover:rotate-[-12deg] group-hover:scale-105 group-active:scale-95 z-20 border-4 border-white dark:border-slate-950">
-                          <CalendarDays className="w-3.5 h-3.5" strokeWidth={3} />
-                        </div>
-                      </button>
+                      {(() => {
+                        const firstName = selectedPro.name.split(' ').filter(p => !p.includes('.')).filter(p => p.length > 0)[0] || selectedPro.name.split(' ')[0];
+                        return (
+                          <button 
+                            onClick={() => {
+                              onClose();
+                              window.location.href = selectedPro.bookingLink || "https://ff.healthatom.io/9p2Sq9";
+                            }}
+                            className="w-full bg-gradient-to-r from-primary to-[#1e3a8a] hover:from-[#111827] hover:to-[#1f2937] text-white font-bold h-12 md:h-14 rounded-full text-xs md:text-sm tracking-tight shadow-xl shadow-primary/20 transition-all duration-300 flex items-center justify-center cursor-pointer select-none active:scale-95 whitespace-nowrap"
+                          >
+                            Agendar Hora con {firstName}
+                          </button>
+                        );
+                      })()}
                     </div>
                   </motion.div>
                 ) : (

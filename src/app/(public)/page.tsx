@@ -32,7 +32,10 @@ export default async function Home() {
     <main className="relative min-h-screen bg-transparent dark:bg-transparent antialiased overflow-x-hidden transition-colors duration-300">
       {/* 1. HERO SECTION DINÁMICO */}
       <Hero
-        badgeText={`150+ Prestaciones • ${totalPros}+ Profesionales`}
+        badgeText={[
+          "150+ Prestaciones",
+          "50+ Profesionales"
+        ]}
         description={
           <>
             Creado para acompañarte en cada etapa del cuidado de tu salud.
@@ -143,16 +146,16 @@ export default async function Home() {
 
               {/* Columna Izquierda: Contexto */}
               <div className="max-w-xl">
-                <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-primary text-white text-[11px] font-bold uppercase tracking-widest mb-3">
-                  <ShieldCheck size={14} fill="currentColor" className="text-secondary shrink-0" /> 25% de Descuento (*)
+                <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#259CF4] text-white text-[10px] font-bold uppercase tracking-widest mb-3">
+                  <ShieldCheck size={14} fill="currentColor" className="text-white shrink-0" /> 25% de Descuento (*)
                 </div>
 
                 <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-primary dark:text-white mb-4 leading-tight tracking-tighter">
                   Beneficio Tarjeta Mi Vita <br />
                 </h2>
 
-                 <p className="text-lg text-slate-500 dark:text-slate-400 font-medium leading-relaxed mb-4">
-                  Accede a valores preferenciales en tus atenciones médicas y dentales.
+                <p className="text-lg text-slate-500 dark:text-slate-400 font-medium leading-relaxed mb-4">
+                  Ingresa tu rut y revisa el estado de tu beneficio. Accede a valores preferenciales en tus atenciones médicas y dentales.
                 </p>
 
                 <div className="mb-6 flex items-start gap-4">

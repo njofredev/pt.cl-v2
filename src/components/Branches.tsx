@@ -18,12 +18,13 @@ const branches = [
     id: 'tribunales',
     name: 'Sucursal Casa Matriz',
     address: 'Calle Los Tribunales #1268, Vitacura. Santiago',
-    mapLink: 'https://www.google.com/maps/search/?api=1&query=Calle+Los+Tribunales+1268+Vitacura',
+    mapLink: 'https://maps.app.goo.gl/WoWQ6CKgtLpBphgr9',
     hours: 'Lunes a viernes: 9:00 - 13:00 y 14:00 - 18:30',
     contact: {
       phone: '+562 2217 2635',
       whatsapp: '+569 6618 7736',
-      email: 'secretaria@policlinicotabancura.cl'
+      email: 'secretaria@policlinicotabancura.cl',
+      emails: ['secretaria@policlinicotabancura.cl']
     },
     image: '/Sucursales/sucursal_tribunales.webp',
     embedUrl: 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3330.550348530835!2d-70.5624518243113!3d-33.38279869340229!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x9662cf2f9e4c351b%3A0xed2752c723e031!2sLos%20Tribunales%201268%2C%207630442%20Vitacura%2C%20Regi%C3%B3n%20Metropolitana!5e0!3m2!1ses-419!2scl!4v1715294000000!5m2!1ses-419!2scl'
@@ -32,12 +33,16 @@ const branches = [
     id: 'vitacura',
     name: 'Sucursal Vitacura',
     address: 'Avenida Vitacura #8620, Vitacura. Santiago',
-    mapLink: 'https://www.google.com/maps/search/?api=1&query=Avenida+Vitacura+8620+Vitacura',
+    mapLink: 'https://maps.app.goo.gl/L3TNhpYTvyNwCqdS6',
     hours: 'Lunes a viernes: 8:30 - 20:00 y Sábados: 9:00 - 13:00',
     contact: {
       phone: '+562 2933 6740',
       whatsapp: '+569 6578 1253',
-      email: 'recepcionmedica@policlinicotabancura.cl'
+      email: 'recepcionmedica@policlinicotabancura.cl',
+      emails: [
+        'recepciondental@policlinicotabancura.cl',
+        'recepcionmedica@policlinicotabancura.cl'
+      ]
     },
     image: '/Sucursales/sucursal_maps.webp',
     embedUrl: 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3330.7288989075495!2d-70.5602714!3d-33.3781667!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x9662cf2e53286e2d%3A0x8328594285bd1bc1!2sAv.%20Vitacura%208620%2C%20Vitacura%2C%20Regi%C3%B3n%20Metropolitana!5e0!3m2!1ses-419!2scl!4v1715294100000!5m2!1ses-419!2scl'
@@ -130,8 +135,8 @@ export const Branches = () => {
                 </div>
 
                 {/* Contact Box (Phone & Whatsapp) & Email Box Row */}
-                <div className="grid sm:grid-cols-2 gap-3 w-full">
-                  {/* Left: Phones */}
+                <div className="flex flex-col gap-3 w-full">
+                  {/* Phones */}
                   <div className="bg-[#162158] text-white rounded-xl p-3 flex flex-col justify-center items-center min-h-[64px] shadow-sm">
                     <span className="text-[9px] font-black uppercase tracking-widest text-slate-300 flex items-center gap-1 mb-0.5">
                       <Phone size={10} /> Teléfonos
@@ -141,19 +146,23 @@ export const Branches = () => {
                         {branch.contact.phone}
                       </a>
                       <a href={`https://wa.me/${branch.contact.whatsapp.replace(/\+/g, '').replace(/\s/g, '')}`} target="_blank" rel="noopener noreferrer" className="hover:text-emerald-400 transition-colors">
-                        {branch.contact.whatsapp} (WA)
+                        {branch.contact.whatsapp} (WhatsApp)
                       </a>
                     </div>
                   </div>
 
-                  {/* Right: Email */}
-                  <div className="bg-[#162158] text-white rounded-xl p-3 flex flex-col justify-center items-center min-h-[64px] shadow-sm overflow-hidden">
+                  {/* Email */}
+                  <div className="bg-[#162158] text-white rounded-xl p-3 flex flex-col justify-center items-center min-h-[64px] shadow-sm">
                     <span className="text-[9px] font-black uppercase tracking-widest text-slate-300 flex items-center gap-1 mb-0.5">
                       <Mail size={10} /> Email
                     </span>
-                    <a href={`mailto:${branch.contact.email}`} className="text-xs font-bold leading-tight hover:text-[#259CF4] transition-colors truncate w-full px-1">
-                      {branch.contact.email}
-                    </a>
+                    <div className="flex flex-col gap-1 text-xs font-bold leading-tight w-full justify-center items-center">
+                      {branch.contact.emails.map((email) => (
+                        <a key={email} href={`mailto:${email}`} className="hover:text-[#259CF4] transition-colors break-all text-center">
+                          {email}
+                        </a>
+                      ))}
+                    </div>
                   </div>
                 </div>
               </div>
@@ -163,10 +172,16 @@ export const Branches = () => {
                 href={branch.mapLink}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-full bg-[#162158] hover:bg-[#111827] text-white font-bold py-3.5 px-6 rounded-xl transition-all duration-300 shadow-md flex items-center justify-center gap-2 cursor-pointer text-sm tracking-wide"
+                className="w-full bg-[#162158] hover:bg-[#111827] text-white font-bold py-3.5 px-6 rounded-xl transition-all duration-300 shadow-md flex items-center justify-center gap-2.5 cursor-pointer text-sm tracking-wide group"
               >
-                <span>Obtener indicaciones</span>
-                <ChevronRight size={16} />
+                <svg className="w-4 h-4 shrink-0 transition-transform group-hover:scale-110 bg-white rounded-full p-0.5" viewBox="0 0 24 24">
+                  <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" />
+                  <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" />
+                  <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l3.66-2.84z" />
+                  <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" />
+                </svg>
+                <span>Ver en Google Maps</span>
+                <ChevronRight size={16} className="transition-transform group-hover:translate-x-1" />
               </a>
             </div>
           ))}

@@ -1,5 +1,6 @@
 export const dynamic = 'force-dynamic';
 import React from 'react';
+import { Metadata } from 'next';
 import { ProfessionalFilter } from '@/components/ProfessionalFilter';
 import { Area, getProfessionals } from '@/data/professionals';
 import { Hero, HeroProps } from '@/components/Hero';
@@ -17,12 +18,26 @@ const SLUG_TO_AREA: Record<string, Area> = {
   'terapias': 'Terapias Complementarias',
 };
 
+type ParamsProps = {
+  params: Promise<{ slug: string }>;
+};
+
+export async function generateMetadata({ params }: ParamsProps): Promise<Metadata> {
+  const { slug } = await params;
+  const area = SLUG_TO_AREA[slug];
+  if (!area) return {};
+  return {
+    title: area,
+  };
+}
+
 const SLUG_TO_HERO: Record<string, HeroProps> = {
   'dental': {
     badgeText: "Excelencia Odontológica",
     badgeIconName: 'sparkles',
     titlePrefix: "Salud",
     titleHighlight: "Dental",
+    highlightClassName: "text-cyan-500 dark:text-cyan-400",
     description: "Cuidado integral de tu sonrisa con especialistas de elite y tecnología de vanguardia para resultados excepcionales.",
     images: [
       { src: '/generated/heroDental.webp', alt: 'Clínica Dental Premium', location: '+9 especialidades' },
@@ -42,6 +57,7 @@ const SLUG_TO_HERO: Record<string, HeroProps> = {
     badgeIconName: 'brain',
     titlePrefix: "Salud",
     titleHighlight: "Mental",
+    highlightClassName: "text-purple-500 dark:text-purple-400",
     description: "Un espacio seguro de acompañamiento profesional para fortalecer tu equilibrio emocional y calidad de vida.",
     images: [
       { src: '/generated/heroMental.webp', alt: 'Terapia Psicológica Especializada', location: 'Consulta Tabancura' },
@@ -59,6 +75,7 @@ const SLUG_TO_HERO: Record<string, HeroProps> = {
     badgeIconName: 'heartPulse',
     titlePrefix: "Medicina",
     titleHighlight: "General",
+    highlightClassName: "text-blue-600 dark:text-blue-500",
     description: "Atención primaria de excelencia con un enfoque preventivo y humano para cuidar lo que más importa: tu familia.",
     images: [
       { src: '/generated/heroMedica.webp', alt: 'Atención Médica Integral', location: 'Sala de Kinesiología' },
@@ -76,6 +93,7 @@ const SLUG_TO_HERO: Record<string, HeroProps> = {
     badgeIconName: 'activity',
     titlePrefix: "Terapias",
     titleHighlight: "Complementarias",
+    highlightClassName: "text-green-500 dark:text-green-400",
     description: "Integración de sabiduría y ciencia para potenciar tu salud natural en un entorno de armonía absoluta.",
     images: [
       { src: '/generated/heroComplementarias.webp', alt: 'Terapias de Bienestar - Biomagnetismo', location: 'Biomagnetismo' },

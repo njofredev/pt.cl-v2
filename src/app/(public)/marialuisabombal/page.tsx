@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
-import Image from 'next/image';
+import Script from 'next/script';
 import { 
   CheckCircle2, 
   Users, 
@@ -40,7 +40,7 @@ const WhatsAppIcon = ({ size = 16, className = "" }: { size?: number, className?
   </svg>
 );
 
-export default function AlianzasPage() {
+export default function MariaLuisaBombalPage() {
   const { theme, setTheme } = useTheme();
   const [mounted, setMounted] = useState(false);
 
@@ -65,7 +65,6 @@ export default function AlianzasPage() {
 
           {/* Right Actions */}
           <div className="flex items-center gap-4">
-
             {/* "Quiero agendar" Button */}
             <Button
               className="bg-primary hover:bg-primary/90 text-white rounded-xl h-10 px-5 text-xs font-bold transition-all active:scale-95 shadow-md shadow-primary/10"
@@ -81,16 +80,13 @@ export default function AlianzasPage() {
       <section className="relative pt-32 lg:pt-40 overflow-hidden">
         <div className="absolute inset-0 bg-[#f8faff] dark:bg-slate-950 z-0" />
         
-        {/* Curva decorativa */}
-        <div className="absolute right-0 top-0 h-full w-[45%] bg-white dark:bg-slate-900 z-10 hidden lg:block rounded-l-[10rem] shadow-[-20px_0_60px_rgba(0,0,0,0.02)]" />
-        
         <div className="container mx-auto px-6 relative z-20">
           <div className="flex flex-col lg:flex-row items-center min-h-[85vh] gap-16 py-12 lg:py-0">
             
             {/* Contenido Izquierda */}
             <div className="flex-1 max-w-2xl text-center lg:text-left">
               <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#259CF4] text-white text-[10px] font-black uppercase tracking-widest mb-8 shadow-sm">
-                <ShieldCheck size={14} className="animate-pulse text-white" /> Beneficio Exclusivo Alianzas
+                <ShieldCheck size={14} className="animate-pulse text-white" /> Beneficio Exclusivo María Luisa Bombal
               </div>
               
               <h1 className="text-5xl md:text-7xl font-black text-primary dark:text-white mb-8 tracking-tighter leading-[0.95]">
@@ -102,7 +98,7 @@ export default function AlianzasPage() {
               </h1>
               
               <p className="text-xl md:text-2xl text-slate-500 dark:text-slate-400 font-medium leading-relaxed mb-10">
-                Con el programa de <span className="text-primary dark:text-white font-bold">Alianzas Policlínico Tabancura</span> tienes <span className="bg-[#259CF4]/10 text-[#259CF4] px-2 py-0.5 rounded-lg font-black">25% de descuento</span> sobre el arancel general en tu atención.
+                Con el convenio de <span className="text-primary dark:text-white font-bold">María Luisa Bombal y Policlínico Tabancura</span> tienes <span className="bg-[#259CF4]/10 text-[#259CF4] px-2 py-0.5 rounded-lg font-black">25% de descuento</span> sobre el arancel general en tu atención.
               </p>
               
               <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
@@ -133,20 +129,20 @@ export default function AlianzasPage() {
               </div>
             </div>
 
-            {/* Imagen Derecha */}
-            <div className="flex-1 relative w-full h-[400px] lg:h-[600px] group">
+            {/* Video Derecho */}
+            <div className="flex-1 relative w-full aspect-video group">
               <div className="absolute inset-0 bg-gradient-to-tr from-secondary/20 to-primary/20 rounded-[4rem] blur-3xl opacity-30 group-hover:opacity-50 transition-opacity duration-700" />
-              <div className="relative w-full h-full rounded-[4rem] overflow-hidden border-8 border-white dark:border-slate-800 shadow-2xl transform lg:rotate-3 group-hover:rotate-0 transition-transform duration-700">
-                <Image 
-                  src="/alianzas_hero_family.png" 
-                  alt="Familia feliz" 
-                  fill
-                  className="object-cover"
-                  priority
+              <div className="relative w-full h-full rounded-[2.5rem] md:rounded-[4rem] overflow-hidden border-8 border-white dark:border-slate-800 bg-slate-950 shadow-2xl transition-transform duration-700">
+                <iframe
+                  src="https://www.youtube.com/embed/bvYrwtkV-Sk?autoplay=1&amp;mute=1&amp;loop=1&amp;playlist=bvYrwtkV-Sk&amp;controls=0&amp;showinfo=0&amp;rel=0&amp;modestbranding=1&amp;iv_load_policy=3&amp;vq=hd720"
+                  title="Video Corporativo"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                  allowFullScreen
+                  className="absolute inset-0 w-full h-full object-cover border-0 scale-[1.25]"
+                  style={{ pointerEvents: 'none' }}
                 />
               </div>
             </div>
-
           </div>
         </div>
       </section>
@@ -204,7 +200,7 @@ export default function AlianzasPage() {
           <div className="max-w-4xl mx-auto space-y-6 text-center">
             <div className="p-6 rounded-2xl bg-amber-50 dark:bg-amber-900/10 border border-amber-100 dark:border-amber-900/30">
                <p className="text-sm font-bold text-amber-700 dark:text-amber-400">
-                Si solicitaste una hora sin rellenar el formulario, debes avisar en recepción que vienes por el convenio de alianzas y mencionar tu establecimiento.
+                Si solicitaste una hora sin rellenar el formulario, debes avisar en recepción que vienes por el convenio María Luisa Bombal.
               </p>
             </div>
             <p className="text-xs font-medium text-slate-400 dark:text-slate-500">
@@ -234,10 +230,10 @@ export default function AlianzasPage() {
 
           <div className="tally-wrapper max-w-xl mx-auto">
             <iframe
-              src="https://tally.so/embed/nG8j1Z?hideTitle=1&amp;transparentBackground=1"
+              src="https://tally.so/embed/3EykJN?alignLeft=1&amp;hideTitle=1&amp;transparentBackground=1&amp;dynamicHeight=1"
               loading="lazy"
-              title="Alianzas"
-              className="w-full min-h-[574px] md:min-h-[654px] border-0 dark:invert dark:hue-rotate-180 dark:contrast-[0.9] dark:brightness-[0.95]"
+              title="Maria Luisa Bombal"
+              className="w-full min-h-[358px] border-0 dark:invert dark:hue-rotate-180 dark:contrast-[0.9] dark:brightness-[0.95]"
             />
           </div>
         </div>
@@ -485,7 +481,7 @@ export default function AlianzasPage() {
           </div>
         </div>
       </footer>
-
+      <Script src="https://tally.so/widgets/embed.js" strategy="afterInteractive" />
     </main>
   );
 }

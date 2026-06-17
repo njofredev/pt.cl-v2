@@ -164,6 +164,7 @@ export default function ConveniosPage() {
         statsNumber="100%"
         statsLabel="Validación I-Med"
         customRightElement={<ConveniosMarquee />}
+        hideFloatingIcon={true}
       />
 
       {/* Light mode organic blob backplate */}
@@ -182,8 +183,8 @@ export default function ConveniosPage() {
                   key={cat.id}
                   onClick={() => setActiveTab(cat.id)}
                   className={`flex items-center justify-center gap-2.5 px-6 py-4 rounded-[1.5rem] font-bold text-xs uppercase tracking-widest transition-all w-full select-none cursor-pointer ${isActive
-                    ? 'bg-primary dark:bg-slate-800 text-white shadow-lg'
-                    : 'text-slate-400 dark:text-slate-500 hover:text-primary dark:hover:text-white hover:bg-slate-50 dark:hover:bg-slate-950'
+                    ? 'bg-[#259CF4] text-white shadow-lg shadow-[#259CF4]/20'
+                    : 'text-slate-400 dark:text-slate-500 hover:text-[#259CF4] dark:hover:text-white hover:bg-slate-50 dark:hover:bg-slate-950'
                     }`}
                 >
                   {cat.icon}
@@ -211,9 +212,7 @@ export default function ConveniosPage() {
                       key={idx}
                       className="bg-white dark:bg-slate-900 rounded-[2.5rem] p-8 border border-slate-200 dark:border-slate-800/60 shadow-xl shadow-slate-200/20 dark:shadow-none relative overflow-hidden group hover:shadow-2xl transition-all duration-300"
                     >
-                      <div className="absolute top-0 right-0 w-32 h-32 bg-slate-50 dark:bg-slate-950 rounded-bl-[4rem] flex items-center justify-center -mr-4 -mt-4 group-hover:-translate-x-1 group-hover:translate-y-1 transition-transform">
-                        <span className="text-[10px] font-black text-slate-400 uppercase tracking-widest">{prev.type}</span>
-                      </div>
+
 
                       <div className="flex items-center gap-4 mb-6">
                         {prev.logo ? (
@@ -283,37 +282,6 @@ export default function ConveniosPage() {
           </AnimatePresence>
         </section>
 
-        {/* STEP BY STEP GUIDE */}
-        <section className="max-w-5xl mx-auto mb-28">
-          <div className="bg-primary dark:bg-slate-900 rounded-[4rem] p-12 md:p-20 text-white relative overflow-hidden shadow-2xl shadow-primary/25">
-            <div className="absolute top-0 right-0 w-[400px] h-[400px] bg-white/5 rounded-full -mr-48 -mt-48 blur-3xl" />
-
-            <div className="relative z-10 max-w-3xl mx-auto text-center mb-16">
-              <h2 className="text-3xl md:text-4xl font-black mb-4 tracking-tighter">¿Cómo utilizar tus convenios?</h2>
-              <p className="text-white/70 text-sm md:text-base font-semibold">Validar tus descuentos o coberturas de salud en nuestro policlínico es un proceso sencillo de 3 pasos.</p>
-            </div>
-
-            <div className="relative z-10 grid md:grid-cols-3 gap-12">
-              <div className="space-y-4 text-center md:text-left">
-                <div className="w-12 h-12 bg-white/10 backdrop-blur-md rounded-2xl flex items-center justify-center text-secondary font-black text-lg mx-auto md:mx-0 shadow-lg border border-white/5">01</div>
-                <h3 className="text-lg font-black tracking-tight">Agenda tu Atención</h3>
-                <p className="text-xs font-semibold text-white/70 leading-relaxed">Reserva tu hora a través de nuestra agenda digital o por vía telefónica en cualquiera de nuestras sucursales.</p>
-              </div>
-
-              <div className="space-y-4 text-center md:text-left">
-                <div className="w-12 h-12 bg-white/10 backdrop-blur-md rounded-2xl flex items-center justify-center text-secondary font-black text-lg mx-auto md:mx-0 shadow-lg border border-white/5">02</div>
-                <h3 className="text-lg font-black tracking-tight">Presenta tu Documento</h3>
-                <p className="text-xs font-semibold text-white/70 leading-relaxed">Al llegar al módulo de admisión, presenta tu cédula de identidad vigente e indica tu previsión o convenio corporativo.</p>
-              </div>
-
-              <div className="space-y-4 text-center md:text-left">
-                <div className="w-12 h-12 bg-white/10 backdrop-blur-md rounded-2xl flex items-center justify-center text-secondary font-black text-lg mx-auto md:mx-0 shadow-lg border border-white/5">03</div>
-                <h3 className="text-lg font-black tracking-tight">Validación Directa</h3>
-                <p className="text-xs font-semibold text-white/70 leading-relaxed">Validamos de forma directa tu copago por I-Med o aplicamos el descuento correspondiente en tu boleta al instante.</p>
-              </div>
-            </div>
-          </div>
-        </section>
 
         {/* FAQS SECTION */}
         <section id="faqs" className="max-w-3xl mx-auto mt-28 scroll-mt-36">
