@@ -331,7 +331,7 @@ const ProfessionalFilterContent = ({ initialArea, professionals }: { initialArea
     if (!initialArea) return null;
     switch (initialArea) {
       case "Salud Dental": return <SmilePlus size={36} className="text-cyan-500" strokeWidth={1.5} />;
-      case "Salud Mental": return <Brain size={36} className="text-purple-500" strokeWidth={1.5} />;
+      case "Salud Mental": return <Brain size={36} className="text-indigo-500" strokeWidth={1.5} />;
       case "Medicina General": return <Stethoscope size={36} className="text-blue-500" strokeWidth={1.5} />;
       case "Terapias Complementarias": return <Leaf size={36} className="text-green-500" strokeWidth={1.5} />;
       default: return null;
@@ -342,7 +342,7 @@ const ProfessionalFilterContent = ({ initialArea, professionals }: { initialArea
     if (!initialArea) return "text-[#259CF4] dark:text-[#259CF4]";
     switch (initialArea) {
       case "Salud Dental": return "text-cyan-500 dark:text-cyan-400";
-      case "Salud Mental": return "text-purple-500 dark:text-purple-400";
+      case "Salud Mental": return "text-indigo-500 dark:text-indigo-400";
       case "Medicina General": return "text-blue-500 dark:text-blue-400";
       case "Terapias Complementarias": return "text-green-500 dark:text-green-400";
       default: return "text-[#259CF4] dark:text-[#259CF4]";
@@ -680,7 +680,7 @@ const ProfessionalCard = ({ pro, idx }: { pro: Professional, idx: number }) => {
       exit={{ opacity: 0, scale: 0.9 }}
       transition={{ duration: 0.2, delay: idx * 0.01 }}
     >
-      <div className="group h-full border border-slate-300/70 dark:border-slate-800 hover:border-secondary/30 dark:hover:border-secondary/30 shadow-[0_10px_30px_rgba(0,0,0,0.04)] dark:shadow-none hover:shadow-2xl hover:shadow-secondary/10 dark:hover:shadow-secondary/20 transition-all duration-500 rounded-[3rem] overflow-hidden bg-white dark:bg-slate-900 flex flex-col">
+      <div className="group h-full border border-slate-300/70 dark:border-slate-800 hover:border-[#259CF4]/30 dark:hover:border-[#259CF4]/30 shadow-[0_10px_30px_rgba(0,0,0,0.04)] dark:shadow-none hover:shadow-2xl hover:shadow-[#259CF4]/10 dark:hover:shadow-[#259CF4]/20 transition-all duration-500 rounded-[3rem] overflow-hidden bg-white dark:bg-slate-900 flex flex-col">
         <div className="p-0 flex flex-col h-full">
           {/* Área de Imagen - Avatar Circular Centrado */}
           <div className="pt-12 pb-6 flex justify-center">
@@ -702,7 +702,7 @@ const ProfessionalCard = ({ pro, idx }: { pro: Professional, idx: number }) => {
           </div>
 
           <div className="p-8 pt-2 flex-grow flex flex-col items-center text-center">
-            <h3 className="text-xl font-bold text-primary dark:text-slate-50 mb-3 leading-tight group-hover:text-secondary dark:group-hover:text-secondary transition-colors w-full px-4">
+            <h3 className="text-xl font-bold text-primary dark:text-slate-50 mb-3 leading-tight group-hover:text-[#259CF4] dark:group-hover:text-[#259CF4] transition-colors w-full px-4">
               {pro.name}
             </h3>
 
@@ -753,7 +753,7 @@ const ProfessionalCard = ({ pro, idx }: { pro: Professional, idx: number }) => {
 
             <Dialog onOpenChange={(open) => !open && setShowSpecInfo(false)}>
               <DialogTrigger asChild>
-                <button className="w-full max-w-[230px] bg-white dark:bg-slate-800/50 border border-slate-200/80 dark:border-slate-700 hover:border-secondary/50 text-slate-600 dark:text-slate-300 hover:text-primary dark:hover:text-white font-bold h-11 rounded-full text-[10px] tracking-[0.15em] uppercase transition-all duration-300 shadow-sm hover:shadow-md flex items-center justify-center cursor-pointer select-none active:scale-95 whitespace-nowrap">
+                <button className="w-full max-w-[230px] bg-white dark:bg-slate-800/50 border border-slate-200/80 dark:border-slate-700 hover:border-[#259CF4]/50 text-slate-600 dark:text-slate-300 hover:text-primary dark:hover:text-white font-bold h-11 rounded-full text-[10px] tracking-[0.15em] uppercase transition-all duration-300 shadow-sm hover:shadow-md flex items-center justify-center cursor-pointer select-none active:scale-95 whitespace-nowrap">
                   Ver Perfil Completo
                 </button>
               </DialogTrigger>

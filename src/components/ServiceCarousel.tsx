@@ -22,12 +22,12 @@ interface CarouselItem {
   desc: string;
   icon: React.ReactNode;
   link: string;
-  color?: 'cyan' | 'purple' | 'rose' | 'blue' | 'green' | 'secondary';
+  color?: 'cyan' | 'indigo' | 'rose' | 'blue' | 'green' | 'secondary';
 }
 
 const COLOR_MAP = {
   cyan: { text: "text-cyan-500", bg: "bg-cyan-500/10", border: "border-cyan-500/30", hoverBorder: "group-hover/card:border-cyan-500", hoverBg: "group-hover/card:bg-cyan-500" },
-  purple: { text: "text-purple-500", bg: "bg-purple-500/10", border: "border-purple-500/30", hoverBorder: "group-hover/card:border-purple-500", hoverBg: "group-hover/card:bg-purple-500" },
+  indigo: { text: "text-indigo-500", bg: "bg-indigo-500/10", border: "border-indigo-500/30", hoverBorder: "group-hover/card:border-indigo-500", hoverBg: "group-hover/card:bg-indigo-500" },
   rose: { text: "text-rose-500", bg: "bg-rose-500/10", border: "border-rose-500/30", hoverBorder: "group-hover/card:border-rose-500", hoverBg: "group-hover/card:bg-rose-500" },
   blue: { text: "text-blue-500", bg: "bg-blue-500/10", border: "border-blue-500/30", hoverBorder: "group-hover/card:border-blue-500", hoverBg: "group-hover/card:bg-blue-500" },
   green: { text: "text-green-500", bg: "bg-green-500/10", border: "border-green-500/30", hoverBorder: "group-hover/card:border-green-500", hoverBg: "group-hover/card:bg-green-500" },
@@ -36,7 +36,7 @@ const COLOR_MAP = {
 
 const SERVICES: CarouselItem[] = [
   { title: "Salud Dental", desc: "Odontología avanzada con tecnología.", icon: <SmilePlus size={22} />, link: "/servicios/dental", color: 'cyan' },
-  { title: "Salud Mental", desc: "Acompañamiento con enfoque humano.", icon: <Brain size={22} />, link: "/servicios/mental", color: 'purple' },
+  { title: "Salud Mental", desc: "Acompañamiento con enfoque humano.", icon: <Brain size={22} />, link: "/servicios/mental", color: 'indigo' },
   { title: "Toma de Muestras", desc: "Resultados rápidos y precisos en 24h.", icon: <Microscope size={22} />, link: "/servicios/medicina", color: 'rose' },
   { title: "Medicina General", desc: "Atención integral para toda tu familia.", icon: <Stethoscope size={22} />, link: "/servicios/medicina", color: 'blue' },
   { title: "Terapias Complementarias", desc: "Enfoque holístico para tu salud.", icon: <Leaf size={22} />, link: "/servicios/terapias", color: 'green' }

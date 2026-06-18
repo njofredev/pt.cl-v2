@@ -33,12 +33,13 @@ export async function generateMetadata({ params }: ParamsProps): Promise<Metadat
 
 const SLUG_TO_HERO: Record<string, HeroProps> = {
   'dental': {
+    category: 'dental',
     badgeText: "Excelencia Odontológica",
     badgeIconName: 'sparkles',
     titlePrefix: "Salud",
     titleHighlight: "Dental",
     highlightClassName: "text-cyan-500 dark:text-cyan-400",
-    description: "Cuidado integral de tu sonrisa con especialistas de elite y tecnología de vanguardia para resultados excepcionales.",
+    description: "Cuidado integral de tu sonrisa con destacados especialistas y tecnología de vanguardia para resultados excepcionales.",
     images: [
       { src: '/generated/heroDental.webp', alt: 'Clínica Dental Premium', location: '+9 especialidades' },
       { src: '/generated/heroDental2.webp', alt: 'Equipamiento Odontológico Moderno', location: 'Centro Odontológico Vitacura' },
@@ -50,14 +51,16 @@ const SLUG_TO_HERO: Record<string, HeroProps> = {
     floatingIconBg: 'bg-cyan-500',
     buttonText: "Agenda aquí",
     secondaryButtonText: "Conoce más",
-    secondaryButtonAnchorId: "controles-filtro"
+    secondaryButtonAnchorId: "controles-filtro",
+    hideFloatingIcon: true
   },
   'mental': {
+    category: 'mental',
     badgeText: "Atención presencial y Teleconsulta",
     badgeIconName: 'brain',
     titlePrefix: "Salud",
     titleHighlight: "Mental",
-    highlightClassName: "text-purple-500 dark:text-purple-400",
+    highlightClassName: "text-indigo-600 dark:text-indigo-400",
     description: "Un espacio seguro de acompañamiento profesional para fortalecer tu equilibrio emocional y calidad de vida.",
     images: [
       { src: '/generated/heroMental.webp', alt: 'Terapia Psicológica Especializada', location: 'Consulta Tabancura' },
@@ -65,12 +68,14 @@ const SLUG_TO_HERO: Record<string, HeroProps> = {
     statsNumber: "+2k",
     statsLabel: "Vidas Transformadas",
     floatingIconName: 'brain',
-    floatingIconBg: 'bg-purple-500',
+    floatingIconBg: 'bg-indigo-600',
     buttonText: "Agenda aquí",
     secondaryButtonText: "Conoce más",
-    secondaryButtonAnchorId: "controles-filtro"
+    secondaryButtonAnchorId: "controles-filtro",
+    hideFloatingIcon: true
   },
   'medicina': {
+    category: 'medicina',
     badgeText: "Cuidado Médico Integral",
     badgeIconName: 'heartPulse',
     titlePrefix: "Medicina",
@@ -86,9 +91,11 @@ const SLUG_TO_HERO: Record<string, HeroProps> = {
     floatingIconBg: 'bg-blue-500',
     buttonText: "Agenda aquí",
     secondaryButtonText: "Conoce más",
-    secondaryButtonAnchorId: "controles-filtro"
+    secondaryButtonAnchorId: "controles-filtro",
+    hideFloatingIcon: true
   },
   'terapias': {
+    category: 'terapias',
     badgeText: "Equilibrio y Salud Natural",
     badgeIconName: 'activity',
     titlePrefix: "Terapias",
@@ -105,7 +112,8 @@ const SLUG_TO_HERO: Record<string, HeroProps> = {
     floatingIconBg: 'bg-green-500',
     buttonText: "Agenda aquí",
     secondaryButtonText: "Conoce más",
-    secondaryButtonAnchorId: "controles-filtro"
+    secondaryButtonAnchorId: "controles-filtro",
+    hideFloatingIcon: true
   }
 };
 
@@ -125,7 +133,7 @@ const SLUG_TO_SCHEDULER_CONFIG: Record<string, { badge: string; title: string; a
   'mental': {
     badge: "Agenda Salud Mental",
     title: "Reserva tu Atención de Salud Mental",
-    accent: "text-purple-500 dark:text-purple-400 bg-purple-500/10 dark:bg-purple-500/20"
+    accent: "text-indigo-600 dark:text-indigo-400 bg-indigo-500/10 dark:bg-indigo-500/20"
   },
   'medicina': {
     badge: "Agenda Médica",
@@ -161,7 +169,7 @@ export default async function ServicePage({ params }: { params: Promise<{ slug: 
   };
 
   return (
-    <div id="top" className="min-h-screen bg-clinical-bg dark:bg-slate-950 transition-colors duration-300">
+    <div id="top" className="min-h-screen bg-clinical-bg dark:bg-slate-950 transition-colors duration-300 overflow-x-hidden">
       {/* Usamos el Hero global pero con props inyectadas para la categoría */}
       <Hero {...dynamicHeroProps} />
 

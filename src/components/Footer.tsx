@@ -23,10 +23,11 @@ const WhatsAppIcon = ({ size = 18, className = "" }: { size?: number, className?
 interface FooterSectionProps {
   title: string;
   links: { name: string; href: string }[];
+  defaultOpen?: boolean;
 }
 
-const FooterSection = ({ title, links }: FooterSectionProps) => {
-  const [isOpen, setIsOpen] = useState(false);
+const FooterSection = ({ title, links, defaultOpen = false }: FooterSectionProps) => {
+  const [isOpen, setIsOpen] = useState(defaultOpen);
 
   const scrollToTop = (e: React.MouseEvent, href: string) => {
     if (href === '/' && typeof window !== 'undefined' && window.location.pathname === '/') {
@@ -158,69 +159,6 @@ const LogoTicker = ({ title, logos, speed = 15 }: { title: string, logos: string
   );
 };
 
-const LikeButton = () => {
-  const [likes, setLikes] = useState(0);
-  const [isLiked, setIsLiked] = useState(false);
-  const controls = useAnimation();
-
-  useEffect(() => {
-    const savedLikes = localStorage.getItem('footer-likes-v2');
-    const userLiked = localStorage.getItem('footer-is-liked-v2');
-
-    // Si no hay likes guardados, empezamos desde 0
-    if (savedLikes) {
-      setLikes(parseInt(savedLikes));
-    } else {
-      const baseLikes = 0;
-      setLikes(baseLikes);
-      localStorage.setItem('footer-likes-v2', baseLikes.toString());
-    }
-
-    if (userLiked) setIsLiked(true);
-  }, []);
-
-  const handleLike = async () => {
-    const newLiked = !isLiked;
-    const newLikes = newLiked ? likes + 1 : likes - 1;
-
-    setLikes(newLikes);
-    setIsLiked(newLiked);
-
-    localStorage.setItem('footer-likes-v2', newLikes.toString());
-    if (newLiked) {
-      localStorage.setItem('footer-is-liked-v2', 'true');
-      await controls.start({
-        scale: [1, 1.4, 1],
-        transition: { duration: 0.3 }
-      });
-    } else {
-      localStorage.removeItem('footer-is-liked-v2');
-    }
-  };
-
-  return (
-    <motion.button
-      onClick={handleLike}
-      whileHover={{ scale: 1.05 }}
-      whileTap={{ scale: 0.95 }}
-      className={`flex items-center gap-2 px-3 py-1.5 rounded-full border transition-all duration-300 ${isLiked
-          ? 'bg-rose-500/10 border-rose-500/20 text-rose-500'
-          : 'bg-slate-50 dark:bg-white/5 border-slate-100 dark:border-white/5 text-slate-400 dark:text-slate-500 hover:text-rose-500 hover:border-rose-500/20'
-        }`}
-    >
-      <motion.div animate={controls}>
-        <Heart
-          size={12}
-          fill={isLiked ? "currentColor" : "none"}
-          className={isLiked ? "drop-shadow-[0_0_8px_rgba(244,63,94,0.4)]" : ""}
-        />
-      </motion.div>
-      <span className="text-[10px] font-bold tabular-nums">
-        {likes.toLocaleString()}
-      </span>
-    </motion.button>
-  );
-};
 
 export const Footer = () => {
   const pathname = usePathname();
@@ -244,7 +182,7 @@ export const Footer = () => {
                 />
               </Link>
               <p className="text-slate-600 dark:text-slate-300 font-medium leading-relaxed text-sm sm:text-base mb-6 text-center md:text-left">
-                Tecnología y cuidado humano al servicio de tu salud. Más de 20 años innovando en medicina integral.
+                Tecnología y cuidado humano al servicio de tu salud.
               </p>
               <div className="flex gap-4 justify-center md:justify-start">
                 <a href="https://www.instagram.com/politabancura/" target="_blank" rel="noopener noreferrer" aria-label="Ir a nuestro perfil de Instagram" className="w-10 h-10 bg-slate-100 dark:bg-white/10 rounded-full flex items-center justify-center text-slate-600 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-white/20 hover:text-secondary transition-all group">
@@ -286,6 +224,7 @@ export const Footer = () => {
           {/* Site Map: Nosotros */}
           <FooterSection
             title="Institucional"
+            defaultOpen={true}
             links={[
               { name: 'Inicio', href: '/' },
               { name: 'Quiénes Somos', href: '/nosotros' },
@@ -321,26 +260,26 @@ export const Footer = () => {
             <div className="space-y-8 w-full flex flex-col items-center md:items-start">
 
               {/* Sucursal Vitacura */}
-              <div className="space-y-4 flex flex-col items-center md:items-start w-full">
-                <div className="flex items-center justify-center md:justify-start gap-2 mb-1 w-full">
+              <div className="flex flex-col items-center md:items-start w-full">
+                <div className="flex items-center justify-center md:justify-start gap-2 mb-3.5 w-full">
                   <div className="h-px w-4 bg-secondary/30 hidden md:block"></div>
                   <span className="text-slate-900 dark:text-white text-[11px] font-bold uppercase tracking-widest text-center md:text-left">Sucursal Vitacura</span>
                 </div>
-                <div className="flex flex-col items-start space-y-3">
+                <div className="flex flex-col items-center md:items-start space-y-3 w-full">
                   <a
                     href="https://www.google.com/maps/search/?api=1&query=Avenida+Vitacura+8620+Vitacura"
                     target="_blank"
                     rel="noopener noreferrer"
                     onClick={() => trackEvent('click_mapa', { label: 'Footer Vitacura Map' })}
-                    className="flex gap-3 text-slate-600 dark:text-slate-300 hover:text-primary dark:hover:text-white transition-colors group text-sm items-start text-left"
+                    className="flex gap-3 text-slate-600 dark:text-slate-300 hover:text-primary dark:hover:text-white transition-colors group text-sm items-center justify-center md:justify-start text-center md:text-left w-full"
                   >
-                    <MapPin className="text-secondary shrink-0 mt-0.5 group-hover:scale-110 transition-transform" size={16} />
+                    <MapPin className="text-secondary shrink-0 group-hover:scale-110 transition-transform" size={16} />
                     <span className="font-medium">Av. Vitacura 8620</span>
                   </a>
                   <a
                     href="tel:+56229336740"
                     onClick={() => trackEvent('click_llamar', { label: 'Footer Vitacura Phone' })}
-                    className="flex gap-3 text-slate-600 dark:text-slate-300 hover:text-primary dark:hover:text-white transition-colors group text-sm items-center text-left"
+                    className="flex gap-3 text-slate-600 dark:text-slate-300 hover:text-primary dark:hover:text-white transition-colors group text-sm items-center justify-center md:justify-start text-center md:text-left w-full"
                   >
                     <Phone className="text-secondary shrink-0 group-hover:scale-110 transition-transform" size={16} />
                     <span className="font-medium">+56 2 2933 6740</span>
@@ -350,16 +289,16 @@ export const Footer = () => {
                     target="_blank"
                     rel="noopener noreferrer"
                     onClick={() => trackEvent('click_whatsapp', { label: 'Footer Vitacura WhatsApp' })}
-                    className="flex gap-3 text-slate-600 dark:text-slate-300 hover:text-emerald-500 dark:hover:text-emerald-400 transition-colors group text-sm items-center text-left"
+                    className="flex gap-3 text-slate-600 dark:text-slate-300 hover:text-emerald-500 dark:hover:text-emerald-400 transition-colors group text-sm items-center justify-center md:justify-start text-center md:text-left w-full"
                   >
                     <WhatsAppIcon className="text-emerald-500 shrink-0 group-hover:scale-110 transition-transform" size={16} />
                     <span className="font-medium">+56 9 6578 1253</span>
                   </a>
-                  <a href="mailto:recepciondental@policlinicotabancura.cl" className="flex gap-3 text-slate-600 dark:text-slate-300 hover:text-primary dark:hover:text-white transition-colors group text-sm items-center pt-1 text-left">
+                  <a href="mailto:recepciondental@policlinicotabancura.cl" className="flex gap-3 text-slate-600 dark:text-slate-300 hover:text-primary dark:hover:text-white transition-colors group text-sm items-center justify-center md:justify-start pt-1 text-center md:text-left w-full">
                     <Mail className="text-secondary shrink-0 group-hover:scale-110 transition-transform" size={16} />
                     <span className="font-medium text-[12px] break-all">recepciondental@policlinicotabancura.cl</span>
                   </a>
-                  <a href="mailto:recepcionmedica@policlinicotabancura.cl" className="flex gap-3 text-slate-600 dark:text-slate-300 hover:text-primary dark:hover:text-white transition-colors group text-sm items-center text-left">
+                  <a href="mailto:recepcionmedica@policlinicotabancura.cl" className="flex gap-3 text-slate-600 dark:text-slate-300 hover:text-primary dark:hover:text-white transition-colors group text-sm items-center justify-center md:justify-start text-center md:text-left w-full">
                     <Mail className="text-secondary shrink-0 group-hover:scale-110 transition-transform" size={16} />
                     <span className="font-medium text-[12px] break-all">recepcionmedica@policlinicotabancura.cl</span>
                   </a>
@@ -367,26 +306,26 @@ export const Footer = () => {
               </div>
 
               {/* Sucursal Los Tribunales */}
-              <div className="space-y-4 pt-6 border-t border-slate-100 dark:border-white/5 flex flex-col items-center md:items-start w-full">
-                <div className="flex items-center justify-center md:justify-start gap-2 mb-1 w-full">
+              <div className="pt-6 border-t border-slate-100 dark:border-white/5 flex flex-col items-center md:items-start w-full">
+                <div className="flex items-center justify-center md:justify-start gap-2 mb-3.5 w-full">
                   <div className="h-px w-4 bg-secondary/30 hidden md:block"></div>
                   <span className="text-slate-900 dark:text-white text-[11px] font-bold uppercase tracking-widest text-center md:text-left">Casa Matriz - Los Tribunales</span>
                 </div>
-                <div className="flex flex-col items-start space-y-3">
+                <div className="flex flex-col items-center md:items-start space-y-3 w-full">
                   <a
                     href="https://www.google.com/maps/search/?api=1&query=Calle+Los+Tribunales+1268+Vitacura"
                     target="_blank"
                     rel="noopener noreferrer"
                     onClick={() => trackEvent('click_mapa', { label: 'Footer Tribunales Map' })}
-                    className="flex gap-3 text-slate-600 dark:text-slate-300 hover:text-primary dark:hover:text-white transition-colors group text-sm items-start text-left"
+                    className="flex gap-3 text-slate-600 dark:text-slate-300 hover:text-primary dark:hover:text-white transition-colors group text-sm items-center justify-center md:justify-start text-center md:text-left w-full"
                   >
-                    <MapPin className="text-secondary shrink-0 mt-0.5 group-hover:scale-110 transition-transform" size={16} />
+                    <MapPin className="text-secondary shrink-0 group-hover:scale-110 transition-transform" size={16} />
                     <span className="font-medium">Calle Los Tribunales #1268</span>
                   </a>
                   <a
                     href="tel:+56222172635"
                     onClick={() => trackEvent('click_llamar', { label: 'Footer Tribunales Phone' })}
-                    className="flex gap-3 text-slate-600 dark:text-slate-300 hover:text-primary dark:hover:text-white transition-colors group text-sm items-center text-left"
+                    className="flex gap-3 text-slate-600 dark:text-slate-300 hover:text-primary dark:hover:text-white transition-colors group text-sm items-center justify-center md:justify-start text-center md:text-left w-full"
                   >
                     <Phone className="text-secondary shrink-0 group-hover:scale-110 transition-transform" size={16} />
                     <span className="font-medium">+56 2 2217 2635</span>
@@ -396,12 +335,12 @@ export const Footer = () => {
                     target="_blank"
                     rel="noopener noreferrer"
                     onClick={() => trackEvent('click_whatsapp', { label: 'Footer Tribunales WhatsApp' })}
-                    className="flex gap-3 text-slate-600 dark:text-slate-300 hover:text-emerald-500 dark:hover:text-emerald-400 transition-colors group text-sm items-center text-left"
+                    className="flex gap-3 text-slate-600 dark:text-slate-300 hover:text-emerald-500 dark:hover:text-emerald-400 transition-colors group text-sm items-center justify-center md:justify-start text-center md:text-left w-full"
                   >
                     <WhatsAppIcon className="text-emerald-500 shrink-0 group-hover:scale-110 transition-transform" size={16} />
                     <span className="font-medium">+56 9 6618 7736</span>
                   </a>
-                  <a href="mailto:secretaria@policlinicotabancura.cl" className="flex gap-3 text-[12px] text-slate-400 dark:text-slate-300 hover:text-primary dark:hover:text-white transition-colors items-center pt-1 text-left">
+                  <a href="mailto:secretaria@policlinicotabancura.cl" className="flex gap-3 text-[12px] text-slate-400 dark:text-slate-300 hover:text-primary dark:hover:text-white transition-colors items-center justify-center md:justify-start pt-1 text-center md:text-left w-full">
                     <Mail className="text-secondary shrink-0 opacity-80" size={15} />
                     <span className="break-all font-medium">secretaria@policlinicotabancura.cl</span>
                   </a>
@@ -417,9 +356,6 @@ export const Footer = () => {
             <div className="flex items-center gap-2 text-slate-600 dark:text-slate-400 text-[10px] font-bold uppercase tracking-widest">
               <Activity size={14} className="text-secondary" /> Diseñado y desarrollado en Policlínico Tabancura
             </div>
-
-            {/* Botón de Like / Apoyo */}
-            <LikeButton />
           </div>
 
           <p className="text-slate-600 dark:text-slate-500 text-[10px] font-bold uppercase tracking-[0.4em]">

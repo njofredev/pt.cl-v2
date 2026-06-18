@@ -85,26 +85,19 @@ export default function NosotrosPage() {
             <div className="relative rounded-[2.5rem] bg-slate-50 dark:bg-slate-900 p-3 sm:p-4 border border-slate-100 dark:border-white/5 overflow-hidden shadow-xl shadow-slate-200/30 dark:shadow-none transition-all hover:shadow-2xl hover:-translate-y-1 duration-500">
               <div className="relative aspect-[16/9] w-full rounded-[1.8rem] sm:rounded-[2rem] overflow-hidden border border-white/20">
                 <Image
-                  src="/imagenes_general/Fundadoras.jpeg"
+                  src="/imagenes_general/fundadoras2.webp"
                   alt="Nuestras Fundadoras"
                   fill
                   className="object-cover object-center group-hover:scale-105 transition-transform duration-700 ease-out"
                   sizes="(max-width: 1024px) 100vw, 896px"
                 />
-                {/* Overlay de nombres elegante - Solo Desktop (al hover) */}
-                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-0 lg:group-hover:opacity-100 transition-opacity duration-500 hidden lg:flex flex-col justify-end p-8 text-white">
-                  <p className="text-xs font-bold uppercase tracking-widest text-secondary mb-2">Identidad Histórica</p>
-                  <p className="text-sm md:text-base font-medium leading-relaxed">
-                    <span className="font-black">De izq a der:</span> Sra. Paz Correa, Beatriz Lambert, Isabel Prieto, Patricia Braun, Gloria Correa, Isabel Braun.
-                  </p>
-                </div>
               </div>
 
-              {/* Texto debajo de la imagen - Solo Mobile */}
-              <div className="lg:hidden px-4 py-8 text-center sm:text-left bg-white dark:bg-slate-900/50 rounded-b-[2rem]">
-                <p className="text-[10px] font-black uppercase tracking-widest text-secondary mb-3">Identidad Histórica</p>
-                <p className="text-sm text-slate-600 dark:text-slate-300 font-medium leading-relaxed">
-                  <span className="font-black text-primary dark:text-secondary">De izq a der:</span> Sra. Paz Correa, Beatriz Lambert, Isabel Prieto, Patricia Braun, Gloria Correa, Isabel Braun.
+              {/* Texto debajo de la imagen - Siempre Visible (tanto en Mobile como en Desktop) */}
+              <div className="px-4 py-6 sm:py-8 text-center sm:text-left bg-white dark:bg-slate-900/50 rounded-b-[2rem] mt-2">
+                <p className="text-[10px] font-black uppercase tracking-widest text-[#259CF4] mb-3">Identidad Histórica</p>
+                <p className="text-sm md:text-base text-slate-600 dark:text-slate-300 font-medium leading-relaxed">
+                  <span className="font-black text-primary dark:text-[#259CF4]">De izq a der:</span> Sra. Paz Correa, Beatriz Lambert, Isabel Prieto, Patricia Braun, Gloria Correa, Isabel Braun.
                 </p>
               </div>
             </div>

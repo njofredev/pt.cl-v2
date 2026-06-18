@@ -28,6 +28,7 @@ import {
   ArrowLeft,
   Leaf,
   SmilePlus,
+  ClipboardPlus,
   Megaphone,
   Info,
   Accessibility,
@@ -77,7 +78,7 @@ const NAV_ITEMS = [
     isMega: true,
     subItems: [
       { name: 'Salud Dental', href: '/servicios/dental', desc: 'Odontología avanzada y estética.', icon: <SmilePlus className="text-cyan-500" /> },
-      { name: 'Salud Mental', href: '/servicios/mental', desc: 'Apoyo psicológico y psiquiátrico.', icon: <Brain className="text-purple-500" /> },
+      { name: 'Salud Mental', href: '/servicios/mental', desc: 'Apoyo psicológico y psiquiátrico.', icon: <Brain className="text-indigo-500" /> },
       { name: 'Medicina General', href: '/servicios/medicina', desc: 'Tu salud primaria en buenas manos.', icon: <Stethoscope className="text-blue-600" /> },
       { name: 'Terapias Complementarias', href: '/servicios/terapias', desc: 'Bienestar integral y holístico.', icon: <Leaf className="text-green-500" /> },
     ]
@@ -89,7 +90,7 @@ const NAV_ITEMS = [
     highlight: true,
     subItems: [
       { name: 'Centro Radiológico', href: '/novedades/centro-radiologico', desc: 'Imágenes diagnósticas de alta precisión.', icon: <Activity className="text-indigo-600" /> },
-      { name: 'Laboratorio Digital Dental', href: '/novedades/laboratorio', desc: 'Tecnología chairside CAD/CAM y CEREC.', icon: <Sparkles className="text-rose-500" /> },
+      { name: 'Laboratorio Digital Dental', href: '/novedades/laboratorio', desc: 'Tecnología chairside CAD/CAM and CEREC.', icon: <Sparkles className="text-rose-500" /> },
       { name: 'Validador Mi Vita', href: '/#mivita', desc: 'Verifica tus beneficios exclusivos.', icon: <Sparkles className="text-amber-500" /> },
       { name: 'Resultados de Exámenes', href: 'http://190.215.215.125:9091/Pacientes.aspx', desc: 'Consulta tus resultados en laboratorio Laboval.', icon: <FileText className="text-cyan-600" /> },
     ]
@@ -138,7 +139,7 @@ export const Navbar = () => {
     if (pathname?.startsWith('/servicios/mental')) {
       return {
         text: "Agenda aquí",
-        bgColor: "bg-purple-500",
+        bgColor: "bg-indigo-600",
         Icon: Brain,
       };
     }
@@ -213,6 +214,11 @@ export const Navbar = () => {
       return () => clearTimeout(timer);
     }
   }, [confirmLink]);
+
+  useEffect(() => {
+    setActiveDropdown(null);
+    setIsMobileMenuOpen(false);
+  }, [pathname]);
 
   // Hide Navbar for specific routes
   if (pathname === '/alianzas' || pathname === '/marialuisabombal') {
@@ -310,19 +316,22 @@ export const Navbar = () => {
               animate={{ height: 'auto', opacity: 1 }}
               exit={{ height: 0, opacity: 0 }}
               transition={{ duration: 0.3, ease: "easeInOut" }}
-              className="bg-gradient-to-r from-cyan-700 via-teal-600 to-emerald-500 dark:from-indigo-950 dark:via-purple-900 dark:to-indigo-950 text-white overflow-hidden relative z-[60] shadow-md border-b border-white/10"
+              className="bg-white dark:bg-slate-950 text-slate-800 dark:text-slate-100 overflow-hidden relative z-[60] shadow-sm border-b border-indigo-50 dark:border-slate-800"
             >
               <div className="container mx-auto px-4 py-2 md:py-2.5 flex items-center justify-center gap-x-2 sm:gap-x-4 text-center relative pr-28 md:pr-32">
-                <SmilePlus className="w-5 h-5 shrink-0 hidden sm:block text-yellow-200 animate-pulse" />
-                <p className="text-[9px] sm:text-[11px] md:text-xs font-bold tracking-wide flex flex-wrap items-center justify-center gap-x-1">
-                  <span className="hidden md:inline-flex items-center bg-white/20 px-2 py-0.5 rounded-full text-[9px] mr-1">
-                    <Megaphone className="w-2.5 h-2.5 mr-1 -rotate-12 shrink-0" /> PROMOCIÓN LIMITADA
+                <SmilePlus className="w-5 h-5 shrink-0 hidden sm:block text-indigo-600 dark:text-yellow-400 animate-pulse" />
+                <p className="text-[9px] sm:text-[11px] md:text-xs font-bold tracking-wide flex flex-wrap items-center justify-center gap-x-1 text-slate-700 dark:text-slate-200">
+                  <span className="hidden md:inline-flex items-center bg-indigo-50 dark:bg-indigo-950/40 px-2 py-0.5 rounded-full text-[9px] mr-1 text-indigo-700 dark:text-indigo-300 border border-indigo-100/60 dark:border-indigo-900/30">
+                    <Megaphone className="w-2.5 h-2.5 mr-1 -rotate-12 shrink-0 text-indigo-600 dark:text-indigo-400" /> PROMOCIÓN LIMITADA
                   </span>
-                  <span>Limpieza Dental: Evaluación + Profilaxis + RX Bitewing Bilateral por</span>
-                  <span className="text-yellow-200 text-xs sm:text-sm font-black flex items-center ml-1 underline underline-offset-2">
+                  <span className="flex items-center gap-1">
+                    <ClipboardPlus className="w-3.5 h-3.5 text-indigo-600 dark:text-yellow-400 shrink-0 inline-block relative -top-[0.5px]" />
+                    Limpieza Dental: Evaluación + Profilaxis + RX Bitewing Bilateral por
+                  </span>
+                  <span className="text-indigo-600 dark:text-yellow-300 text-xs sm:text-sm font-black flex items-center ml-1 underline underline-offset-2">
                     $24.000.-
                   </span>
-                  <span className="hidden lg:inline bg-black/10 px-2 py-0.5 rounded-full text-[8px] ml-2 border border-white/10 tracking-widest">HASTA 30 DE JUNIO | PARA MAYORES DE 15 AÑOS</span>
+                  <span className="hidden lg:inline bg-slate-50 dark:bg-black/20 px-2 py-0.5 rounded-full text-[8px] ml-2 border border-slate-200/60 dark:border-white/10 tracking-widest text-slate-500 dark:text-slate-400">HASTA 30 DE JUNIO | PARA MAYORES DE 15 AÑOS | SÓLO WEB</span>
                 </p>
 
                 <div className="absolute right-2 sm:right-4 top-1/2 -translate-y-1/2 flex items-center gap-x-1 sm:gap-x-2">
@@ -331,14 +340,14 @@ export const Navbar = () => {
                     target="_blank"
                     rel="noopener noreferrer"
                     onClick={() => trackEvent('click_promocion', { label: 'Promo Limpieza Dental Sticky Bar' })}
-                    className="bg-white text-cyan-900 hover:bg-cyan-50 dark:bg-purple-50 dark:text-purple-900 dark:hover:bg-white px-2 sm:px-4 py-1 rounded-full text-[8px] sm:text-[10px] font-black uppercase hover:scale-105 transition-all shrink-0 shadow-sm flex items-center gap-1 active:scale-95"
+                    className="bg-indigo-600 text-white hover:bg-indigo-700 dark:bg-white dark:text-slate-900 dark:hover:bg-white/90 px-2 sm:px-4 py-1 rounded-full text-[8px] sm:text-[10px] font-black uppercase hover:scale-105 transition-all shrink-0 shadow-sm flex items-center gap-1 active:scale-95"
                   >
                     Agendar <ChevronRight className="w-2.5 h-2.5 sm:w-3 sm:h-3" />
                   </a>
 
                   <button
                     onClick={() => setShowPromo(false)}
-                    className="p-1 sm:p-1.5 text-white/70 hover:text-white hover:bg-white/20 rounded-full transition-colors shrink-0"
+                    className="p-1 sm:p-1.5 text-indigo-400 hover:text-indigo-700 hover:bg-indigo-50 dark:text-white/70 dark:hover:text-white dark:hover:bg-white/20 rounded-full transition-colors shrink-0"
                     aria-label="Cerrar promoción"
                   >
                     <X className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
@@ -423,7 +432,7 @@ export const Navbar = () => {
         </div>
 
         {/* Main Nav */}
-        <div className={`transition-all duration-300 bg-[#259CF4] ${isScrolled ? 'py-2 shadow-md' : 'py-4'} border-b border-transparent backdrop-blur-md`}>
+        <div className={`transition-all duration-300 bg-[#259CF4]/92 ${isScrolled ? 'py-2 shadow-md' : 'py-4'} border-b border-transparent backdrop-blur-md`}>
           <div className="container mx-auto px-6 flex justify-between items-center">
             <div className="flex items-center xl:gap-12 gap-4">
               <Link href="/" onClick={scrollToTop} className="flex items-center group shrink-0">
@@ -443,7 +452,7 @@ export const Navbar = () => {
                 {NAV_ITEMS.map((item) => (
                   <div
                     key={item.name}
-                    className="px-4 py-2"
+                    className="px-4 py-2 relative"
                     onMouseEnter={() => setActiveDropdown(item.name)}
                   >
                     <Link
@@ -453,12 +462,21 @@ export const Navbar = () => {
                         else handleAnchorClick(e, item.href);
                       }}
                       className={`flex items-center gap-1.5 transition-all duration-300 ${(item as any).highlight
-                        ? `bg-[#1ad1a5] hover:bg-[#15af8a] text-white px-5 py-2 rounded-full font-extrabold shadow-md hover:scale-[1.02] active:scale-95`
+                        ? `bg-[#162158] hover:bg-[#111827] text-white px-5 py-2 rounded-full font-extrabold shadow-md hover:scale-[1.02] active:scale-95`
                         : `hover:text-white/80 ${activeDropdown === item.name ? 'text-white/80' : ''}`
                         }`}
                     >
                       {(item as any).highlight && <Sparkles size={14} className="mr-1 text-white fill-white/20" />}
-                      {item.name}
+                      <span className="relative py-0.5">
+                        {item.name}
+                        {activeDropdown === item.name && !item.highlight && (
+                          <motion.div
+                            layoutId="nav-underline"
+                            className="absolute -bottom-0.5 left-0 right-0 h-px bg-white rounded-full"
+                            transition={{ type: "spring", stiffness: 380, damping: 30 }}
+                          />
+                        )}
+                      </span>
                       {item.subItems && <ChevronDown size={12} className={`transition-transform duration-200 ${activeDropdown === item.name ? 'rotate-180' : ''}`} />}
                     </Link>
                   </div>
@@ -481,7 +499,10 @@ export const Navbar = () => {
                       onMouseLeave={() => setActiveDropdown(null)}
                       className="absolute top-full pt-6 w-[720px] z-50 origin-top cursor-default"
                     >
-                      <div className="border border-slate-100 dark:border-slate-800 bg-white dark:bg-slate-950 rounded-3xl shadow-[0_20px_50px_rgba(0,0,0,0.08)] dark:shadow-none overflow-hidden">
+                      <div className={`border rounded-3xl overflow-hidden transition-all duration-300 ${activeDropdown === 'Novedades 2026'
+                        ? 'border-white/10 bg-[#162158]/95 dark:bg-slate-950/95 backdrop-blur-xl shadow-[0_25px_60px_rgba(0,0,0,0.35)]'
+                        : 'border-white/20 dark:border-slate-800/80 bg-white/95 dark:bg-slate-950/92 backdrop-blur-xl shadow-[0_20px_50px_rgba(22,33,88,0.12)] dark:shadow-none'
+                        }`}>
                         <div className="p-5 pb-3">
                           <motion.div
                             key={activeDropdown}
@@ -492,6 +513,7 @@ export const Navbar = () => {
                           >
                             {NAV_ITEMS.find(i => i.name === activeDropdown)?.subItems?.map((sub) => {
                               const isConfirming = confirmLink === sub.href;
+                              const isNovedades = activeDropdown === 'Novedades 2026';
 
                               return (
                                 <Link
@@ -506,27 +528,44 @@ export const Navbar = () => {
                                       }
                                     }
                                     handleAnchorClick(e, sub.href);
+                                    setActiveDropdown(null);
+                                    setIsMobileMenuOpen(false);
                                   }}
                                   target={sub.href.startsWith('http') ? "_blank" : undefined}
                                   rel={sub.href.startsWith('http') ? "noopener noreferrer" : undefined}
                                   className={`group/sub flex items-start gap-4 p-3.5 rounded-2xl transition-all border border-transparent ${isConfirming
                                     ? 'bg-amber-400 dark:bg-amber-500 border-amber-500 hover:bg-amber-500 shadow-md scale-[1.02]'
-                                    : 'hover:bg-slate-50 dark:hover:bg-slate-900 hover:border-slate-100 dark:hover:border-slate-800'
+                                    : isNovedades
+                                      ? 'hover:bg-white/10 hover:border-white/15 hover:shadow-sm scale-[1.01]'
+                                      : 'hover:bg-[#e8effe] dark:hover:bg-[#162158]/55 hover:border-[#259CF4]/20 dark:hover:border-[#259CF4]/10 hover:shadow-sm scale-[1.01]'
                                     }`}
                                 >
                                   {sub.icon && (
-                                    <div className={`w-11 h-11 rounded-xl flex items-center justify-center shadow-sm group-hover/sub:shadow-md group-hover/sub:scale-105 transition-all shrink-0 [&>svg]:w-5 [&>svg]:h-5 ${isConfirming ? 'bg-white text-amber-600' : 'bg-white dark:bg-slate-900 border border-transparent dark:border-slate-800'
+                                    <div className={`w-11 h-11 rounded-xl flex items-center justify-center shadow-sm group-hover/sub:shadow-md group-hover/sub:scale-110 group-hover/sub:rotate-3 transition-all shrink-0 [&>svg]:w-5 [&>svg]:h-5 ${isConfirming
+                                      ? 'bg-white text-amber-600'
+                                      : isNovedades
+                                        ? 'bg-white border border-white/10 group-hover/sub:bg-slate-50'
+                                        : 'bg-white dark:bg-slate-900 border border-transparent dark:border-slate-800'
                                       }`}>
                                       {sub.icon}
                                     </div>
                                   )}
                                   <div className="flex flex-col pt-1">
-                                    <span className={`text-[14.5px] font-bold transition-colors tracking-tight ${isConfirming ? 'text-slate-900' : 'text-primary dark:text-slate-100 group-hover/sub:text-secondary'
+                                    <span className={`text-[14.5px] font-bold transition-all duration-300 tracking-tight flex items-center gap-1 group-hover/sub:translate-x-1 ${isConfirming
+                                      ? 'text-slate-900'
+                                      : isNovedades
+                                        ? 'text-white group-hover/sub:text-white'
+                                        : 'text-primary dark:text-slate-100 group-hover/sub:text-[#162158] dark:group-hover/sub:text-[#259CF4]'
                                       }`}>
                                       {isConfirming ? "Saldrás de Policlínico Tabancura" : sub.name}
+                                      <ChevronRight className={`w-3.5 h-3.5 opacity-0 -translate-x-2 group-hover/sub:opacity-100 group-hover/sub:translate-x-0 transition-all duration-300 ${isNovedades ? 'text-white' : 'text-[#259CF4]'}`} />
                                     </span>
                                     {sub.desc && (
-                                      <span className={`text-[11px] font-medium leading-snug mt-2 transition-all ${isConfirming ? 'text-slate-800' : 'text-slate-400 opacity-80 group-hover/sub:opacity-100'
+                                      <span className={`text-[11px] font-medium leading-snug mt-2 transition-all ${isConfirming
+                                        ? 'text-slate-800'
+                                        : isNovedades
+                                          ? 'text-white/60 group-hover/sub:text-white/95'
+                                          : 'text-slate-400 opacity-80 group-hover/sub:opacity-100 dark:group-hover/sub:text-slate-200'
                                         }`}>
                                         {isConfirming ? "Haz clic de nuevo para continuar al portal externo." : sub.desc}
                                       </span>

@@ -407,9 +407,9 @@ export const GoogleReviews = () => {
             <motion.div
               key={`${branch}-${idx}`}
               whileHover={{ y: -4 }}
-              className="w-[320px] md:w-[380px] bg-white dark:bg-slate-900 p-6 sm:p-8 rounded-[2rem] border border-slate-300/80 dark:border-slate-800 shadow-[0_8px_30px_rgba(0,0,0,0.03)] dark:shadow-none hover:shadow-2xl hover:shadow-slate-300/50 dark:hover:shadow-none flex flex-col shrink-0 group/card transition-all duration-300"
+              className="w-[280px] md:w-[380px] bg-white dark:bg-slate-900 p-5 md:p-8 rounded-[2rem] border border-slate-300/80 dark:border-slate-800 shadow-[0_8px_30px_rgba(0,0,0,0.03)] dark:shadow-none hover:shadow-2xl hover:shadow-slate-300/50 dark:hover:shadow-none flex flex-col shrink-0 group/card transition-all duration-300"
             >
-              <div className="flex justify-between items-start mb-5">
+              <div className="flex justify-between items-start mb-3 md:mb-5">
                 <div className="flex gap-0.5">
                   {[...Array(review.nota)].map((_, i) => (
                     <Star key={i} size={14} fill="#FBBC05" className="text-[#FBBC05]" />
@@ -418,11 +418,11 @@ export const GoogleReviews = () => {
                 <Quote size={22} className="text-slate-200 dark:text-slate-800 group-hover/card:text-secondary/20 transition-colors rotate-180" />
               </div>
 
-              <p className="text-[14px] md:text-[15px] text-slate-600 dark:text-slate-300 font-medium leading-relaxed mb-6 flex-1 italic">
+              <p className="text-[14px] md:text-[15px] text-slate-600 dark:text-slate-300 font-medium leading-relaxed mb-4 md:mb-6 flex-1 italic line-clamp-3 md:line-clamp-none">
                 "{review.text}"
               </p>
 
-              <div className="flex items-center gap-3 pt-4 border-t border-slate-200 dark:border-slate-800 mt-auto">
+              <div className="flex items-center gap-3 pt-3 md:pt-4 border-t border-slate-200 dark:border-slate-800 mt-auto">
                 <div className="w-9 h-9 rounded-full bg-slate-100 dark:bg-slate-800 flex items-center justify-center text-xs font-black text-slate-500 dark:text-slate-400 shrink-0">
                   {review.author.split(' ').map((n: string) => n[0]).join('').substring(0, 2)}
                 </div>
