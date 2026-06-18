@@ -23,6 +23,12 @@ import { Button } from "@/components/ui/button";
 import Image from 'next/image';
 
 import { Area, getProfessionals } from '@/data/professionals';
+import { Metadata } from 'next';
+
+export const metadata: Metadata = {
+  title: "Policlínico Tabancura | Salud Dental, Mental y Medicina General en Vitacura",
+  description: "Policlínico Tabancura es una corporación sin fines de lucro en Vitacura que ofrece atención de excelencia con destacados profesionales. Agenda tu hora online en Salud Dental, Salud Mental, Medicina General y Terapias.",
+};
 
 export default async function Home() {
   const professionals = await getProfessionals();
@@ -30,6 +36,59 @@ export default async function Home() {
 
   return (
     <main className="relative min-h-screen bg-transparent dark:bg-transparent antialiased overflow-x-hidden transition-colors duration-300">
+      {/* Schema.org Structured Data */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "MedicalBusiness",
+            "name": "Policlínico Tabancura",
+            "alternateName": "Poli Tabancura",
+            "url": "https://www.policlinicotabancura.cl",
+            "logo": "https://www.policlinicotabancura.cl/logo.svg",
+            "image": "https://www.policlinicotabancura.cl/Sucursales/heroActual.webp",
+            "description": "Policlínico Tabancura es una corporación sin fines de lucro en Vitacura que ofrece atención de excelencia con destacados profesionales. Agenda tu hora online en Salud Dental, Salud Mental, Medicina General y Terapias.",
+            "telephone": "+56229336740",
+            "address": {
+              "@type": "PostalAddress",
+              "streetAddress": "Av Vitacura 8620",
+              "addressLocality": "Vitacura",
+              "addressRegion": "Región Metropolitana",
+              "addressCountry": "CL"
+            },
+            "geo": {
+              "@type": "GeoCoordinates",
+              "latitude": -33.3888,
+              "longitude": -70.5422
+            },
+            "openingHoursSpecification": [
+              {
+                "@type": "OpeningHoursSpecification",
+                "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
+                "opens": "08:30",
+                "closes": "20:00"
+              },
+              {
+                "@type": "OpeningHoursSpecification",
+                "dayOfWeek": "Saturday",
+                "opens": "09:00",
+                "closes": "13:00"
+              }
+            ],
+            "medicalSpecialty": [
+              "Dentistry",
+              "Psychiatry",
+              "GeneralPractice"
+            ],
+            "sameAs": [
+              "https://www.instagram.com/politabancura/",
+              "https://www.facebook.com/profile.php?id=61568214167163",
+              "https://www.tiktok.com/@politabancura"
+            ]
+          })
+        }}
+      />
       {/* 1. HERO SECTION DINÁMICO */}
       <Hero
         badgeText={[
