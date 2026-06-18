@@ -145,7 +145,7 @@ export const Hero = ({
     }
   };
   return (
-    <section className="relative z-10 pt-[140px] sm:pt-[160px] md:pt-[230px] lg:pt-[250px] pb-12 md:pb-20 bg-transparent dark:bg-transparent transition-colors duration-300">
+    <section className="main-hero relative z-10 pt-[140px] sm:pt-[160px] md:pt-[230px] lg:pt-[250px] pb-12 md:pb-20 bg-transparent dark:bg-transparent transition-colors duration-300">
       <div className="container mx-auto px-6 grid lg:grid-cols-2 gap-6 lg:gap-16 items-center">
         <motion.div
           initial={{ opacity: 0, x: -30 }}

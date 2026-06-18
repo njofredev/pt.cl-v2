@@ -95,3 +95,18 @@
     background-color: #cbd5e1;
   }
 }
+
+/* Ajustes de espacio para evitar solapamiento con el sticky de promoción */
+main {
+  transition: margin-top 0.3s ease-in-out;
+}
+
+body.promo-visible main {
+  margin-top: 56px; /* Desplazamiento para mobile */
+}
+
+@media (min-width: 640px) {
+  body.promo-visible main {
+    margin-top: 40px; /* Desplazamiento para desktop */
+  }
+}

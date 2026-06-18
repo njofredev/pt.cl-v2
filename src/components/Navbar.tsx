@@ -220,6 +220,21 @@ export const Navbar = () => {
     setIsMobileMenuOpen(false);
   }, [pathname]);
 
+  useEffect(() => {
+    if (typeof document !== 'undefined') {
+      if (showPromo) {
+        document.body.classList.add('promo-visible');
+      } else {
+        document.body.classList.remove('promo-visible');
+      }
+    }
+    return () => {
+      if (typeof document !== 'undefined') {
+        document.body.classList.remove('promo-visible');
+      }
+    };
+  }, [showPromo]);
+
   // Hide Navbar for specific routes
   if (pathname === '/alianzas' || pathname === '/marialuisabombal') {
     return null;
@@ -347,10 +362,10 @@ export const Navbar = () => {
 
                   <button
                     onClick={() => setShowPromo(false)}
-                    className="p-1 sm:p-1.5 text-indigo-400 hover:text-indigo-700 hover:bg-indigo-50 dark:text-white/70 dark:hover:text-white dark:hover:bg-white/20 rounded-full transition-colors shrink-0"
+                    className="p-2 sm:p-2.5 text-indigo-400 hover:text-indigo-700 hover:bg-indigo-50 dark:text-white/70 dark:hover:text-white dark:hover:bg-white/20 rounded-full transition-colors shrink-0"
                     aria-label="Cerrar promoción"
                   >
-                    <X className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
+                    <X className="w-5 h-5 sm:w-6 sm:h-6" />
                   </button>
                 </div>
               </div>
