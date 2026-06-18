@@ -8,14 +8,18 @@ export const CallCTA = () => {
 
   return (
     <>
-      {/* Full-width CTA Banner */}
-      <section className="w-full bg-[#162158] py-8 flex justify-center items-center my-0">
-        <div className="container mx-auto px-6 flex justify-center">
+      {/* Full-width CTA Banner (Optimized) */}
+      <section className="w-full bg-gradient-to-r from-[#0f1740] via-[#162158] to-[#0f1740] py-9 flex justify-center items-center my-0 relative overflow-hidden border-y border-slate-200/5 dark:border-white/5">
+        {/* Soft background glow */}
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(37,156,244,0.06),transparent_60%)] pointer-events-none" />
+        
+        <div className="container mx-auto px-6 flex justify-center relative z-10">
           <button
             onClick={() => setIsOpen(true)}
-            className="bg-[#1ad1a5] hover:bg-[#15af8a] text-[#162158] font-bold px-8 py-4 rounded-2xl text-[15px] sm:text-lg tracking-tight transition-all duration-300 transform hover:scale-105 active:scale-95 shadow-lg shadow-black/10 cursor-pointer"
+            className="bg-[#1ad1a5] hover:bg-[#15af8a] text-[#162158] font-bold px-8 py-4 rounded-2xl text-[15px] sm:text-lg tracking-tight transition-all duration-300 transform hover:scale-105 active:scale-95 shadow-lg shadow-[#1ad1a5]/15 cursor-pointer flex items-center gap-3"
           >
-            Prefiero llamar para agendar una hora
+            <Phone className="w-5 h-5 shrink-0" strokeWidth={2.5} />
+            <span>Prefiero llamar para agendar una hora</span>
           </button>
         </div>
       </section>

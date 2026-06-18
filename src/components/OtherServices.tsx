@@ -6,14 +6,14 @@ import { SmilePlus, Brain, Stethoscope, Leaf, ChevronRight } from 'lucide-react'
 
 const NAV_SERVICES = [
   { slug: 'dental', name: 'Dental', fullName: 'Salud Dental', icon: SmilePlus, color: 'cyan' },
-  { slug: 'mental', name: 'Salud Mental', fullName: 'Salud Mental', icon: Brain, color: 'purple' },
+  { slug: 'mental', name: 'Salud Mental', fullName: 'Salud Mental', icon: Brain, color: 'indigo' },
   { slug: 'medicina', name: 'Médica', fullName: 'Medicina General', icon: Stethoscope, color: 'blue' },
   { slug: 'terapias', name: 'Bienestar', fullName: 'Terapias Complementarias', icon: Leaf, color: 'emerald' },
 ];
 
 const colorClasses: Record<string, { text: string; bg: string; hover: string }> = {
   cyan: { text: 'text-cyan-500', bg: 'bg-cyan-500/10', hover: 'hover:bg-cyan-500 hover:text-white' },
-  purple: { text: 'text-purple-500', bg: 'bg-purple-500/10', hover: 'hover:bg-purple-500 hover:text-white' },
+  indigo: { text: 'text-indigo-500', bg: 'bg-indigo-500/10', hover: 'hover:bg-indigo-500 hover:text-white' },
   blue: { text: 'text-blue-500', bg: 'bg-blue-500/10', hover: 'hover:bg-blue-500 hover:text-white' },
   emerald: { text: 'text-emerald-500', bg: 'bg-emerald-500/10', hover: 'hover:bg-emerald-500 hover:text-white' }
 };

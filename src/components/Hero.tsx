@@ -47,6 +47,7 @@ export interface HeroProps {
   customRightElement?: React.ReactNode;
   showBranches?: boolean;
   hideFloatingIcon?: boolean;
+  category?: 'home' | 'dental' | 'mental' | 'medicina' | 'terapias';
 }
 
 const DEFAULT_IMAGES = [
@@ -57,7 +58,7 @@ export const Hero = ({
   badgeText = "Agenda 100% Digital",
   badgeIconName = "zap",
   titlePrefix = "Salud de calidad, ",
-  titleHighlight = "más cerca de ti.",
+  titleHighlight = "más cerca de ti",
   highlightClassName,
   description = "Reserva tu hora, revisa exámenes y gestiona tu bienestar desde cualquier lugar, fácil y rápido.",
   buttonText = "Reserva tu atención",
@@ -72,7 +73,8 @@ export const Hero = ({
   sliderAnchorId,
   customRightElement,
   showBranches = false,
-  hideFloatingIcon = false
+  hideFloatingIcon = false,
+  category = 'home'
 }: HeroProps) => {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
 
@@ -101,10 +103,49 @@ export const Hero = ({
     }
   };
 
+  const renderGlowShapes = () => {
+    switch (category) {
+      case 'dental':
+        return (
+          <div className="absolute inset-0 pointer-events-none select-none z-0">
+            {/* Top-Right Cyan Glow */}
+            <div className="absolute -top-12 -right-12 w-64 h-64 bg-cyan-400/30 dark:bg-cyan-500/10 rounded-full blur-3xl opacity-75 animate-pulse duration-[6000ms]" />
+          </div>
+        );
+      case 'mental':
+        return (
+          <div className="absolute inset-0 pointer-events-none select-none z-0">
+            {/* Top-Right Indigo Glow */}
+            <div className="absolute -top-12 -right-12 w-72 h-72 bg-indigo-400/25 dark:bg-indigo-500/10 rounded-full blur-3xl opacity-75" />
+          </div>
+        );
+      case 'medicina':
+        return (
+          <div className="absolute inset-0 pointer-events-none select-none z-0">
+            {/* Top-Right Blue Glow */}
+            <div className="absolute -top-12 -right-12 w-72 h-72 bg-blue-500/25 dark:bg-blue-600/10 rounded-full blur-3xl opacity-75" />
+          </div>
+        );
+      case 'terapias':
+        return (
+          <div className="absolute inset-0 pointer-events-none select-none z-0">
+            {/* Top-Right Green Glow */}
+            <div className="absolute -top-12 -right-12 w-64 h-64 bg-emerald-400/20 dark:bg-emerald-500/5 rounded-full blur-3xl opacity-80" />
+          </div>
+        );
+      default:
+        return (
+          <div className="absolute inset-0 pointer-events-none select-none z-0">
+            {/* Default/Home: Brand Celeste & Blue Glows */}
+            <div className="absolute -top-16 -right-16 w-80 h-80 bg-[#259CF4]/30 dark:bg-[#259CF4]/10 rounded-full blur-3xl opacity-75 animate-pulse duration-[7000ms]" />
+            <div className="absolute -bottom-20 -left-20 w-96 h-96 bg-[#162158]/15 dark:bg-[#162158]/5 rounded-full blur-3xl opacity-80" />
+            <div className="absolute top-1/3 left-1/4 w-48 h-48 bg-cyan-400/20 dark:bg-cyan-500/5 rounded-full blur-3xl" />
+          </div>
+        );
+    }
+  };
   return (
-    <section className="relative pt-[200px] sm:pt-[220px] md:pt-44 pb-12 md:pb-20 overflow-hidden bg-transparent dark:bg-transparent transition-colors duration-300">
-
-
+    <section className="relative z-10 pt-[140px] sm:pt-[160px] md:pt-[230px] lg:pt-[250px] pb-12 md:pb-20 bg-transparent dark:bg-transparent transition-colors duration-300">
       <div className="container mx-auto px-6 grid lg:grid-cols-2 gap-6 lg:gap-16 items-center">
         <motion.div
           initial={{ opacity: 0, x: -30 }}
@@ -204,8 +245,7 @@ export const Hero = ({
             transition={{ duration: 0.4 }}
             className="relative w-full group/slider"
           >
-            {/* Diffuse light blue glow effect behind the image */}
-            <div className="absolute -inset-2 bg-[#259CF4]/45 rounded-[2.2rem] sm:rounded-[3.2rem] blur-3xl opacity-80 group-hover/slider:opacity-95 group-hover/slider:scale-[1.03] transition-all duration-500" />
+            {renderGlowShapes()}
 
             <div
               onClick={handleSliderClick}

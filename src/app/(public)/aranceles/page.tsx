@@ -388,7 +388,7 @@ export default function ArancelesPage() {
                                 <span className={`text-[7px] font-black uppercase tracking-wider px-1 rounded ${
                                   item.source === 'dentalink'
                                     ? 'bg-cyan-500/10 text-cyan-500 border border-cyan-500/10'
-                                    : 'bg-purple-500/10 text-purple-500 border border-purple-500/10'
+                                    : 'bg-indigo-500/10 text-indigo-500 border border-indigo-500/10'
                                 }`}>
                                   {item.source === 'dentalink' ? 'Odontología' : 'Médica'}
                                 </span>
@@ -405,7 +405,7 @@ export default function ArancelesPage() {
                                 <span className={`text-[8px] font-black uppercase tracking-wider px-1.5 py-0.5 rounded ${
                                   item.source === 'dentalink'
                                     ? 'bg-cyan-500/10 text-cyan-500 border border-cyan-500/20'
-                                    : 'bg-purple-500/10 text-purple-500 border border-purple-500/20'
+                                    : 'bg-indigo-500/10 text-indigo-500 border border-indigo-500/20'
                                 }`}>
                                   {item.source === 'dentalink' ? 'Odontología' : 'Esp. Médica'}
                                 </span>

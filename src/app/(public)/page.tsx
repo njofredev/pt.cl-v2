@@ -145,7 +145,7 @@ export default async function Home() {
             <div className="grid lg:grid-cols-2 gap-16 items-center">
 
               {/* Columna Izquierda: Contexto */}
-              <div className="max-w-xl">
+              <div className="max-w-xl flex flex-col items-center text-center lg:items-start lg:text-left mx-auto lg:mx-0">
                 <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#259CF4] text-white text-[10px] font-bold uppercase tracking-widest mb-3">
                   <ShieldCheck size={14} fill="currentColor" className="text-white shrink-0" /> 25% de Descuento (*)
                 </div>
@@ -158,7 +158,7 @@ export default async function Home() {
                   Ingresa tu rut y revisa el estado de tu beneficio. Accede a valores preferenciales en tus atenciones médicas y dentales.
                 </p>
 
-                <div className="mb-6 flex items-start gap-4">
+                <div className="mb-6 flex items-center justify-center lg:items-start lg:justify-start gap-4">
                   <div className="group shrink-0">
                     <Image
                       src="/logos_convenios_prevision/mivita_v2_light.png"
@@ -179,7 +179,7 @@ export default async function Home() {
                   </div>
                 </div>
 
-                <div className="mb-8 flex flex-col items-start gap-2">
+                <div className="mb-8 flex flex-col items-center lg:items-start gap-2">
                   <a
                     href="#agendar"
                     className="bg-[#162158] hover:bg-[#111827] text-white font-bold px-6 py-2.5 rounded-full text-sm transition-all duration-300 shadow-md inline-block text-center"

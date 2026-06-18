@@ -34,63 +34,93 @@ interface Category {
   title: string;
   icon: React.ReactNode;
   services: Service[];
-  color?: 'cyan' | 'purple' | 'rose' | 'blue' | 'green' | 'orange';
+  color?: 'cyan' | 'indigo' | 'rose' | 'blue' | 'green' | 'orange';
 }
 
 const COLOR_MAP = {
   cyan: {
-    text: "text-cyan-500",
-    bg: "bg-cyan-500/10",
-    border: "border-cyan-500/30",
-    hoverText: "group-hover:text-cyan-500",
-    hoverBorder: "hover:border-cyan-500/30",
-    iconBg: "bg-cyan-500/20",
-    shadow: "shadow-cyan-500/20"
+    text: "text-[#259CF4]",
+    bg: "bg-[#259CF4]/10",
+    border: "border-[#259CF4]/30",
+    hoverText: "group-hover/btn:text-[#259CF4]",
+    hoverBorder: "hover:border-[#259CF4]/40",
+    iconBg: "bg-[#259CF4]/20",
+    shadow: "shadow-[#259CF4]/20",
+    btnBorder: "border-[#259CF4]/40",
+    btnText: "text-[#259CF4]",
+    btnHoverBg: "group-hover/btn:bg-[#259CF4]",
+    btnHoverText: "group-hover/btn:text-white dark:group-hover/btn:text-slate-950",
+    btnHoverDirect: "hover:bg-[#259CF4] hover:text-white dark:hover:text-slate-950 hover:border-[#259CF4]"
   },
-  purple: {
-    text: "text-purple-500",
-    bg: "bg-purple-500/10",
-    border: "border-purple-500/30",
-    hoverText: "group-hover:text-purple-500",
-    hoverBorder: "hover:border-purple-500/30",
-    iconBg: "bg-purple-500/20",
-    shadow: "shadow-purple-500/20"
+  indigo: {
+    text: "text-indigo-600 dark:text-indigo-400",
+    bg: "bg-indigo-600/10",
+    border: "border-indigo-600/30",
+    hoverText: "group-hover/btn:text-indigo-600",
+    hoverBorder: "hover:border-indigo-600/40",
+    iconBg: "bg-indigo-600/20",
+    shadow: "shadow-indigo-600/20",
+    btnBorder: "border-indigo-600/40",
+    btnText: "text-indigo-600",
+    btnHoverBg: "group-hover/btn:bg-indigo-600",
+    btnHoverText: "group-hover/btn:text-white dark:group-hover/btn:text-slate-950",
+    btnHoverDirect: "hover:bg-indigo-600 hover:text-white dark:hover:text-slate-950 hover:border-indigo-600"
   },
   rose: {
     text: "text-rose-500",
     bg: "bg-rose-500/10",
     border: "border-rose-500/30",
-    hoverText: "group-hover:text-rose-500",
-    hoverBorder: "hover:border-rose-500/30",
+    hoverText: "group-hover/btn:text-rose-500",
+    hoverBorder: "hover:border-rose-500/40",
     iconBg: "bg-rose-500/20",
-    shadow: "shadow-rose-500/20"
+    shadow: "shadow-rose-500/20",
+    btnBorder: "border-rose-500/40",
+    btnText: "text-rose-500",
+    btnHoverBg: "group-hover/btn:bg-rose-500",
+    btnHoverText: "group-hover/btn:text-white dark:group-hover/btn:text-slate-950",
+    btnHoverDirect: "hover:bg-rose-500 hover:text-white dark:hover:text-slate-950 hover:border-rose-500"
   },
   blue: {
     text: "text-blue-500",
     bg: "bg-blue-500/10",
     border: "border-blue-500/30",
-    hoverText: "group-hover:text-blue-500",
-    hoverBorder: "hover:border-blue-500/30",
+    hoverText: "group-hover/btn:text-blue-500",
+    hoverBorder: "hover:border-blue-500/40",
     iconBg: "bg-blue-500/20",
-    shadow: "shadow-blue-500/20"
+    shadow: "shadow-blue-500/20",
+    btnBorder: "border-blue-500/40",
+    btnText: "text-blue-500",
+    btnHoverBg: "group-hover/btn:bg-blue-500",
+    btnHoverText: "group-hover/btn:text-white dark:group-hover/btn:text-slate-950",
+    btnHoverDirect: "hover:bg-blue-500 hover:text-white dark:hover:text-slate-950 hover:border-blue-500"
   },
   green: {
     text: "text-green-500",
     bg: "bg-green-500/10",
     border: "border-green-500/30",
-    hoverText: "group-hover:text-green-500",
-    hoverBorder: "hover:border-green-500/30",
+    hoverText: "group-hover/btn:text-green-500",
+    hoverBorder: "hover:border-green-500/40",
     iconBg: "bg-green-500/20",
-    shadow: "shadow-green-500/20"
+    shadow: "shadow-green-500/20",
+    btnBorder: "border-green-500/40",
+    btnText: "text-green-500",
+    btnHoverBg: "group-hover/btn:bg-green-500",
+    btnHoverText: "group-hover/btn:text-white dark:group-hover/btn:text-slate-950",
+    btnHoverDirect: "hover:bg-green-500 hover:text-white dark:hover:text-slate-950 hover:border-green-500"
   },
   orange: {
     text: "text-orange-500",
     bg: "bg-orange-500/10",
     border: "border-orange-500/30",
-    hoverText: "group-hover:text-orange-500",
-    hoverBorder: "hover:border-orange-500/30",
+    hoverText: "group-hover/btn:text-orange-500",
+    hoverBorder: "hover:border-orange-500/40",
     iconBg: "bg-orange-500/20",
-    shadow: "shadow-orange-500/20"
+    shadow: "shadow-orange-500/20",
+    btnBorder: "border-orange-500/40",
+    btnText: "text-orange-500",
+    btnHoverBg: "group-hover/btn:bg-orange-500",
+    btnHoverText: "group-hover/btn:text-white dark:group-hover/btn:text-slate-950",
+    btnHoverDirect: "hover:bg-orange-500 hover:text-white dark:hover:text-slate-950 hover:border-orange-500"
   },
 };
 
@@ -115,7 +145,7 @@ const SCHEDULE_DATA: Category[] = [
     id: "saludMental",
     title: "Salud Mental",
     icon: <Brain size={26} strokeWidth={1.5} />,
-    color: 'purple',
+    color: 'indigo',
     services: [
       {
         label: "Atención Psicología",
@@ -332,7 +362,7 @@ export function MinimalistScheduler({ initialCategoryId }: { initialCategoryId?:
                   {selectedCategory.services?.map((svc, idx) => (
                     <div key={idx} className="w-full">
                       {svc.isMulti ? (
-                        <div className="p-4 sm:p-6 rounded-[1.5rem] sm:rounded-[2rem] bg-slate-50 dark:bg-slate-950 border border-slate-300/80 dark:border-slate-800 flex flex-col gap-4 min-h-[120px] sm:min-h-[110px] w-full h-full justify-between shadow-[0_4px_20px_rgba(0,0,0,0.02)]">
+                        <div className="p-4 sm:p-6 rounded-[1.5rem] sm:rounded-[2rem] bg-slate-50 dark:bg-slate-955 border border-slate-300/80 dark:border-slate-800 flex flex-col gap-4 min-h-[120px] sm:min-h-[110px] w-full h-full justify-between shadow-[0_4px_20px_rgba(0,0,0,0.02)]">
                           <div className="flex flex-col gap-1 items-center sm:items-start w-full">
                             <span className="text-sm sm:text-xl font-bold text-slate-700 dark:text-slate-200 leading-tight">{svc.label}</span>
                             <span className="text-[9px] sm:text-[10px] font-medium text-slate-500 dark:text-slate-400 transition-colors leading-tight">{svc.info}</span>
@@ -342,7 +372,7 @@ export function MinimalistScheduler({ initialCategoryId }: { initialCategoryId?:
                               <button
                                 key={optIdx}
                                 onClick={() => window.open(opt.link, '_blank', 'noopener')}
-                                className="text-[10px] sm:text-[11px] font-bold py-2 bg-white dark:bg-slate-800 rounded-full border border-secondary/40 hover:border-secondary dark:border-slate-700 text-secondary hover:bg-secondary hover:text-white dark:hover:bg-secondary dark:hover:text-slate-900 transition-all whitespace-nowrap cursor-pointer text-center uppercase tracking-wider"
+                                className={`text-[10px] sm:text-[11px] font-bold py-2 bg-white dark:bg-slate-850 rounded-full border ${activeColors?.btnBorder || 'border-secondary/40'} ${activeColors?.btnText || 'text-secondary'} ${activeColors?.btnHoverDirect || 'hover:bg-secondary hover:text-white dark:hover:text-slate-900 hover:border-secondary'} transition-all whitespace-nowrap cursor-pointer text-center uppercase tracking-wider`}
                               >
                                 {opt.label}
                               </button>
@@ -352,14 +382,14 @@ export function MinimalistScheduler({ initialCategoryId }: { initialCategoryId?:
                       ) : (
                         <button
                           onClick={() => window.open(svc.link, '_blank', 'noopener')}
-                          className="w-full h-full p-4 sm:p-6 rounded-[1.5rem] sm:rounded-[2rem] border border-slate-300/80 dark:border-slate-800 hover:border-secondary/35 dark:hover:border-secondary/40 bg-slate-50/80 dark:bg-slate-950/50 hover:bg-white dark:hover:bg-slate-900 transition-all group/btn min-h-[120px] sm:min-h-[110px] flex flex-col justify-between gap-4 shadow-sm shadow-slate-200/80 dark:shadow-none hover:shadow-2xl hover:shadow-slate-200/70 dark:hover:shadow-none hover:-translate-y-0.5"
+                          className={`w-full h-full p-4 sm:p-6 rounded-[1.5rem] sm:rounded-[2rem] border border-slate-300/80 dark:border-slate-800 ${activeColors?.hoverBorder || 'hover:border-secondary/35 dark:hover:border-secondary/40'} bg-slate-50/80 dark:bg-slate-950/50 hover:bg-white dark:hover:bg-slate-900 transition-all group/btn min-h-[120px] sm:min-h-[110px] flex flex-col justify-between gap-4 shadow-sm shadow-slate-200/80 dark:shadow-none hover:shadow-2xl hover:shadow-slate-200/70 dark:hover:shadow-none hover:-translate-y-0.5`}
                         >
                           <div className="flex flex-col gap-1 items-start text-left w-full">
-                            <span className="text-sm sm:text-xl font-bold text-slate-700 dark:text-slate-200 leading-tight group-hover/btn:text-secondary transition-colors">{svc.label}</span>
+                            <span className={`text-sm sm:text-xl font-bold text-slate-700 dark:text-slate-200 leading-tight ${activeColors?.hoverText || 'group-hover/btn:text-secondary'} transition-colors`}>{svc.label}</span>
                             <span className="text-[9px] sm:text-[10px] font-medium text-slate-500 dark:text-slate-400 transition-colors leading-tight line-clamp-2 sm:line-clamp-none">{svc.info}</span>
                           </div>
                           <div className="w-full mt-auto pt-1">
-                            <div className="w-full py-2.5 rounded-full border border-secondary/40 bg-white dark:bg-slate-800 text-secondary group-hover/btn:bg-secondary group-hover/btn:text-white dark:hover:text-slate-900 transition-all text-[10px] sm:text-[11px] font-bold uppercase tracking-wider leading-none text-center shadow-sm">
+                            <div className={`w-full py-2.5 rounded-full border ${activeColors?.btnBorder || 'border-secondary/40'} bg-white dark:bg-slate-800 ${activeColors?.btnText || 'text-secondary'} ${activeColors?.btnHoverBg || 'group-hover/btn:bg-secondary'} ${activeColors?.btnHoverText || 'group-hover/btn:text-white'} transition-all text-[10px] sm:text-[11px] font-bold uppercase tracking-wider leading-none text-center shadow-sm`}>
                               Agendar
                             </div>
                           </div>
