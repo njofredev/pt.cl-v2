@@ -482,8 +482,9 @@ export const Navbar = () => {
                         }`}
                     >
                       {(item as any).highlight && <Sparkles size={14} className="mr-1 text-white fill-white/20" />}
-                      <span className="relative py-0.5">
+                      <span className="relative py-0.5 flex items-center gap-1.5">
                         {item.name}
+                        {item.subItems && <ChevronDown size={12} className={`transition-transform duration-200 ${activeDropdown === item.name ? 'rotate-180' : ''}`} />}
                         {activeDropdown === item.name && !item.highlight && (
                           <motion.div
                             layoutId="nav-underline"
@@ -492,7 +493,6 @@ export const Navbar = () => {
                           />
                         )}
                       </span>
-                      {item.subItems && <ChevronDown size={12} className={`transition-transform duration-200 ${activeDropdown === item.name ? 'rotate-180' : ''}`} />}
                     </Link>
                   </div>
                 ))}

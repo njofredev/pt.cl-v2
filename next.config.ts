@@ -20,6 +20,11 @@ const nextConfig: NextConfig = {
         destination: '/nosotros',
         permanent: true,
       },
+      {
+        source: '/terapiasalternativas',
+        destination: '/servicios/terapias',
+        permanent: true,
+      },
     ];
   },
 };
