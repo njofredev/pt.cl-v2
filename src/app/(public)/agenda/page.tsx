@@ -22,7 +22,7 @@ export default function AgendaPage() {
         <div className="max-w-4xl mx-auto">
           <div className="text-center mb-12">
             <h1 className="text-4xl md:text-5xl font-black text-primary dark:text-white mb-4 tracking-tighter">
-              Agenda <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary via-teal-400 to-secondary dark:from-white dark:via-secondary dark:to-teal-400">en línea</span>
+              Agenda <span className="text-[#259CF4] dark:text-[#259CF4]">en línea</span>
             </h1>
             <p className="text-lg text-slate-500 dark:text-slate-400 font-medium max-w-xl mx-auto mb-8">
               Selecciona la categoría y el servicio que necesitas agendar hoy.
