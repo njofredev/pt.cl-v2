@@ -324,6 +324,13 @@ export function MinimalistScheduler({ initialCategoryId }: { initialCategoryId?:
         {/* Contenido Principal Compacto */}
         <div className="p-4 md:p-10 flex justify-center bg-white dark:bg-slate-900 min-h-[300px]">
           <div className="w-full max-w-5xl">
+            {/* Indicación superior */}
+            <div className="mb-8 text-center">
+              <p className="text-[10px] sm:text-[11px] text-slate-500 dark:text-slate-400 font-medium leading-relaxed max-w-3xl mx-auto">
+                Seleccione una categoría y luego el servicio deseado. Posteriormente, será redirigido a nuestro sistema de agendamiento externo (Dentalink o Medilink) para finalizar su reserva según corresponda.
+              </p>
+            </div>
+
             <AnimatePresence mode="wait">
               {!selectedCategory ? (
                 <motion.div
@@ -401,13 +408,7 @@ export function MinimalistScheduler({ initialCategoryId }: { initialCategoryId?:
               )}
             </AnimatePresence>
 
-            {/* Disclaimer */}
-            <div className="mt-12 pt-8 text-center flex flex-col items-center">
-              <div className="w-24 h-px bg-slate-100 dark:bg-slate-800/50 mb-8"></div>
-              <p className="text-[11px] text-slate-500 dark:text-slate-400 font-medium leading-relaxed max-w-2xl mx-auto">
-                Seleccione una categoría y luego el servicio deseado. Posteriormente, será redirigido a nuestro sistema de agendamiento externo (Dentalink o Medilink) para finalizar su reserva según corresponda.
-              </p>
-            </div>
+
           </div>
         </div>
       </div>

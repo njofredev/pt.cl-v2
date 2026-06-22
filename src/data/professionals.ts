@@ -262,18 +262,22 @@ export async function getProfessionals(): Promise<Professional[]> {
         }
 
         // Mapeo de link de agendamiento
-        const lowerName = name.toLowerCase()
-                              .normalize("NFD")
-                              .replace(/[\u0300-\u036f]/g, "")
-                              .replace(/\s+/g, ' '); // Colapsa múltiples espacios en uno solo
-        let bookingLink = BOOKING_LINKS[lowerName] || null;
-        
-        // Fallback robusto por subcadena si no hay coincidencia exacta
+        let bookingLink = p["Enlace de agendamiento:"] || p.bookingLink || null;
+
         if (!bookingLink) {
-          const matchKey = Object.keys(BOOKING_LINKS).find(key => 
-            lowerName.includes(key) || key.includes(lowerName)
-          );
-          if (matchKey) bookingLink = BOOKING_LINKS[matchKey];
+          const lowerName = name.toLowerCase()
+                                .normalize("NFD")
+                                .replace(/[\u0300-\u036f]/g, "")
+                                .replace(/\s+/g, ' '); // Colapsa múltiples espacios en uno solo
+          bookingLink = BOOKING_LINKS[lowerName] || null;
+          
+          // Fallback robusto por subcadena si no hay coincidencia exacta
+          if (!bookingLink) {
+            const matchKey = Object.keys(BOOKING_LINKS).find(key => 
+              lowerName.includes(key) || key.includes(lowerName)
+            );
+            if (matchKey) bookingLink = BOOKING_LINKS[matchKey];
+          }
         }
 
         return {

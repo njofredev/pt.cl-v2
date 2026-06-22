@@ -19,6 +19,7 @@ const ICON_MAP = {
   microscope: Microscope,
   accessibility: Accessibility,
   calendar: CalendarDays,
+  users: Users,
 };
 
 export interface HeroImage {
@@ -28,7 +29,7 @@ export interface HeroImage {
 }
 
 export interface HeroProps {
-  badgeText?: React.ReactNode;
+  badgeText?: React.ReactNode | { text: string; iconName?: keyof typeof ICON_MAP }[];
   badgeIconName?: keyof typeof ICON_MAP;
   titlePrefix?: string;
   titleHighlight?: string;
@@ -156,15 +157,21 @@ export const Hero = ({
 
           <div className="flex flex-wrap gap-2.5 mb-5 md:mb-8 justify-center sm:justify-start">
             {Array.isArray(badgeText) ? (
-              badgeText.map((badge, index) => (
-                <div key={index} className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#259CF4] text-white text-[10px] font-bold uppercase tracking-widest">
-                  <BadgeIcon size={14} fill="currentColor" className="text-white shrink-0" />
-                  <span>{badge}</span>
-                </div>
-              ))
+              badgeText.map((badge, index) => {
+                const isObject = typeof badge === 'object' && badge !== null && 'text' in badge;
+                const text = isObject ? (badge as any).text : badge;
+                const iconName = isObject ? (badge as any).iconName : badgeIconName;
+                const SpecificIcon = iconName && ICON_MAP[iconName as keyof typeof ICON_MAP] ? ICON_MAP[iconName as keyof typeof ICON_MAP] : BadgeIcon;
+                return (
+                  <div key={index} className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#259CF4] text-white text-[10px] font-bold uppercase tracking-widest">
+                    <SpecificIcon size={14} className="text-white shrink-0" />
+                    <span>{text}</span>
+                  </div>
+                );
+              })
             ) : (
               <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#259CF4] text-white text-[10px] font-bold uppercase tracking-widest">
-                <BadgeIcon size={14} fill="currentColor" className="text-white shrink-0" />
+                <BadgeIcon size={14} className="text-white shrink-0" />
                 <span>{badgeText}</span>
               </div>
             )}

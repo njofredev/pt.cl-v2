@@ -22,6 +22,7 @@ export async function GET() {
       ageGroup: p["Grupo Etario:"] || p.ageGroup,
       otherTitles: p["Otros títulos académicos:"] || p.otherTitles,
       imageUrl: p["Imagen:"] || p.imageUrl,
+      bookingLink: p["Enlace de agendamiento:"] || p.bookingLink || '',
       published: p.published === true || p.published === 1
     }));
 
@@ -58,6 +59,14 @@ export async function POST(request: Request) {
         published: data.published !== undefined ? data.published : true,
       }
     });
+
+    if (data.bookingLink) {
+      try {
+        await prisma.$executeRaw`UPDATE "Professional" SET "Enlace de agendamiento:" = ${data.bookingLink} WHERE "id" = ${newProfessional.id}`;
+      } catch (rawError) {
+        console.error("Raw SQL insert for bookingLink failed:", rawError);
+      }
+    }
 
     return NextResponse.json({ success: true, data: newProfessional });
   } catch (error) {

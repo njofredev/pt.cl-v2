@@ -16,6 +16,16 @@ export async function PUT(request: Request, { params }: { params: Promise<{ id: 
       console.error("Raw SQL update failed, but continuing:", rawError);
     }
 
+    // Update booking link via raw SQL
+    try {
+      if (data.bookingLink !== undefined) {
+        console.log(`Updating booking link for ID ${id} to ${data.bookingLink}`);
+        await prisma.$executeRaw`UPDATE "Professional" SET "Enlace de agendamiento:" = ${data.bookingLink} WHERE "id" = ${parseInt(id)}`;
+      }
+    } catch (rawError) {
+      console.error("Raw SQL update for bookingLink failed:", rawError);
+    }
+
     try {
       const updateData: any = {
         firstName: data.firstName,

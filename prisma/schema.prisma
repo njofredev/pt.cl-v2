@@ -28,6 +28,7 @@ model Professional {
   otherTitles String?  @map("Otros títulos académicos:")
   imageUrl    String?  @map("Imagen:")
   timestamp   String?  @map("Marca temporal")
+  bookingLink String?  @map("Enlace de agendamiento:")
 }
 
 model Arancel {

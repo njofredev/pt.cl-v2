@@ -21,6 +21,7 @@ export type ProfessionalData = {
   ageGroup: string;
   otherTitles: string;
   imageUrl?: string;
+  bookingLink?: string;
   published: boolean;
 };
 
@@ -38,6 +39,7 @@ const defaultData: ProfessionalData = {
   ageGroup: '',
   otherTitles: '',
   imageUrl: '',
+  bookingLink: '',
   published: true,
 };
 
@@ -90,6 +92,7 @@ export function ProfessionalForm({ open, onOpenChange, professional, onSuccess }
         ageGroup: professional.ageGroup || '',
         otherTitles: professional.otherTitles || '',
         imageUrl: (professional as any).imageUrl || '',
+        bookingLink: (professional as any).bookingLink || '',
         published: professional.published !== undefined ? professional.published : true,
       });
     } else {
@@ -339,6 +342,22 @@ export function ProfessionalForm({ open, onOpenChange, professional, onSuccess }
                 />
                 <p className="text-[10px] text-slate-400 mt-2">
                   Si subes el archivo a la carpeta de imágenes, solo escribe el nombre (ej: <strong>perfilCatalina.jpg</strong>).
+                </p>
+              </div>
+              <div className="mt-4 bg-slate-50 border border-slate-100 p-4 rounded-2xl">
+                <label className="text-[10px] font-black uppercase text-primary tracking-wider flex items-center gap-2">
+                  Enlace de Agendamiento Personalizado
+                  <span className="text-[8px] font-bold text-slate-400 normal-case bg-white px-2 py-0.5 border border-slate-100 rounded-md">Ej: https://ff.healthatom.io/...</span>
+                </label>
+                <Input 
+                  name="bookingLink" 
+                  value={formData.bookingLink} 
+                  onChange={handleChange} 
+                  className="mt-2 bg-white text-slate-900 h-11 shadow-sm border-slate-200" 
+                  placeholder="Enlace directo a Dentalink, Medilink, etc."
+                />
+                <p className="text-[10px] text-slate-400 mt-2">
+                  Si se deja vacío, el sistema asignará el enlace por defecto para este profesional.
                 </p>
               </div>
               <div className="mt-4 bg-slate-50 border border-slate-100 p-4 rounded-2xl flex items-center justify-between">

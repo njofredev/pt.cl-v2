@@ -92,8 +92,8 @@ export default async function Home() {
       {/* 1. HERO SECTION DINÁMICO */}
       <Hero
         badgeText={[
-          "150+ Prestaciones",
-          "50+ Profesionales"
+          { text: "150+ Prestaciones", iconName: "stethoscope" },
+          { text: "50+ Profesionales", iconName: "users" }
         ]}
         description={
           <>
