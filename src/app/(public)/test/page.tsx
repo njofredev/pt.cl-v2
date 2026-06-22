@@ -1,110 +1,238 @@
-"use client";
-
 import React from 'react';
-import { motion } from 'framer-motion';
-import { Sparkles, Code, Layout, ShieldAlert } from 'lucide-react';
+import dynamic from 'next/dynamic';
+import { Hero } from '@/components/Hero';
+import { MiVitaLink } from '@/components/MiVitaLink';
+import { VanguardScheduler } from '@/components/VanguardScheduler';
+import { PartnerCarousel } from '@/components/PartnerCarousel';
+import { ServiceCarousel } from '@/components/ServiceCarousel';
+import { CallCTA } from '@/components/CallCTA';
+import { HomeClientSections } from '@/components/HomeClientSections';
+import Link from 'next/link';
+import {
+  Stethoscope,
+  Microscope,
+  Brain,
+  HeartPulse,
+  ChevronRight,
+  Activity,
+  LayoutDashboard,
+  ShieldCheck,
+  Phone
+} from 'lucide-react';
+import { Button } from "@/components/ui/button";
+import Image from 'next/image';
 
-export default function TestPage() {
+import { Area, getProfessionals } from '@/data/professionals';
+import { Metadata } from 'next';
+import { redirect } from 'next/navigation';
+
+export const metadata: Metadata = {
+  title: "Test Playground | Policlínico Tabancura",
+  description: "Entorno de pruebas para el Policlínico Tabancura.",
+  robots: {
+    index: false,
+    follow: false
+  }
+};
+
+interface PageProps {
+  searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
+}
+
+export default async function TestPage({ searchParams }: PageProps) {
+  const resolvedParams = await searchParams;
+  if (resolvedParams.preview !== "true") {
+    redirect("/");
+  }
+
+  const professionals = await getProfessionals();
+  const totalPros = professionals.length;
+
   return (
-    <div className="min-h-screen bg-slate-50 dark:bg-slate-950 pt-32 pb-24 transition-colors duration-500 relative overflow-hidden">
-      {/* Background soft ambient blobs */}
-      <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-primary/5 rounded-full blur-3xl pointer-events-none" />
-      <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-secondary/5 rounded-full blur-3xl pointer-events-none" />
+    <main className="relative min-h-screen bg-transparent dark:bg-transparent antialiased overflow-x-hidden transition-colors duration-300">
+      {/* Schema.org Structured Data */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "MedicalBusiness",
+            "name": "Policlínico Tabancura - Test",
+            "alternateName": "Poli Tabancura Test",
+            "url": "https://www.policlinicotabancura.cl/test",
+            "logo": "https://www.policlinicotabancura.cl/logo.svg",
+            "image": "https://www.policlinicotabancura.cl/Sucursales/heroActual.webp",
+            "description": "Policlínico Tabancura es una corporación sin fines de lucro en Vitacura.",
+            "telephone": "+56229336740",
+            "address": {
+              "@type": "PostalAddress",
+              "streetAddress": "Av Vitacura 8620",
+              "addressLocality": "Vitacura",
+              "addressRegion": "Región Metropolitana",
+              "addressCountry": "CL"
+            },
+            "geo": {
+              "@type": "GeoCoordinates",
+              "latitude": -33.3888,
+              "longitude": -70.5422
+            },
+            "openingHoursSpecification": [
+              {
+                "@type": "OpeningHoursSpecification",
+                "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
+                "opens": "08:30",
+                "closes": "20:00"
+              },
+              {
+                "@type": "OpeningHoursSpecification",
+                "dayOfWeek": "Saturday",
+                "opens": "09:00",
+                "closes": "13:00"
+              }
+            ],
+            "medicalSpecialty": [
+              "Dentistry",
+              "Psychiatry",
+              "GeneralPractice"
+            ],
+            "sameAs": [
+              "https://www.instagram.com/politabancura/",
+              "https://www.facebook.com/profile.php?id=61568214167163",
+              "https://www.tiktok.com/@politabancura"
+            ]
+          })
+        }}
+      />
+      {/* 1. HERO SECTION DINÁMICO */}
+      <Hero
+        badgeText={[
+          { text: "150+ Prestaciones", iconName: "stethoscope" },
+          { text: "50+ Profesionales", iconName: "users" }
+        ]}
+        description={
+          <>
+            Creado para acompañarte en cada etapa del cuidado de tu salud.
+          </>
+        }
+        statsNumber={`+${totalPros}`}
+        statsLabel="Profesionales de salud"
+        showBranches={true}
+        buttonText="Quiero agendar"
+        hideFloatingIcon={true}
+      />
 
-      <div className="container mx-auto px-6 relative z-10">
-        {/* Header */}
-        <div className="max-w-4xl mx-auto text-center mb-16">
-          <motion.div
-            initial={{ opacity: 0, scale: 0.9 }}
-            animate={{ opacity: 1, scale: 1 }}
-            className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-primary/10 text-primary dark:bg-slate-800 dark:text-white text-[10px] font-black uppercase tracking-widest mb-6 shadow-md"
-          >
-            <Sparkles size={14} className="text-secondary animate-spin-slow" />
-            Entorno de Pruebas Seguro
-          </motion.div>
+      {/* Barra de agendamiento rápido solapante */}
+      <div id="agendar" className="scroll-mt-32">
+        <VanguardScheduler />
+      </div>
 
-          <motion.h1
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            className="text-4xl md:text-6xl font-black text-primary dark:text-white tracking-tighter mb-6"
-          >
-            Component <br />
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary via-teal-400 to-secondary dark:from-white dark:via-secondary dark:to-teal-400">
-              Playground.
-            </span>
-          </motion.h1>
-
-          <motion.p
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 0.1 }}
-            className="text-lg text-slate-500 dark:text-slate-400 font-medium max-w-xl mx-auto leading-relaxed"
-          >
-            Este es nuestro laboratorio aislado. Aquí podemos crear, maquetar y testear nuevos componentes de manera segura antes de implementarlos en las páginas de producción.
-          </motion.p>
+      <section className="py-8 bg-transparent dark:bg-transparent mt-10">
+        <div className="container mx-auto px-6">
+          <p className="text-[10px] font-bold text-slate-500 dark:text-slate-400 uppercase tracking-[0.3em] text-center mb-4">
+            Confían en nosotros
+          </p>
+          <PartnerCarousel />
         </div>
+      </section>
 
-        {/* Development Workspace */}
-        <div className="max-w-5xl mx-auto grid lg:grid-cols-3 gap-8">
-          {/* Main Showcase Panel (Col Span 2) */}
-          <div className="lg:col-span-2 space-y-8">
-            <div className="bg-white dark:bg-slate-900 rounded-[3rem] p-8 md:p-12 border border-slate-100 dark:border-slate-800 shadow-xl relative overflow-hidden">
-              <div className="absolute top-0 right-0 p-6 flex items-center gap-2">
-                <span className="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse" />
-                <span className="text-[9px] font-black uppercase tracking-widest text-emerald-500">Playground Activo</span>
-              </div>
+      <CallCTA />
 
-              <div className="flex items-center gap-4 mb-8">
-                <div className="w-12 h-12 bg-secondary/10 rounded-2xl flex items-center justify-center text-secondary">
-                  <Layout size={22} />
+      {/* 4. VALIDADOR MI VITA */}
+      <section id="mivita" className="pt-10 pb-16 relative overflow-hidden bg-transparent dark:bg-transparent scroll-mt-24">
+
+
+        <div className="container mx-auto px-6 relative z-10">
+          <div className="bg-white dark:bg-slate-950 rounded-[2rem] sm:rounded-[2.5rem] md:rounded-[4rem] border border-slate-300 dark:border-slate-800 p-6 sm:p-8 md:p-20 shadow-[0_30px_60px_-15px_rgba(15,23,42,0.12),0_15px_30px_-10px_rgba(0,0,0,0.06)] dark:shadow-none transition-all">
+            <div className="grid lg:grid-cols-2 gap-16 items-center">
+
+              {/* Columna Izquierda: Contexto */}
+              <div className="max-w-xl flex flex-col items-center text-center lg:items-start lg:text-left mx-auto lg:mx-0">
+                <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#259CF4] text-white text-[10px] font-bold uppercase tracking-widest mb-3">
+                  <ShieldCheck size={14} fill="currentColor" className="text-white shrink-0" /> 25% de Descuento (*)
                 </div>
-                <div>
-                  <h2 className="text-xl font-black text-primary dark:text-white">Lienzo de Pruebas</h2>
-                  <p className="text-xs font-semibold text-slate-400">Renderizado en tiempo real</p>
+
+                <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-primary dark:text-white mb-4 leading-tight tracking-tighter">
+                  Beneficio Tarjeta Mi Vita <br />
+                </h2>
+
+                <p className="text-lg text-slate-500 dark:text-slate-400 font-medium leading-relaxed mb-4">
+                  Ingresa tu rut y revisa el estado de tu beneficio. Accede a valores preferenciales en tus atenciones médicas y dentales.
+                </p>
+
+                <div className="mb-6 flex items-center justify-center lg:items-start lg:justify-start gap-4">
+                  <div className="group shrink-0">
+                    <Image
+                      src="/logos_convenios_prevision/mivita_v2_light.png"
+                      alt="Logo Tarjeta Mi Vita"
+                      width={180}
+                      height={72}
+                      style={{ width: 'auto', height: 'auto' }}
+                      className="block dark:hidden object-contain drop-shadow-md transition-transform duration-500 group-hover:scale-105 group-hover:-rotate-1"
+                    />
+                    <Image
+                      src="/logos_convenios_prevision/mivita_v2_dark.png"
+                      alt="Logo Tarjeta Mi Vita"
+                      width={180}
+                      height={72}
+                      style={{ width: 'auto', height: 'auto' }}
+                      className="hidden dark:block object-contain drop-shadow-md transition-transform duration-500 group-hover:scale-105 group-hover:-rotate-1"
+                    />
+                  </div>
+                </div>
+
+                <div className="mb-8 flex flex-col items-center lg:items-start gap-2">
+                  <a
+                    href="#agendar"
+                    className="bg-[#162158] hover:bg-[#111827] text-white font-bold px-6 py-2.5 rounded-full text-sm transition-all duration-300 shadow-md inline-block text-center"
+                  >
+                    Quiero agendar
+                  </a>
+                  <span className="text-[10px] text-slate-500 font-medium">*Beneficio sobre el arancel general</span>
                 </div>
               </div>
 
-              {/* TEST COMPONENT AREA: Put components here to test */}
-              <div className="min-h-[300px] rounded-[2rem] border-2 border-dashed border-slate-200 dark:border-slate-800 flex flex-col items-center justify-center p-8 bg-slate-50/50 dark:bg-slate-950/30 transition-all duration-300">
-                <Code className="text-slate-300 dark:text-slate-700 mb-4 animate-pulse" size={48} />
-                <p className="text-sm font-black text-slate-400 dark:text-slate-600 uppercase tracking-widest text-center">Área lista para recibir componentes</p>
-                <p className="text-xs font-medium text-slate-400 dark:text-slate-600 text-center mt-2 max-w-sm">Escribe o monta tus nuevos componentes dentro de este contenedor en el código para verlos en acción.</p>
-              </div>
-            </div>
-          </div>
-
-          {/* Sidebar Panel */}
-          <div className="space-y-8">
-            {/* Component History & Status */}
-            <div className="bg-white dark:bg-slate-900 rounded-[2.5rem] p-8 border border-slate-100 dark:border-slate-800 shadow-xl">
-              <h3 className="text-xs font-black uppercase tracking-widest text-primary dark:text-white mb-6 flex items-center gap-2">
-                <Code size={16} className="text-secondary" />
-                Historial de Testeo
-              </h3>
-
-              <div className="space-y-4">
-                <div className="p-4 rounded-2xl bg-slate-50 dark:bg-slate-950/50 border border-slate-100 dark:border-slate-800 flex items-start gap-4">
-                  <span className="w-2 h-2 rounded-full bg-amber-500 shrink-0 mt-1.5" />
-                  <div>
-                    <p className="text-xs font-bold text-primary dark:text-white">Ningún componente activo</p>
-                    <p className="text-[10px] text-slate-400 font-semibold mt-1">Listo para iniciar el siguiente desarrollo.</p>
+              {/* Columna Derecha: Iframe del Validador */}
+              <div className="relative">
+                <div className="absolute inset-0 bg-gradient-to-tr from-secondary/20 to-primary/5 rounded-[3rem] transform rotate-3 scale-105 transition-transform duration-700 hover:rotate-6" />
+                <div className="relative bg-[#121e42] rounded-[2.5rem] overflow-hidden border border-slate-100 dark:border-slate-800 h-[580px] sm:h-[520px] w-full flex flex-col">
+                  {/* Falso header de navegador para estilo nativo */}
+                  <div className="bg-[#0d1630] border-b border-[#1e316b] p-4 flex items-center gap-2">
+                    <div className="flex gap-1.5">
+                      <div className="w-3 h-3 rounded-full bg-red-400" />
+                      <div className="w-3 h-3 rounded-full bg-amber-400" />
+                      <div className="w-3 h-3 rounded-full bg-green-400" />
+                    </div>
+                    <div className="mx-auto text-[10px] font-bold text-slate-400 uppercase tracking-widest flex items-center gap-2">
+                      Valida tu Convenio en Línea <ShieldCheck size={12} className="text-secondary" />
+                    </div>
+                  </div>
+                  {/* Adaptive High-Bottom Crop Iframe */}
+                  <div className="relative w-full h-full flex-1 overflow-hidden bg-[#121e42]">
+                    <iframe
+                      src="https://mivita.policlinicotabancura.cl/"
+                      className="absolute w-full h-[105%] left-0 -top-[2%] sm:w-[120%] sm:h-[160%] sm:-left-[10%] sm:-top-[5%] pointer-events-auto origin-center scale-95 sm:scale-100"
+                      style={{
+                        colorScheme: 'light'
+                      }}
+                      scrolling="no"
+                      frameBorder="0"
+                      title="Validador Tarjeta Mi Vita"
+                      loading="lazy"
+                      sandbox="allow-scripts allow-same-origin allow-forms allow-popups"
+                      referrerPolicy="no-referrer-when-downgrade"
+                    />
                   </div>
                 </div>
               </div>
-            </div>
 
-            {/* Safety Alert Disclaimer */}
-            <div className="bg-slate-900 text-white rounded-[2.5rem] p-8 relative overflow-hidden shadow-xl">
-              <div className="absolute top-0 right-0 w-32 h-32 bg-white/5 rounded-full -mr-8 -mt-8 blur-2xl" />
-              <ShieldAlert className="text-secondary mb-6" size={32} />
-              <h3 className="text-md font-bold mb-2">Entorno Seguro</h3>
-              <p className="text-xs text-white/70 leading-relaxed font-medium">
-                Cualquier cambio realizado en este lienzo no afectará las rutas de producción (como el inicio, servicios o el cotizador oficial). Esto nos permite iterar ágilmente y garantizar la estabilidad del portal de cara al usuario final.
-              </p>
             </div>
           </div>
         </div>
-      </div>
-    </div>
+      </section>
+
+      {/* SECCIONES CLIENTE: RESEÑAS DE GOOGLE & SUCURSALES */}
+      <HomeClientSections />
+
+    </main>
   );
 }
