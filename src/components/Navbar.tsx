@@ -44,6 +44,7 @@ import {
 import { Button } from "@/components/ui/button";
 import { motion, AnimatePresence } from 'framer-motion';
 import { SearchModal } from './SearchModal';
+import { AccessibilityMenu } from './AccessibilityMenu';
 import { useTheme } from 'next-themes';
 import { usePathname } from 'next/navigation';
 
@@ -331,23 +332,24 @@ export const Navbar = () => {
               animate={{ height: 'auto', opacity: 1 }}
               exit={{ height: 0, opacity: 0 }}
               transition={{ duration: 0.3, ease: "easeInOut" }}
-              className="bg-white dark:bg-slate-950 text-slate-800 dark:text-slate-100 overflow-hidden relative z-[60] shadow-sm border-b border-indigo-50 dark:border-slate-800"
+              className="bg-gradient-to-r from-[#0f172a] via-[#1e293b] to-[#0f172a] text-white overflow-hidden relative z-[60] shadow-md border-b border-slate-800"
             >
               <div className="container mx-auto px-4 py-2 md:py-2.5 flex items-center justify-center gap-x-2 sm:gap-x-4 text-center relative pr-28 md:pr-32">
-                <SmilePlus className="w-5 h-5 shrink-0 hidden sm:block text-indigo-600 dark:text-yellow-400 animate-pulse" />
-                <p className="text-[9px] sm:text-[11px] md:text-xs font-bold tracking-wide flex flex-wrap items-center justify-center gap-x-1 text-slate-700 dark:text-slate-200">
-                  <span className="hidden md:inline-flex items-center bg-indigo-50 dark:bg-indigo-950/40 px-2 py-0.5 rounded-full text-[9px] mr-1 text-indigo-700 dark:text-indigo-300 border border-indigo-100/60 dark:border-indigo-900/30">
-                    <Megaphone className="w-2.5 h-2.5 mr-1 -rotate-12 shrink-0 text-indigo-600 dark:text-indigo-400" /> PROMOCIÓN LIMITADA
+                <SmilePlus className="w-5 h-5 shrink-0 hidden sm:block text-sky-400 animate-pulse" />
+                <p className="text-[9px] sm:text-[11px] md:text-xs font-bold tracking-wide flex flex-wrap items-center justify-center gap-x-1 text-white/90">
+                  <span className="hidden md:inline-flex items-center bg-sky-500 px-2 py-0.5 rounded-full text-[9px] mr-1 text-[#0f172a] font-black border border-sky-400">
+                    <Megaphone className="w-2.5 h-2.5 mr-1 -rotate-12 shrink-0 text-[#0f172a]" /> PROMOCIÓN LIMITADA
                   </span>
                   <span className="flex items-center gap-1">
-                    <ClipboardPlus className="w-3.5 h-3.5 text-indigo-600 dark:text-yellow-400 shrink-0 inline-block relative -top-[0.5px]" />
+                    <ClipboardPlus className="w-3.5 h-3.5 text-sky-300 shrink-0 inline-block relative -top-[0.5px]" />
                     Limpieza Dental: Evaluación + Profilaxis + RX Bitewing Bilateral por
                   </span>
-                  <span className="text-indigo-600 dark:text-yellow-300 text-xs sm:text-sm font-black flex items-center ml-1 underline underline-offset-2">
+                  <span className="text-sky-300 text-xs sm:text-sm font-black flex items-center ml-1 underline underline-offset-2">
                     $24.000.-
                   </span>
-                  <span className="hidden lg:inline bg-slate-50 dark:bg-black/20 px-2 py-0.5 rounded-full text-[8px] ml-2 border border-slate-200/60 dark:border-white/10 tracking-widest text-slate-500 dark:text-slate-400">HASTA 30 DE JUNIO | PARA MAYORES DE 15 AÑOS | SÓLO WEB</span>
+                  <span className="hidden lg:inline bg-white/5 px-2 py-0.5 rounded-full text-[8px] ml-2 border border-white/10 tracking-widest text-slate-400">HASTA 30 DE JUNIO | PARA MAYORES DE 15 AÑOS | SÓLO WEB</span>
                 </p>
+
 
                 <div className="absolute right-2 sm:right-4 top-1/2 -translate-y-1/2 flex items-center gap-x-1 sm:gap-x-2">
                   <a
@@ -355,14 +357,14 @@ export const Navbar = () => {
                     target="_blank"
                     rel="noopener noreferrer"
                     onClick={() => trackEvent('click_promocion', { label: 'Promo Limpieza Dental Sticky Bar' })}
-                    className="bg-indigo-600 text-white hover:bg-indigo-700 dark:bg-white dark:text-slate-900 dark:hover:bg-white/90 px-2 sm:px-4 py-1 rounded-full text-[8px] sm:text-[10px] font-black uppercase hover:scale-105 transition-all shrink-0 shadow-sm flex items-center gap-1 active:scale-95"
+                    className="bg-sky-500 text-[#0f172a] hover:bg-sky-400 px-2 sm:px-4 py-1 rounded-full text-[8px] sm:text-[10px] font-black uppercase hover:scale-105 transition-all shrink-0 shadow-sm flex items-center gap-1 active:scale-95"
                   >
                     Agendar <ChevronRight className="w-2.5 h-2.5 sm:w-3 sm:h-3" />
                   </a>
 
                   <button
                     onClick={() => setShowPromo(false)}
-                    className="p-2 sm:p-2.5 text-indigo-400 hover:text-indigo-700 hover:bg-indigo-50 dark:text-white/70 dark:hover:text-white dark:hover:bg-white/20 rounded-full transition-colors shrink-0"
+                    className="p-2 sm:p-2.5 text-white/70 hover:text-white hover:bg-white/15 rounded-full transition-colors shrink-0"
                     aria-label="Cerrar promoción"
                   >
                     <X className="w-5 h-5 sm:w-6 sm:h-6" />
@@ -600,6 +602,9 @@ export const Navbar = () => {
             </div>
 
             <div className="flex items-center gap-4">
+
+              {/* Accessibility Button */}
+              <AccessibilityMenu />
 
               {/* Search Bar Trigger */}
               <button

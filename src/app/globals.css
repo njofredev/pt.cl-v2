@@ -110,3 +110,80 @@ body.promo-visible main {
     margin-top: 40px; /* Desplazamiento para desktop */
   }
 }
+
+/* --- Accessibility Styles --- */
+
+/* Text sizing (Zoom) */
+html.access-font-lg {
+  font-size: 19px !important;
+}
+@media (min-width: 1024px) {
+  html.access-font-lg {
+    font-size: 21px !important;
+  }
+}
+
+html.access-font-xl {
+  font-size: 21px !important;
+}
+@media (min-width: 1024px) {
+  html.access-font-xl {
+    font-size: 24px !important;
+  }
+}
+
+/* High Contrast: forces high contrast palette */
+html.access-contrast-high {
+  filter: contrast(1.3) !important;
+}
+html.access-contrast-high body {
+  background-color: #000000 !important;
+  color: #ffffff !important;
+}
+html.access-contrast-high nav,
+html.access-contrast-high footer,
+html.access-contrast-high header,
+html.access-contrast-high section,
+html.access-contrast-high div {
+  background-color: #000000 !important;
+  color: #ffffff !important;
+  border-color: #ffffff !important;
+}
+html.access-contrast-high a,
+html.access-contrast-high button,
+html.access-contrast-high span,
+html.access-contrast-high p,
+html.access-contrast-high h1,
+html.access-contrast-high h2,
+html.access-contrast-high h3,
+html.access-contrast-high h4,
+html.access-contrast-high h5,
+html.access-contrast-high h6 {
+  color: #ffffff !important;
+}
+html.access-contrast-high a:hover,
+html.access-contrast-high button:hover {
+  text-decoration: underline !important;
+  color: #ffff00 !important;
+}
+
+/* Grayscale */
+html.access-grayscale {
+  filter: grayscale(100%) !important;
+}
+
+/* Readable Font: Dyslexia friendly */
+html.access-readable-font,
+html.access-readable-font * {
+  font-family: Arial, Helvetica, sans-serif !important;
+  line-height: 1.625 !important;
+}
+
+/* Highlight Links */
+html.access-links-highlight a {
+  outline: 3px solid #f43f5e !important;
+  outline-offset: 2px !important;
+  background-color: rgba(244, 63, 94, 0.1) !important;
+  text-decoration: underline !important;
+  text-decoration-thickness: 2px !important;
+}
