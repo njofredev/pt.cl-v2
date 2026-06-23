@@ -337,17 +337,17 @@ export const Navbar = () => {
               <div className="container mx-auto px-4 py-2 md:py-2.5 flex items-center justify-center gap-x-2 sm:gap-x-4 text-center relative pr-28 md:pr-32">
                 <SmilePlus className="w-5 h-5 shrink-0 hidden sm:block text-sky-400 animate-pulse" />
                 <p className="text-[9px] sm:text-[11px] md:text-xs font-bold tracking-wide flex flex-wrap items-center justify-center gap-x-1 text-white/90">
-                  <span className="hidden md:inline-flex items-center bg-sky-500 px-2 py-0.5 rounded-full text-[9px] mr-1 text-[#0f172a] font-black border border-sky-400">
-                    <Megaphone className="w-2.5 h-2.5 mr-1 -rotate-12 shrink-0 text-[#0f172a]" /> PROMOCIÓN LIMITADA
+                  <span className="hidden md:inline-flex items-center bg-sky-500 px-2 py-0.5 rounded-full text-[9px] mr-1 text-white font-black border border-sky-400">
+                    <Megaphone className="w-2.5 h-2.5 mr-1 -rotate-12 shrink-0 text-white" /> PROMOCIÓN LIMITADA
                   </span>
                   <span className="flex items-center gap-1">
                     <ClipboardPlus className="w-3.5 h-3.5 text-sky-300 shrink-0 inline-block relative -top-[0.5px]" />
-                    Limpieza Dental: Evaluación + Profilaxis + RX Bitewing Bilateral por
+                    Pack Dental: Evaluación + Limpieza + RX Bitewing Bilateral por
                   </span>
                   <span className="text-sky-300 text-xs sm:text-sm font-black flex items-center ml-1 underline underline-offset-2">
                     $24.000.-
                   </span>
-                  <span className="hidden lg:inline bg-white/5 px-2 py-0.5 rounded-full text-[8px] ml-2 border border-white/10 tracking-widest text-slate-400">HASTA 30 DE JUNIO | PARA MAYORES DE 15 AÑOS | SÓLO WEB</span>
+                  <span className="hidden lg:inline bg-white/5 px-2 py-0.5 rounded-full text-[8px] ml-2 border border-white/10 tracking-widest text-white">HASTA 30 DE JUNIO | PARA MAYORES DE 15 AÑOS | SÓLO WEB</span>
                 </p>
 
 
@@ -357,7 +357,7 @@ export const Navbar = () => {
                     target="_blank"
                     rel="noopener noreferrer"
                     onClick={() => trackEvent('click_promocion', { label: 'Promo Limpieza Dental Sticky Bar' })}
-                    className="bg-sky-500 text-[#0f172a] hover:bg-sky-400 px-2 sm:px-4 py-1 rounded-full text-[8px] sm:text-[10px] font-black uppercase hover:scale-105 transition-all shrink-0 shadow-sm flex items-center gap-1 active:scale-95"
+                    className="bg-sky-500 text-white hover:bg-sky-400 px-2 sm:px-4 py-1 rounded-full text-[8px] sm:text-[10px] font-black uppercase hover:scale-105 transition-all shrink-0 shadow-sm flex items-center gap-1 active:scale-95"
                   >
                     Agendar <ChevronRight className="w-2.5 h-2.5 sm:w-3 sm:h-3" />
                   </a>

@@ -277,8 +277,8 @@ export const Hero = ({
                       {...({ fetchPriority: currentImageIndex === 0 ? "high" : undefined } as any)}
                       className={`${images[currentImageIndex].src.includes('/logos_convenios_prevision/')
                         ? 'object-contain p-12 bg-white dark:bg-slate-900'
-                        : 'object-cover'
-                        } group-hover/slider:scale-105 transition-transform duration-700`}
+                        : 'object-cover scale-[1.15] origin-bottom'
+                        } group-hover/slider:scale-[1.20] transition-transform duration-700`}
                       sizes="(max-width: 640px) 100vw, (max-width: 1024px) 80vw, 1200px"
                       quality={currentImageIndex === 0 ? 90 : 75}
                     />
@@ -287,10 +287,10 @@ export const Hero = ({
               </div>
 
               {/* Indicador de Sucursal/Imagen Actual */}
-              <div className="absolute top-4 sm:top-8 left-4 sm:left-8 right-4 sm:right-8 z-20 flex justify-end items-start">
+              <div className="hero-dots-wrapper absolute top-4 sm:top-8 left-4 sm:left-8 right-4 sm:right-8 z-20 flex justify-end items-start">
                 {/* Puntos de paginación */}
                 {images.length > 1 && (
-                  <div className="flex gap-1 bg-black/20 p-1 rounded-full backdrop-blur-sm">
+                  <div className="hero-dots-container flex gap-1 bg-black/20 p-1 rounded-full backdrop-blur-sm">
                     {images.map((_, i) => (
                       <button
                         key={i}
@@ -298,8 +298,11 @@ export const Hero = ({
                         aria-label={`Ver imagen ${i + 1}`}
                         className="w-6 h-6 flex items-center justify-center cursor-pointer focus:outline-none group"
                       >
-                        <div className={`h-2 rounded-full transition-all duration-300 ${i === currentImageIndex ? 'w-4 bg-white' : 'w-2 bg-white/50 group-hover:bg-white'
-                          }`} />
+                        <div className={`hero-dot h-2 rounded-full transition-all duration-300 ${
+                          i === currentImageIndex 
+                            ? 'w-4 bg-white active' 
+                            : 'w-2 bg-white/50 group-hover:bg-white'
+                        }`} />
                       </button>
                     ))}
                   </div>

@@ -2,15 +2,16 @@
 
 import React, { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { 
-  Accessibility, 
-  Eye, 
-  Type, 
-  Link as LinkIcon, 
-  RefreshCw, 
-  Check, 
+import {
+  PersonStanding,
+  Contrast,
+  Type,
+  Link as LinkIcon,
+  RefreshCw,
   X,
-  Languages
+  MousePointer,
+  Palette,
+  CaseSensitive
 } from 'lucide-react';
 
 export const AccessibilityMenu = () => {
@@ -22,6 +23,7 @@ export const AccessibilityMenu = () => {
   const [contrast, setContrast] = useState<'normal' | 'high' | 'grayscale'>('normal');
   const [readableFont, setReadableFont] = useState(false);
   const [highlightLinks, setHighlightLinks] = useState(false);
+  const [largeCursor, setLargeCursor] = useState(false);
 
   // Load preferences from localStorage on mount
   useEffect(() => {
@@ -30,11 +32,13 @@ export const AccessibilityMenu = () => {
       const storedContrast = localStorage.getItem('access-contrast') as 'normal' | 'high' | 'grayscale';
       const storedReadableFont = localStorage.getItem('access-readable-font') === 'true';
       const storedHighlightLinks = localStorage.getItem('access-highlight-links') === 'true';
+      const storedLargeCursor = localStorage.getItem('access-large-cursor') === 'true';
 
       if (storedFontSize) setFontSize(storedFontSize);
       if (storedContrast) setContrast(storedContrast);
       if (storedReadableFont) setReadableFont(storedReadableFont);
       if (storedHighlightLinks) setHighlightLinks(storedHighlightLinks);
+      if (storedLargeCursor) setLargeCursor(storedLargeCursor);
     }
   }, []);
 
@@ -71,7 +75,15 @@ export const AccessibilityMenu = () => {
     }
     localStorage.setItem('access-highlight-links', String(highlightLinks));
 
-  }, [fontSize, contrast, readableFont, highlightLinks]);
+    // Large cursor
+    if (largeCursor) {
+      html.classList.add('access-cursor-large');
+    } else {
+      html.classList.remove('access-cursor-large');
+    }
+    localStorage.setItem('access-large-cursor', String(largeCursor));
+
+  }, [fontSize, contrast, readableFont, highlightLinks, largeCursor]);
 
   // Click outside to close
   useEffect(() => {
@@ -93,6 +105,7 @@ export const AccessibilityMenu = () => {
     setContrast('normal');
     setReadableFont(false);
     setHighlightLinks(false);
+    setLargeCursor(false);
   };
 
   return (
@@ -101,13 +114,12 @@ export const AccessibilityMenu = () => {
       <button
         onClick={() => setIsOpen(!isOpen)}
         aria-label="Menú de accesibilidad"
-        className={`w-12 h-12 md:w-11 md:h-11 rounded-2xl flex items-center justify-center text-white border transition-all active:scale-95 cursor-pointer shadow-sm ${
-          isOpen 
-            ? 'bg-white text-secondary border-white' 
-            : 'bg-white/10 border-white/20 hover:bg-white/20 hover:border-white/30 text-white'
-        }`}
+        className={`w-12 h-12 md:w-11 md:h-11 rounded-2xl flex items-center justify-center border transition-all active:scale-95 cursor-pointer shadow-md ${isOpen
+            ? 'bg-white text-[#259CF4] border-white'
+            : 'bg-[#162158] border-[#162158] hover:bg-[#162158]/90 text-white'
+          }`}
       >
-        <Accessibility size={20} className={isOpen ? 'animate-pulse' : ''} />
+        <PersonStanding size={22} className={isOpen ? 'animate-pulse' : ''} />
       </button>
 
       {/* Accessibility dropdown panel */}
@@ -123,8 +135,8 @@ export const AccessibilityMenu = () => {
             {/* Header */}
             <div className="bg-[#259CF4]/10 dark:bg-slate-800/50 px-5 py-4 border-b border-slate-100 dark:border-slate-800 flex justify-between items-center">
               <div className="flex items-center gap-2">
-                <Accessibility className="w-5 h-5 text-secondary dark:text-teal-400" />
-                <span className="text-sm font-bold text-slate-800 dark:text-slate-100">Accesibilidad Web</span>
+                <PersonStanding className="w-5 h-5 text-[#259CF4]" />
+                <span className="text-sm font-bold text-slate-800 dark:text-slate-100">Accesibilidad</span>
               </div>
               <button
                 onClick={() => setIsOpen(false)}
@@ -135,107 +147,109 @@ export const AccessibilityMenu = () => {
               </button>
             </div>
 
-            {/* Content options */}
-            <div className="p-5 flex flex-col gap-5">
-              {/* Option: Font Size */}
-              <div className="flex flex-col gap-2">
-                <div className="flex items-center gap-2 text-slate-700 dark:text-slate-350 text-xs font-bold uppercase tracking-wider">
-                  <Type size={14} className="text-[#259CF4]" />
-                  <span>Tamaño del Texto</span>
-                </div>
-                <div className="grid grid-cols-3 gap-2 bg-slate-50 dark:bg-slate-950 p-1.5 rounded-2xl border border-slate-100 dark:border-slate-800/40">
-                  {(['normal', 'lg', 'xl'] as const).map((size) => (
-                    <button
-                      key={size}
-                      onClick={() => setFontSize(size)}
-                      className={`py-1.5 px-2 rounded-xl text-xs font-bold transition-all capitalize cursor-pointer ${
-                        fontSize === size
-                          ? 'bg-secondary text-white shadow-sm'
-                          : 'text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-900'
-                      }`}
-                    >
-                      {size === 'normal' ? 'Normal' : size === 'lg' ? 'Grande' : 'Muy Grande'}
-                    </button>
-                  ))}
-                </div>
-              </div>
+            {/* Content options - UserWay-like Grid */}
+            <div className="grid grid-cols-2 bg-slate-50/10 dark:bg-slate-950/10">
+              
+              {/* Box 1: Contrast */}
+              <button
+                onClick={() => setContrast(contrast === 'high' ? 'normal' : 'high')}
+                className={`flex flex-col items-center justify-center p-6 text-center select-none transition-all duration-300 gap-2.5 cursor-pointer border-r border-b border-slate-100 dark:border-slate-800/60 ${
+                  contrast === 'high'
+                    ? 'bg-[#259CF4]/10 dark:bg-[#259CF4]/20 border-r border-b border-[#259CF4]/30'
+                    : 'hover:bg-slate-50 dark:hover:bg-slate-950/80 text-slate-600 dark:text-slate-455'
+                }`}
+              >
+                <Contrast size={26} className={contrast === 'high' ? 'text-[#259CF4]' : 'text-slate-500 dark:text-slate-400'} />
+                <span className={`text-[10px] font-bold uppercase tracking-wider ${contrast === 'high' ? 'text-[#259CF4]' : 'text-slate-700 dark:text-slate-350'}`}>
+                  Contraste +
+                </span>
+              </button>
 
-              {/* Option: Contrast */}
-              <div className="flex flex-col gap-2">
-                <div className="flex items-center gap-2 text-slate-700 dark:text-slate-350 text-xs font-bold uppercase tracking-wider">
-                  <Eye size={14} className="text-[#259CF4]" />
-                  <span>Contraste</span>
-                </div>
-                <div className="grid grid-cols-3 gap-2 bg-slate-50 dark:bg-slate-950 p-1.5 rounded-2xl border border-slate-100 dark:border-slate-800/40">
-                  {(['normal', 'high', 'grayscale'] as const).map((c) => (
-                    <button
-                      key={c}
-                      onClick={() => setContrast(c)}
-                      className={`py-1.5 px-1 rounded-xl text-[10px] sm:text-xs font-bold transition-all capitalize cursor-pointer ${
-                        contrast === c
-                          ? 'bg-secondary text-white shadow-sm'
-                          : 'text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-900'
-                      }`}
-                    >
-                      {c === 'normal' ? 'Normal' : c === 'high' ? 'Alto' : 'Gris'}
-                    </button>
-                  ))}
-                </div>
-              </div>
+              {/* Box 2: Cursor */}
+              <button
+                onClick={() => setLargeCursor(!largeCursor)}
+                className={`flex flex-col items-center justify-center p-6 text-center select-none transition-all duration-300 gap-2.5 cursor-pointer border-b border-slate-100 dark:border-slate-800/60 ${
+                  largeCursor
+                    ? 'bg-[#259CF4]/10 dark:bg-[#259CF4]/20 border-b border-[#259CF4]/30'
+                    : 'hover:bg-slate-50 dark:hover:bg-slate-950/80 text-slate-600 dark:text-slate-455'
+                }`}
+              >
+                <MousePointer size={26} className={largeCursor ? 'text-[#259CF4]' : 'text-slate-500 dark:text-slate-400'} />
+                <span className={`text-[10px] font-bold uppercase tracking-wider ${largeCursor ? 'text-[#259CF4]' : 'text-slate-700 dark:text-slate-350'}`}>
+                  Cursor Gde
+                </span>
+              </button>
 
-              {/* Option: Readable Font */}
-              <div className="flex items-center justify-between bg-slate-50 dark:bg-slate-950/60 p-3 rounded-2xl border border-slate-100 dark:border-slate-800/40">
-                <div className="flex flex-col">
-                  <span className="text-xs font-bold text-slate-700 dark:text-slate-300">Tipografía Legible</span>
-                  <span className="text-[10px] text-slate-400 dark:text-slate-500 mt-0.5">Letra de fácil lectura</span>
-                </div>
-                <button
-                  onClick={() => setReadableFont(!readableFont)}
-                  className={`w-11 h-6 rounded-full transition-colors relative flex items-center cursor-pointer ${
-                    readableFont ? 'bg-secondary' : 'bg-slate-300 dark:bg-slate-800'
-                  }`}
-                  role="switch"
-                  aria-checked={readableFont}
-                >
-                  <motion.div
-                    animate={{ x: readableFont ? 22 : 4 }}
-                    className="w-4 h-4 rounded-full bg-white shadow-sm"
-                    transition={{ type: "spring", stiffness: 500, damping: 30 }}
-                  />
-                </button>
-              </div>
+              {/* Box 3: Bigger Text */}
+              <button
+                onClick={() => setFontSize(fontSize === 'normal' ? 'lg' : fontSize === 'lg' ? 'xl' : 'normal')}
+                className={`flex flex-col items-center justify-center p-6 text-center select-none transition-all duration-300 gap-2.5 cursor-pointer border-r border-b border-slate-100 dark:border-slate-800/60 ${
+                  fontSize !== 'normal'
+                    ? 'bg-[#259CF4]/10 dark:bg-[#259CF4]/20 border-r border-b border-[#259CF4]/30'
+                    : 'hover:bg-slate-50 dark:hover:bg-slate-950/80 text-slate-600 dark:text-slate-455'
+                }`}
+              >
+                <Type size={26} className={fontSize !== 'normal' ? 'text-[#259CF4]' : 'text-slate-500 dark:text-slate-400'} />
+                <span className={`text-[10px] font-bold uppercase tracking-wider ${fontSize !== 'normal' ? 'text-[#259CF4]' : 'text-slate-700 dark:text-slate-350'}`}>
+                  {fontSize === 'normal' ? "Texto Normal" : fontSize === 'lg' ? "Texto Grande" : "Texto Muy Gde"}
+                </span>
+              </button>
 
-              {/* Option: Highlight Links */}
-              <div className="flex items-center justify-between bg-slate-50 dark:bg-slate-950/60 p-3 rounded-2xl border border-slate-100 dark:border-slate-800/40">
-                <div className="flex flex-col">
-                  <span className="text-xs font-bold text-slate-700 dark:text-slate-300">Destacar Enlaces</span>
-                  <span className="text-[10px] text-slate-400 dark:text-slate-500 mt-0.5">Subraya enlaces y botones</span>
-                </div>
-                <button
-                  onClick={() => setHighlightLinks(!highlightLinks)}
-                  className={`w-11 h-6 rounded-full transition-colors relative flex items-center cursor-pointer ${
-                    highlightLinks ? 'bg-secondary' : 'bg-slate-300 dark:bg-slate-800'
-                  }`}
-                  role="switch"
-                  aria-checked={highlightLinks}
-                >
-                  <motion.div
-                    animate={{ x: highlightLinks ? 22 : 4 }}
-                    className="w-4 h-4 rounded-full bg-white shadow-sm"
-                    transition={{ type: "spring", stiffness: 500, damping: 30 }}
-                  />
-                </button>
-              </div>
+              {/* Box 4: Desaturate */}
+              <button
+                onClick={() => setContrast(contrast === 'grayscale' ? 'normal' : 'grayscale')}
+                className={`flex flex-col items-center justify-center p-6 text-center select-none transition-all duration-300 gap-2.5 cursor-pointer border-b border-slate-100 dark:border-slate-800/60 ${
+                  contrast === 'grayscale'
+                    ? 'bg-[#259CF4]/10 dark:bg-[#259CF4]/20 border-b border-[#259CF4]/30'
+                    : 'hover:bg-slate-50 dark:hover:bg-slate-950/80 text-slate-600 dark:text-slate-455'
+                }`}
+              >
+                <Palette size={26} className={contrast === 'grayscale' ? 'text-[#259CF4]' : 'text-slate-500 dark:text-slate-400'} />
+                <span className={`text-[10px] font-bold uppercase tracking-wider ${contrast === 'grayscale' ? 'text-[#259CF4]' : 'text-slate-700 dark:text-slate-350'}`}>
+                  Desaturar
+                </span>
+              </button>
+
+              {/* Box 5: Legible Fonts */}
+              <button
+                onClick={() => setReadableFont(!readableFont)}
+                className={`flex flex-col items-center justify-center p-6 text-center select-none transition-all duration-300 gap-2.5 cursor-pointer border-r border-slate-100 dark:border-slate-800/60 ${
+                  readableFont
+                    ? 'bg-[#259CF4]/10 dark:bg-[#259CF4]/20 border-r border-[#259CF4]/30'
+                    : 'hover:bg-slate-50 dark:hover:bg-slate-950/80 text-slate-600 dark:text-slate-455'
+                }`}
+              >
+                <CaseSensitive size={26} className={readableFont ? 'text-[#259CF4]' : 'text-slate-500 dark:text-slate-400'} />
+                <span className={`text-[10px] font-bold uppercase tracking-wider ${readableFont ? 'text-[#259CF4]' : 'text-slate-700 dark:text-slate-350'}`}>
+                  Letra Legible
+                </span>
+              </button>
+
+              {/* Box 6: Highlight Links */}
+              <button
+                onClick={() => setHighlightLinks(!highlightLinks)}
+                className={`flex flex-col items-center justify-center p-6 text-center select-none transition-all duration-300 gap-2.5 cursor-pointer ${
+                  highlightLinks
+                    ? 'bg-[#259CF4]/10 dark:bg-[#259CF4]/20 border-[#259CF4]/30'
+                    : 'hover:bg-slate-50 dark:hover:bg-slate-950/80 text-slate-600 dark:text-slate-455'
+                }`}
+              >
+                <LinkIcon size={26} className={highlightLinks ? 'text-[#259CF4]' : 'text-slate-500 dark:text-slate-400'} />
+                <span className={`text-[10px] font-bold uppercase tracking-wider ${highlightLinks ? 'text-[#259CF4]' : 'text-slate-700 dark:text-slate-350'}`}>
+                  Destacar Links
+                </span>
+              </button>
+
             </div>
 
             {/* Footer Reset button */}
-            <div className="px-5 py-4 bg-slate-50 dark:bg-slate-950 border-t border-slate-100 dark:border-slate-800 flex justify-between items-center">
+            <div className="px-5 py-4 bg-slate-50 dark:bg-slate-950 border-t border-slate-100 dark:border-slate-800 flex justify-center items-center">
               <button
                 onClick={handleReset}
-                className="flex items-center gap-1.5 text-xs font-bold text-slate-500 hover:text-slate-850 dark:text-slate-400 dark:hover:text-slate-200 transition-colors cursor-pointer"
+                className="flex items-center justify-center gap-1.5 text-xs font-bold text-slate-500 hover:text-slate-850 dark:text-slate-400 dark:hover:text-slate-200 transition-colors cursor-pointer w-full py-2"
               >
                 <RefreshCw size={12} />
-                <span>Reestablecer ajustes</span>
+                <span>Restablecer ajustes</span>
               </button>
             </div>
           </motion.div>
