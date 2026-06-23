@@ -941,9 +941,10 @@ const ProfessionalCard = ({ pro, idx }: { pro: Professional, idx: number }) => {
                           href={pro.bookingLink || "tel:+56222172635"}
                           target={pro.bookingLink?.startsWith('http') ? "_blank" : undefined}
                           rel={pro.bookingLink?.startsWith('http') ? "noopener noreferrer" : undefined}
-                          className="w-full bg-gradient-to-r from-primary to-[#1e3a8a] hover:from-[#111827] hover:to-[#1f2937] text-white font-bold h-12 md:h-14 rounded-full text-xs md:text-sm tracking-tight shadow-xl shadow-primary/20 transition-all duration-300 flex items-center justify-center cursor-pointer select-none active:scale-95 whitespace-nowrap"
+                          className="w-full bg-gradient-to-r from-primary to-[#1e3a8a] hover:from-[#111827] hover:to-[#1f2937] text-white font-bold h-12 md:h-14 rounded-full text-xs md:text-sm tracking-tight shadow-xl shadow-primary/20 transition-all duration-300 flex items-center justify-center gap-2 cursor-pointer select-none active:scale-95 whitespace-nowrap"
                         >
-                          Agendar Hora con {firstName}
+                          <CalendarDays size={16} className="text-white shrink-0" />
+                          <span>Agendar Hora con {firstName}</span>
                         </a>
                       );
                     })()}
