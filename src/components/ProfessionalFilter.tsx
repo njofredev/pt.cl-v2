@@ -746,15 +746,17 @@ const ProfessionalCard = ({ pro, idx }: { pro: Professional, idx: number }) => {
               href={pro.bookingLink || "tel:+56222172635"}
               target={pro.bookingLink?.startsWith('http') ? "_blank" : undefined}
               rel={pro.bookingLink?.startsWith('http') ? "noopener noreferrer" : undefined}
-              className="w-full max-w-[230px] bg-gradient-to-r from-primary to-[#1e3a8a] hover:from-[#111827] hover:to-[#1f2937] text-white font-bold h-11 rounded-full text-[10px] tracking-[0.15em] uppercase transition-all duration-300 shadow-md flex items-center justify-center cursor-pointer select-none active:scale-95 whitespace-nowrap"
+              className="w-full max-w-[230px] bg-gradient-to-r from-primary to-[#1e3a8a] hover:from-[#111827] hover:to-[#1f2937] text-white font-bold h-11 rounded-full text-[10px] tracking-[0.15em] uppercase transition-all duration-300 shadow-md flex items-center justify-center gap-2 cursor-pointer select-none active:scale-95 whitespace-nowrap"
             >
-              Agendar Hora
+              <CalendarDays size={14} className="text-white shrink-0" />
+              <span>Agendar Hora</span>
             </a>
 
             <Dialog onOpenChange={(open) => !open && setShowSpecInfo(false)}>
               <DialogTrigger asChild>
-                <button className="w-full max-w-[230px] bg-white dark:bg-slate-800/50 border border-slate-200/80 dark:border-slate-700 hover:border-[#259CF4]/50 text-slate-600 dark:text-slate-300 hover:text-primary dark:hover:text-white font-bold h-11 rounded-full text-[10px] tracking-[0.15em] uppercase transition-all duration-300 shadow-sm hover:shadow-md flex items-center justify-center cursor-pointer select-none active:scale-95 whitespace-nowrap">
-                  Ver Perfil Completo
+                <button className="w-full max-w-[230px] bg-white dark:bg-slate-800/50 border border-slate-200/80 dark:border-slate-700 hover:border-[#259CF4]/50 text-slate-800 dark:text-slate-200 hover:text-primary dark:hover:text-white font-bold h-11 rounded-full text-[10px] tracking-[0.15em] uppercase transition-all duration-300 shadow-sm hover:shadow-md flex items-center justify-center gap-2 cursor-pointer select-none active:scale-95 whitespace-nowrap">
+                  <Search size={14} className="text-slate-800 dark:text-slate-200 shrink-0" />
+                  <span>Ver Perfil Completo</span>
                 </button>
               </DialogTrigger>
               <DialogContent showCloseButton={false} className="w-[95vw] max-w-[500px] md:max-w-[800px] max-h-[85vh] flex flex-col md:flex-row rounded-[2rem] border-none p-0 overflow-hidden gap-0 bg-white dark:bg-slate-900">
