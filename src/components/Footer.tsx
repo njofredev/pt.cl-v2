@@ -229,7 +229,8 @@ export const Footer = () => {
               { name: 'Inicio', href: '/' },
               { name: 'Quiénes Somos', href: '/nosotros' },
               { name: 'Nuestras Sucursales', href: '/#sucursales' },
-              { name: 'Estado de Sistemas', href: 'https://uptime.policlinicotabancura.cl/status/estado' }
+              { name: 'Estado de Sistemas', href: 'https://uptime.policlinicotabancura.cl/status/estado' },
+              { name: 'Política de Privacidad', href: 'https://policlinicotabancura.dentalink.cl/politicas-privacidad/wJMGyh8nYFC2bfENfYq1UD3c7lGG7K8' }
             ]}
           />
 
