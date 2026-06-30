@@ -5,7 +5,14 @@ export default function robots(): MetadataRoute.Robots {
     rules: {
       userAgent: '*',
       allow: '/',
-      disallow: ['/admin/', '/api/'],
+      disallow: [
+        '/admin/',
+        '/api/',
+        '/alianzas',
+        '/marialuisabombal',
+        '/cotizador-examenes',
+        '/aranceles'
+      ],
     },
     sitemap: 'https://www.policlinicotabancura.cl/sitemap.xml',
   };
