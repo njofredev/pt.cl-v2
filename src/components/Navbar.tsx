@@ -332,25 +332,25 @@ export const Navbar = () => {
               animate={{ height: 'auto', opacity: 1 }}
               exit={{ height: 0, opacity: 0 }}
               transition={{ duration: 0.3, ease: "easeInOut" }}
-              className="bg-gradient-to-r from-[#1e1b4b] via-[#312e81] to-[#1e1b4b] text-white overflow-hidden relative z-[60] shadow-md border-b border-indigo-950/40"
+              className="bg-gradient-to-r from-[#c2410c] via-[#ea580c] to-[#c2410c] text-white overflow-hidden relative z-[60] shadow-md border-b border-orange-950/30"
             >
               <div className="container mx-auto px-4 py-2 md:py-2.5 flex items-center justify-center gap-x-2 sm:gap-x-4 text-center relative pr-28 md:pr-32">
-                <SmilePlus className="w-5 h-5 shrink-0 hidden sm:block text-[#34d399] animate-pulse" />
+                <SmilePlus className="w-5 h-5 shrink-0 hidden sm:block text-[#fef08a] animate-pulse" />
                 <p className="text-[9px] sm:text-[11px] md:text-xs font-bold tracking-wide flex flex-wrap items-center justify-center gap-x-1 text-white/90">
                   <a
                     href="https://ff.healthatom.io/be3WhX"
                     target="_blank"
                     rel="noopener noreferrer"
                     onClick={() => trackEvent('click_promocion', { label: 'Promo Limpieza Dental Sticky Bar - Badge' })}
-                    className="hidden md:inline-flex items-center bg-[#10b981] hover:bg-[#059669] px-2 py-0.5 rounded-full text-[9px] mr-1 text-white font-black border border-[#34d399]/20 transition-all hover:scale-105 active:scale-95 cursor-pointer"
+                    className="hidden md:inline-flex items-center bg-[#7c2d12] hover:bg-[#9a3412] px-2 py-0.5 rounded-full text-[9px] mr-1 text-white font-black border border-white/10 transition-all hover:scale-105 active:scale-95 cursor-pointer"
                   >
                     <Megaphone className="w-2.5 h-2.5 mr-1 -rotate-12 shrink-0" /> PROMOCIÓN LIMITADA
                   </a>
                   <span className="flex items-center gap-1">
-                    <ClipboardPlus className="w-3.5 h-3.5 text-[#34d399] shrink-0 inline-block relative -top-[0.5px]" />
+                    <ClipboardPlus className="w-3.5 h-3.5 text-[#fef08a] shrink-0 inline-block relative -top-[0.5px]" />
                     Pack Dental: Evaluación + Limpieza + RX Bitewing Bilateral por
                   </span>
-                  <span className="text-[#34d399] text-xs sm:text-sm font-black flex items-center ml-1 underline underline-offset-2">
+                  <span className="text-[#fef08a] text-xs sm:text-sm font-black flex items-center ml-1 underline underline-offset-2">
                     $24.000.-
                   </span>
                   <span className="hidden lg:inline bg-white/5 px-2 py-0.5 rounded-full text-[8px] ml-2 border border-white/10 tracking-widest text-white">HASTA 30 DE JUNIO | PARA MAYORES DE 15 AÑOS | SÓLO WEB</span>
@@ -363,7 +363,7 @@ export const Navbar = () => {
                     target="_blank"
                     rel="noopener noreferrer"
                     onClick={() => trackEvent('click_promocion', { label: 'Promo Limpieza Dental Sticky Bar' })}
-                    className="bg-[#10b981] text-white hover:bg-[#059669] px-2 sm:px-4 py-1 rounded-full text-[8px] sm:text-[10px] font-black uppercase hover:scale-105 transition-all shrink-0 shadow-sm flex items-center gap-1 active:scale-95"
+                    className="bg-white text-[#c2410c] hover:bg-[#ffedd5] px-2 sm:px-4 py-1 rounded-full text-[8px] sm:text-[10px] font-black uppercase hover:scale-105 transition-all shrink-0 shadow-sm flex items-center gap-1 active:scale-95"
                   >
                     Agendar <ChevronRight className="w-2.5 h-2.5 sm:w-3 sm:h-3" />
                   </a>
