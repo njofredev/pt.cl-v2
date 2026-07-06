@@ -237,6 +237,8 @@ export async function getProfessionals(): Promise<Professional[]> {
             image = "/img_profesionales/perfilGardeniaSaldías.jpg";
           } else if (lowerName.includes("isidora") && lowerName.includes("luengo")) {
             image = "/img_profesionales/perfilIsidoraLuengo.jpg";
+          } else if (lowerName.includes("isidora") && lowerName.includes("aspillaga")) {
+            image = "/img_profesionales/perfilIsidoraAspillaga.png";
           } else if (lowerName.includes("loreto") && lowerName.includes("torres")) {
             image = "/img_profesionales/perfilLoretoTorres.jpg";
           } else if (lowerName.includes("macarena") && lowerName.includes("fuenzalida")) {
