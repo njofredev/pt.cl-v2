@@ -55,7 +55,7 @@ const SPECIALTIES = [
   'Odontopediatría', 'Odontología General', 'Endodoncia', 'Implantología', 'Psicología',
   'Trastornos Temporomandibulares', 'Cirugía, Implantología', 'Ortodoncia', 'Periodoncia',
   'Rehabilitación Oral', 'Radiología', 'Fonoaudiología', 'Psiquiatría', 'Psicopedagogía',
-  'Medicina', 'Pediatría', 'Kinesiología', 'Biomagnetismo', 'Masoterapia', 'Enfermería', 'Podología'
+  'Medicina', 'Pediatría', 'Kinesiología', 'Biomagnetismo', 'Enfermería', 'Podología'
 ].sort();
 
 const SUCURSALES = [

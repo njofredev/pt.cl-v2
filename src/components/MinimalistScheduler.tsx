@@ -185,7 +185,6 @@ const SCHEDULE_DATA: Category[] = [
     icon: <Leaf size={26} strokeWidth={1.5} />,
     color: 'green',
     services: [
-      { label: "Masoterapia", info: "Masajes descontracturantes", link: "https://ff.healthatom.io/B0htiL" },
       { label: "Biomagnetismo", info: "Terapia con imanes", link: "https://ff.healthatom.io/kQfeV2" }
     ]
   },

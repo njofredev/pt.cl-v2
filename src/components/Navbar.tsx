@@ -339,7 +339,7 @@ export const Navbar = () => {
                 onClick={() => trackEvent('click_llamar', { label: 'Top Bar Tribunales Phone' })}
                 className="flex items-center gap-2 hover:text-[#259CF4] transition-colors group"
               >
-                <span>Contacto Tribunales</span>
+                <span>Llamar Tribunales</span>
                 <Phone size={12} className="text-white/90 group-hover:scale-110 transition-transform" />
               </a>
               <a
@@ -347,7 +347,7 @@ export const Navbar = () => {
                 onClick={() => trackEvent('click_llamar', { label: 'Top Bar Vitacura Phone' })}
                 className="flex items-center gap-2 hover:text-[#259CF4] transition-colors group"
               >
-                <span>Contacto Vitacura</span>
+                <span>Llamar Vitacura</span>
                 <Phone size={12} className="text-white/90 group-hover:scale-110 transition-transform" />
               </a>
 

@@ -145,11 +145,6 @@ const SPECIALTY_METADATA: Record<string, { description: string, icon: any, focus
   },
 
   // Terapias
-  'Masoterapia': {
-    description: "Técnicas manuales enfocadas en aliviar contracturas, tensiones y relajar el cuerpo.",
-    icon: Hand,
-    focus: ["Masaje descontracturante", "Relajación integral", "Bienestar y salud", "Liberación miofascial"]
-  },
   'Biomagnetismo': {
     description: "Terapia alternativa con imanes para equilibrar la energía del organismo.",
     icon: Zap,
@@ -412,9 +407,12 @@ const ProfessionalFilterContent = ({ initialArea, professionals }: { initialArea
                      WebkitMaskImage: 'linear-gradient(to right, transparent 0%, black 5%, black 95%, transparent 100%)'
                    }}>
                 
-                {/* Fila Única Infinita */}
-                <div className="flex gap-3 w-max animate-marquee-pro-1 group-hover:[animation-play-state:paused] py-1">
-                  {[...specialtiesForGrid, ...specialtiesForGrid, ...specialtiesForGrid, ...specialtiesForGrid, ...specialtiesForGrid, ...specialtiesForGrid].map((item, idx) => {
+                {/* Fila Única Infinita o Estática */}
+                <div className={`flex gap-3 w-max py-1 ${specialtiesForGrid.length > 1 ? 'animate-marquee-pro-1 group-hover:[animation-play-state:paused]' : 'mx-auto'}`}>
+                  {(specialtiesForGrid.length > 1
+                    ? [...specialtiesForGrid, ...specialtiesForGrid, ...specialtiesForGrid, ...specialtiesForGrid, ...specialtiesForGrid, ...specialtiesForGrid]
+                    : specialtiesForGrid
+                  ).map((item, idx) => {
                     const Icon = item.Icon;
                     const isSelected = selectedSpecialty === item.name;
 

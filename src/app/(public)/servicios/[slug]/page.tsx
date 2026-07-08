@@ -103,8 +103,7 @@ const SLUG_TO_HERO: Record<string, HeroProps> = {
     highlightClassName: "text-green-500 dark:text-green-400",
     description: "Integración de sabiduría y ciencia para potenciar tu salud natural en un entorno de armonía absoluta.",
     images: [
-      { src: '/generated/heroComplementarias.webp', alt: 'Terapias de Bienestar - Biomagnetismo', location: 'Biomagnetismo' },
-      { src: '/generated/heroComplementaria2.webp', alt: 'Terapias de Bienestar - Masoterapia', location: 'Masoterapia' }
+      { src: '/generated/heroComplementarias.webp', alt: 'Terapias de Bienestar - Biomagnetismo', location: 'Biomagnetismo' }
     ],
     statsNumber: "+3k",
     statsLabel: "Sesiones de Sanación",
