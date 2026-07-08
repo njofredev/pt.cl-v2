@@ -146,7 +146,7 @@ export const Hero = ({
     }
   };
   return (
-    <section className="main-hero relative z-10 pt-[140px] sm:pt-[160px] md:pt-[230px] lg:pt-[250px] pb-12 md:pb-20 bg-transparent dark:bg-transparent transition-colors duration-300">
+    <section className="main-hero relative z-10 pt-[120px] sm:pt-[130px] md:pt-[170px] lg:pt-[190px] pb-6 md:pb-10 bg-transparent dark:bg-transparent transition-colors duration-300">
       <div className="container mx-auto px-6 grid lg:grid-cols-2 gap-6 lg:gap-16 items-center">
         <motion.div
           initial={{ opacity: 0, x: -30 }}
@@ -256,7 +256,7 @@ export const Hero = ({
 
             <div
               onClick={handleSliderClick}
-              className={`relative z-10 bg-white dark:bg-slate-950 rounded-[2rem] sm:rounded-[3rem] overflow-hidden aspect-[4/3] transition-all duration-500 transform active:scale-[0.99] ${(sliderAnchorId || images === DEFAULT_IMAGES) ? 'cursor-pointer' : 'cursor-default'
+              className={`relative z-10 bg-white dark:bg-slate-950 rounded-[2rem] sm:rounded-[3rem] overflow-hidden aspect-[4/3] lg:aspect-[16/10] transition-all duration-500 transform active:scale-[0.99] ${(sliderAnchorId || images === DEFAULT_IMAGES) ? 'cursor-pointer' : 'cursor-default'
                 }`}
             >
               <div className="relative w-full h-full overflow-hidden">
