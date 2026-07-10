@@ -119,6 +119,7 @@ export const Navbar = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isSearchOpen, setIsSearchOpen] = useState(false);
   const [openMobileSubmenu, setOpenMobileSubmenu] = useState<string | null>(null);
+  const [showPromo, setShowPromo] = useState(true);
   const { theme, setTheme } = useTheme();
   const [mounted, setMounted] = useState(false);
   const [currentTime, setCurrentTime] = useState<Date | null>(null);
@@ -219,6 +220,21 @@ export const Navbar = () => {
     setIsMobileMenuOpen(false);
   }, [pathname]);
 
+  useEffect(() => {
+    if (typeof document !== 'undefined') {
+      if (showPromo) {
+        document.body.classList.add('promo-visible');
+      } else {
+        document.body.classList.remove('promo-visible');
+      }
+    }
+    return () => {
+      if (typeof document !== 'undefined') {
+        document.body.classList.remove('promo-visible');
+      }
+    };
+  }, [showPromo]);
+
   // Hide Navbar for specific routes
   if (pathname === '/alianzas' || pathname === '/marialuisabombal') {
     return null;
@@ -308,6 +324,62 @@ export const Navbar = () => {
     <>
       <SearchModal isOpen={isSearchOpen} onClose={() => setIsSearchOpen(false)} />
       <nav className="fixed top-0 w-full z-50">
+        <AnimatePresence>
+          {showPromo && (
+            <motion.div
+              initial={{ height: 0, opacity: 0 }}
+              animate={{ height: 'auto', opacity: 1 }}
+              exit={{ height: 0, opacity: 0 }}
+              transition={{ duration: 0.3, ease: "easeInOut" }}
+              className="bg-gradient-to-r from-[#f57c00] via-[#ff9800] to-[#f57c00] text-white overflow-hidden relative z-[60] shadow-md border-b border-orange-950/20"
+            >
+              <div className="container mx-auto px-4 py-2 md:py-2.5 flex items-center justify-center gap-x-2 sm:gap-x-4 text-center relative pr-28 md:pr-32">
+                <p className="text-[9px] sm:text-[11px] md:text-xs font-bold tracking-wide flex flex-wrap items-center justify-center gap-x-1 text-white/90">
+                  <a
+                    href="https://ff.healthatom.io/TzqaY4"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    onClick={() => trackEvent('click_promocion', { label: 'Promo Ortodoncia Sticky Bar - Badge' })}
+                    className="hidden md:inline-flex items-center bg-[#b23c00] hover:bg-[#d84a00] px-2 py-0.5 rounded-full text-[9px] mr-1 text-white font-black border border-white/10 transition-all hover:scale-105 active:scale-95 cursor-pointer"
+                  >
+                    <Megaphone className="w-2.5 h-2.5 mr-1 -rotate-12 shrink-0" /> ¡PROMOCIÓN!
+                  </a>
+                  <span className="flex items-center gap-1">
+                    <ClipboardPlus className="w-3.5 h-3.5 text-[#fef08a] shrink-0 inline-block relative -top-[0.5px]" />
+                    <span>Ortodoncia Especializada: Consulta + Set de Radiografías por solo</span>
+                  </span>
+                  <span className="text-[#fef08a] text-xs sm:text-sm font-black flex items-center ml-1 underline underline-offset-2">
+                    $35.000.-
+                  </span>
+                  <span className="text-white/60 line-through text-[10px] ml-1">Antes: $138.000</span>
+                  <span className="hidden lg:inline bg-white/5 px-2 py-0.5 rounded-full text-[8px] ml-2 border border-white/10 tracking-widest text-white/90 uppercase font-black">
+                    Hasta 31 de Julio, 2026 | Vitacura #8620 | Sólo Web
+                  </span>
+                </p>
+
+                <div className="absolute right-2 sm:right-4 top-1/2 -translate-y-1/2 flex items-center gap-x-1 sm:gap-x-2">
+                  <a
+                    href="https://ff.healthatom.io/TzqaY4"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    onClick={() => trackEvent('click_promocion', { label: 'Promo Ortodoncia Sticky Bar' })}
+                    className="bg-white text-[#f57c00] hover:bg-[#fff3e0] px-2 sm:px-4 py-1 rounded-full text-[8px] sm:text-[10px] font-black uppercase hover:scale-105 transition-all shrink-0 shadow-sm flex items-center gap-1 active:scale-95"
+                  >
+                    Agendar <ChevronRight className="w-2.5 h-2.5 sm:w-3 sm:h-3" />
+                  </a>
+
+                  <button
+                    onClick={() => setShowPromo(false)}
+                    className="p-2 sm:p-2.5 text-white/70 hover:text-white hover:bg-white/15 rounded-full transition-colors shrink-0"
+                    aria-label="Cerrar promoción"
+                  >
+                    <X className="w-5 h-5 sm:w-6 sm:h-6" />
+                  </button>
+                </div>
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
         <div className={`bg-primary text-white hidden md:block transition-all duration-300 ${isScrolled ? 'py-1' : 'py-2'} border-b border-white/5`}>
           <div className="container mx-auto px-4 md:px-6 flex flex-col lg:flex-row justify-center lg:justify-between items-center gap-y-2 py-0.5 text-[11px] sm:text-xs font-semibold tracking-wide text-center md:text-left">
             <div className="flex flex-wrap gap-x-6 gap-y-1.5 justify-center lg:justify-start">
