@@ -12,11 +12,26 @@ const plusJakartaSans = Plus_Jakarta_Sans({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://www.policlinicotabancura.cl"),
   title: {
     template: "%s | Policlínico Tabancura",
-    default: "Salud Dental, Mental y Medicina General | Policlínico Tabancura",
+    default: "Centro Médico y Dental en Vitacura | Policlínico Tabancura",
   },
-  description: "Atención especializada en Vitacura. Convenios, agendamiento online y profesionales de primer nivel.",
+  description: "Clínica médica, dental y salud mental en Vitacura. Convenios corporativos, bono PAD y especialistas de primer nivel. Reserva tu hora online rápida y fácil.",
+  keywords: ["Centro médico Vitacura", "Clínica Dental Vitacura", "Salud Mental", "Policlínico Tabancura", "Medicina General", "Bono PAD", "Odontología Vitacura"],
+  openGraph: {
+    title: "Policlínico Tabancura | Centro Médico en Vitacura",
+    description: "Atención especializada médica, dental y de salud mental en Vitacura. Convenios, agendamiento online y profesionales de primer nivel.",
+    url: "https://www.policlinicotabancura.cl",
+    siteName: "Policlínico Tabancura",
+    locale: "es_CL",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Policlínico Tabancura | Centro Médico en Vitacura",
+    description: "Atención especializada médica, dental y de salud mental en Vitacura. Convenios, agendamiento online y profesionales de primer nivel.",
+  },
 };
 
 export default function RootLayout({

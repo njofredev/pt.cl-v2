@@ -42,49 +42,71 @@ export default async function Home() {
         dangerouslySetInnerHTML={{
           __html: JSON.stringify({
             "@context": "https://schema.org",
-            "@type": "MedicalBusiness",
-            "name": "Policlínico Tabancura",
-            "alternateName": "Poli Tabancura",
-            "url": "https://www.policlinicotabancura.cl",
-            "logo": "https://www.policlinicotabancura.cl/logo.svg",
-            "image": "https://www.policlinicotabancura.cl/Sucursales/heroActual.webp",
-            "description": "Policlínico Tabancura es una corporación sin fines de lucro en Vitacura que ofrece atención de excelencia con destacados profesionales. Agenda tu hora online en Salud Dental, Salud Mental, Medicina General y Terapias.",
-            "telephone": "+56229336740",
-            "address": {
-              "@type": "PostalAddress",
-              "streetAddress": "Av Vitacura 8620",
-              "addressLocality": "Vitacura",
-              "addressRegion": "Región Metropolitana",
-              "addressCountry": "CL"
-            },
-            "geo": {
-              "@type": "GeoCoordinates",
-              "latitude": -33.3888,
-              "longitude": -70.5422
-            },
-            "openingHoursSpecification": [
+            "@graph": [
               {
-                "@type": "OpeningHoursSpecification",
-                "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
-                "opens": "08:30",
-                "closes": "20:00"
+                "@type": "MedicalClinic",
+                "@id": "https://www.policlinicotabancura.cl/#clinic",
+                "name": "Policlínico Tabancura",
+                "alternateName": "Centro Médico Policlínico Tabancura",
+                "url": "https://www.policlinicotabancura.cl",
+                "logo": "https://www.policlinicotabancura.cl/logo.svg",
+                "image": "https://www.policlinicotabancura.cl/Sucursales/heroActual.webp",
+                "description": "Centro médico, clínico y dental en Vitacura. Atención especializada en salud mental, medicina general y convenios corporativos.",
+                "telephone": "+56229336740",
+                "email": "contacto@policlinicotabancura.cl",
+                "priceRange": "$$",
+                "address": {
+                  "@type": "PostalAddress",
+                  "streetAddress": "Av Vitacura 8620",
+                  "addressLocality": "Vitacura",
+                  "addressRegion": "Región Metropolitana",
+                  "addressCountry": "CL"
+                },
+                "geo": {
+                  "@type": "GeoCoordinates",
+                  "latitude": -33.3888,
+                  "longitude": -70.5422
+                },
+                "openingHoursSpecification": [
+                  {
+                    "@type": "OpeningHoursSpecification",
+                    "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
+                    "opens": "08:30",
+                    "closes": "20:00"
+                  },
+                  {
+                    "@type": "OpeningHoursSpecification",
+                    "dayOfWeek": "Saturday",
+                    "opens": "09:00",
+                    "closes": "13:00"
+                  }
+                ],
+                "medicalSpecialty": [
+                  "Dentistry",
+                  "Psychiatry",
+                  "GeneralPractice",
+                  "Physiotherapy"
+                ],
+                "availableService": [
+                  { "@type": "MedicalTest", "name": "Odontología Integral" },
+                  { "@type": "MedicalTest", "name": "Salud Mental" },
+                  { "@type": "MedicalTest", "name": "Medicina General" }
+                ],
+                "sameAs": [
+                  "https://www.instagram.com/politabancura/",
+                  "https://www.facebook.com/profile.php?id=61568214167163",
+                  "https://www.tiktok.com/@politabancura"
+                ]
               },
               {
-                "@type": "OpeningHoursSpecification",
-                "dayOfWeek": "Saturday",
-                "opens": "09:00",
-                "closes": "13:00"
+                "@type": "WebSite",
+                "@id": "https://www.policlinicotabancura.cl/#website",
+                "url": "https://www.policlinicotabancura.cl",
+                "name": "Policlínico Tabancura",
+                "publisher": {
+                  "@id": "https://www.policlinicotabancura.cl/#clinic"
+                }
               }
-            ],
-            "medicalSpecialty": [
-              "Dentistry",
-              "Psychiatry",
-              "GeneralPractice"
-            ],
-            "sameAs": [
-              "https://www.instagram.com/politabancura/",
-              "https://www.facebook.com/profile.php?id=61568214167163",
-              "https://www.tiktok.com/@politabancura"
             ]
           })
         }}
@@ -97,7 +119,7 @@ export default async function Home() {
         ]}
         description={
           <>
-            Creado para acompañarte en cada etapa del cuidado de tu salud.
+            Cuidamos tu bienestar con profesionales de excelencia y atención personalizada.
           </>
         }
         statsNumber={`+${totalPros}`}
@@ -123,7 +145,10 @@ export default async function Home() {
             <div className="mb-12">
               <p className="text-base sm:text-lg md:text-xl font-medium text-[#162158] mb-4">
                 Somos una corporación <br />
-                <span className="text-[#162158] font-black text-xl sm:text-2xl md:text-3xl relative inline-block mt-1">
+                <span 
+                  className="text-[#162158] font-extrabold text-xl sm:text-2xl md:text-3xl relative inline-block mt-1"
+                  style={{ fontVariantLigatures: 'none' }}
+                >
                   sin fines de lucro.
                   <svg className="absolute -bottom-2.5 left-0 w-full h-2.5 text-[#162158]" viewBox="0 0 100 10" preserveAspectRatio="none">
                     <path d="M2,8 Q50,2 98,8" stroke="currentColor" strokeWidth="4.5" strokeLinecap="round" fill="none" />

@@ -13,6 +13,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     '/convenios',
     '/bonopad',
     '/derechos-y-deberes',
+    '/agenda',
     '/novedades/centro-radiologico',
     '/novedades/laboratorio',
   ];

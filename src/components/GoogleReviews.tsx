@@ -265,8 +265,8 @@ const TRIBUNALES_RAW = [
 const DATA = {
   vitacura: {
     name: "Sucursal Vitacura",
-    rating: "4.9",
-    count: 56,
+    rating: "4.8",
+    count: 57,
     reviews: [...VITACURA_RAW, ...VITACURA_RAW]
   },
   tribunales: {

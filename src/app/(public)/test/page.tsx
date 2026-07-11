@@ -111,7 +111,7 @@ export default async function TestPage({ searchParams }: PageProps) {
         ]}
         description={
           <>
-            Creado para acompañarte en cada etapa del cuidado de tu salud.
+            Cuidamos tu bienestar con profesionales de excelencia y atención personalizada.
           </>
         }
         statsNumber={`+${totalPros}`}

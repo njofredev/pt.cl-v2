@@ -8,8 +8,6 @@ export default function robots(): MetadataRoute.Robots {
       disallow: [
         '/admin/',
         '/api/',
-        '/alianzas',
-        '/marialuisabombal',
         '/cotizador-examenes',
         '/aranceles'
       ],

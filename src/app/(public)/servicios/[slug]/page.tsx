@@ -26,8 +26,24 @@ export async function generateMetadata({ params }: ParamsProps): Promise<Metadat
   const { slug } = await params;
   const area = SLUG_TO_AREA[slug];
   if (!area) return {};
+  
+  const descriptions: Record<string, string> = {
+    'dental': 'Especialistas en Salud Dental en Vitacura. Ortodoncia, implantes y odontología general con atención de excelencia y tecnología avanzada.',
+    'mental': 'Psicología y Psiquiatría en Vitacura. Apoyo integral para tu bienestar emocional con profesionales destacados.',
+    'medicina': 'Medicina General en Vitacura. Atención médica oportuna, preventiva y de calidad para toda la familia.',
+    'terapias': 'Terapias Complementarias en Vitacura. Kinesiología, fonoaudiología y más servicios enfocados en tu rehabilitación y bienestar.'
+  };
+
+  const desc = descriptions[slug] || `Atención de excelencia en ${area} en Vitacura. Agenda tu hora online.`;
+
   return {
     title: area,
+    description: desc,
+    openGraph: {
+      title: `${area} | Policlínico Tabancura`,
+      description: desc,
+      url: `https://www.policlinicotabancura.cl/servicios/${slug}`,
+    }
   };
 }
 
