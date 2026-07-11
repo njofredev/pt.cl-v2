@@ -3,7 +3,7 @@
 import React, { useState, useMemo, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import {
-  Search, User, ChevronRight, ChevronDown, Filter, X, Info, GraduationCap, MapPin,
+  Search, User, ChevronRight, ChevronLeft, ChevronDown, Filter, X, Info, GraduationCap, MapPin,
   Sparkles, SmilePlus, Brain, Stethoscope, Leaf, CalendarDays, Video, Activity,
   Bone, Scissors, Ear, Smile, Users, ShieldAlert, Pill, Footprints, Baby,
   Syringe, ShieldPlus, Hand, Zap, Trash2
@@ -227,8 +227,36 @@ const ProfessionalFilterContent = ({ initialArea, professionals }: { initialArea
   const [selectedSucursal, setSelectedSucursal] = useState<string>("Todas");
   const [selectedAgeGroup, setSelectedAgeGroup] = useState<string>("Todas");
   const [shuffledProfessionals, setShuffledProfessionals] = useState<Professional[]>([]);
+  const [selectedPro, setSelectedPro] = useState<Professional | null>(null);
+  const [showSpecInfo, setShowSpecInfo] = useState(false);
   const searchParams = useSearchParams();
   const preSelectedSpecialty = searchParams.get('especialidad');
+
+  const handlePrevPro = () => {
+    if (!selectedPro) return;
+    const currentIndex = filteredProfessionals.findIndex(p => p.id === selectedPro.id);
+    if (currentIndex === -1) return;
+    const nextIndex = (currentIndex - 1 + filteredProfessionals.length) % filteredProfessionals.length;
+    setSelectedPro(filteredProfessionals[nextIndex]);
+    setShowSpecInfo(false);
+  };
+
+  const handleNextPro = () => {
+    if (!selectedPro) return;
+    const currentIndex = filteredProfessionals.findIndex(p => p.id === selectedPro.id);
+    if (currentIndex === -1) return;
+    const nextIndex = (currentIndex + 1) % filteredProfessionals.length;
+    setSelectedPro(filteredProfessionals[nextIndex]);
+    setShowSpecInfo(false);
+  };
+
+  const activeDialogProImage = selectedPro?.image;
+  const activeDialogLowerSuc = selectedPro?.sucursal?.toLowerCase() || "";
+  const activeDialogIsVitacura = activeDialogLowerSuc.includes("vitacura");
+  const activeDialogIsTribunales = activeDialogLowerSuc.includes("tribunales") || activeDialogLowerSuc.includes("matriz") || activeDialogLowerSuc.includes("matríz");
+  const activeDialogHasTele = activeDialogLowerSuc.includes("teleconsulta");
+  const activeDialogSpecMetadata = selectedPro ? (SPECIALTY_METADATA[selectedPro.specialty] || { icon: Activity, description: "Atención experta enfocada en tu recuperación y bienestar integral." }) : null;
+  const ActiveDialogSpecIcon = activeDialogSpecMetadata?.icon || Activity;
 
   useEffect(() => {
     // Barajar aleatoriamente los profesionales al cargar en el cliente (evita Hydration Mismatch)
@@ -621,7 +649,12 @@ const ProfessionalFilterContent = ({ initialArea, professionals }: { initialArea
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
               <AnimatePresence mode='popLayout'>
                 {filteredProfessionals.map((pro, idx) => (
-                  <ProfessionalCard key={`${pro.name}-${pro.specialty}`} pro={pro} idx={idx} />
+                  <ProfessionalCard 
+                    key={`${pro.name}-${pro.specialty}`} 
+                    pro={pro} 
+                    idx={idx} 
+                    onViewProfile={(p) => setSelectedPro(p)} 
+                  />
                 ))}
               </AnimatePresence>
             </div>
@@ -654,13 +687,240 @@ const ProfessionalFilterContent = ({ initialArea, professionals }: { initialArea
           </div>
         </div>
       </div>
+
+      <Dialog open={selectedPro !== null} onOpenChange={(open) => {
+        if (!open) {
+          setSelectedPro(null);
+          setShowSpecInfo(false);
+        }
+      }}>
+        {selectedPro && (
+          <DialogContent showCloseButton={false} className="w-[95vw] max-w-[500px] md:max-w-[800px] max-h-[85vh] p-0 bg-transparent border-none shadow-none overflow-visible">
+            {/* Botones de navegación (Flechas fuera del modal en pantallas md+) */}
+            <button
+              onClick={handlePrevPro}
+              className="absolute -left-4 md:-left-16 top-1/2 -translate-y-1/2 bg-white/90 dark:bg-slate-800/90 hover:bg-[#259CF4] hover:text-white dark:hover:bg-[#259CF4] text-slate-800 dark:text-slate-200 p-2 md:p-3 rounded-full shadow-lg transition-all border border-slate-200/50 dark:border-white/5 cursor-pointer z-50 flex items-center justify-center hover:scale-110 active:scale-95"
+              aria-label="Profesional anterior"
+            >
+              <ChevronLeft size={20} className="w-5 h-5 md:w-6 md:h-6" />
+            </button>
+            <button
+              onClick={handleNextPro}
+              className="absolute -right-4 md:-right-16 top-1/2 -translate-y-1/2 bg-white/90 dark:bg-slate-800/90 hover:bg-[#259CF4] hover:text-white dark:hover:bg-[#259CF4] text-slate-800 dark:text-slate-200 p-2 md:p-3 rounded-full shadow-lg transition-all border border-slate-200/50 dark:border-white/5 cursor-pointer z-50 flex items-center justify-center hover:scale-110 active:scale-95"
+              aria-label="Siguiente profesional"
+            >
+              <ChevronRight size={20} className="w-5 h-5 md:w-6 md:h-6" />
+            </button>
+
+            {/* Contenedor con bordes redondeados y clip de contenido */}
+            <div className="w-full h-full flex flex-col md:flex-row rounded-[2rem] overflow-hidden gap-0 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800/50 shadow-2xl relative">
+              {/* Lado Izquierdo: Avatar e Información Básica (Fondo Celeste) */}
+            <div className="w-full md:w-[35%] bg-[#1d8cdb] p-6 md:p-8 text-white relative shrink-0 flex flex-col items-center justify-center text-center border-b md:border-b-0 md:border-r border-white/10">
+              <div className="relative w-20 h-20 sm:w-28 h-28 md:w-36 md:h-36 bg-white/15 rounded-full flex items-center justify-center mb-4 overflow-hidden border-4 border-white/25 shadow-2xl">
+                {activeDialogProImage ? (
+                  <Image
+                    src={activeDialogProImage}
+                    alt={selectedPro.name}
+                    fill
+                    className="object-cover"
+                    sizes="(max-width: 768px) 112px, 144px"
+                  />
+                ) : (
+                  <User size={50} className="text-white" />
+                )}
+              </div>
+
+              <DialogHeader className="text-center w-full mb-4 flex flex-col items-center">
+                <DialogTitle className="text-lg sm:text-xl md:text-2xl font-black tracking-tight leading-tight mb-1 text-white">{selectedPro.name}</DialogTitle>
+                <div className="text-white/90 font-extrabold text-[10px] md:text-xs uppercase tracking-widest">{selectedPro.area}</div>
+                {selectedPro.education && (
+                  <div className="border-t border-white/20 pt-3 mt-3 w-full text-center">
+                    <span className="text-[8px] font-black uppercase tracking-[0.2em] text-white/55 block mb-1">Título / Universidad</span>
+                    <p className="text-white/85 font-medium text-[11px] sm:text-xs leading-relaxed max-w-[240px] mx-auto">
+                      {selectedPro.education}
+                    </p>
+                  </div>
+                )}
+              </DialogHeader>
+
+              {/* Categoría y Especialidad */}
+              <div className="flex flex-col items-center gap-3 w-full mt-auto pt-6 border-t border-white/15">
+                <span className="hidden sm:block text-[9px] font-black uppercase tracking-[0.2em] text-white/50">Categoría</span>
+                <div className="flex flex-col items-center gap-2">
+                  <div className="flex flex-col items-center">
+                    <button
+                      onClick={() => setShowSpecInfo(!showSpecInfo)}
+                      className={`group/specbtn inline-flex items-center gap-1.5 px-4 py-1.5 rounded-full border-none transition-all duration-300 relative ${showSpecInfo
+                        ? 'bg-white text-[#1d8cdb] shadow-xl scale-105'
+                        : 'bg-primary text-white font-bold shadow-lg shadow-black/10 hover:scale-105'
+                        }`}
+                    >
+                      <ActiveDialogSpecIcon size={11} strokeWidth={2.5} className={showSpecInfo ? 'text-[#1d8cdb]' : 'text-white'} />
+                      <span className="text-[9px] font-bold uppercase tracking-widest">{selectedPro.specialty}</span>
+                      <ChevronRight size={11} className={`ml-1 transition-transform duration-300 ${showSpecInfo ? 'rotate-180 text-[#1d8cdb]' : 'group-hover/specbtn:translate-x-0.5 text-white'}`} />
+                    </button>
+                    {!showSpecInfo && (
+                      <span className="text-[7.5px] font-bold text-white/80 tracking-[0.15em] uppercase mt-1.5 animate-pulse">
+                        Clic para ver detalle
+                      </span>
+                    )}
+                  </div>
+                  <Badge variant="outline" className="text-white border-white/30 text-[9px] py-1 px-3 rounded-full bg-white/10 backdrop-blur-sm">
+                    {selectedPro.area}
+                  </Badge>
+                </div>
+              </div>
+            </div>
+
+            {/* Botón Cerrar (Extremo derecho superior) */}
+            <DialogClose className="absolute top-4 right-4 p-1.5 text-slate-400 hover:text-primary dark:hover:text-white hover:bg-slate-100 dark:hover:bg-white/10 rounded-full transition-all outline-none group cursor-pointer z-[100]">
+              <X className="w-5 h-5" />
+            </DialogClose>
+
+            {/* Lado Derecho: Badges y Detalles (Scrollable) */}
+            <div className="w-full md:w-[65%] flex flex-col bg-white dark:bg-slate-900 overflow-hidden">
+              <div className="p-5 sm:p-6 md:p-8 flex-1 overflow-y-auto custom-scrollbar space-y-6">
+
+                <AnimatePresence mode="wait">
+                  {showSpecInfo ? (
+                    <motion.div
+                      key="specialty-info"
+                      initial={{ opacity: 0, x: 20 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      exit={{ opacity: 0, x: -20 }}
+                      className="space-y-5"
+                    >
+                      <div className="flex items-center justify-between">
+                        <h3 className="text-[9px] font-black uppercase tracking-[0.2em] text-secondary flex items-center gap-2">
+                          <Sparkles size={12} /> Sobre la Especialidad
+                        </h3>
+                        <button
+                          onClick={() => setShowSpecInfo(false)}
+                          className="text-[9px] font-black uppercase tracking-widest text-primary dark:text-white hover:text-secondary flex items-center gap-1.5 transition-colors mr-10"
+                        >
+                          <ChevronRight size={10} className="rotate-180" /> Volver al Perfil
+                        </button>
+                      </div>
+                      <div className="bg-secondary/5 dark:bg-secondary/10 p-5 rounded-2xl border border-secondary/10">
+                        <h4 className="text-xl font-bold text-primary dark:text-white mb-2">{selectedPro.specialty}</h4>
+                        <p className="text-slate-600 dark:text-slate-300 font-medium text-sm leading-relaxed">
+                          {activeDialogSpecMetadata?.description}
+                        </p>
+                      </div>
+
+                      {activeDialogSpecMetadata?.focus && (
+                        <div className="space-y-3">
+                          <h3 className="text-[9px] font-black uppercase tracking-[0.2em] text-slate-400 dark:text-slate-500">
+                            {selectedPro.specialty === "Kinesiología" ? "Áreas de tratamiento" : "Áreas de enfoque principal"}
+                          </h3>
+                          <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                            {activeDialogSpecMetadata.focus.map((item, i) => (
+                              <div key={i} className="flex items-center gap-2 bg-slate-50 dark:bg-white/5 p-2 rounded-xl border border-slate-100 dark:border-white/5">
+                                <div className="w-5 h-5 rounded-lg bg-secondary/10 flex items-center justify-center shrink-0">
+                                  <Activity size={10} className="text-secondary" />
+                                </div>
+                                <span className="text-[11px] font-bold text-slate-700 dark:text-slate-200">{item}</span>
+                              </div>
+                            ))}
+                          </div>
+                        </div>
+                      )}
+                    </motion.div>
+                  ) : (
+                    <motion.div
+                      key="profile-info"
+                      initial={{ opacity: 0, x: -20 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      exit={{ opacity: 0, x: 20 }}
+                      className="space-y-6"
+                    >
+                      {/* 1. Otros Títulos */}
+                      {selectedPro.otherTitles && (
+                        <div className="space-y-1.5">
+                          <h3 className="text-[9px] font-bold uppercase tracking-[0.2em] text-slate-400 dark:text-slate-500 flex items-center gap-2">
+                            <GraduationCap size={12} className="text-secondary" /> Otros Títulos / Especialidades
+                          </h3>
+                          <p className="text-slate-600 dark:text-slate-300 font-medium text-xs sm:text-sm leading-relaxed">{selectedPro.otherTitles}</p>
+                        </div>
+                      )}
+
+                      {/* 2. Perfil Profesional */}
+                      {selectedPro.description && (
+                        <div className="space-y-1.5">
+                          <h3 className="text-[9px] font-bold uppercase tracking-[0.2em] text-slate-400 dark:text-slate-500 flex items-center gap-2">
+                            <Info size={12} className="text-secondary" /> Perfil Profesional
+                          </h3>
+                          <p className="text-slate-600 dark:text-slate-300 font-medium text-xs sm:text-sm leading-relaxed">{selectedPro.description}</p>
+                        </div>
+                      )}
+
+                      {/* 3. Edades de atención */}
+                      {selectedPro.ageGroup && (
+                        <div className="flex flex-col items-center md:items-start gap-2.5 pt-4 border-t border-slate-100 dark:border-slate-800 w-full">
+                          <span className="hidden sm:block text-[10px] font-black uppercase tracking-[0.2em] text-slate-400 dark:text-slate-500">Edades de atención</span>
+                          <div className="flex flex-wrap justify-center md:justify-start gap-2">
+                            {selectedPro.ageGroup.split(',').map(s => s.replace(/\./g, '').trim()).filter(Boolean).map((age, i) => (
+                              <span key={i} className="text-xs font-bold tracking-normal bg-secondary/10 text-secondary px-3.5 py-1.5 rounded-xl border border-secondary/10 whitespace-nowrap">
+                                {age}
+                              </span>
+                            ))}
+                          </div>
+                        </div>
+                      )}
+
+                      {/* 4. Sucursales */}
+                      <div className="flex flex-col items-center md:items-start gap-2 pt-4 border-t border-slate-100 dark:border-slate-800 w-full">
+                        <span className="hidden sm:block text-[9px] font-black uppercase tracking-[0.2em] text-slate-400 dark:text-slate-500">Sucursales y Modalidad</span>
+                        <div className="flex flex-wrap gap-1.5 justify-center md:justify-start">
+                          {activeDialogIsTribunales && (
+                            <Badge variant="secondary" className="bg-slate-100 dark:bg-white/5 text-slate-600 dark:text-slate-300 hover:bg-slate-200 border-none flex items-center gap-1 px-2.5 py-1.5 rounded-lg text-[8px] font-black uppercase tracking-widest">
+                              <MapPin size={10} className="opacity-70 text-teal-500" /> Los Tribunales
+                            </Badge>
+                          )}
+                          {activeDialogIsVitacura && (
+                            <Badge variant="secondary" className="bg-slate-100 dark:bg-white/5 text-slate-600 dark:text-slate-300 hover:bg-slate-200 border-none flex items-center gap-1 px-2.5 py-1.5 rounded-lg text-[8px] font-black uppercase tracking-widest">
+                              <MapPin size={10} className="opacity-70 text-secondary" /> Vitacura
+                            </Badge>
+                          )}
+                          {activeDialogHasTele && (
+                            <Badge variant="secondary" className="bg-blue-50 dark:bg-blue-900/20 text-blue-600 dark:text-blue-300 hover:bg-blue-100 border-none flex items-center gap-1 px-2.5 py-1.5 rounded-lg text-[8px] font-black uppercase tracking-widest">
+                              <Video size={10} className="opacity-70" /> Teleconsulta
+                            </Badge>
+                          )}
+                        </div>
+                      </div>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+              </div>
+
+              {/* Footer Fijo con CTA */}
+              <div className="bg-slate-50 dark:bg-slate-900/50 px-6 py-4 md:px-8 md:py-6 border-t border-slate-100 dark:border-slate-800 shrink-0">
+                {(() => {
+                  const firstName = selectedPro.name.split(' ').filter(p => !p.includes('.')).filter(p => p.length > 0)[0] || selectedPro.name.split(' ')[0];
+                  return (
+                    <a
+                      href={selectedPro.bookingLink || "tel:+56222172635"}
+                      target={selectedPro.bookingLink?.startsWith('http') ? "_blank" : undefined}
+                      rel={selectedPro.bookingLink?.startsWith('http') ? "noopener noreferrer" : undefined}
+                      className="w-full bg-gradient-to-r from-primary to-[#1e3a8a] hover:from-[#111827] hover:to-[#1f2937] text-white font-bold h-12 md:h-14 rounded-full text-xs md:text-sm tracking-tight shadow-xl shadow-primary/20 transition-all duration-300 flex items-center justify-center gap-2 cursor-pointer select-none active:scale-95 whitespace-nowrap"
+                    >
+                      <CalendarDays size={16} className="text-white shrink-0" />
+                      <span>Agendar Hora con {firstName}</span>
+                    </a>
+                  );
+                })()}
+              </div>
+            </div>
+            </div>
+          </DialogContent>
+        )}
+      </Dialog>
     </section>
   );
 };
 
-const ProfessionalCard = ({ pro, idx }: { pro: Professional, idx: number }) => {
-  const [showSpecInfo, setShowSpecInfo] = useState(false);
-
+const ProfessionalCard = ({ pro, idx, onViewProfile }: { pro: Professional, idx: number, onViewProfile: (pro: Professional) => void }) => {
   const proImage = pro.image;
   const lowerSuc = pro.sucursal?.toLowerCase() || "";
   const isVitacura = lowerSuc.includes("vitacura");
@@ -750,206 +1010,13 @@ const ProfessionalCard = ({ pro, idx }: { pro: Professional, idx: number }) => {
               <span>Agendar Hora</span>
             </a>
 
-            <Dialog onOpenChange={(open) => !open && setShowSpecInfo(false)}>
-              <DialogTrigger asChild>
-                <button className="w-full max-w-[230px] bg-white dark:bg-slate-800/50 border border-slate-200/80 dark:border-slate-700 hover:border-[#259CF4]/50 text-slate-800 dark:text-slate-200 hover:text-primary dark:hover:text-white font-bold h-11 rounded-full text-[10px] tracking-[0.15em] uppercase transition-all duration-300 shadow-sm hover:shadow-md flex items-center justify-center gap-2 cursor-pointer select-none active:scale-95 whitespace-nowrap">
-                  <Search size={14} className="text-slate-800 dark:text-slate-200 shrink-0" />
-                  <span>Ver Perfil Completo</span>
-                </button>
-              </DialogTrigger>
-              <DialogContent showCloseButton={false} className="w-[95vw] max-w-[500px] md:max-w-[800px] max-h-[85vh] flex flex-col md:flex-row rounded-[2rem] border-none p-0 overflow-hidden gap-0 bg-white dark:bg-slate-900">
-                {/* Lado Izquierdo: Avatar e Información Básica (Fondo Celeste) */}
-                <div className="w-full md:w-[35%] bg-[#1d8cdb] p-6 md:p-8 text-white relative shrink-0 flex flex-col items-center justify-center text-center border-b md:border-b-0 md:border-r border-white/10">
-                  <div className="relative w-20 h-20 sm:w-28 h-28 md:w-36 md:h-36 bg-white/15 rounded-full flex items-center justify-center mb-4 overflow-hidden border-4 border-white/25 shadow-2xl">
-                    {proImage ? (
-                      <Image
-                        src={proImage}
-                        alt={pro.name}
-                        fill
-                        className="object-cover"
-                        sizes="(max-width: 768px) 112px, 144px"
-                      />
-                    ) : (
-                      <User size={50} className="text-white" />
-                    )}
-                  </div>
-
-                  <DialogHeader className="text-center w-full mb-4">
-                    <DialogTitle className="text-lg sm:text-xl md:text-2xl font-black tracking-tight leading-tight mb-1 text-white">{pro.name}</DialogTitle>
-                    <div className="text-white/90 font-extrabold text-[10px] md:text-xs uppercase tracking-widest">{pro.area}</div>
-                  </DialogHeader>
-
-                  {/* Categoría y Especialidad */}
-                  <div className="flex flex-col items-center gap-3 w-full mt-auto pt-6 border-t border-white/15">
-                    <span className="hidden sm:block text-[9px] font-black uppercase tracking-[0.2em] text-white/50">Categoría</span>
-                    <div className="flex flex-col items-center gap-2">
-                      <div className="flex flex-col items-center">
-                        <button
-                          onClick={() => setShowSpecInfo(!showSpecInfo)}
-                          className={`group/specbtn inline-flex items-center gap-1.5 px-4 py-1.5 rounded-full border-none transition-all duration-300 relative ${showSpecInfo
-                            ? 'bg-white text-[#1d8cdb] shadow-xl scale-105'
-                            : 'bg-primary text-white font-bold shadow-lg shadow-black/10 hover:scale-105'
-                            }`}
-                        >
-                          <SpecIcon size={11} strokeWidth={2.5} className={showSpecInfo ? 'text-[#1d8cdb]' : 'text-white'} />
-                          <span className="text-[9px] font-bold uppercase tracking-widest">{pro.specialty}</span>
-                          <ChevronRight size={11} className={`ml-1 transition-transform duration-300 ${showSpecInfo ? 'rotate-180 text-[#1d8cdb]' : 'group-hover/specbtn:translate-x-0.5 text-white'}`} />
-                        </button>
-                        {!showSpecInfo && (
-                          <span className="text-[7.5px] font-bold text-white/80 tracking-[0.15em] uppercase mt-1.5 animate-pulse">
-                            Clic para ver detalle
-                          </span>
-                        )}
-                      </div>
-                      <Badge variant="outline" className="text-white border-white/30 text-[9px] py-1 px-3 rounded-full bg-white/10 backdrop-blur-sm">
-                        {pro.area}
-                      </Badge>
-                    </div>
-                  </div>
-                </div>
-
-                {/* Botón Cerrar (Extremo derecho superior) */}
-                <DialogClose className="absolute top-4 right-4 p-1.5 text-slate-400 hover:text-primary dark:hover:text-white hover:bg-slate-100 dark:hover:bg-white/10 rounded-full transition-all outline-none group cursor-pointer z-[100]">
-                  <X className="w-5 h-5" />
-                </DialogClose>
-
-                {/* Lado Derecho: Badges y Detalles (Scrollable) */}
-                <div className="w-full md:w-[65%] flex flex-col bg-white dark:bg-slate-900 overflow-hidden">
-                  <div className="p-5 sm:p-6 md:p-8 flex-1 overflow-y-auto custom-scrollbar space-y-6">
-
-                    <AnimatePresence mode="wait">
-                      {showSpecInfo ? (
-                        <motion.div
-                          key="specialty-info"
-                          initial={{ opacity: 0, x: 20 }}
-                          animate={{ opacity: 1, x: 0 }}
-                          exit={{ opacity: 0, x: -20 }}
-                          className="space-y-5"
-                        >
-                          <div className="flex items-center justify-between">
-                            <h3 className="text-[9px] font-black uppercase tracking-[0.2em] text-secondary flex items-center gap-2">
-                              <Sparkles size={12} /> Sobre la Especialidad
-                            </h3>
-                            <button
-                              onClick={() => setShowSpecInfo(false)}
-                              className="text-[9px] font-black uppercase tracking-widest text-primary dark:text-white hover:text-secondary flex items-center gap-1.5 transition-colors mr-10"
-                            >
-                              <ChevronRight size={10} className="rotate-180" /> Volver al Perfil
-                            </button>
-                          </div>
-                          <div className="bg-secondary/5 dark:bg-secondary/10 p-5 rounded-2xl border border-secondary/10">
-                            <h4 className="text-xl font-bold text-primary dark:text-white mb-2">{pro.specialty}</h4>
-                            <p className="text-slate-600 dark:text-slate-300 font-medium text-sm leading-relaxed">
-                              {specMetadata.description}
-                            </p>
-                          </div>
-
-                          {specMetadata.focus && (
-                            <div className="space-y-3">
-                              <h3 className="text-[9px] font-black uppercase tracking-[0.2em] text-slate-400 dark:text-slate-500">
-                                {pro.specialty === "Kinesiología" ? "Áreas de tratamiento" : "Áreas de enfoque principal"}
-                              </h3>
-                              <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
-                                {specMetadata.focus.map((item, i) => (
-                                  <div key={i} className="flex items-center gap-2 bg-slate-50 dark:bg-white/5 p-2 rounded-xl border border-slate-100 dark:border-white/5">
-                                    <div className="w-5 h-5 rounded-lg bg-secondary/10 flex items-center justify-center shrink-0">
-                                      <Activity size={10} className="text-secondary" />
-                                    </div>
-                                    <span className="text-[11px] font-bold text-slate-700 dark:text-slate-200">{item}</span>
-                                  </div>
-                                ))}
-                              </div>
-                            </div>
-                          )}
-                        </motion.div>
-                      ) : (
-                        <motion.div
-                          key="profile-info"
-                          initial={{ opacity: 0, x: -20 }}
-                          animate={{ opacity: 1, x: 0 }}
-                          exit={{ opacity: 0, x: 20 }}
-                          className="space-y-6"
-                        >
-                          {/* 1. Formación Académica */}
-                          {pro.education && (
-                            <div className="space-y-1.5">
-                              <h3 className="text-[9px] font-bold uppercase tracking-[0.2em] text-slate-400 dark:text-slate-500 flex items-center gap-2">
-                                <GraduationCap size={12} className="text-secondary" /> Formación Académica
-                              </h3>
-                              <p className="text-slate-600 dark:text-slate-300 font-medium text-xs sm:text-sm leading-relaxed">{pro.education}</p>
-                            </div>
-                          )}
-
-                          {/* 2. Perfil Profesional */}
-                          {pro.description && (
-                            <div className="space-y-1.5">
-                              <h3 className="text-[9px] font-bold uppercase tracking-[0.2em] text-slate-400 dark:text-slate-500 flex items-center gap-2">
-                                <Info size={12} className="text-secondary" /> Perfil Profesional
-                              </h3>
-                              <p className="text-slate-600 dark:text-slate-300 font-medium text-xs sm:text-sm leading-relaxed">{pro.description}</p>
-                            </div>
-                          )}
-
-                          {/* 3. Edades de atención */}
-                          {pro.ageGroup && (
-                            <div className="flex flex-col items-center md:items-start gap-2.5 pt-4 border-t border-slate-100 dark:border-slate-800 w-full">
-                              <span className="hidden sm:block text-[10px] font-black uppercase tracking-[0.2em] text-slate-400 dark:text-slate-500">Edades de atención</span>
-                              <div className="flex flex-wrap justify-center md:justify-start gap-2">
-                                {pro.ageGroup.split(',').map(s => s.replace(/\./g, '').trim()).filter(Boolean).map((age, i) => (
-                                  <span key={i} className="text-xs font-bold tracking-normal bg-secondary/10 text-secondary px-3.5 py-1.5 rounded-xl border border-secondary/10 whitespace-nowrap">
-                                    {age}
-                                  </span>
-                                ))}
-                              </div>
-                            </div>
-                          )}
-
-                          {/* 4. Sucursales */}
-                          <div className="flex flex-col items-center md:items-start gap-2 pt-4 border-t border-slate-100 dark:border-slate-800 w-full">
-                            <span className="hidden sm:block text-[9px] font-black uppercase tracking-[0.2em] text-slate-400 dark:text-slate-500">Sucursales y Modalidad</span>
-                            <div className="flex flex-wrap gap-1.5 justify-center md:justify-start">
-                              {isTribunales && (
-                                <Badge variant="secondary" className="bg-slate-100 dark:bg-white/5 text-slate-600 dark:text-slate-300 hover:bg-slate-200 border-none flex items-center gap-1 px-2.5 py-1.5 rounded-lg text-[8px] font-black uppercase tracking-widest">
-                                  <MapPin size={10} className="opacity-70 text-teal-500" /> Los Tribunales
-                                </Badge>
-                              )}
-                              {isVitacura && (
-                                <Badge variant="secondary" className="bg-slate-100 dark:bg-white/5 text-slate-600 dark:text-slate-300 hover:bg-slate-200 border-none flex items-center gap-1 px-2.5 py-1.5 rounded-lg text-[8px] font-black uppercase tracking-widest">
-                                  <MapPin size={10} className="opacity-70 text-secondary" /> Vitacura
-                                </Badge>
-                              )}
-                              {hasTele && (
-                                <Badge variant="secondary" className="bg-blue-50 dark:bg-blue-900/20 text-blue-600 dark:text-blue-300 hover:bg-blue-100 border-none flex items-center gap-1 px-2.5 py-1.5 rounded-lg text-[8px] font-black uppercase tracking-widest">
-                                  <Video size={10} className="opacity-70" /> Teleconsulta
-                                </Badge>
-                              )}
-                            </div>
-                          </div>
-                        </motion.div>
-                      )}
-                    </AnimatePresence>
-                  </div>
-
-                  {/* Footer Fijo con CTA */}
-                  <div className="bg-slate-50 dark:bg-slate-900/50 px-6 py-4 md:px-8 md:py-6 border-t border-slate-100 dark:border-slate-800 shrink-0">
-                    {(() => {
-                      const firstName = pro.name.split(' ').filter(p => !p.includes('.')).filter(p => p.length > 0)[0] || pro.name.split(' ')[0];
-                      return (
-                        <a
-                          href={pro.bookingLink || "tel:+56222172635"}
-                          target={pro.bookingLink?.startsWith('http') ? "_blank" : undefined}
-                          rel={pro.bookingLink?.startsWith('http') ? "noopener noreferrer" : undefined}
-                          className="w-full bg-gradient-to-r from-primary to-[#1e3a8a] hover:from-[#111827] hover:to-[#1f2937] text-white font-bold h-12 md:h-14 rounded-full text-xs md:text-sm tracking-tight shadow-xl shadow-primary/20 transition-all duration-300 flex items-center justify-center gap-2 cursor-pointer select-none active:scale-95 whitespace-nowrap"
-                        >
-                          <CalendarDays size={16} className="text-white shrink-0" />
-                          <span>Agendar Hora con {firstName}</span>
-                        </a>
-                      );
-                    })()}
-                  </div>
-                </div>
-              </DialogContent>
-            </Dialog>
+            <button 
+              onClick={() => onViewProfile(pro)}
+              className="w-full max-w-[230px] bg-white dark:bg-slate-800/50 border border-slate-200/80 dark:border-slate-700 hover:border-[#259CF4]/50 text-slate-800 dark:text-slate-200 hover:text-primary dark:hover:text-white font-bold h-11 rounded-full text-[10px] tracking-[0.15em] uppercase transition-all duration-300 shadow-sm hover:shadow-md flex items-center justify-center gap-2 cursor-pointer select-none active:scale-95 whitespace-nowrap"
+            >
+              <Search size={14} className="text-slate-800 dark:text-slate-200 shrink-0" />
+              <span>Ver Perfil Completo</span>
+            </button>
           </div>
         </div>
       </div>

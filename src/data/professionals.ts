@@ -8,6 +8,7 @@ export interface Professional {
   area: string;
   description?: string | null;
   education?: string | null;
+  otherTitles?: string | null;
   sucursal?: string | null;
   image?: string | null;
   ageGroup?: string | null;
@@ -288,6 +289,7 @@ export async function getProfessionals(): Promise<Professional[]> {
           area: p["Área:"] || p.area,
           description: p["Descripción para el sitio web:"] || p.description,
           education: p["Título / Universidad:"] || p.education,
+          otherTitles: p["Otros títulos académicos:"] || p.otherTitles || null,
           sucursal: p["Sucursal:"] || p.sucursal,
           image,
           ageGroup: p["Grupo Etario:"] || p.ageGroup,
