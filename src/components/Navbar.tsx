@@ -113,6 +113,37 @@ const SOCIAL_PHRASES = [
   "Hola 👋"
 ];
 
+const PROMOS = [
+  {
+    id: 'ortodoncia',
+    badgeText: '¡OFERTA IMPERDIBLE!',
+    title: 'Ortodoncia Especializada: Consulta + Set Radiografías',
+    price: '$35.000.-',
+    oldPrice: 'Antes: $138.000',
+    location: 'Vitacura #8620 | Sólo Web',
+    link: 'https://ff.healthatom.io/TzqaY4',
+    badgeColor: 'bg-[#b23c00] hover:bg-[#d84a00]',
+    bgColor: 'from-[#f57c00] via-[#ff9800] to-[#f57c00]',
+    priceColor: 'text-[#fef08a]',
+    btnColor: 'text-[#f57c00] hover:bg-[#fff3e0]',
+    trackingLabel: 'Promo Ortodoncia Sticky Bar'
+  },
+  {
+    id: 'limpieza',
+    badgeText: '¡NUEVA PROMO!',
+    title: 'Limpieza Dental: Evaluación + Profilaxis + RX Bitewing',
+    price: '$24.000.-',
+    oldPrice: 'Antes: $47.000',
+    location: 'Ambas Sucursales | Sólo Web',
+    link: 'https://ff.healthatom.io/be3WhX',
+    badgeColor: 'bg-[#3730a3] hover:bg-[#4338ca]',
+    bgColor: 'from-[#4338ca] via-[#6366f1] to-[#4338ca]',
+    priceColor: 'text-[#a5b4fc]',
+    btnColor: 'text-[#4338ca] hover:bg-[#e0e7ff]',
+    trackingLabel: 'Promo Limpieza Sticky Bar'
+  }
+];
+
 export const Navbar = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
@@ -120,6 +151,8 @@ export const Navbar = () => {
   const [isSearchOpen, setIsSearchOpen] = useState(false);
   const [openMobileSubmenu, setOpenMobileSubmenu] = useState<string | null>(null);
   const [showPromo, setShowPromo] = useState(true);
+  const [promoIndex, setPromoIndex] = useState(0);
+  const [isHoveringPromo, setIsHoveringPromo] = useState(false);
   const { theme, setTheme } = useTheme();
   const [mounted, setMounted] = useState(false);
   const [currentTime, setCurrentTime] = useState<Date | null>(null);
@@ -127,46 +160,23 @@ export const Navbar = () => {
   const [confirmLink, setConfirmLink] = useState<string | null>(null);
   const pathname = usePathname();
 
-  // Configuración dinámica del botón de agendamiento según la especialidad/página
   const getBookingConfig = () => {
     if (pathname?.startsWith('/servicios/dental')) {
-      return {
-        text: "Agenda aquí",
-        bgColor: "bg-cyan-500",
-        Icon: SmilePlus,
-      };
+      return { text: "Agenda aquí", bgColor: "bg-cyan-500", Icon: SmilePlus };
     }
     if (pathname?.startsWith('/servicios/mental')) {
-      return {
-        text: "Agenda aquí",
-        bgColor: "bg-indigo-600",
-        Icon: Brain,
-      };
+      return { text: "Agenda aquí", bgColor: "bg-indigo-600", Icon: Brain };
     }
     if (pathname?.startsWith('/servicios/medicina')) {
-      return {
-        text: "Agenda aquí",
-        bgColor: "bg-blue-500",
-        Icon: Stethoscope,
-      };
+      return { text: "Agenda aquí", bgColor: "bg-blue-500", Icon: Stethoscope };
     }
     if (pathname?.startsWith('/servicios/terapias')) {
-      return {
-        text: "Agenda aquí",
-        bgColor: "bg-green-500",
-        Icon: Leaf,
-      };
+      return { text: "Agenda aquí", bgColor: "bg-green-500", Icon: Leaf };
     }
-    return {
-      text: "Reservar Hora",
-      bgColor: "bg-secondary",
-      Icon: Calendar,
-    };
+    return { text: "Reservar Hora", bgColor: "bg-secondary", Icon: Calendar };
   };
 
   const bookingConfig = getBookingConfig();
-
-
 
   useEffect(() => {
     setMounted(true);
@@ -178,11 +188,10 @@ export const Navbar = () => {
 
     const timeInterval = setInterval(() => {
       setCurrentTime(new Date());
-    }, 10000); // Actualizar cada 10 segundos por precisión en minutos
+    }, 10000);
 
     const handleScroll = () => {
-      const offset = window.scrollY;
-      setIsScrolled(offset > 20);
+      setIsScrolled(window.scrollY > 20);
     };
     window.addEventListener('scroll', handleScroll, { passive: true });
     return () => {
@@ -192,7 +201,14 @@ export const Navbar = () => {
     };
   }, []);
 
-  // Toggle active class on body for global styling awareness (e.g., FAB adaptation)
+  useEffect(() => {
+    if (!showPromo || isHoveringPromo) return;
+    const promoTimer = setInterval(() => {
+      setPromoIndex(prev => (prev + 1) % PROMOS.length);
+    }, 5000);
+    return () => clearInterval(promoTimer);
+  }, [showPromo, isHoveringPromo]);
+
   useEffect(() => {
     if (typeof document !== 'undefined') {
       if (isMobileMenuOpen) {
@@ -234,6 +250,9 @@ export const Navbar = () => {
       }
     };
   }, [showPromo]);
+
+
+
 
   // Hide Navbar for specific routes
   if (pathname === '/alianzas' || pathname === '/marialuisabombal') {
@@ -331,49 +350,71 @@ export const Navbar = () => {
               animate={{ height: 'auto', opacity: 1 }}
               exit={{ height: 0, opacity: 0 }}
               transition={{ duration: 0.3, ease: "easeInOut" }}
-              className="bg-gradient-to-r from-[#f57c00] via-[#ff9800] to-[#f57c00] text-white overflow-hidden relative z-[60] shadow-md border-b border-orange-950/20"
+              onMouseEnter={() => setIsHoveringPromo(true)}
+              onMouseLeave={() => setIsHoveringPromo(false)}
+              className={`bg-gradient-to-r ${PROMOS[promoIndex].bgColor} text-white overflow-hidden relative z-[60] shadow-md border-b border-black/10 transition-colors duration-500`}
             >
               <div className="container mx-auto px-4 py-2 md:py-2.5 flex items-center justify-center gap-x-2 sm:gap-x-4 text-center relative pr-28 md:pr-32">
-                <p className="text-[9px] sm:text-[11px] md:text-xs font-bold tracking-wide flex flex-wrap items-center justify-center gap-x-1 text-white/90">
-                  <a
-                    href="https://ff.healthatom.io/TzqaY4"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    onClick={() => trackEvent('click_promocion', { label: 'Promo Ortodoncia Sticky Bar - Badge' })}
-                    className="hidden md:inline-flex items-center bg-[#b23c00] hover:bg-[#d84a00] px-2 py-0.5 rounded-full text-[9px] mr-1 text-white font-black border border-white/10 transition-all hover:scale-105 active:scale-95 cursor-pointer"
+                <AnimatePresence mode="wait">
+                  <motion.div
+                    key={PROMOS[promoIndex].id}
+                    initial={{ opacity: 0, y: 8 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: -8 }}
+                    transition={{ duration: 0.35, ease: "easeOut" }}
+                    className="flex flex-wrap items-center justify-center gap-x-1 text-white/90 text-[9px] sm:text-[11px] md:text-xs font-bold tracking-wide"
                   >
-                    <Megaphone className="w-2.5 h-2.5 mr-1 -rotate-12 shrink-0" /> ¡PROMOCIÓN!
-                  </a>
-                  <span className="flex items-center gap-1">
-                    <ClipboardPlus className="w-3.5 h-3.5 text-[#fef08a] shrink-0 inline-block relative -top-[0.5px]" />
-                    <span>Ortodoncia Especializada: Consulta + Set de Radiografías por solo</span>
-                  </span>
-                  <span className="text-[#fef08a] text-xs sm:text-sm font-black flex items-center ml-1 underline underline-offset-2">
-                    $35.000.-
-                  </span>
-                  <span className="text-white/60 line-through text-[10px] ml-1">Antes: $138.000</span>
-                  <span className="hidden lg:inline bg-white/5 px-2 py-0.5 rounded-full text-[8px] ml-2 border border-white/10 tracking-widest text-white/90 uppercase font-black">
-                    Hasta 31 de Julio, 2026 | Vitacura #8620 | Sólo Web
-                  </span>
-                </p>
+                    <a
+                      href={PROMOS[promoIndex].link}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      onClick={() => trackEvent('click_promocion', { label: `${PROMOS[promoIndex].trackingLabel} - Badge` })}
+                      className={`hidden md:inline-flex items-center ${PROMOS[promoIndex].badgeColor} px-2 py-0.5 rounded-full text-[9px] mr-1 text-white font-black border border-white/10 transition-all hover:scale-105 active:scale-95 cursor-pointer`}
+                    >
+                      <Megaphone className="w-2.5 h-2.5 mr-1 -rotate-12 shrink-0" /> {PROMOS[promoIndex].badgeText}
+                    </a>
+                    <span className="flex items-center gap-1">
+                      <ClipboardPlus className={`w-3.5 h-3.5 ${PROMOS[promoIndex].priceColor} shrink-0 inline-block relative -top-[0.5px]`} />
+                      <span>{PROMOS[promoIndex].title} por solo</span>
+                    </span>
+                    <span className={`${PROMOS[promoIndex].priceColor} text-xs sm:text-sm font-black flex items-center ml-1 underline underline-offset-2`}>
+                      {PROMOS[promoIndex].price}
+                    </span>
+                    <span className="text-white/70 line-through text-[10px] ml-1">{PROMOS[promoIndex].oldPrice}</span>
+                    <span className="hidden lg:inline bg-white/10 px-2 py-0.5 rounded-full text-[8px] ml-2 border border-white/10 tracking-widest text-white/90 uppercase font-black">
+                      {PROMOS[promoIndex].location}
+                    </span>
+                  </motion.div>
+                </AnimatePresence>
 
-                <div className="absolute right-2 sm:right-4 top-1/2 -translate-y-1/2 flex items-center gap-x-1 sm:gap-x-2">
+                <div className="absolute right-2 sm:right-4 top-1/2 -translate-y-1/2 flex items-center gap-x-1.5 sm:gap-x-2">
+                  <div className="hidden sm:flex items-center gap-1 mr-1">
+                    {PROMOS.map((p, idx) => (
+                      <button
+                        key={p.id}
+                        onClick={() => setPromoIndex(idx)}
+                        className={`h-1.5 rounded-full transition-all duration-300 ${idx === promoIndex ? 'w-4 bg-white' : 'w-1.5 bg-white/40 hover:bg-white/70'}`}
+                        aria-label={`Ver promoción ${idx + 1}`}
+                      />
+                    ))}
+                  </div>
+
                   <a
-                    href="https://ff.healthatom.io/TzqaY4"
+                    href={PROMOS[promoIndex].link}
                     target="_blank"
                     rel="noopener noreferrer"
-                    onClick={() => trackEvent('click_promocion', { label: 'Promo Ortodoncia Sticky Bar' })}
-                    className="bg-white text-[#f57c00] hover:bg-[#fff3e0] px-2 sm:px-4 py-1 rounded-full text-[8px] sm:text-[10px] font-black uppercase hover:scale-105 transition-all shrink-0 shadow-sm flex items-center gap-1 active:scale-95"
+                    onClick={() => trackEvent('click_promocion', { label: PROMOS[promoIndex].trackingLabel })}
+                    className={`bg-white ${PROMOS[promoIndex].btnColor} px-2 sm:px-4 py-1 rounded-full text-[8px] sm:text-[10px] font-black uppercase hover:scale-105 transition-all shrink-0 shadow-sm flex items-center gap-1 active:scale-95`}
                   >
                     Agendar <ChevronRight className="w-2.5 h-2.5 sm:w-3 sm:h-3" />
                   </a>
 
                   <button
                     onClick={() => setShowPromo(false)}
-                    className="p-2 sm:p-2.5 text-white/70 hover:text-white hover:bg-white/15 rounded-full transition-colors shrink-0"
+                    className="p-1.5 sm:p-2 text-white/70 hover:text-white hover:bg-white/15 rounded-full transition-colors shrink-0"
                     aria-label="Cerrar promoción"
                   >
-                    <X className="w-5 h-5 sm:w-6 sm:h-6" />
+                    <X className="w-4 h-4 sm:w-5 sm:h-5" />
                   </button>
                 </div>
               </div>

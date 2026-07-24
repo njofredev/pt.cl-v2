@@ -266,7 +266,7 @@ const DATA = {
   vitacura: {
     name: "Sucursal Vitacura",
     rating: "4.8",
-    count: 57,
+    count: 58,
     reviews: [...VITACURA_RAW, ...VITACURA_RAW]
   },
   tribunales: {
