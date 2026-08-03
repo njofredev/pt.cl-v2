@@ -144,13 +144,16 @@ const PROMOS = [
   }
 ];
 
+// Cambiar a true para volver a activar la barra de promociones en el futuro
+const ENABLE_PROMO_BAR = false;
+
 export const Navbar = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isSearchOpen, setIsSearchOpen] = useState(false);
   const [openMobileSubmenu, setOpenMobileSubmenu] = useState<string | null>(null);
-  const [showPromo, setShowPromo] = useState(true);
+  const [showPromo, setShowPromo] = useState(ENABLE_PROMO_BAR);
   const [promoIndex, setPromoIndex] = useState(0);
   const [isHoveringPromo, setIsHoveringPromo] = useState(false);
   const { theme, setTheme } = useTheme();
