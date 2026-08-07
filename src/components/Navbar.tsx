@@ -115,37 +115,23 @@ const SOCIAL_PHRASES = [
 
 const PROMOS = [
   {
-    id: 'ortodoncia',
-    badgeText: '¡OFERTA IMPERDIBLE!',
-    title: 'Ortodoncia Especializada: Consulta + Set Radiografías',
-    price: '$35.000.-',
-    oldPrice: 'Antes: $138.000',
-    location: 'Vitacura #8620 | Sólo Web',
-    link: 'https://ff.healthatom.io/TzqaY4',
-    badgeColor: 'bg-[#b23c00] hover:bg-[#d84a00]',
-    bgColor: 'from-[#f57c00] via-[#ff9800] to-[#f57c00]',
-    priceColor: 'text-[#fef08a]',
-    btnColor: 'text-[#f57c00] hover:bg-[#fff3e0]',
-    trackingLabel: 'Promo Ortodoncia Sticky Bar'
-  },
-  {
-    id: 'limpieza',
-    badgeText: '¡NUEVA PROMO!',
-    title: 'Limpieza Dental: Evaluación + Profilaxis + RX Bitewing',
-    price: '$24.000.-',
-    oldPrice: 'Antes: $47.000',
-    location: 'Ambas Sucursales | Sólo Web',
-    link: 'https://ff.healthatom.io/be3WhX',
-    badgeColor: 'bg-[#3730a3] hover:bg-[#4338ca]',
-    bgColor: 'from-[#4338ca] via-[#6366f1] to-[#4338ca]',
-    priceColor: 'text-[#a5b4fc]',
-    btnColor: 'text-[#4338ca] hover:bg-[#e0e7ff]',
-    trackingLabel: 'Promo Limpieza Sticky Bar'
+    id: 'ortodoncia-6k',
+    badgeText: '¡SÓLO POR HOY!',
+    title: 'Consulta de Ortodoncia (Frenillos Tradicionales / Alineadores Invisibles)',
+    price: '$6.000.-',
+    oldPrice: 'Antes: $18.000',
+    location: 'Sucursal Vitacura #8620 | Sólo Pago Web',
+    link: 'https://ff.healthatom.io/gNJNh6',
+    badgeColor: 'bg-rose-500 hover:bg-rose-600',
+    bgColor: 'from-[#7e22ce] via-[#be185d] to-[#7e22ce]',
+    priceColor: 'text-amber-300 font-extrabold',
+    btnColor: 'text-purple-950 bg-amber-400 hover:bg-amber-300 font-black',
+    trackingLabel: 'Promo Ortodoncia 6k Sticky Bar'
   }
 ];
 
 // Cambiar a true para volver a activar la barra de promociones en el futuro
-const ENABLE_PROMO_BAR = false;
+const ENABLE_PROMO_BAR = true;
 
 export const Navbar = () => {
   const [isScrolled, setIsScrolled] = useState(false);
