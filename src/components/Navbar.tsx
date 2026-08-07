@@ -116,7 +116,7 @@ const SOCIAL_PHRASES = [
 const PROMOS = [
   {
     id: 'ortodoncia-6k',
-    badgeText: '¡SÓLO POR HOY!',
+    badgeText: '¡HASTA EL 31 DE AGOSTO!',
     title: 'Consulta de Ortodoncia (Frenillos Tradicionales / Alineadores Invisibles)',
     price: '$6.000.-',
     oldPrice: 'Antes: $18.000',
