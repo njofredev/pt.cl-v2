@@ -7,6 +7,7 @@ import {
   Info, Calendar, Stethoscope, HeartPulse, RefreshCw, AlertCircle
 } from 'lucide-react';
 import { Button } from "@/components/ui/button";
+import { Hero } from '@/components/Hero';
 
 interface ArancelItem {
   id: number;
@@ -117,43 +118,23 @@ export default function ArancelesPage() {
   return (
     <main className="min-h-screen bg-clinical-bg dark:bg-slate-950 transition-colors duration-500 overflow-x-hidden">
       
-      {/* HERO SECTION PREMIUM */}
-      <section className="relative pt-56 pb-20 overflow-hidden">
-        {/* Background elements */}
-        <div className="absolute inset-0 overflow-hidden">
-          <div className="absolute top-0 left-1/4 w-[500px] h-[500px] bg-primary/5 rounded-full blur-[120px] -translate-y-1/2"></div>
-          <div className="absolute top-40 right-0 w-[400px] h-[400px] bg-secondary/5 rounded-full blur-[100px]"></div>
-        </div>
-
-        <div className="container mx-auto px-6 relative z-10">
-          <div className="max-w-4xl mx-auto text-center">
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6 }}
-            >
-              <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-primary text-white text-[10px] font-black uppercase tracking-widest mb-8 shadow-md shadow-primary/10">
-                <Calculator size={14} strokeWidth={2.5} className="text-secondary" />
-                Listado Transparente
-              </div>
-              
-              <h1 className="text-4xl md:text-6xl lg:text-7xl font-black text-slate-900 dark:text-white tracking-tight leading-[1.1] mb-8">
-                Nuestros Aranceles <br/>
-                <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary via-teal-400 to-secondary dark:from-white dark:via-secondary dark:to-teal-400">
-                  y Precios Preferenciales.
-                </span>
-              </h1>
-              
-              <p className="text-xl text-slate-500 dark:text-slate-400 font-medium max-w-2xl mx-auto leading-relaxed">
-                Consulta los valores generales y preferenciales asociados a nuestras especialidades clínicas y odontológicas en tiempo real.
-              </p>
-            </motion.div>
-          </div>
-        </div>
-      </section>
+      {/* HERO SECTION UNIFICADO GLOBAL */}
+      <Hero
+        badgeText="Transparencia de Precios"
+        badgeIconName="stethoscope"
+        titlePrefix="Nuestros Aranceles y"
+        titleHighlight="Precios Preferenciales."
+        description="Consulta los valores generales y preferenciales asociados a nuestras especialidades clínicas y odontológicas en tiempo real."
+        buttonText="Buscar Prestación"
+        secondaryButtonText="Reservar Hora"
+        secondaryButtonAnchorId="aranceles-tabla"
+        statsNumber="25%"
+        statsLabel="Descuento Mi Vita"
+        hideFloatingIcon={true}
+      />
 
       {/* FILTER & DATA SECTION */}
-      <section className="container mx-auto px-6 pb-24 relative z-10">
+      <section id="aranceles-tabla" className="container mx-auto px-6 pb-24 relative z-10 scroll-mt-36">
         
         {/* MAIN CONTROLLER WRAPPER */}
         <div className="max-w-6xl mx-auto space-y-8">
@@ -245,8 +226,8 @@ export default function ArancelesPage() {
                   onClick={() => setSelectedCategory(null)}
                   className={`px-5 py-2.5 rounded-full text-xs font-bold uppercase tracking-wider transition-all cursor-pointer ${
                     selectedCategory === null
-                      ? 'bg-secondary text-primary shadow-sm hover:scale-[1.02] active:scale-95'
-                      : 'bg-slate-50 border border-slate-100 hover:bg-slate-100 dark:bg-slate-900 dark:border-white/5 dark:hover:bg-slate-800 text-slate-600 dark:text-slate-300'
+                      ? 'bg-[#162158] text-white shadow-md hover:bg-[#259CF4] hover:scale-[1.02] active:scale-95'
+                      : 'bg-white border border-slate-200 hover:bg-slate-50 dark:bg-slate-900 dark:border-slate-800 dark:hover:bg-slate-800 text-slate-700 dark:text-slate-300 shadow-sm'
                   }`}
                 >
                   Todas las Especialidades
@@ -255,9 +236,9 @@ export default function ArancelesPage() {
 
               {/* Si es 'todos' o 'dental', mostramos Odontología */}
               {(activeTab === 'todos' || activeTab === 'dental') && dentalCategories.length > 0 && (
-                <div className="space-y-2 bg-slate-50/50 dark:bg-slate-900/10 p-4 rounded-3xl border border-slate-50 dark:border-white/5">
+                <div className="space-y-2 bg-slate-50/50 dark:bg-slate-900/10 p-4 rounded-3xl border border-slate-100 dark:border-white/5">
                   <span className="text-[9px] font-black uppercase tracking-widest text-slate-400 flex items-center gap-1.5 pl-1">
-                    <HeartPulse size={12} className="text-secondary" />
+                    <HeartPulse size={12} className="text-[#259CF4]" />
                     Especialidades Odontología
                   </span>
                   <div className="flex gap-2 max-md:overflow-x-auto max-md:flex-nowrap scrollbar-hide md:flex-wrap py-1 px-0.5 select-none max-w-full">
@@ -267,8 +248,8 @@ export default function ArancelesPage() {
                         onClick={() => setSelectedCategory(selectedCategory === cat ? null : cat)}
                         className={`px-4 py-2 rounded-full text-xs font-bold uppercase tracking-wider shrink-0 transition-all cursor-pointer ${
                           selectedCategory === cat
-                            ? 'bg-secondary text-primary shadow-sm hover:scale-[1.02] active:scale-95'
-                            : 'bg-white border border-slate-100 hover:bg-slate-50 dark:bg-slate-900 dark:border-white/5 dark:hover:bg-slate-800 text-slate-600 dark:text-slate-300 shadow-sm'
+                            ? 'bg-[#162158] text-white shadow-md hover:bg-[#259CF4] hover:scale-[1.02] active:scale-95'
+                            : 'bg-white border border-slate-200 hover:bg-slate-50 dark:bg-slate-900 dark:border-slate-800 dark:hover:bg-slate-800 text-slate-700 dark:text-slate-300 shadow-sm'
                         }`}
                       >
                         {cat}
@@ -282,7 +263,7 @@ export default function ArancelesPage() {
               {(activeTab === 'todos' || activeTab === 'medico') && medicalCategories.length > 0 && (
                 <div className="space-y-2 bg-slate-50/50 dark:bg-slate-900/10 p-4 rounded-3xl border border-slate-50 dark:border-white/5">
                   <span className="text-[9px] font-black uppercase tracking-widest text-slate-400 flex items-center gap-1.5 pl-1">
-                    <Stethoscope size={12} className="text-secondary" />
+                    <Stethoscope size={12} className="text-[#259CF4]" />
                     Especialidades Médicas y Exámenes
                   </span>
                   <div className="flex gap-2 max-md:overflow-x-auto max-md:flex-nowrap scrollbar-hide md:flex-wrap py-1 px-0.5 select-none max-w-full">
@@ -292,8 +273,8 @@ export default function ArancelesPage() {
                         onClick={() => setSelectedCategory(selectedCategory === cat ? null : cat)}
                         className={`px-4 py-2 rounded-full text-xs font-bold uppercase tracking-wider shrink-0 transition-all cursor-pointer ${
                           selectedCategory === cat
-                            ? 'bg-secondary text-primary shadow-sm hover:scale-[1.02] active:scale-95'
-                            : 'bg-white border border-slate-100 hover:bg-slate-50 dark:bg-slate-900 dark:border-white/5 dark:hover:bg-slate-800 text-slate-600 dark:text-slate-300 shadow-sm'
+                            ? 'bg-[#162158] text-white shadow-md hover:bg-[#259CF4] hover:scale-[1.02] active:scale-95'
+                            : 'bg-white border border-slate-200 hover:bg-slate-50 dark:bg-slate-900 dark:border-slate-800 dark:hover:bg-slate-800 text-slate-700 dark:text-slate-300 shadow-sm'
                         }`}
                       >
                         {cat}
@@ -474,26 +455,77 @@ export default function ArancelesPage() {
                     </div>
                   </div>
 
-                  {/* Navegación */}
+                  {/* Navegación por número de página interactivo */}
                   {itemsPerPage !== 'all' && totalPages > 1 && (
-                    <div className="flex gap-2 shrink-0">
+                    <div className="flex items-center gap-1.5 shrink-0 flex-wrap justify-end">
                       <Button
                         variant="outline"
                         size="sm"
                         onClick={() => setCurrentPage(prev => Math.max(1, prev - 1))}
                         disabled={currentPage === 1}
-                        className="border-slate-100 dark:border-slate-800 h-9 px-3 text-xs font-bold uppercase tracking-wider flex items-center gap-1 active:scale-95 cursor-pointer dark:hover:bg-slate-800"
+                        className="border-slate-200 dark:border-slate-800 h-9 px-2.5 text-xs font-bold uppercase tracking-wider flex items-center gap-1 active:scale-95 cursor-pointer dark:hover:bg-slate-800"
                       >
-                        <ChevronLeft size={14} /> Anterior
+                        <ChevronLeft size={14} /> <span className="hidden sm:inline">Anterior</span>
                       </Button>
+
+                      {/* Números de páginas con elipses inteligentes */}
+                      {(() => {
+                        const pages: (number | string)[] = [];
+                        const maxVisible = 5;
+
+                        if (totalPages <= maxVisible + 2) {
+                          for (let i = 1; i <= totalPages; i++) pages.push(i);
+                        } else {
+                          pages.push(1);
+                          let start = Math.max(2, currentPage - 1);
+                          let end = Math.min(totalPages - 1, currentPage + 1);
+
+                          if (currentPage <= 3) {
+                            end = 4;
+                          } else if (currentPage >= totalPages - 2) {
+                            start = totalPages - 3;
+                          }
+
+                          if (start > 2) pages.push('...');
+                          for (let i = start; i <= end; i++) pages.push(i);
+                          if (end < totalPages - 1) pages.push('...');
+                          pages.push(totalPages);
+                        }
+
+                        return pages.map((p, idx) => {
+                          if (p === '...') {
+                            return (
+                              <span key={`dots-${idx}`} className="px-1.5 text-xs text-slate-400 font-bold select-none">
+                                ...
+                              </span>
+                            );
+                          }
+                          const pageNum = p as number;
+                          const isActive = pageNum === currentPage;
+                          return (
+                            <button
+                              key={pageNum}
+                              onClick={() => setCurrentPage(pageNum)}
+                              className={`h-9 min-w-9 px-2.5 rounded-xl text-xs font-black transition-all cursor-pointer ${
+                                isActive
+                                  ? 'bg-[#162158] text-white shadow-md'
+                                  : 'bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800'
+                              }`}
+                            >
+                              {pageNum}
+                            </button>
+                          );
+                        });
+                      })()}
+
                       <Button
                         variant="outline"
                         size="sm"
                         onClick={() => setCurrentPage(prev => Math.min(totalPages, prev + 1))}
                         disabled={currentPage === totalPages}
-                        className="border-slate-100 dark:border-slate-800 h-9 px-3 text-xs font-bold uppercase tracking-wider flex items-center gap-1 active:scale-95 cursor-pointer dark:hover:bg-slate-800"
+                        className="border-slate-200 dark:border-slate-800 h-9 px-2.5 text-xs font-bold uppercase tracking-wider flex items-center gap-1 active:scale-95 cursor-pointer dark:hover:bg-slate-800"
                       >
-                        Siguiente <ChevronRight size={14} />
+                        <span className="hidden sm:inline">Siguiente</span> <ChevronRight size={14} />
                       </Button>
                     </div>
                   )}

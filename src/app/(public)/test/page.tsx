@@ -2,7 +2,7 @@ import React from 'react';
 import dynamic from 'next/dynamic';
 import { Hero } from '@/components/Hero';
 import { MiVitaLink } from '@/components/MiVitaLink';
-import { VanguardScheduler } from '@/components/VanguardScheduler';
+import { ModularScheduler } from '@/components/ModularScheduler';
 import { PartnerCarousel } from '@/components/PartnerCarousel';
 import { ServiceCarousel } from '@/components/ServiceCarousel';
 import { CallCTA } from '@/components/CallCTA';
@@ -121,10 +121,20 @@ export default async function TestPage({ searchParams }: PageProps) {
         hideFloatingIcon={true}
       />
 
-      {/* Barra de agendamiento rápido solapante */}
-      <div id="agendar" className="scroll-mt-32">
-        <VanguardScheduler />
-      </div>
+      {/* COMPONENTE DE AGENDAMIENTO MODULAR EN TESTING */}
+      <section id="agendar" className="py-12 bg-slate-100/50 dark:bg-slate-950/80 my-8 scroll-mt-32">
+        <div className="container mx-auto px-6">
+          <div className="text-center mb-6">
+            <span className="bg-[#162158] text-white text-[10px] font-bold px-3 py-1 rounded-full uppercase tracking-widest">
+              AGENDAMIENTO DE HORAS EN LÍNEA
+            </span>
+            <h2 className="text-2xl sm:text-3xl font-black text-slate-900 dark:text-white mt-2">
+              Buscador Modular de Horas Disponibles
+            </h2>
+          </div>
+          <ModularScheduler professionals={professionals} />
+        </div>
+      </section>
 
       <section className="py-8 bg-transparent dark:bg-transparent mt-10">
         <div className="container mx-auto px-6">
