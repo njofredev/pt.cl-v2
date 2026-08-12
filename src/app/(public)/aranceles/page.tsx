@@ -39,6 +39,7 @@ export default function ArancelesPage() {
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage, setItemsPerPage] = useState<number | 'all'>(12);
+  const [showAllAranceles, setShowAllAranceles] = useState(false);
 
   // Cargar datos desde la API
   useEffect(() => {
@@ -88,6 +89,7 @@ export default function ArancelesPage() {
     setSearchQuery('');
     setSelectedCategory(null);
     setCurrentPage(1);
+    setShowAllAranceles(true);
   };
 
   // Reiniciar filtros de categoría y buscador cuando cambiamos de pestaña
@@ -96,6 +98,9 @@ export default function ArancelesPage() {
     setSearchQuery('');
     setSelectedCategory(null);
     setCurrentPage(1);
+    if (tab === 'todos') {
+      setShowAllAranceles(true);
+    }
   };
 
   // Filtrar los datos resultantes por buscador y por píldora de categoría
@@ -138,8 +143,8 @@ export default function ArancelesPage() {
 
   // Verificar si el usuario ha realizado alguna acción de búsqueda o filtro
   const hasUserInteracted = useMemo(() => {
-    return Boolean(searchQuery.trim() || selectedCategory !== null || activeTab !== 'todos');
-  }, [searchQuery, selectedCategory, activeTab]);
+    return Boolean(searchQuery.trim() || selectedCategory !== null || activeTab !== 'todos' || showAllAranceles);
+  }, [searchQuery, selectedCategory, activeTab, showAllAranceles]);
 
   // Datos paginados
   const paginatedAranceles = useMemo(() => {
@@ -240,13 +245,20 @@ export default function ArancelesPage() {
                   <div className="w-20 h-20 rounded-3xl bg-blue-500/10 dark:bg-blue-500/20 flex items-center justify-center text-[#259CF4] border border-[#259CF4]/20 shadow-lg shadow-[#259CF4]/5">
                     <Search size={36} strokeWidth={2.5} />
                   </div>
-                  <div className="max-w-md space-y-2">
+                  <div className="max-w-md space-y-3 flex flex-col items-center">
                     <h3 className="text-xl font-black text-slate-800 dark:text-slate-100">
                       Escribe o selecciona una prestación
                     </h3>
                     <p className="text-xs sm:text-sm text-slate-500 dark:text-slate-400 leading-relaxed font-medium">
                       Utiliza el buscador superior o selecciona una categoría específica para consultar los valores generales y preferenciales en tiempo real.
                     </p>
+                    <button
+                      type="button"
+                      onClick={() => setShowAllAranceles(true)}
+                      className="mt-2 inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-[#259CF4] hover:bg-[#1d82ce] text-white text-xs font-black uppercase tracking-wider shadow-md shadow-blue-500/20 transition-all cursor-pointer active:scale-95"
+                    >
+                      <span>Ver todos los aranceles</span>
+                    </button>
                   </div>
                 </motion.div>
               ) : loading ? (
