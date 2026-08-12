@@ -2,12 +2,13 @@
 
 import React, { useState, useEffect, useMemo } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { 
-  Calculator, Search, Activity, ChevronLeft, ChevronRight, 
-  Info, Calendar, Stethoscope, HeartPulse, RefreshCw, AlertCircle
+import {
+  Calculator, Search, Activity, ChevronLeft, ChevronRight,
+  Info, Calendar, Stethoscope, HeartPulse, RefreshCw, AlertCircle,
+  Filter, ChevronDown, MapPin, Phone, MessageSquare, Building2, RotateCcw
 } from 'lucide-react';
 import { Button } from "@/components/ui/button";
-import { Hero } from '@/components/Hero';
+import { ArancelesHero } from '@/components/ArancelesHero';
 
 interface ArancelItem {
   id: number;
@@ -19,6 +20,13 @@ interface ArancelItem {
   hasDiscount: boolean;
   discountPercentage: number;
 }
+
+const ARANCELES_HERO_IMAGES = [
+  { src: '/generated/heroDental.webp', alt: 'Aranceles Odontología y Especialidades Dentales', location: 'Centro Odontológico' },
+  { src: '/generated/heroMedica.webp', alt: 'Aranceles Consultas Médicas y Especialidades', location: 'Atención Médica' },
+  { src: '/generated/heroLaboratorio.webp', alt: 'Aranceles Exámenes de Laboratorio', location: 'Toma de Muestras' },
+  { src: '/Sucursales/heroActual.webp', alt: 'Policlínico Tabancura', location: 'Atención General' },
+];
 
 export default function ArancelesPage() {
   const [aranceles, setAranceles] = useState<ArancelItem[]>([]);
@@ -75,6 +83,13 @@ export default function ArancelesPage() {
     return Array.from(new Set(cats)).sort();
   }, [aranceles]);
 
+  const handleClearFilters = () => {
+    setActiveTab('todos');
+    setSearchQuery('');
+    setSelectedCategory(null);
+    setCurrentPage(1);
+  };
+
   // Reiniciar filtros de categoría y buscador cuando cambiamos de pestaña
   const handleTabChange = (tab: 'todos' | 'dental' | 'medico') => {
     setActiveTab(tab);
@@ -85,9 +100,32 @@ export default function ArancelesPage() {
 
   // Filtrar los datos resultantes por buscador y por píldora de categoría
   const filteredAranceles = useMemo(() => {
+    const rawQuery = searchQuery.trim();
+    if (!rawQuery) {
+      return selectedCategory 
+        ? tabAranceles.filter(item => item.category === selectedCategory)
+        : tabAranceles;
+    }
+
+    // Normalizar texto quitando tildes para búsqueda flexible e insensibles a mayúsculas
+    const normalize = (str: string) => 
+      str.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase();
+
+    const normalizedQuery = normalize(rawQuery);
+    const queryWords = normalizedQuery.split(/\s+/).filter(Boolean);
+
     return tabAranceles.filter(item => {
-      const matchesSearch = item.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-                            item.category.toLowerCase().includes(searchQuery.toLowerCase());
+      const itemText = normalize(`${item.name} ${item.category} ${item.source === 'dentalink' ? 'dental odontologia' : 'medica'}`);
+      
+      const matchesSearch = queryWords.every(word => {
+        if (word === 'dental' && item.source === 'dentalink') return true;
+        if (word === 'medica' || word === 'medico') return item.source === 'medilink' || itemText.includes('medic');
+        if (word.startsWith('kinesio')) return itemText.includes('kinesio');
+        if (word.startsWith('psico')) return itemText.includes('psico');
+        if (word.startsWith('radio') || word.startsWith('rad')) return itemText.includes('rad') || itemText.includes('tele');
+        return itemText.includes(word);
+      });
+
       const matchesCategory = selectedCategory ? item.category === selectedCategory : true;
       return matchesSearch && matchesCategory;
     });
@@ -97,6 +135,11 @@ export default function ArancelesPage() {
   useEffect(() => {
     setCurrentPage(1);
   }, [searchQuery, selectedCategory]);
+
+  // Verificar si el usuario ha realizado alguna acción de búsqueda o filtro
+  const hasUserInteracted = useMemo(() => {
+    return Boolean(searchQuery.trim() || selectedCategory !== null || activeTab !== 'todos');
+  }, [searchQuery, selectedCategory, activeTab]);
 
   // Datos paginados
   const paginatedAranceles = useMemo(() => {
@@ -117,182 +160,98 @@ export default function ArancelesPage() {
 
   return (
     <main className="min-h-screen bg-clinical-bg dark:bg-slate-950 transition-colors duration-500 overflow-x-hidden">
-      
-      {/* HERO SECTION UNIFICADO GLOBAL */}
-      <Hero
-        badgeText="Transparencia de Precios"
-        badgeIconName="stethoscope"
-        titlePrefix="Nuestros Aranceles y"
-        titleHighlight="Precios Preferenciales."
-        description="Consulta los valores generales y preferenciales asociados a nuestras especialidades clínicas y odontológicas en tiempo real."
-        buttonText="Buscar Prestación"
-        secondaryButtonText="Reservar Hora"
-        secondaryButtonAnchorId="aranceles-tabla"
-        statsNumber="25%"
-        statsLabel="Descuento Mi Vita"
-        hideFloatingIcon={true}
+
+      {/* HIGH-IMPACT ARANCELES HERO (Matching User Reference Image) */}
+      <ArancelesHero
+        activeTab={activeTab}
+        onTabChange={handleTabChange}
+        searchQuery={searchQuery}
+        onSearchChange={setSearchQuery}
+        selectedCategory={selectedCategory}
+        onCategorySelect={setSelectedCategory}
+        dentalCategories={dentalCategories}
+        medicalCategories={medicalCategories}
+        totalFilteredCount={filteredAranceles.length}
+        loading={loading}
       />
 
-      {/* FILTER & DATA SECTION */}
-      <section id="aranceles-tabla" className="container mx-auto px-6 pb-24 relative z-10 scroll-mt-36">
-        
-        {/* MAIN CONTROLLER WRAPPER */}
-        <div className="max-w-6xl mx-auto space-y-8">
-          
-          {/* 1. TABS SYSTEM (Todos vs Odontología vs Especialidades) */}
-          <div className="flex justify-center">
-            <div className="inline-flex bg-slate-100/80 dark:bg-slate-900/60 p-1.5 rounded-full border border-slate-100 dark:border-white/5 backdrop-blur-md shadow-inner flex-wrap justify-center gap-1 sm:gap-0">
-              <button
-                onClick={() => handleTabChange('todos')}
-                className={`flex items-center gap-2 px-5 sm:px-6 py-2.5 rounded-full text-xs font-black uppercase tracking-widest transition-all cursor-pointer ${
-                  activeTab === 'todos'
-                    ? 'bg-gradient-to-r from-primary to-[#1e3a8a] text-white shadow-md'
-                    : 'text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'
-                }`}
-              >
-                <Activity size={15} />
-                Todos los Aranceles
-              </button>
-              <button
-                onClick={() => handleTabChange('dental')}
-                className={`flex items-center gap-2 px-5 sm:px-6 py-2.5 rounded-full text-xs font-black uppercase tracking-widest transition-all cursor-pointer ${
-                  activeTab === 'dental'
-                    ? 'bg-gradient-to-r from-primary to-[#1e3a8a] text-white shadow-md'
-                    : 'text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'
-                }`}
-              >
-                <HeartPulse size={15} />
-                Odontología (Dentalink)
-              </button>
-              <button
-                onClick={() => handleTabChange('medico')}
-                className={`flex items-center gap-2 px-5 sm:px-6 py-2.5 rounded-full text-xs font-black uppercase tracking-widest transition-all cursor-pointer ${
-                  activeTab === 'medico'
-                    ? 'bg-gradient-to-r from-primary to-[#1e3a8a] text-white shadow-md'
-                    : 'text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'
-                }`}
-              >
-                <Stethoscope size={15} />
-                Especialidades (Medilink)
-              </button>
-            </div>
-          </div>
+      {/* DATA & RESULTS TABLE SECTION */}
+      <section id="aranceles-tabla" className="container mx-auto px-6 py-10 relative z-20 scroll-mt-24">
 
-          {/* 2. SEARCH & TOTALS BAR */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 items-center bg-white dark:bg-slate-900/40 p-5 rounded-[2rem] border border-slate-100 dark:border-white/5 shadow-md shadow-slate-100/50 dark:shadow-none backdrop-blur-md">
-            
-            {/* Buscador */}
-            <div className="md:col-span-2 relative">
-              <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 w-5 h-5" />
-              <input
-                type="text"
-                placeholder="Escribe el nombre de la prestación o código..."
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
-                className="w-full bg-slate-50/50 dark:bg-slate-950 border border-slate-100 dark:border-slate-800 rounded-2xl pl-12 pr-6 py-3.5 text-sm font-medium outline-none text-slate-800 dark:text-slate-100 placeholder:text-slate-400 focus:border-secondary/30 transition-all shadow-inner"
-              />
-            </div>
+        <div className="max-w-6xl mx-auto space-y-6">
 
-            {/* Contador dinámico */}
-            <div className="text-center md:text-right px-2">
-              <span className="text-[10px] font-bold uppercase tracking-widest text-slate-400 block mb-0.5">Procedimientos</span>
-              <span className="text-2xl font-black text-secondary">
-                {loading ? '...' : filteredAranceles.length}
+          {/* Active Filter Indicators Bar */}
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 bg-white dark:bg-slate-900/80 p-4.5 rounded-2xl border border-slate-200/80 dark:border-white/10 shadow-xl shadow-slate-900/10 backdrop-blur-md">
+            <div className="flex items-center gap-2 flex-wrap">
+              <span className="text-xs font-bold text-slate-500 dark:text-slate-400">Resultados para:</span>
+              <span className="text-xs font-black uppercase tracking-wider text-[#259CF4] bg-blue-50 dark:bg-slate-800 px-2.5 py-1 rounded-lg border border-blue-100 dark:border-slate-700">
+                {activeTab === 'todos' ? 'Todas las Especialidades' : activeTab === 'dental' ? 'Odontología' : 'Especialidades Médicas'}
               </span>
-              <span className="text-xs font-semibold text-slate-500 ml-1">filtrados</span>
+
+              {selectedCategory && (
+                <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-lg bg-[#259CF4] text-white text-xs font-bold uppercase tracking-wider shadow-sm">
+                  <span>Categoría: {selectedCategory}</span>
+                  <button onClick={() => setSelectedCategory(null)} className="hover:text-red-200 font-black cursor-pointer">✕</button>
+                </span>
+              )}
+
+              {searchQuery && (
+                <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-lg bg-[#259CF4] text-white text-xs font-bold">
+                  <span>"{searchQuery}"</span>
+                  <button onClick={() => setSearchQuery('')} className="hover:text-red-200 font-black cursor-pointer">✕</button>
+                </span>
+              )}
+            </div>
+
+            <div className="flex items-center gap-3 shrink-0">
+              {hasUserInteracted && (
+                <button
+                  type="button"
+                  onClick={handleClearFilters}
+                  className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-slate-100 dark:bg-slate-800 hover:bg-red-500/10 text-slate-600 hover:text-red-600 dark:text-slate-300 dark:hover:text-red-400 text-xs font-bold transition-all cursor-pointer border border-slate-200/80 dark:border-white/10 active:scale-95 shadow-sm"
+                >
+                  <RotateCcw size={13} className="shrink-0" />
+                  <span>Limpiar filtros</span>
+                </button>
+              )}
+
+              <div className="text-right">
+                <span className="text-xs font-semibold text-slate-400">Encontrados: </span>
+                <span className="text-sm font-black text-[#259CF4]">
+                  {!hasUserInteracted ? 'En espera de búsqueda' : loading ? '...' : `${filteredAranceles.length} procedimientos`}
+                </span>
+              </div>
             </div>
           </div>
-
-          {/* 3. CATEGORIES CAROUSEL */}
-          {!loading && (
-            <div className="space-y-4">
-              <div className="flex items-center justify-between pl-2">
-                <span className="text-[10px] font-black uppercase tracking-[0.2em] text-slate-400 dark:text-slate-500">
-                  Filtrar por Especialidad / Categoría:
-                </span>
-                {selectedCategory && (
-                  <button
-                    onClick={() => setSelectedCategory(null)}
-                    className="text-[10px] font-extrabold uppercase tracking-wider text-secondary hover:underline cursor-pointer"
-                  >
-                    Limpiar Filtro
-                  </button>
-                )}
-              </div>
-
-              {/* Botón Todas global */}
-              <div className="pl-2">
-                <button
-                  onClick={() => setSelectedCategory(null)}
-                  className={`px-5 py-2.5 rounded-full text-xs font-bold uppercase tracking-wider transition-all cursor-pointer ${
-                    selectedCategory === null
-                      ? 'bg-[#162158] text-white shadow-md hover:bg-[#259CF4] hover:scale-[1.02] active:scale-95'
-                      : 'bg-white border border-slate-200 hover:bg-slate-50 dark:bg-slate-900 dark:border-slate-800 dark:hover:bg-slate-800 text-slate-700 dark:text-slate-300 shadow-sm'
-                  }`}
-                >
-                  Todas las Especialidades
-                </button>
-              </div>
-
-              {/* Si es 'todos' o 'dental', mostramos Odontología */}
-              {(activeTab === 'todos' || activeTab === 'dental') && dentalCategories.length > 0 && (
-                <div className="space-y-2 bg-slate-50/50 dark:bg-slate-900/10 p-4 rounded-3xl border border-slate-100 dark:border-white/5">
-                  <span className="text-[9px] font-black uppercase tracking-widest text-slate-400 flex items-center gap-1.5 pl-1">
-                    <HeartPulse size={12} className="text-[#259CF4]" />
-                    Especialidades Odontología
-                  </span>
-                  <div className="flex gap-2 max-md:overflow-x-auto max-md:flex-nowrap scrollbar-hide md:flex-wrap py-1 px-0.5 select-none max-w-full">
-                    {dentalCategories.map((cat) => (
-                      <button
-                        key={cat}
-                        onClick={() => setSelectedCategory(selectedCategory === cat ? null : cat)}
-                        className={`px-4 py-2 rounded-full text-xs font-bold uppercase tracking-wider shrink-0 transition-all cursor-pointer ${
-                          selectedCategory === cat
-                            ? 'bg-[#162158] text-white shadow-md hover:bg-[#259CF4] hover:scale-[1.02] active:scale-95'
-                            : 'bg-white border border-slate-200 hover:bg-slate-50 dark:bg-slate-900 dark:border-slate-800 dark:hover:bg-slate-800 text-slate-700 dark:text-slate-300 shadow-sm'
-                        }`}
-                      >
-                        {cat}
-                      </button>
-                    ))}
-                  </div>
-                </div>
-              )}
-
-              {/* Si es 'todos' o 'medico', mostramos Especialidades Médicas */}
-              {(activeTab === 'todos' || activeTab === 'medico') && medicalCategories.length > 0 && (
-                <div className="space-y-2 bg-slate-50/50 dark:bg-slate-900/10 p-4 rounded-3xl border border-slate-50 dark:border-white/5">
-                  <span className="text-[9px] font-black uppercase tracking-widest text-slate-400 flex items-center gap-1.5 pl-1">
-                    <Stethoscope size={12} className="text-[#259CF4]" />
-                    Especialidades Médicas y Exámenes
-                  </span>
-                  <div className="flex gap-2 max-md:overflow-x-auto max-md:flex-nowrap scrollbar-hide md:flex-wrap py-1 px-0.5 select-none max-w-full">
-                    {medicalCategories.map((cat) => (
-                      <button
-                        key={cat}
-                        onClick={() => setSelectedCategory(selectedCategory === cat ? null : cat)}
-                        className={`px-4 py-2 rounded-full text-xs font-bold uppercase tracking-wider shrink-0 transition-all cursor-pointer ${
-                          selectedCategory === cat
-                            ? 'bg-[#162158] text-white shadow-md hover:bg-[#259CF4] hover:scale-[1.02] active:scale-95'
-                            : 'bg-white border border-slate-200 hover:bg-slate-50 dark:bg-slate-900 dark:border-slate-800 dark:hover:bg-slate-800 text-slate-700 dark:text-slate-300 shadow-sm'
-                        }`}
-                      >
-                        {cat}
-                      </button>
-                    ))}
-                  </div>
-                </div>
-              )}
-            </div>
-          )}
 
           {/* 4. MAIN DATA TABLE */}
           <div className="bg-white dark:bg-slate-900/30 border border-slate-100 dark:border-white/5 rounded-[2.5rem] shadow-xl shadow-slate-100/50 dark:shadow-none overflow-hidden backdrop-blur-md">
-            
+
             <AnimatePresence mode="wait">
-              {loading ? (
+              {!hasUserInteracted ? (
+                // INITIAL WAITING STATE (UNTIL USER SEARCHES OR FILTERS)
+                <motion.div
+                  key="prompt"
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -10 }}
+                  className="py-24 px-6 text-center flex flex-col items-center justify-center gap-4 text-slate-400"
+                >
+                  <div className="w-20 h-20 rounded-3xl bg-blue-500/10 dark:bg-blue-500/20 flex items-center justify-center text-[#259CF4] border border-[#259CF4]/20 shadow-lg shadow-[#259CF4]/5">
+                    <Search size={36} strokeWidth={2.5} />
+                  </div>
+                  <div className="max-w-md space-y-2">
+                    <h3 className="text-xl font-black text-slate-800 dark:text-slate-100">
+                      Escribe o selecciona una prestación
+                    </h3>
+                    <p className="text-xs sm:text-sm text-slate-500 dark:text-slate-400 leading-relaxed font-medium">
+                      Utiliza el buscador superior o selecciona una categoría específica para consultar los valores generales y preferenciales en tiempo real.
+                    </p>
+                  </div>
+                </motion.div>
+              ) : loading ? (
                 // LOADING STATE
-                <motion.div 
+                <motion.div
                   key="loading"
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
@@ -304,7 +263,7 @@ export default function ArancelesPage() {
                 </motion.div>
               ) : error ? (
                 // ERROR STATE
-                <motion.div 
+                <motion.div
                   key="error"
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
@@ -317,7 +276,7 @@ export default function ArancelesPage() {
                 </motion.div>
               ) : filteredAranceles.length === 0 ? (
                 // EMPTY STATE
-                <motion.div 
+                <motion.div
                   key="empty"
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
@@ -334,7 +293,7 @@ export default function ArancelesPage() {
                 </motion.div>
               ) : (
                 // TABLE RENDER
-                <motion.div 
+                <motion.div
                   key="table"
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
@@ -352,8 +311,8 @@ export default function ArancelesPage() {
                     </thead>
                     <tbody className="divide-y divide-slate-50 dark:divide-white/5">
                       {paginatedAranceles.map((item, idx) => (
-                        <tr 
-                          key={item.id} 
+                        <tr
+                          key={item.id}
                           className="hover:bg-slate-50/50 dark:hover:bg-slate-800/20 transition-colors duration-200 group text-slate-800 dark:text-slate-200"
                         >
                           {/* Procedimiento */}
@@ -366,11 +325,10 @@ export default function ArancelesPage() {
                                 {item.category}
                               </span>
                               {activeTab === 'todos' && (
-                                <span className={`text-[7px] font-black uppercase tracking-wider px-1 rounded ${
-                                  item.source === 'dentalink'
+                                <span className={`text-[7px] font-black uppercase tracking-wider px-1 rounded ${item.source === 'dentalink'
                                     ? 'bg-cyan-500/10 text-cyan-500 border border-cyan-500/10'
                                     : 'bg-indigo-500/10 text-indigo-500 border border-indigo-500/10'
-                                }`}>
+                                  }`}>
                                   {item.source === 'dentalink' ? 'Odontología' : 'Médica'}
                                 </span>
                               )}
@@ -383,11 +341,10 @@ export default function ArancelesPage() {
                                 {item.category}
                               </span>
                               {activeTab === 'todos' && (
-                                <span className={`text-[8px] font-black uppercase tracking-wider px-1.5 py-0.5 rounded ${
-                                  item.source === 'dentalink'
+                                <span className={`text-[8px] font-black uppercase tracking-wider px-1.5 py-0.5 rounded ${item.source === 'dentalink'
                                     ? 'bg-cyan-500/10 text-cyan-500 border border-cyan-500/20'
                                     : 'bg-indigo-500/10 text-indigo-500 border border-indigo-500/20'
-                                }`}>
+                                  }`}>
                                   {item.source === 'dentalink' ? 'Odontología' : 'Esp. Médica'}
                                 </span>
                               )}
@@ -400,11 +357,10 @@ export default function ArancelesPage() {
                           {/* Arancel Preferencial */}
                           <td className="py-5 px-8 text-right">
                             <div className="flex items-center justify-end flex-wrap gap-1.5">
-                              <span className={`text-xs sm:text-[13.5px] font-black tabular-nums ${
-                                item.hasDiscount 
-                                  ? 'text-emerald-500 dark:text-emerald-400 drop-shadow-[0_0_8px_rgba(16,185,129,0.05)]' 
+                              <span className={`text-xs sm:text-[13.5px] font-black tabular-nums ${item.hasDiscount
+                                  ? 'text-emerald-500 dark:text-emerald-400 drop-shadow-[0_0_8px_rgba(16,185,129,0.05)]'
                                   : 'text-slate-800 dark:text-slate-200'
-                              }`}>
+                                }`}>
                                 {formatPrice(item.pricePref)}
                               </span>
                               {item.hasDiscount && (
@@ -423,7 +379,7 @@ export default function ArancelesPage() {
             </AnimatePresence>
 
             {/* 5. TABLE PAGINATION FOOTER */}
-            {!loading && (filteredAranceles.length > 0 || itemsPerPage !== 12) && (
+            {hasUserInteracted && !loading && (filteredAranceles.length > 0 || itemsPerPage !== 12) && (
               <div className="p-6 border-t border-slate-50 dark:border-white/5 bg-slate-50/20 dark:bg-slate-900/10 flex flex-col md:flex-row justify-between items-center gap-4">
                 <span className="text-xs font-semibold text-slate-400 uppercase tracking-widest">
                   {itemsPerPage === 'all'
@@ -443,11 +399,10 @@ export default function ArancelesPage() {
                             setItemsPerPage(size);
                             setCurrentPage(1);
                           }}
-                          className={`px-3 py-1 rounded-lg text-[9px] font-black uppercase tracking-wider transition-all cursor-pointer ${
-                            itemsPerPage === size
-                              ? 'bg-secondary text-primary shadow-sm font-black'
+                          className={`px-3 py-1 rounded-lg text-[9px] font-black uppercase tracking-wider transition-all cursor-pointer ${itemsPerPage === size
+                              ? 'bg-[#259CF4] text-white shadow-sm font-black'
                               : 'text-slate-500 hover:text-slate-900 dark:hover:text-white'
-                          }`}
+                            }`}
                         >
                           {size === 'all' ? 'Todos' : size}
                         </button>
@@ -506,11 +461,10 @@ export default function ArancelesPage() {
                             <button
                               key={pageNum}
                               onClick={() => setCurrentPage(pageNum)}
-                              className={`h-9 min-w-9 px-2.5 rounded-xl text-xs font-black transition-all cursor-pointer ${
-                                isActive
-                                  ? 'bg-[#162158] text-white shadow-md'
+                              className={`h-9 min-w-9 px-2.5 rounded-full text-xs font-black transition-all cursor-pointer ${isActive
+                                  ? 'bg-[#259CF4] text-white shadow-md shadow-blue-500/20 font-black'
                                   : 'bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800'
-                              }`}
+                                }`}
                             >
                               {pageNum}
                             </button>
@@ -534,34 +488,87 @@ export default function ArancelesPage() {
             )}
           </div>
 
-          {/* 6. CALL TO ACTION FOOTER */}
-          <div className="bg-gradient-to-r from-primary to-[#1e3a8a] rounded-[2.5rem] p-8 md:p-12 text-white relative overflow-hidden shadow-xl shadow-primary/10">
+          {/* 6. SUCURSALES DIRECT CONTACT BANNER */}
+          <div className="bg-gradient-to-r from-primary to-[#1e3a8a] rounded-[2.5rem] p-8 md:p-10 text-white relative overflow-hidden shadow-xl shadow-primary/10">
             <div className="absolute inset-0 overflow-hidden opacity-10 pointer-events-none">
               <div className="absolute top-0 right-0 w-80 h-80 bg-white rounded-full blur-3xl"></div>
             </div>
-            
-            <div className="flex flex-col md:flex-row justify-between items-center gap-8 relative z-10">
-              <div className="space-y-3 text-center md:text-left max-w-xl">
+
+            <div className="flex flex-col lg:flex-row justify-between items-start lg:items-center gap-8 relative z-10">
+
+              {/* Left Column: Heading & Description */}
+              <div className="space-y-3 max-w-md">
+                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/10 text-white text-[10px] font-black uppercase tracking-widest border border-white/15 backdrop-blur-sm">
+                  <Building2 size={12} className="text-[#259CF4]" />
+                  Atención Directa
+                </div>
                 <h3 className="text-2xl md:text-3xl font-black tracking-tight">¿Tienes dudas con una prestación?</h3>
-                <p className="text-sm md:text-base text-white/80 font-medium leading-relaxed">
-                  Si no encuentras el procedimiento específico que estás buscando en nuestro arancel en línea, puedes comunicarte directamente con nuestras secretarías para cotizaciones detalladas.
+                <p className="text-xs md:text-sm text-white/80 font-medium leading-relaxed">
+                  Si no encuentras el procedimiento específico en nuestro arancel en línea, puedes comunicarte directamente con nuestras secretarías por sucursal:
                 </p>
               </div>
 
-              <div className="flex flex-col sm:flex-row gap-4 w-full md:w-auto shrink-0">
-                <Button 
-                  onClick={() => window.location.href = "https://wa.me/56965781253"}
-                  className="bg-white hover:bg-white/90 text-primary rounded-full px-8 h-14 font-extrabold uppercase text-xs tracking-wider shadow-md hover:scale-[1.02] active:scale-95 cursor-pointer transition-all border-0"
-                >
-                  Consultar WhatsApp
-                </Button>
-                <Button 
-                  onClick={() => window.location.href = "https://ff.healthatom.io/9p2Sq9"}
-                  className="bg-secondary hover:bg-secondary/90 text-primary rounded-full px-8 h-14 font-extrabold uppercase text-xs tracking-wider shadow-md hover:scale-[1.02] active:scale-95 cursor-pointer transition-all border-0"
-                >
-                  Reservar Hora Online
-                </Button>
+              {/* Right Column: Cards for Both Sucursales */}
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 w-full lg:w-auto shrink-0">
+
+                {/* Sucursal 1: Casa Matriz (Los Tribunales) */}
+                <div className="bg-white/10 backdrop-blur-md border border-white/15 rounded-2xl p-4.5 space-y-3 hover:bg-white/15 transition-all">
+                  <div className="flex items-center gap-2 text-[#259CF4]">
+                    <MapPin size={16} />
+                    <span className="text-xs font-black uppercase tracking-wider text-white">Sucursal Casa Matriz</span>
+                  </div>
+                  <p className="text-[11px] text-white/70 font-medium leading-tight">Los Tribunales #1268, Vitacura</p>
+
+                  <div className="pt-2 space-y-2 border-t border-white/10 text-xs">
+                    <a
+                      href="tel:+56222172635"
+                      className="flex items-center gap-2 text-white/90 hover:text-white font-bold transition-colors"
+                    >
+                      <Phone size={13} className="text-[#259CF4] shrink-0" />
+                      <span>+562 2217 2635</span>
+                    </a>
+                    <a
+                      href="https://wa.me/56966187736"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="flex items-center gap-2 text-emerald-400 hover:text-emerald-300 font-bold transition-colors"
+                    >
+                      <MessageSquare size={13} className="shrink-0" />
+                      <span>+569 6618 7736 (WhatsApp)</span>
+                    </a>
+                  </div>
+                </div>
+
+                {/* Sucursal 2: Sucursal Vitacura */}
+                <div className="bg-white/10 backdrop-blur-md border border-white/15 rounded-2xl p-4.5 space-y-3 hover:bg-white/15 transition-all">
+                  <div className="flex items-center gap-2 text-[#259CF4]">
+                    <MapPin size={16} />
+                    <span className="text-xs font-black uppercase tracking-wider text-white">Sucursal Vitacura</span>
+                  </div>
+                  <p className="text-[11px] text-white/70 font-medium leading-tight">Av. Vitacura #8620, Vitacura</p>
+
+                  <div className="pt-2 space-y-2 border-t border-white/10 text-xs">
+                    <a
+                      href="tel:+56229336740"
+                      className="flex items-center gap-2 text-white/90 hover:text-white font-bold transition-colors"
+                    >
+                      <Phone size={13} className="text-[#259CF4] shrink-0" />
+                      <span>+562 2933 6740</span>
+                    </a>
+                    <a
+                      href="https://wa.me/56965781253"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="flex items-center gap-2 text-emerald-400 hover:text-emerald-300 font-bold transition-colors"
+                    >
+                      <MessageSquare size={13} className="shrink-0" />
+                      <span>+569 6578 1253 (WhatsApp)</span>
+                    </a>
+                  </div>
+                </div>
+
               </div>
+
             </div>
           </div>
 

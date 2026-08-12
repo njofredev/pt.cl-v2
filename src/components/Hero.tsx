@@ -36,6 +36,8 @@ export interface HeroProps {
   highlightClassName?: string;
   description?: React.ReactNode;
   buttonText?: string;
+  primaryButtonAnchorId?: string;
+  primaryButtonUrl?: string;
   statsNumber?: string;
   statsLabel?: string;
   images?: HeroImage[];
@@ -44,6 +46,7 @@ export interface HeroProps {
   isInlineIcon?: boolean;
   secondaryButtonText?: string;
   secondaryButtonAnchorId?: string;
+  secondaryButtonUrl?: string;
   sliderAnchorId?: string;
   customRightElement?: React.ReactNode;
   showBranches?: boolean;
@@ -63,6 +66,8 @@ export const Hero = ({
   highlightClassName,
   description = "Reserva tu hora, revisa exámenes y gestiona tu bienestar desde cualquier lugar, fácil y rápido.",
   buttonText = "Reserva tu atención",
+  primaryButtonAnchorId,
+  primaryButtonUrl,
   statsNumber = "+10k",
   statsLabel = "Pacientes Atendidos",
   images = DEFAULT_IMAGES,
@@ -71,10 +76,11 @@ export const Hero = ({
   isInlineIcon = false,
   secondaryButtonText,
   secondaryButtonAnchorId,
+  secondaryButtonUrl,
   sliderAnchorId,
   customRightElement,
   showBranches = false,
-  hideFloatingIcon = false,
+  hideFloatingIcon = true,
   category = 'home'
 }: HeroProps) => {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
@@ -191,8 +197,13 @@ export const Hero = ({
               onClick={() => {
                 trackEvent('click_reservar_hora', { label: 'Boton Principal Hero' });
                 trackEvent('reserva_iniciada', { label: 'Flujo desde Hero' });
-                const el = document.getElementById('agendar');
-                if (el) el.scrollIntoView({ behavior: 'smooth' });
+                if (primaryButtonUrl) {
+                  window.location.href = primaryButtonUrl;
+                } else {
+                  const targetId = primaryButtonAnchorId || 'agendar';
+                  const el = document.getElementById(targetId);
+                  if (el) el.scrollIntoView({ behavior: 'smooth' });
+                }
               }}
             >
               {/* Cuerpo del Botón principal con Degradado Premium o Color Sólido y Ancho Normalizado */}
@@ -218,7 +229,9 @@ export const Hero = ({
               <div className="relative inline-flex select-none group/sec w-60 sm:w-64">
                 <button
                   onClick={() => {
-                    if (secondaryButtonAnchorId) {
+                    if (secondaryButtonUrl) {
+                      window.location.href = secondaryButtonUrl;
+                    } else if (secondaryButtonAnchorId) {
                       const el = document.getElementById(secondaryButtonAnchorId);
                       if (el) el.scrollIntoView({ behavior: 'smooth' });
                     }
