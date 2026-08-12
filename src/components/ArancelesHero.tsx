@@ -76,7 +76,7 @@ export const ArancelesHero: React.FC<ArancelesHeroProps> = ({
   };
 
   return (
-    <section className="relative overflow-hidden pt-36 sm:pt-40 md:pt-44 pb-16 sm:pb-20 bg-gradient-to-b from-slate-50 via-blue-50/30 to-white text-slate-900 border-b border-slate-100">
+    <section className="relative z-30 pt-36 sm:pt-40 md:pt-44 pb-16 sm:pb-20 bg-gradient-to-b from-slate-50 via-blue-50/30 to-white text-slate-900 border-b border-slate-100">
       
       {/* Light Aesthetic Glowing Mesh & Radial Accents */}
       <div className="absolute inset-0 pointer-events-none select-none overflow-hidden">
@@ -186,7 +186,7 @@ export const ArancelesHero: React.FC<ArancelesHeroProps> = ({
             </div>
 
             {/* Large Prominent Hero Search Bar */}
-            <form onSubmit={handleSearchSubmit} className="relative flex items-center">
+            <form onSubmit={handleSearchSubmit} className="relative flex items-center z-40">
               <div className="relative w-full bg-white rounded-full p-2 pl-6 sm:pl-7 flex items-center border border-slate-200/90 shadow-xl shadow-slate-200/60 ring-4 ring-blue-500/5 transition-all focus-within:ring-blue-500/15 focus-within:border-[#259CF4]">
                 
                 {/* Search Input */}
@@ -220,21 +220,21 @@ export const ArancelesHero: React.FC<ArancelesHeroProps> = ({
                   <AnimatePresence>
                     {isCategoryOpen && (
                       <motion.div
-                        initial={{ opacity: 0, y: 10, scale: 0.95 }}
+                        initial={{ opacity: 0, y: 8, scale: 0.96 }}
                         animate={{ opacity: 1, y: 0, scale: 1 }}
-                        exit={{ opacity: 0, y: 8, scale: 0.95 }}
+                        exit={{ opacity: 0, y: 6, scale: 0.96 }}
                         transition={{ duration: 0.15, ease: "easeOut" }}
-                        className="absolute right-0 top-full mt-3 w-72 sm:w-80 bg-white rounded-3xl border border-slate-200/90 shadow-2xl shadow-slate-900/15 z-50 overflow-hidden backdrop-blur-xl p-2 max-h-96 overflow-y-auto scrollbar-thin divide-y divide-slate-100"
+                        className="absolute right-0 top-full mt-2 w-72 sm:w-80 bg-white rounded-2xl border border-slate-200/90 shadow-2xl shadow-slate-900/20 z-50 overflow-hidden backdrop-blur-xl"
                       >
-                        {/* Option: All Categories */}
-                        <div className="pb-1.5">
+                        {/* Fixed Top Option: All Categories */}
+                        <div className="p-2 border-b border-slate-100 bg-slate-50/50">
                           <button
                             type="button"
                             onClick={() => handleSelectCategory(null)}
-                            className={`w-full flex items-center justify-between px-3.5 py-2.5 rounded-2xl text-xs font-black uppercase tracking-wider transition-all cursor-pointer ${
+                            className={`w-full flex items-center justify-between px-3 py-2 rounded-xl text-xs font-black uppercase tracking-wider transition-all cursor-pointer ${
                               selectedCategory === null
                                 ? 'bg-blue-50 text-[#259CF4]'
-                                : 'text-slate-700 hover:bg-slate-50 hover:text-slate-900'
+                                : 'text-slate-700 hover:bg-white hover:text-slate-900'
                             }`}
                           >
                             <span className="flex items-center gap-2">
@@ -245,55 +245,60 @@ export const ArancelesHero: React.FC<ArancelesHeroProps> = ({
                           </button>
                         </div>
 
-                        {/* Option Group: Odontología */}
-                        {(activeTab === 'todos' || activeTab === 'dental') && dentalCategories.length > 0 && (
-                          <div className="py-2 space-y-1">
-                            <div className="px-3.5 py-1 text-[10px] font-black uppercase tracking-widest text-slate-400 flex items-center gap-1.5">
-                              <SmilePlus size={13} className="text-[#259CF4]" />
-                              Odontología
+                        {/* Scrollable Categories List */}
+                        <div className="p-2 max-h-64 sm:max-h-72 overflow-y-auto scrollbar-thin space-y-3">
+                          
+                          {/* Option Group: Odontología */}
+                          {(activeTab === 'todos' || activeTab === 'dental') && dentalCategories.length > 0 && (
+                            <div className="space-y-1">
+                              <div className="px-3 py-1 text-[10px] font-black uppercase tracking-widest text-slate-400 flex items-center gap-1.5 sticky top-0 bg-white z-10 shadow-xs">
+                                <SmilePlus size={13} className="text-[#259CF4]" />
+                                Odontología
+                              </div>
+                              {dentalCategories.map(cat => (
+                                <button
+                                  key={`hero-custom-den-${cat}`}
+                                  type="button"
+                                  onClick={() => handleSelectCategory(cat)}
+                                  className={`w-full flex items-center justify-between px-3 py-2 rounded-xl text-xs font-bold transition-all cursor-pointer ${
+                                    selectedCategory === cat
+                                      ? 'bg-blue-500/10 text-[#259CF4] font-black'
+                                      : 'text-slate-600 hover:bg-slate-50 hover:text-slate-900'
+                                  }`}
+                                >
+                                  <span>{cat}</span>
+                                  {selectedCategory === cat && <Check size={14} className="text-[#259CF4]" />}
+                                </button>
+                              ))}
                             </div>
-                            {dentalCategories.map(cat => (
-                              <button
-                                key={`hero-custom-den-${cat}`}
-                                type="button"
-                                onClick={() => handleSelectCategory(cat)}
-                                className={`w-full flex items-center justify-between px-3.5 py-2 rounded-xl text-xs font-bold transition-all cursor-pointer ${
-                                  selectedCategory === cat
-                                    ? 'bg-blue-500/10 text-[#259CF4] font-black'
-                                    : 'text-slate-600 hover:bg-slate-50 hover:text-slate-900'
-                                }`}
-                              >
-                                <span>{cat}</span>
-                                {selectedCategory === cat && <Check size={14} className="text-[#259CF4]" />}
-                              </button>
-                            ))}
-                          </div>
-                        )}
+                          )}
 
-                        {/* Option Group: Especialidades Médicas */}
-                        {(activeTab === 'todos' || activeTab === 'medico') && medicalCategories.length > 0 && (
-                          <div className="pt-2 space-y-1">
-                            <div className="px-3.5 py-1 text-[10px] font-black uppercase tracking-widest text-slate-400 flex items-center gap-1.5">
-                              <Stethoscope size={13} className="text-[#259CF4]" />
-                              Especialidades Médicas
+                          {/* Option Group: Especialidades Médicas */}
+                          {(activeTab === 'todos' || activeTab === 'medico') && medicalCategories.length > 0 && (
+                            <div className="space-y-1 pt-1 border-t border-slate-100">
+                              <div className="px-3 py-1 text-[10px] font-black uppercase tracking-widest text-slate-400 flex items-center gap-1.5 sticky top-0 bg-white z-10 shadow-xs">
+                                <Stethoscope size={13} className="text-[#259CF4]" />
+                                Especialidades Médicas
+                              </div>
+                              {medicalCategories.map(cat => (
+                                <button
+                                  key={`hero-custom-med-${cat}`}
+                                  type="button"
+                                  onClick={() => handleSelectCategory(cat)}
+                                  className={`w-full flex items-center justify-between px-3 py-2 rounded-xl text-xs font-bold transition-all cursor-pointer ${
+                                    selectedCategory === cat
+                                      ? 'bg-blue-500/10 text-[#259CF4] font-black'
+                                      : 'text-slate-600 hover:bg-slate-50 hover:text-slate-900'
+                                  }`}
+                                >
+                                  <span>{cat}</span>
+                                  {selectedCategory === cat && <Check size={14} className="text-[#259CF4]" />}
+                                </button>
+                              ))}
                             </div>
-                            {medicalCategories.map(cat => (
-                              <button
-                                key={`hero-custom-med-${cat}`}
-                                type="button"
-                                onClick={() => handleSelectCategory(cat)}
-                                className={`w-full flex items-center justify-between px-3.5 py-2 rounded-xl text-xs font-bold transition-all cursor-pointer ${
-                                  selectedCategory === cat
-                                    ? 'bg-blue-500/10 text-[#259CF4] font-black'
-                                    : 'text-slate-600 hover:bg-slate-50 hover:text-slate-900'
-                                }`}
-                              >
-                                <span>{cat}</span>
-                                {selectedCategory === cat && <Check size={14} className="text-[#259CF4]" />}
-                              </button>
-                            ))}
-                          </div>
-                        )}
+                          )}
+
+                        </div>
 
                       </motion.div>
                     )}
