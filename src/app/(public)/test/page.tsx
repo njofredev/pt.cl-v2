@@ -1,6 +1,6 @@
 import React from 'react';
 import dynamic from 'next/dynamic';
-import { Hero } from '@/components/Hero';
+import { AIHeroTester } from '@/components/AIHeroTester';
 import { MiVitaLink } from '@/components/MiVitaLink';
 import { ModularScheduler } from '@/components/ModularScheduler';
 import { PartnerCarousel } from '@/components/PartnerCarousel';
@@ -103,23 +103,8 @@ export default async function TestPage({ searchParams }: PageProps) {
           })
         }}
       />
-      {/* 1. HERO SECTION DINÁMICO */}
-      <Hero
-        badgeText={[
-          { text: "150+ Prestaciones", iconName: "stethoscope" },
-          { text: "50+ Profesionales", iconName: "users" }
-        ]}
-        description={
-          <>
-            Cuidamos tu bienestar con profesionales de excelencia y atención personalizada.
-          </>
-        }
-        statsNumber={`+${totalPros}`}
-        statsLabel="Profesionales de salud"
-        showBranches={true}
-        buttonText="Quiero agendar"
-        hideFloatingIcon={true}
-      />
+      {/* 0. HERO ASISTENTE IA CONTEXTUALIZADO (GOOGLE AI STUDIO FREE TIER) */}
+      <AIHeroTester />
 
       {/* COMPONENTE DE AGENDAMIENTO MODULAR EN TESTING */}
       <section id="agendar" className="py-12 bg-slate-100/50 dark:bg-slate-950/80 my-8 scroll-mt-32">

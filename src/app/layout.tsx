@@ -53,6 +53,7 @@ export default function RootLayout({
             />
           </noscript>
         )}
+        <AnalyticsScripts />
         <ThemeProvider
           attribute="class"
           defaultTheme="light"
@@ -60,7 +61,6 @@ export default function RootLayout({
           enableSystem={false}
           disableTransitionOnChange
         >
-          <AnalyticsScripts />
           <SparklesBackground />
           {children}
         </ThemeProvider>
