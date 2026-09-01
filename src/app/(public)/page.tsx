@@ -5,7 +5,6 @@ import { MiVitaLink } from '@/components/MiVitaLink';
 import { MinimalistScheduler } from '@/components/MinimalistScheduler';
 import { PartnerCarousel } from '@/components/PartnerCarousel';
 import { ServiceCarousel } from '@/components/ServiceCarousel';
-import { CallCTA } from '@/components/CallCTA';
 import { HomeClientSections } from '@/components/HomeClientSections';
 import Link from 'next/link';
 import {
@@ -218,10 +217,8 @@ export default async function Home() {
         </div>
       </section>
 
-      <CallCTA />
-
       {/* 4. VALIDADOR MI VITA */}
-      <section id="mivita" className="pt-10 pb-16 relative overflow-hidden bg-transparent dark:bg-transparent scroll-mt-24">
+      <section id="mivita" className="pt-8 pb-16 relative overflow-hidden bg-transparent dark:bg-transparent scroll-mt-24">
 
 
         <div className="container mx-auto px-6 relative z-10">

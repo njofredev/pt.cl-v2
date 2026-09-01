@@ -15,6 +15,7 @@ import {
   Info,
   Accessibility
 } from "lucide-react";
+import { CallCTA } from "@/components/CallCTA";
 
 interface ServiceOption {
   label: string;
@@ -410,6 +411,9 @@ export function MinimalistScheduler({ initialCategoryId }: { initialCategoryId?:
 
           </div>
         </div>
+
+        {/* Footer Integrado de Atención Telefónica */}
+        <CallCTA />
       </div>
     </motion.div>
   );

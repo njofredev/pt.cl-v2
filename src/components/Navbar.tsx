@@ -115,18 +115,18 @@ const SOCIAL_PHRASES = [
 
 const PROMOS = [
   {
-    id: 'ortodoncia-6k',
-    badgeText: '¡HASTA EL 31 DE AGOSTO!',
-    title: 'Consulta de Ortodoncia (Frenillos Tradicionales / Alineadores Invisibles)',
-    price: '$6.000.-',
-    oldPrice: 'Antes: $18.000',
-    location: 'Sucursal Vitacura #8620 | Sólo Pago Web',
-    link: 'https://ff.healthatom.io/gNJNh6',
-    badgeColor: 'bg-rose-500 hover:bg-rose-600',
-    bgColor: 'from-[#7e22ce] via-[#be185d] to-[#7e22ce]',
-    priceColor: 'text-amber-300 font-extrabold',
-    btnColor: 'text-purple-950 bg-amber-400 hover:bg-amber-300 font-black',
-    trackingLabel: 'Promo Ortodoncia 6k Sticky Bar'
+    id: 'limpieza-dental-24k',
+    badgeText: '¡HASTA EL 15 DE SEPTIEMBRE!',
+    title: 'Limpieza Dental (Evaluación + Profilaxis + RX Bitewing)',
+    price: '$24.000.-',
+    oldPrice: 'Antes: $47.000',
+    location: 'Sólo Pago Web | +15 años',
+    link: 'https://ff.healthatom.io/be3WhX',
+    badgeColor: 'bg-white/20 hover:bg-white/30',
+    bgColor: 'from-[#c2410c] via-[#f97316] to-[#ea580c]',
+    priceColor: 'text-yellow-200 font-extrabold',
+    btnColor: 'text-orange-950 hover:bg-orange-50 font-black',
+    trackingLabel: 'Promo Limpieza Dental 24k Sticky Bar'
   }
 ];
 
