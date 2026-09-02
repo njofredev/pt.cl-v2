@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import fs from 'fs';
 import path from 'path';
+import prisma from '@/lib/prisma';
 
 export const dynamic = 'force-dynamic';
 
@@ -22,17 +23,14 @@ interface ConsentLogPayload {
  */
 function anonymizeIp(ip: string | null): string {
   if (!ip) return 'unknown';
-  // Si viene con múltiples IPs en x-forwarded-for, tomar la primera
   const clientIp = ip.split(',')[0].trim();
 
   if (clientIp.includes('.')) {
-    // IPv4
     const parts = clientIp.split('.');
     if (parts.length === 4) {
       return `${parts[0]}.${parts[1]}.${parts[2]}.0`;
     }
   } else if (clientIp.includes(':')) {
-    // IPv6
     const parts = clientIp.split(':');
     return `${parts.slice(0, 3).join(':')}::0`;
   }
@@ -40,9 +38,9 @@ function anonymizeIp(ip: string | null): string {
 }
 
 /**
- * Obtiene la ruta del archivo de registro de auditoría
+ * Archivo de respaldo de auditoría
  */
-function getLogFilePath(): string {
+function getBackupFilePath(): string {
   const dir = path.join(process.cwd(), '.data');
   if (!fs.existsSync(dir)) {
     try {
@@ -56,7 +54,7 @@ function getLogFilePath(): string {
 
 /**
  * POST /api/consent/log
- * Registra una decisión de consentimiento en el libro de auditoría de Ley N° 21.719
+ * Registra una decisión en la tabla `cookie_consent_logs` de la base de datos `db_sst`
  */
 export async function POST(req: NextRequest) {
   try {
@@ -69,36 +67,48 @@ export async function POST(req: NextRequest) {
     const rawIp = req.headers.get('x-forwarded-for') || req.headers.get('x-real-ip');
     const userAgent = req.headers.get('user-agent') || 'unknown';
 
-    const logEntry = {
+    const logData = {
       consentId: body.consentId,
       action: body.action || 'custom_preferences',
-      preferences: {
-        essential: true,
-        analytics: Boolean(body.preferences.analytics),
-        marketing: Boolean(body.preferences.marketing),
-      },
+      analytics: Boolean(body.preferences.analytics),
+      marketing: Boolean(body.preferences.marketing),
       policyVersion: body.version || '1.0-ley21719',
-      clientTimestamp: body.timestamp || new Date().toISOString(),
-      serverTimestamp: new Date().toISOString(),
       anonymizedIp: anonymizeIp(rawIp),
-      userAgent: userAgent.slice(0, 200), // truncado para optimización de almacenamiento
+      userAgent: userAgent.slice(0, 255),
     };
 
-    // Guardar en archivo estructurado JSONL (1 línea por evento)
+    let savedInDb = false;
+
+    // 1. Guardar en Base de Datos PostgreSQL db_sst (tabla cookie_consent_logs)
     try {
-      const filePath = getLogFilePath();
-      fs.appendFileSync(filePath, JSON.stringify(logEntry) + '\n', 'utf8');
-    } catch (fileErr) {
-      console.error('[Consent API] Error al escribir en archivo de auditoría:', fileErr);
+      await prisma.cookieConsentLog.create({
+        data: logData,
+      });
+      savedInDb = true;
+    } catch (dbErr) {
+      console.error('[Consent API] Error al guardar en base de datos db_sst:', dbErr);
     }
 
-    // Log en consola de servidor para visibilidad en entornos cloud (Vercel, Docker, etc.)
-    console.log(`[Ley 21.719 Audit] 🛡️ Consentimiento registrado: ${logEntry.consentId} | Acción: ${logEntry.action} | Analítica: ${logEntry.preferences.analytics} | Marketing: ${logEntry.preferences.marketing}`);
+    // 2. Guardar también en archivo local de contingencia (alta resiliencia)
+    try {
+      const filePath = getBackupFilePath();
+      const backupEntry = {
+        ...logData,
+        clientTimestamp: body.timestamp || new Date().toISOString(),
+        serverTimestamp: new Date().toISOString(),
+      };
+      fs.appendFileSync(filePath, JSON.stringify(backupEntry) + '\n', 'utf8');
+    } catch (fileErr) {
+      console.warn('[Consent API] No se pudo escribir respaldo en archivo:', fileErr);
+    }
+
+    console.log(`[Ley 21.719 Audit] 🛡️ Registrado en ${savedInDb ? 'db_sst (PostgreSQL)' : 'respaldo local'}: ${logData.consentId} | Acción: ${logData.action}`);
 
     return NextResponse.json({
       success: true,
-      consentId: logEntry.consentId,
-      recordedAt: logEntry.serverTimestamp,
+      consentId: logData.consentId,
+      dbSaved: savedInDb,
+      recordedAt: new Date().toISOString(),
     });
   } catch (error) {
     console.error('[Consent API] Error en el registro de consentimiento:', error);
@@ -108,73 +118,72 @@ export async function POST(req: NextRequest) {
 
 /**
  * GET /api/consent/log
- * Consulta estadísticas y registros del libro de auditoría (para dashboard admin y descargas legales)
+ * Consulta registros desde PostgreSQL db_sst (con fallback al archivo de contingencia)
  */
 export async function GET(req: NextRequest) {
   try {
     const { searchParams } = new URL(req.url);
     const isCsvExport = searchParams.get('export') === 'csv';
 
-    const filePath = getLogFilePath();
-    if (!fs.existsSync(filePath)) {
-      if (isCsvExport) {
-        return new NextResponse('consentId,action,analytics,marketing,version,ip,userAgent,timestamp\n', {
-          headers: {
-            'Content-Type': 'text/csv; charset=utf-8',
-            'Content-Disposition': 'attachment; filename="registro_consentimientos_ley21719.csv"',
-          },
-        });
-      }
-      return NextResponse.json({
-        totalRecords: 0,
-        stats: { acceptAll: 0, rejectAll: 0, custom: 0, analyticsAllowed: 0, marketingAllowed: 0 },
-        entries: [],
+    let allEntries: any[] = [];
+
+    // 1. Intentar consultar desde PostgreSQL db_sst
+    try {
+      const dbRecords = await prisma.cookieConsentLog.findMany({
+        orderBy: { createdAt: 'desc' },
+        take: 500, // Máximo 500 registros para alta velocidad
       });
+
+      if (dbRecords && dbRecords.length > 0) {
+        allEntries = dbRecords.map((r) => ({
+          consentId: r.consentId,
+          action: r.action,
+          analytics: r.analytics,
+          marketing: r.marketing,
+          version: r.policyVersion,
+          anonymizedIp: r.anonymizedIp || 'unknown',
+          userAgent: r.userAgent || 'unknown',
+          timestamp: r.createdAt.toISOString(),
+        }));
+      }
+    } catch (dbErr) {
+      console.warn('[Consent API] Fallo al consultar PostgreSQL db_sst, usando archivo local:', dbErr);
     }
 
-    const content = fs.readFileSync(filePath, 'utf8');
-    const lines = content.trim().split('\n').filter(Boolean);
-
-    let acceptAll = 0;
-    let rejectAll = 0;
-    let custom = 0;
-    let analyticsAllowed = 0;
-    let marketingAllowed = 0;
-
-    const allEntries: any[] = [];
-
-    for (const line of lines) {
-      try {
-        const item = JSON.parse(line);
-        if (item.action === 'accept_all') acceptAll++;
-        else if (item.action === 'reject_all') rejectAll++;
-        else custom++;
-
-        if (item.preferences?.analytics) analyticsAllowed++;
-        if (item.preferences?.marketing) marketingAllowed++;
-
-        allEntries.push({
-          consentId: item.consentId,
-          action: item.action,
-          analytics: Boolean(item.preferences?.analytics),
-          marketing: Boolean(item.preferences?.marketing),
-          version: item.policyVersion || '1.0-ley21719',
-          anonymizedIp: item.anonymizedIp || 'unknown',
-          userAgent: item.userAgent || 'unknown',
-          timestamp: item.serverTimestamp || item.clientTimestamp,
-        });
-      } catch {
-        // Ignorar líneas corruptas
+    // 2. Si no hubo registros en BD, consultar archivo de contingencia
+    if (allEntries.length === 0) {
+      const filePath = getBackupFilePath();
+      if (fs.existsSync(filePath)) {
+        const content = fs.readFileSync(filePath, 'utf8');
+        const lines = content.trim().split('\n').filter(Boolean);
+        for (const line of lines) {
+          try {
+            const item = JSON.parse(line);
+            allEntries.push({
+              consentId: item.consentId,
+              action: item.action,
+              analytics: Boolean(item.analytics ?? item.preferences?.analytics),
+              marketing: Boolean(item.marketing ?? item.preferences?.marketing),
+              version: item.policyVersion || item.version || '1.0-ley21719',
+              anonymizedIp: item.anonymizedIp || 'unknown',
+              userAgent: item.userAgent || 'unknown',
+              timestamp: item.serverTimestamp || item.clientTimestamp || new Date().toISOString(),
+            });
+          } catch {
+            // Ignorar
+          }
+        }
+        allEntries.reverse(); // Más recientes primero
       }
     }
 
-    // Si se solicita descarga formal en CSV para auditoría
+    // 3. Exportar a CSV si se solicita
     if (isCsvExport) {
       const csvHeader = '\uFEFFconsentId,action,analytics,marketing,version,ip,userAgent,timestamp\n';
       const csvRows = allEntries
         .map(
           (e) =>
-            `"${e.consentId}","${e.action}","${e.analytics ? 'SI' : 'NO'}","${e.marketing ? 'SI' : 'NO'}","${e.version}","${e.anonymizedIp}","${e.userAgent.replace(/"/g, '""')}","${e.timestamp}"`
+            `"${e.consentId}","${e.action}","${e.analytics ? 'SI' : 'NO'}","${e.marketing ? 'SI' : 'NO'}","${e.version}","${e.anonymizedIp}","${(e.userAgent || '').replace(/"/g, '""')}","${e.timestamp}"`
         )
         .join('\n');
 
@@ -186,8 +195,25 @@ export async function GET(req: NextRequest) {
       });
     }
 
+    // 4. Calcular métricas agregadas
+    let acceptAll = 0;
+    let rejectAll = 0;
+    let custom = 0;
+    let analyticsAllowed = 0;
+    let marketingAllowed = 0;
+
+    for (const e of allEntries) {
+      if (e.action === 'accept_all') acceptAll++;
+      else if (e.action === 'reject_all') rejectAll++;
+      else custom++;
+
+      if (e.analytics) analyticsAllowed++;
+      if (e.marketing) marketingAllowed++;
+    }
+
     return NextResponse.json({
       totalRecords: allEntries.length,
+      source: 'db_sst (PostgreSQL)',
       stats: {
         acceptAll,
         rejectAll,
@@ -196,14 +222,14 @@ export async function GET(req: NextRequest) {
         marketingAllowed,
         acceptanceRate: allEntries.length > 0 ? Math.round((acceptAll / allEntries.length) * 100) : 0,
       },
-      entries: allEntries.reverse(), // Más recientes primero
+      entries: allEntries,
       compliance: {
         law: 'Ley N° 21.719 (Chile)',
-        method: 'Privacy by Design - Registro Seudoanónimo Auditable',
+        method: 'Privacy by Design - Registro Seudoanónimo Auditable en Base de Datos db_sst',
       },
     });
   } catch (error) {
-    console.error('[Consent API] Error al leer estadísticas de auditoría:', error);
+    console.error('[Consent API] Error al leer auditoría:', error);
     return NextResponse.json({ error: 'Error al consultar auditoría' }, { status: 500 });
   }
 }

@@ -47,3 +47,19 @@ model Arancel {
   @@index([category])
 }
 
+model CookieConsentLog {
+  id            Int      @id @default(autoincrement())
+  consentId     String
+  action        String   // "accept_all" | "reject_all" | "custom_preferences"
+  analytics     Boolean
+  marketing     Boolean
+  policyVersion String
+  anonymizedIp  String?
+  userAgent     String?
+  createdAt     DateTime @default(now())
+
+  @@index([consentId])
+  @@index([createdAt])
+  @@map("cookie_consent_logs")
+}
+
