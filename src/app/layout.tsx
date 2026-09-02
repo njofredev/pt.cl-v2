@@ -4,6 +4,7 @@ import "./globals.css";
 import { ThemeProvider } from "@/components/ThemeProvider";
 import { SparklesBackground } from "@/components/SparklesBackground";
 import { AnalyticsScripts } from "@/components/AnalyticsScripts";
+import { CookieConsent } from "@/components/CookieConsent";
 
 const plusJakartaSans = Plus_Jakarta_Sans({
   subsets: ["latin"],
@@ -62,6 +63,7 @@ export default function RootLayout({
           disableTransitionOnChange
         >
           <SparklesBackground />
+          <CookieConsent />
           {children}
         </ThemeProvider>
       </body>

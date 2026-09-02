@@ -1,7 +1,7 @@
 "use client";
 
 import { usePathname, useRouter } from 'next/navigation';
-import { LogOut, LayoutDashboard, Users } from 'lucide-react';
+import { LogOut, LayoutDashboard, Users, Cookie } from 'lucide-react';
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 
@@ -44,6 +44,18 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
               >
                 <Users size={16} />
                 Profesionales
+              </Link>
+
+              <Link 
+                href="/admin/cookies"
+                className={`px-4 py-2 rounded-xl text-sm font-bold transition-all flex items-center gap-2 ${
+                  pathname.includes('/admin/cookies') 
+                    ? 'bg-secondary/10 text-secondary' 
+                    : 'text-slate-500 hover:bg-slate-100 hover:text-slate-900'
+                }`}
+              >
+                <Cookie size={16} />
+                Cookies & Privacidad
               </Link>
             </nav>
           </div>

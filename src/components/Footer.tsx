@@ -3,10 +3,11 @@
 import React, { useState } from 'react';
 import { trackEvent } from '@/lib/analytics';
 import Link from 'next/link';
-import { Activity, Instagram, Facebook, MapPin, Phone, Mail, MessageCircle, ChevronDown, Heart } from 'lucide-react';
+import { Activity, Instagram, Facebook, MapPin, Phone, Mail, MessageCircle, ChevronDown, Heart, Cookie } from 'lucide-react';
 import { motion, AnimatePresence, useAnimation } from 'framer-motion';
 import { useEffect } from 'react';
 import { usePathname } from 'next/navigation';
+import { openConsentModal } from '@/lib/cookieConsent';
 
 const TikTokIcon = ({ size = 18, className = "" }: { size?: number, className?: string }) => (
   <svg width={size} height={size} fill="currentColor" viewBox="0 0 24 24" className={className}>
@@ -229,6 +230,7 @@ export const Footer = () => {
               { name: 'Inicio', href: '/' },
               { name: 'Quiénes Somos', href: '/nosotros' },
               { name: 'Nuestras Sucursales', href: '/#sucursales' },
+              { name: 'Política de Cookies', href: '/politica-de-cookies' },
               { name: 'Estado de Sistemas', href: 'https://uptime.policlinicotabancura.cl/status/estado' }
             ]}
           />
@@ -356,6 +358,14 @@ export const Footer = () => {
             <div className="flex items-center gap-2 text-slate-600 dark:text-slate-400 text-[10px] font-bold uppercase tracking-widest">
               <Activity size={14} className="text-secondary" /> Diseñado y desarrollado en Policlínico Tabancura
             </div>
+            <button
+              type="button"
+              onClick={openConsentModal}
+              className="text-slate-500 hover:text-secondary dark:text-slate-400 dark:hover:text-white text-[10px] font-bold uppercase tracking-wider transition-colors cursor-pointer flex items-center gap-1.5"
+            >
+              <Cookie size={12} className="text-secondary" />
+              <span>Configuración de Cookies</span>
+            </button>
           </div>
 
           <p className="text-slate-600 dark:text-slate-500 text-[10px] font-bold uppercase tracking-[0.4em]">
