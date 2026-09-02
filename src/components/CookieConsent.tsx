@@ -107,7 +107,7 @@ export function CookieConsent() {
                 <div className="flex-1 space-y-2">
                   <div className="flex items-center gap-2.5">
                     <div className="w-7 h-7 rounded-lg bg-[#1E40AF]/10 dark:bg-[#1E40AF]/25 text-[#1E40AF] dark:text-cyan-400 flex items-center justify-center shrink-0">
-                      <ShieldCheck className="w-4 h-4" strokeWidth={2.2} />
+                      <Cookie className="w-4 h-4" strokeWidth={2.2} />
                     </div>
                     <span className="text-[10px] font-black uppercase tracking-widest text-[#259CF4] bg-[#259CF4]/10 px-2 py-0.5 rounded-full">
                       Ley N° 21.719
