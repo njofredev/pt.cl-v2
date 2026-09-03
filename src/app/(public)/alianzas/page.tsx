@@ -71,7 +71,7 @@ export default function AlianzasPage() {
               className="bg-primary hover:bg-primary/90 text-white rounded-xl h-10 px-5 text-xs font-bold transition-all active:scale-95 shadow-md shadow-primary/10"
               onClick={() => document.getElementById('agendar')?.scrollIntoView({ behavior: 'smooth' })}
             >
-              Quiero agendar
+              Quiero solicitar
             </Button>
           </div>
         </div>
@@ -111,7 +111,7 @@ export default function AlianzasPage() {
                   className="bg-primary hover:bg-[#111827] text-white rounded-full h-16 px-10 text-base font-bold shadow-xl shadow-primary/20 transition-all duration-300 hover:-translate-y-1 active:scale-95"
                   onClick={() => document.getElementById('agendar')?.scrollIntoView({ behavior: 'smooth' })}
                 >
-                  Agenda Ahora <ArrowRight className="ml-2 w-5 h-5" />
+                  Solicita aquí <ArrowRight className="ml-2 w-5 h-5" />
                 </Button>
                 <div className="flex items-center justify-center gap-3 px-6 h-16 rounded-full bg-white dark:bg-slate-900 border border-slate-100 dark:border-slate-800 shadow-sm">
                   <div className="flex -space-x-2">
@@ -222,13 +222,13 @@ export default function AlianzasPage() {
         <div className="container mx-auto px-6 relative z-10">
           <div className="max-w-4xl mx-auto text-center mb-16">
             <h2 className="text-4xl md:text-5xl font-black text-primary dark:text-white mb-6 tracking-tighter leading-tight">
-              Agenda una <br />
+              Solicita aquí tu <br />
               <span className="text-[#259CF4] dark:text-[#259CF4]">
-                hora médica
+                Atención
               </span>
             </h2>
             <p className="text-xl text-slate-500 dark:text-slate-400 font-medium">
-              Por favor, completa tus datos para validar tus beneficios al instante.
+              Ingresa tus datos para revisar tu cobertura; te contactaremos para gestionar tu atención en el Policlínico.
             </p>
           </div>
 
