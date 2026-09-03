@@ -224,7 +224,7 @@ export default function AlianzasPage() {
             <h2 className="text-4xl md:text-5xl font-black text-primary dark:text-white mb-6 tracking-tighter leading-tight">
               Solicita aquí tu <br />
               <span className="text-[#259CF4] dark:text-[#259CF4]">
-                Atención
+                servicio
               </span>
             </h2>
             <p className="text-xl text-slate-500 dark:text-slate-400 font-medium">
