@@ -42,11 +42,11 @@ const PREVISIONES = [
 const COLECTIVOS = [
   { name: 'Tarjeta Mi Vita', benefit: '25% de descuento sobre el arancel.', type: 'Municipalidad', detail: 'Exclusivo para residentes de Vitacura presentando tarjeta vigente.', logo: 'mivita.png' },
   { name: 'Liceo Amanda Labarca', benefit: '25% de descuento sobre el arancel.', type: 'Educacional', detail: 'Beneficio exclusivo para alumnos y comunidad educativa.', logo: 'amanda_labarca.png' },
-  { name: 'Colegio Antártica Chilena', benefit: '25% de descuento sobre el arancel.', type: 'Educacional', detail: 'Beneficio exclusivo para alumnos y comunidad educativa.', logo: 'antartica_chilena.png' },
+  { name: 'Colegio Antártica Chilena', benefit: '15% de descuento sobre el arancel.', type: 'Educacional', detail: 'Beneficio exclusivo para alumnos y comunidad educativa.', logo: 'antartica_chilena.png' },
   { name: 'Colegio Betterland', benefit: '25% de descuento sobre el arancel.', type: 'Educacional', detail: 'Beneficio exclusivo para alumnos y comunidad educativa.', logo: 'betterland.png' },
   { name: 'Colegio Everest', benefit: '25% de descuento sobre el arancel.', type: 'Educacional', detail: 'Beneficio exclusivo para alumnos y comunidad educativa.', logo: 'colegio_everest.png' },
   { name: 'Liceo María Luisa Bombal', benefit: '25% de descuento sobre el arancel.', type: 'Educacional', detail: 'Beneficio exclusivo para alumnos y comunidad educativa.', logo: 'mraluisabombal.png' },
-  { name: 'Club Sirio', benefit: '25% de descuento sobre el arancel.', type: 'Educacional', detail: 'Beneficio exclusivo para alumnos y comunidad educativa.', logo: 'sirio.png' },
+  { name: 'Club Sirio', benefit: '25% de descuento sobre el arancel.', type: 'Corporativo', detail: 'Beneficio exclusivo para colaboradores.', logo: 'sirio.png' },
   { name: 'Colegio Santa Úrsula', benefit: '25% de descuento sobre el arancel.', type: 'Educacional', detail: 'Beneficio exclusivo para alumnos y comunidad educativa.', logo: 'staursula.png' },
   { name: 'Universidad Federico Santa María', benefit: '25% de descuento sobre el arancel.', type: 'Educacional', detail: 'Beneficio exclusivo para alumnos y comunidad educativa.', logo: 'utfsm.png' },
 ];
