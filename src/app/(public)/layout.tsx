@@ -5,6 +5,8 @@ const Footer = dynamic(() => import("@/components/Footer").then(mod => mod.Foote
  
 const WhatsAppFab = dynamic(() => import("@/components/WhatsAppFab").then(mod => mod.WhatsAppFab));
 
+const PromoModal = dynamic(() => import("@/components/PromoModal").then(mod => mod.PromoModal));
+
 export default function PublicLayout({
   children,
 }: {
@@ -35,6 +37,7 @@ export default function PublicLayout({
         <main>{children}</main>
         <Footer />
         <WhatsAppFab />
+        <PromoModal />
       </div>
     </div>
   );

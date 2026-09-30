@@ -122,10 +122,10 @@ const PROMOS = [
     oldPrice: 'Antes: $47.000',
     location: 'Sólo Pago Web | +15 años',
     link: 'https://ff.healthatom.io/CpAdwX',
-    badgeColor: 'bg-white/20 hover:bg-white/30',
-    bgColor: 'from-[#c2410c] via-[#f97316] to-[#ea580c]',
-    priceColor: 'text-yellow-200 font-extrabold',
-    btnColor: 'text-orange-950 hover:bg-orange-50 font-black',
+    badgeColor: 'bg-white/20 hover:bg-white/30 text-white',
+    bgColor: 'from-[#065f46] via-[#047857] to-[#059669]',
+    priceColor: 'text-white font-black',
+    btnColor: 'text-emerald-900 bg-white hover:bg-emerald-50 font-bold',
     trackingLabel: 'Promo Limpieza Dental 24k Sticky Bar'
   }
 ];
@@ -393,7 +393,7 @@ export const Navbar = () => {
                     target="_blank"
                     rel="noopener noreferrer"
                     onClick={() => trackEvent('click_promocion', { label: PROMOS[promoIndex].trackingLabel })}
-                    className={`bg-white ${PROMOS[promoIndex].btnColor} px-2 sm:px-4 py-1 rounded-full text-[8px] sm:text-[10px] font-black uppercase hover:scale-105 transition-all shrink-0 shadow-sm flex items-center gap-1 active:scale-95`}
+                    className={`${PROMOS[promoIndex].btnColor} px-2 sm:px-4 py-1 rounded-full text-[8px] sm:text-[10px] uppercase hover:scale-105 transition-all shrink-0 shadow-sm flex items-center gap-1 active:scale-95`}
                   >
                     Agendar <ChevronRight className="w-2.5 h-2.5 sm:w-3 sm:h-3" />
                   </a>
