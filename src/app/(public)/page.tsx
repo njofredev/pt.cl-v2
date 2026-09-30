@@ -49,7 +49,7 @@ export default async function Home() {
                 "alternateName": "Centro Médico Policlínico Tabancura",
                 "url": "https://www.policlinicotabancura.cl",
                 "logo": "https://www.policlinicotabancura.cl/logo.svg",
-                "image": "https://www.policlinicotabancura.cl/Sucursales/heroActual.webp",
+                "image": "https://www.policlinicotabancura.cl/imagenes_general/heroNuevoNuevo.jpg",
                 "description": "Centro médico, clínico y dental en Vitacura. Atención especializada en salud mental, medicina general y convenios corporativos.",
                 "telephone": "+56229336740",
                 "email": "contacto@policlinicotabancura.cl",

@@ -123,7 +123,7 @@ const PROMOS = [
     location: 'Sólo Pago Web | +15 años',
     link: 'https://ff.healthatom.io/CpAdwX',
     badgeColor: 'bg-white/20 hover:bg-white/30 text-white',
-    bgColor: 'from-[#065f46] via-[#047857] to-[#059669]',
+    bgColor: 'from-[#059669] via-[#10b981] to-[#047857]',
     priceColor: 'text-white font-black',
     btnColor: 'text-emerald-900 bg-white hover:bg-emerald-50 font-bold',
     trackingLabel: 'Promo Limpieza Dental 24k Sticky Bar'

@@ -55,7 +55,7 @@ export interface HeroProps {
 }
 
 const DEFAULT_IMAGES = [
-  { src: '/Sucursales/heroActual.webp', alt: 'Policlínico Tabancura', location: 'Atención Familiar' }
+  { src: '/imagenes_general/heroNuevoNuevo.jpg', alt: 'Policlínico Tabancura', location: 'Atención Familiar' }
 ];
 
 export const Hero = ({
