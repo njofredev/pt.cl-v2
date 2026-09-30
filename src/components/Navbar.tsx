@@ -116,12 +116,12 @@ const SOCIAL_PHRASES = [
 const PROMOS = [
   {
     id: 'limpieza-dental-24k',
-    badgeText: '¡HASTA EL 15 DE SEPTIEMBRE!',
+    badgeText: '¡HASTA EL 15 DE OCTUBRE!',
     title: 'Limpieza Dental (Evaluación + Profilaxis + RX Bitewing)',
     price: '$24.000.-',
     oldPrice: 'Antes: $47.000',
     location: 'Sólo Pago Web | +15 años',
-    link: 'https://ff.healthatom.io/be3WhX',
+    link: 'https://ff.healthatom.io/CpAdwX',
     badgeColor: 'bg-white/20 hover:bg-white/30',
     bgColor: 'from-[#c2410c] via-[#f97316] to-[#ea580c]',
     priceColor: 'text-yellow-200 font-extrabold',
@@ -131,7 +131,7 @@ const PROMOS = [
 ];
 
 // Cambiar a true para volver a activar la barra de promociones en el futuro
-const ENABLE_PROMO_BAR = false;
+const ENABLE_PROMO_BAR = true;
 
 export const Navbar = () => {
   const [isScrolled, setIsScrolled] = useState(false);
