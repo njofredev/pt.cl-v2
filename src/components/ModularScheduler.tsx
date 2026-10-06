@@ -1434,14 +1434,29 @@ export const ModularScheduler = ({ professionals = [] }: ModularSchedulerProps) 
                                 </div>
                               </div>
 
-                              <a
-                                href={pro.bookingLink || "https://ff.healthatom.io/gNJNh6"}
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                className="w-full bg-[#162158] group-hover:bg-[#259CF4] hover:bg-[#259CF4] text-white font-bold text-xs py-2.5 px-3 rounded-full transition-all flex items-center justify-center gap-1.5 shadow-sm active:scale-98 min-h-[44px]"
-                              >
-                                Agendar Hora en Línea <ArrowRight size={13} />
-                              </a>
+                              {(() => {
+                                const isBookingDisabled = pro.name.toLowerCase().includes("yarmuch") && !pro.bookingLink;
+                                if (isBookingDisabled) {
+                                  return (
+                                    <button
+                                      disabled
+                                      className="w-full bg-slate-200 dark:bg-slate-800 text-slate-400 dark:text-slate-500 font-bold text-xs py-2.5 px-3 rounded-full flex items-center justify-center gap-1.5 cursor-not-allowed select-none min-h-[44px]"
+                                    >
+                                      Próximamente disponible
+                                    </button>
+                                  );
+                                }
+                                return (
+                                  <a
+                                    href={pro.bookingLink || "https://ff.healthatom.io/gNJNh6"}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className="w-full bg-[#162158] group-hover:bg-[#259CF4] hover:bg-[#259CF4] text-white font-bold text-xs py-2.5 px-3 rounded-full transition-all flex items-center justify-center gap-1.5 shadow-sm active:scale-98 min-h-[44px]"
+                                  >
+                                    Agendar Hora en Línea <ArrowRight size={13} />
+                                  </a>
+                                );
+                              })()}
                             </div>
                           );
                         })}

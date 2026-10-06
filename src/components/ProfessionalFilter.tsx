@@ -898,6 +898,20 @@ const ProfessionalFilterContent = ({ initialArea, professionals }: { initialArea
               <div className="bg-slate-50 dark:bg-slate-900/50 px-6 py-4 md:px-8 md:py-6 border-t border-slate-100 dark:border-slate-800 shrink-0">
                 {(() => {
                   const firstName = selectedPro.name.split(' ').filter(p => !p.includes('.')).filter(p => p.length > 0)[0] || selectedPro.name.split(' ')[0];
+                  const isBookingDisabled = selectedPro.name.toLowerCase().includes("yarmuch") && !selectedPro.bookingLink;
+
+                  if (isBookingDisabled) {
+                    return (
+                      <button
+                        disabled
+                        className="w-full bg-slate-200 dark:bg-slate-800 text-slate-400 dark:text-slate-500 font-bold h-12 md:h-14 rounded-full text-xs md:text-sm tracking-tight shadow-none flex items-center justify-center gap-2 cursor-not-allowed select-none whitespace-nowrap"
+                      >
+                        <CalendarDays size={16} className="text-slate-400 dark:text-slate-500 shrink-0" />
+                        <span>Agendar Hora (Próximamente disponible)</span>
+                      </button>
+                    );
+                  }
+
                   return (
                     <a
                       href={selectedPro.bookingLink || "tel:+56222172635"}
@@ -1000,15 +1014,33 @@ const ProfessionalCard = ({ pro, idx, onViewProfile }: { pro: Professional, idx:
 
           <div className="w-full p-6 pt-0 pb-8 flex flex-col items-center gap-3 mt-auto">
             {/* Botón Directo: Agendar Hora */}
-            <a
-              href={pro.bookingLink || "tel:+56222172635"}
-              target={pro.bookingLink?.startsWith('http') ? "_blank" : undefined}
-              rel={pro.bookingLink?.startsWith('http') ? "noopener noreferrer" : undefined}
-              className="w-full max-w-[230px] bg-gradient-to-r from-primary to-[#1e3a8a] hover:from-[#111827] hover:to-[#1f2937] text-white font-bold h-11 rounded-full text-[10px] tracking-[0.15em] uppercase transition-all duration-300 shadow-md flex items-center justify-center gap-2 cursor-pointer select-none active:scale-95 whitespace-nowrap"
-            >
-              <CalendarDays size={14} className="text-white shrink-0" />
-              <span>Agendar Hora</span>
-            </a>
+            {(() => {
+              const isBookingDisabled = pro.name.toLowerCase().includes("yarmuch") && !pro.bookingLink;
+              if (isBookingDisabled) {
+                return (
+                  <button
+                    disabled
+                    className="w-full max-w-[230px] bg-slate-200 dark:bg-slate-800 text-slate-400 dark:text-slate-500 font-bold h-11 rounded-full text-[10px] tracking-[0.15em] uppercase shadow-none flex items-center justify-center gap-2 cursor-not-allowed select-none whitespace-nowrap"
+                    title="Agendamiento no disponible temporalmente"
+                  >
+                    <CalendarDays size={14} className="text-slate-400 dark:text-slate-500 shrink-0" />
+                    <span>Agendar Hora</span>
+                  </button>
+                );
+              }
+
+              return (
+                <a
+                  href={pro.bookingLink || "tel:+56222172635"}
+                  target={pro.bookingLink?.startsWith('http') ? "_blank" : undefined}
+                  rel={pro.bookingLink?.startsWith('http') ? "noopener noreferrer" : undefined}
+                  className="w-full max-w-[230px] bg-gradient-to-r from-primary to-[#1e3a8a] hover:from-[#111827] hover:to-[#1f2937] text-white font-bold h-11 rounded-full text-[10px] tracking-[0.15em] uppercase transition-all duration-300 shadow-md flex items-center justify-center gap-2 cursor-pointer select-none active:scale-95 whitespace-nowrap"
+                >
+                  <CalendarDays size={14} className="text-white shrink-0" />
+                  <span>Agendar Hora</span>
+                </a>
+              );
+            })()}
 
             <button 
               onClick={() => onViewProfile(pro)}

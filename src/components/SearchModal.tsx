@@ -267,6 +267,19 @@ export function SearchModal({ isOpen, onClose }: { isOpen: boolean; onClose: () 
                     <div className="bg-white dark:bg-slate-950 p-5 border-t border-slate-100 dark:border-slate-800 shrink-0">
                       {(() => {
                         const firstName = selectedPro.name.split(' ').filter(p => !p.includes('.')).filter(p => p.length > 0)[0] || selectedPro.name.split(' ')[0];
+                        const isBookingDisabled = selectedPro.name.toLowerCase().includes("yarmuch") && !selectedPro.bookingLink;
+
+                        if (isBookingDisabled) {
+                          return (
+                            <button
+                              disabled
+                              className="w-full bg-slate-200 dark:bg-slate-800 text-slate-400 dark:text-slate-500 font-bold h-12 md:h-14 rounded-full text-xs md:text-sm tracking-tight shadow-none flex items-center justify-center cursor-not-allowed select-none whitespace-nowrap"
+                            >
+                              Agendar Hora (Próximamente disponible)
+                            </button>
+                          );
+                        }
+
                         return (
                           <button 
                             onClick={() => {

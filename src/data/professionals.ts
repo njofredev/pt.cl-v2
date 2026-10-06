@@ -253,6 +253,8 @@ export async function getProfessionals(): Promise<Professional[]> {
             image = "/img_profesionales/perfilTrinidadSanchez.jpg";
           } else if (lowerName.includes("valentina") && lowerName.includes("briseno")) {
             image = "/img_profesionales/perfilValentinaBriseño.jpg";
+          } else if (lowerName.includes("alejandra") && lowerName.includes("yarmuch")) {
+            image = "/img_profesionales/perfilAlejandraYarmuch.png";
           }
         }
         
