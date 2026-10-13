@@ -47,6 +47,18 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
               </Link>
 
               <Link 
+                href="/admin/blog"
+                className={`px-4 py-2 rounded-xl text-sm font-bold transition-all flex items-center gap-2 ${
+                  pathname.includes('/admin/blog') 
+                    ? 'bg-secondary/10 text-secondary' 
+                    : 'text-slate-500 hover:bg-slate-100 hover:text-slate-900'
+                }`}
+              >
+                <LayoutDashboard size={16} />
+                Blog
+              </Link>
+
+              <Link 
                 href="/admin/cookies"
                 className={`px-4 py-2 rounded-xl text-sm font-bold transition-all flex items-center gap-2 ${
                   pathname.includes('/admin/cookies') 
