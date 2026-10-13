@@ -137,6 +137,12 @@ async function main() {
         image = "/img_profesionales/perfilTrinidadSanchez.jpg";
       } else if (lowerName.includes("valentina") && lowerName.includes("briseno")) {
         image = "/img_profesionales/perfilValentinaBriseño.jpg";
+      } else if (lowerName.includes("alejandra") && lowerName.includes("yarmuch")) {
+        image = "/img_profesionales/perfilAlejandraYarmuch.png";
+      } else if (lowerName.includes("matias") && lowerName.includes("estai")) {
+        image = "/img_profesionales/perfilMatiasEstai.jpg";
+      } else if (lowerName.includes("magdalena") || lowerName.includes("dooner")) {
+        image = "/img_profesionales/perfilMagdalena.jpg";
       }
     }
 

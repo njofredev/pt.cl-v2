@@ -898,7 +898,7 @@ const ProfessionalFilterContent = ({ initialArea, professionals }: { initialArea
               <div className="bg-slate-50 dark:bg-slate-900/50 px-6 py-4 md:px-8 md:py-6 border-t border-slate-100 dark:border-slate-800 shrink-0">
                 {(() => {
                   const firstName = selectedPro.name.split(' ').filter(p => !p.includes('.')).filter(p => p.length > 0)[0] || selectedPro.name.split(' ')[0];
-                  const isBookingDisabled = selectedPro.name.toLowerCase().includes("yarmuch") && !selectedPro.bookingLink;
+                  const isBookingDisabled = (selectedPro.name.toLowerCase().includes("yarmuch") || selectedPro.name.toLowerCase().includes("dooner")) && !selectedPro.bookingLink;
 
                   if (isBookingDisabled) {
                     return (
@@ -1015,7 +1015,7 @@ const ProfessionalCard = ({ pro, idx, onViewProfile }: { pro: Professional, idx:
           <div className="w-full p-6 pt-0 pb-8 flex flex-col items-center gap-3 mt-auto">
             {/* Botón Directo: Agendar Hora */}
             {(() => {
-              const isBookingDisabled = pro.name.toLowerCase().includes("yarmuch") && !pro.bookingLink;
+              const isBookingDisabled = (pro.name.toLowerCase().includes("yarmuch") || pro.name.toLowerCase().includes("dooner")) && !pro.bookingLink;
               if (isBookingDisabled) {
                 return (
                   <button

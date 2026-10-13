@@ -267,7 +267,7 @@ export function SearchModal({ isOpen, onClose }: { isOpen: boolean; onClose: () 
                     <div className="bg-white dark:bg-slate-950 p-5 border-t border-slate-100 dark:border-slate-800 shrink-0">
                       {(() => {
                         const firstName = selectedPro.name.split(' ').filter(p => !p.includes('.')).filter(p => p.length > 0)[0] || selectedPro.name.split(' ')[0];
-                        const isBookingDisabled = selectedPro.name.toLowerCase().includes("yarmuch") && !selectedPro.bookingLink;
+                        const isBookingDisabled = (selectedPro.name.toLowerCase().includes("yarmuch") || selectedPro.name.toLowerCase().includes("dooner")) && !selectedPro.bookingLink;
 
                         if (isBookingDisabled) {
                           return (

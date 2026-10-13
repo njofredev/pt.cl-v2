@@ -1435,7 +1435,7 @@ export const ModularScheduler = ({ professionals = [] }: ModularSchedulerProps) 
                               </div>
 
                               {(() => {
-                                const isBookingDisabled = pro.name.toLowerCase().includes("yarmuch") && !pro.bookingLink;
+                                const isBookingDisabled = (pro.name.toLowerCase().includes("yarmuch") || pro.name.toLowerCase().includes("dooner")) && !pro.bookingLink;
                                 if (isBookingDisabled) {
                                   return (
                                     <button

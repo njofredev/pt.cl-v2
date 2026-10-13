@@ -110,6 +110,7 @@ export const PROFESSIONALS: Professional[] = [
   { id: 5, name: "Andro Sapunar Rodríguez", specialty: "Kinesiología", area: "Medicina General", sucursal: "Vitacura", description: "Kinesiólogo enfocado en bienestar y rehabilitación física.", image: "/img_profesionales/perfilAndroSapunar_v2.jpg", ageGroup: "Adolescentes (12 a 17 años)., Adulto - Joven (18 a 29 años)." },
   { id: 6, name: "Dr. Juan Pérez", specialty: "Kinesiología", area: "Medicina General", sucursal: "Los Tribunales", description: "Rehabilitación física y deportiva." },
   { id: 8, name: "Dr. Miguel Ángel", specialty: "Biomagnetismo", area: "Terapias Complementarias", sucursal: "Los Tribunales", description: "Terapia de imanes para el equilibrio integral." },
+  { id: 62, name: "Magdalena Sofía Dooner Sepúlveda", specialty: "Medicina", area: "Medicina General", sucursal: "Sucursal Vitacura (Avenida Vitacura #8620)", description: "Mi atención se centra en la escucha. Me doy el tiempo de conocer a cada persona y sus distintas preocupaciones de salud, más allá del motivo principal de consulta, para identificar otras necesidades en las que pueda ayudar.", education: "Médico Cirujano de la Universidad de los Andes.", image: "/img_profesionales/perfilMagdalena.jpg", ageGroup: "Adolescentes (12 a 17 años)., Adulto - Joven (18 a 29 años)., Adulto (30 a 59 años)., Tercera Edad (60 años en adelante)." },
 ];
 
 export async function getProfessionals(): Promise<Professional[]> {
@@ -255,6 +256,8 @@ export async function getProfessionals(): Promise<Professional[]> {
             image = "/img_profesionales/perfilValentinaBriseño.jpg";
           } else if (lowerName.includes("alejandra") && lowerName.includes("yarmuch")) {
             image = "/img_profesionales/perfilAlejandraYarmuch.png";
+          } else if (lowerName.includes("magdalena") || lowerName.includes("dooner")) {
+            image = "/img_profesionales/perfilMagdalena.jpg";
           }
         }
         
