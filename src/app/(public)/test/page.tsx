@@ -1,8 +1,7 @@
 import React from 'react';
 import dynamic from 'next/dynamic';
-import { AIHeroTester } from '@/components/AIHeroTester';
 import { MiVitaLink } from '@/components/MiVitaLink';
-import { ModularScheduler } from '@/components/ModularScheduler';
+import { RealBookingScheduler } from '@/components/booking/RealBookingScheduler';
 import { PartnerCarousel } from '@/components/PartnerCarousel';
 import { ServiceCarousel } from '@/components/ServiceCarousel';
 import { HomeClientSections } from '@/components/HomeClientSections';
@@ -102,21 +101,21 @@ export default async function TestPage({ searchParams }: PageProps) {
           })
         }}
       />
-      {/* 0. HERO ASISTENTE IA CONTEXTUALIZADO (GOOGLE AI STUDIO FREE TIER) */}
-      <AIHeroTester />
-
-      {/* COMPONENTE DE AGENDAMIENTO MODULAR EN TESTING */}
-      <section id="agendar" className="py-12 bg-slate-100/50 dark:bg-slate-950/80 my-8 scroll-mt-32">
-        <div className="container mx-auto px-6">
-          <div className="text-center mb-6">
-            <span className="bg-[#162158] text-white text-[10px] font-bold px-3 py-1 rounded-full uppercase tracking-widest">
-              AGENDAMIENTO DE HORAS EN LÍNEA
+      {/* COMPONENTE DE AGENDAMIENTO REAL (HEALTHATOM: DENTALINK & MEDILINK) */}
+      <section id="agendar" className="pt-36 sm:pt-48 pb-20 bg-slate-100/50 dark:bg-slate-950/80 mb-8 scroll-mt-36 sm:scroll-mt-48">
+        <div className="container mx-auto px-4 sm:px-6">
+          <div className="text-center mb-10 pt-2 sm:pt-6">
+            <span className="bg-[#162158] dark:bg-[#259CF4] text-white text-[10px] font-bold px-3.5 py-1.5 rounded-full uppercase tracking-widest shadow-sm">
+              AGENDAMIENTO OFICIAL EN LÍNEA
             </span>
-            <h2 className="text-2xl sm:text-3xl font-black text-slate-900 dark:text-white mt-2">
-              Buscador Modular de Horas Disponibles
+            <h2 className="text-2xl sm:text-4xl font-black text-slate-900 dark:text-white mt-3 tracking-tight">
+              Motor de Reserva Dental y Médica
             </h2>
+            <p className="text-xs sm:text-sm text-slate-500 dark:text-slate-400 mt-2 max-w-xl mx-auto">
+              Disponibilidad en tiempo real sincronizada directamente con las agendas clínicas de Dentalink y Medilink.
+            </p>
           </div>
-          <ModularScheduler professionals={professionals} />
+          <RealBookingScheduler />
         </div>
       </section>
 
