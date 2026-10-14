@@ -116,16 +116,16 @@ const SOCIAL_PHRASES = [
 const PROMOS = [
   {
     id: 'limpieza-dental-24k',
-    badgeText: '¡HASTA EL 15 DE OCTUBRE!',
+    badgeText: 'SÓLO QUEDA 1 DÍA',
     title: 'Limpieza Dental (Evaluación + Profilaxis + RX Bitewing)',
     price: '$24.000.-',
     oldPrice: 'Antes: $47.000',
     location: 'Sólo Pago Web | +15 años',
     link: 'https://ff.healthatom.io/CpAdwX',
     badgeColor: 'bg-white/20 hover:bg-white/30 text-white',
-    bgColor: 'from-[#059669] via-[#10b981] to-[#047857]',
+    bgColor: 'from-red-600 via-rose-600 to-red-700',
     priceColor: 'text-white font-black',
-    btnColor: 'text-emerald-900 bg-white hover:bg-emerald-50 font-bold',
+    btnColor: 'text-red-700 bg-white hover:bg-red-50 font-black shadow-sm',
     trackingLabel: 'Promo Limpieza Dental 24k Sticky Bar'
   }
 ];
@@ -351,16 +351,18 @@ export const Navbar = () => {
                     animate={{ opacity: 1, y: 0 }}
                     exit={{ opacity: 0, y: -8 }}
                     transition={{ duration: 0.35, ease: "easeOut" }}
-                    className="flex flex-wrap items-center justify-center gap-x-1 text-white/90 text-[9px] sm:text-[11px] md:text-xs font-bold tracking-wide"
+                    className="flex flex-wrap items-center justify-center gap-x-1 text-white text-[9px] sm:text-[11px] md:text-xs font-bold tracking-wide"
                   >
                     <a
                       href={PROMOS[promoIndex].link}
                       target="_blank"
                       rel="noopener noreferrer"
                       onClick={() => trackEvent('click_promocion', { label: `${PROMOS[promoIndex].trackingLabel} - Badge` })}
-                      className={`hidden md:inline-flex items-center ${PROMOS[promoIndex].badgeColor} px-2 py-0.5 rounded-full text-[9px] mr-1 text-white font-black border border-white/10 transition-all hover:scale-105 active:scale-95 cursor-pointer`}
+                      className={`inline-flex items-center ${PROMOS[promoIndex].badgeColor} px-2 py-0.5 rounded-full text-[9px] mr-1 text-white font-black border border-white/20 transition-all hover:scale-105 active:scale-95 cursor-pointer shadow-sm`}
                     >
-                      <Megaphone className="w-2.5 h-2.5 mr-1 -rotate-12 shrink-0" /> {PROMOS[promoIndex].badgeText}
+                      <Megaphone className="w-2.5 h-2.5 mr-1 -rotate-12 shrink-0 animate-bounce" />
+                      <span className="inline sm:hidden">¡ÚLTIMO DÍA!</span>
+                      <span className="hidden sm:inline">{PROMOS[promoIndex].badgeText}</span>
                     </a>
                     <span className="flex items-center gap-1">
                       <ClipboardPlus className={`w-3.5 h-3.5 ${PROMOS[promoIndex].priceColor} shrink-0 inline-block relative -top-[0.5px]`} />
@@ -369,8 +371,8 @@ export const Navbar = () => {
                     <span className={`${PROMOS[promoIndex].priceColor} text-xs sm:text-sm font-black flex items-center ml-1 underline underline-offset-2`}>
                       {PROMOS[promoIndex].price}
                     </span>
-                    <span className="text-white/70 line-through text-[10px] ml-1">{PROMOS[promoIndex].oldPrice}</span>
-                    <span className="hidden lg:inline bg-white/10 px-2 py-0.5 rounded-full text-[8px] ml-2 border border-white/10 tracking-widest text-white/90 uppercase font-black">
+                    <span className="text-white/80 line-through text-[10px] ml-1">{PROMOS[promoIndex].oldPrice}</span>
+                    <span className="hidden lg:inline bg-white/15 px-2 py-0.5 rounded-full text-[8px] ml-2 border border-white/20 tracking-widest text-white uppercase font-black">
                       {PROMOS[promoIndex].location}
                     </span>
                   </motion.div>
@@ -400,7 +402,7 @@ export const Navbar = () => {
 
                   <button
                     onClick={() => setShowPromo(false)}
-                    className="p-1.5 sm:p-2 text-white/70 hover:text-white hover:bg-white/15 rounded-full transition-colors shrink-0"
+                    className="p-1.5 sm:p-2 text-white/80 hover:text-white hover:bg-white/20 rounded-full transition-colors shrink-0"
                     aria-label="Cerrar promoción"
                   >
                     <X className="w-4 h-4 sm:w-5 sm:h-5" />
