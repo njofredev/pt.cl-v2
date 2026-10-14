@@ -124,8 +124,8 @@ const KNOWN_PHOTO_MAP: Record<string, string> = {
   'carlos garcia - huidobro': '/img_profesionales/perfilCarlosGarcia_v2.jpg',
   'matias estai krauss': '/img_profesionales/perfilMatiasEstai.jpg',
   'matias estai': '/img_profesionales/perfilMatiasEstai.jpg',
-  'alejandra yarmuch fierro': '/img_profesionales/perfilAlejandraYarmuch.png',
-  'alejandra yarmuch': '/img_profesionales/perfilAlejandraYarmuch.png',
+  'alejandra yarmuch fierro': '/img_profesionales/perfilAlejandraYarmuch.jpg',
+  'alejandra yarmuch': '/img_profesionales/perfilAlejandraYarmuch.jpg',
   'joaquin vial': '/img_profesionales/perfilJoaquinVial.jpg',
 };
 
