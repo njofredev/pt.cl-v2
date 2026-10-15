@@ -37,7 +37,7 @@ export default function PublicLayout({
         <main>{children}</main>
         <Footer />
         <WhatsAppFab />
-        <PromoModal />
+        {/* <PromoModal /> */}
       </div>
     </div>
   );

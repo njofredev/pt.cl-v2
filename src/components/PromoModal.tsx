@@ -14,6 +14,9 @@ interface PromoModalProps {
   trackingLabel?: string;
 }
 
+// Cambiar a true para volver a activar el popup promocional de entrada
+const ENABLE_PROMO_MODAL = false;
+
 export function PromoModal({
   storageKey = "promo_limpieza_octubre_2026_seen",
   imageSrc = "/promociones-activas/PromocionLimpiezaOctubre.png",
@@ -21,6 +24,8 @@ export function PromoModal({
   title = "Promoción Limpieza Dental Octubre",
   trackingLabel = "Popup Promo Limpieza Octubre"
 }: PromoModalProps) {
+  if (!ENABLE_PROMO_MODAL) return null;
+
   const [isOpen, setIsOpen] = useState(false);
 
   useEffect(() => {

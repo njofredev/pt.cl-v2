@@ -25,6 +25,11 @@ const nextConfig: NextConfig = {
         destination: '/servicios/terapias',
         permanent: true,
       },
+      {
+        source: '/politica-de-privacidad',
+        destination: '/politica-de-cookies',
+        permanent: true,
+      },
     ];
   },
 };

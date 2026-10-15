@@ -118,12 +118,12 @@ export function CookieConsent() {
                   </div>
 
                   <p className="text-xs text-slate-600 dark:text-slate-300 leading-relaxed max-w-3xl">
-                    Utilizamos cookies para garantizar el agendamiento clínico seguro, pagos y análisis estadístico. Puedes aceptar todas, rechazarlas o configurar tus preferencias. Más información en nuestra{" "}
+                    Según la Ley Nº 21.719, gestiona tu consentimiento para cookies esenciales, analíticas y de marketing. Esta es una decisión única. Si deseas revocar tu consentimiento, debes ingresar una Solicitud de Derechos ARCO.{" "}
                     <Link
                       href="/politica-de-cookies"
                       className="font-bold text-[#1E40AF] dark:text-[#259CF4] underline underline-offset-2 hover:opacity-80 inline"
                     >
-                      Política de Cookies
+                      Ver Política de Privacidad
                     </Link>.
                   </p>
                 </div>

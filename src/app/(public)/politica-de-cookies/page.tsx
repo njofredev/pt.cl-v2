@@ -127,7 +127,7 @@ export default function PoliticaCookiesPage() {
                 </li>
                 <li className="flex items-start gap-2.5">
                   <CheckCircle2 size={18} className="text-emerald-500 shrink-0 mt-0.5" />
-                  <span><strong>Derecho a Revocación:</strong> Puedes cambiar de opinión y ajustar tus preferencias en cualquier momento mediante nuestro panel de privacidad.</span>
+                  <span><strong>Derecho a Revocación y Derechos ARCO:</strong> Puedes revocar o modificar tu consentimiento en cualquier momento ingresando una Solicitud de Derechos ARCO (Acceso, Rectificación, Cancelación y Oposición) a través de nuestros canales formales de privacidad.</span>
                 </li>
               </ul>
             </div>
@@ -299,6 +299,10 @@ export default function PoliticaCookiesPage() {
                   <MapPin size={16} className="text-[#259CF4] shrink-0" />
                   <span>Casa Matriz: Calle Los Tribunales #1268, Vitacura | Centro Médico: Av. Vitacura #8620</span>
                 </div>
+              </div>
+
+              <div className="p-4 rounded-2xl bg-blue-50/70 dark:bg-slate-950 border border-blue-100 dark:border-slate-800 text-xs text-slate-600 dark:text-slate-300 leading-relaxed">
+                <strong className="text-[#1E40AF] dark:text-cyan-400">Solicitud de Derechos ARCO (Ley N° 21.719):</strong> Si deseas revocar tu consentimiento o ejercer tus derechos de acceso, rectificación, cancelación u oposición, envía tu solicitud a <a href="mailto:datos@policlinicotabancura.cl" className="font-bold underline text-[#1E40AF] dark:text-cyan-400">datos@policlinicotabancura.cl</a> indicando tu nombre completo, RUT y el detalle del requerimiento.
               </div>
 
               <div className="pt-4 border-t border-slate-100 dark:border-slate-800 text-xs text-slate-400 font-medium">
