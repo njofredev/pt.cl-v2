@@ -116,22 +116,22 @@ const SOCIAL_PHRASES = [
 const PROMOS = [
   {
     id: 'limpieza-dental-24k',
-    badgeText: 'SÓLO QUEDA 1 DÍA',
+    badgeText: 'HASTA EL 31 DE OCTUBRE!',
     title: 'Limpieza Dental (Evaluación + Profilaxis + RX Bitewing)',
     price: '$24.000.-',
     oldPrice: 'Antes: $47.000',
     location: 'Sólo Pago Web | +15 años',
-    link: 'https://ff.healthatom.io/CpAdwX',
+    link: 'https://ff.healthatom.io/TReFqg',
     badgeColor: 'bg-white/20 hover:bg-white/30 text-white',
-    bgColor: 'from-red-600 via-rose-600 to-red-700',
+    bgColor: 'from-violet-600 via-purple-600 to-indigo-700',
     priceColor: 'text-white font-black',
-    btnColor: 'text-red-700 bg-white hover:bg-red-50 font-black shadow-sm',
+    btnColor: 'text-purple-700 bg-white hover:bg-purple-50 font-black shadow-sm',
     trackingLabel: 'Promo Limpieza Dental 24k Sticky Bar'
   }
 ];
 
 // Cambiar a true para volver a activar la barra de promociones en el futuro
-const ENABLE_PROMO_BAR = false;
+const ENABLE_PROMO_BAR = true;
 
 export const Navbar = () => {
   const [isScrolled, setIsScrolled] = useState(false);
