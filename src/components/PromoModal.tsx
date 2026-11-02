@@ -15,7 +15,7 @@ interface PromoModalProps {
 }
 
 // Cambiar a true para volver a activar el popup promocional de entrada
-const ENABLE_PROMO_MODAL = true;
+const ENABLE_PROMO_MODAL = false;
 
 export function PromoModal({
   storageKey = "promo_limpieza_oct_2026_v1",
