@@ -116,22 +116,22 @@ const SOCIAL_PHRASES = [
 const PROMOS = [
   {
     id: 'limpieza-dental-24k',
-    badgeText: 'HASTA EL 31 DE OCTUBRE!',
+    badgeText: '¡HASTA EL 15 DE NOVIEMBRE!',
     title: 'Limpieza Dental (Evaluación + Profilaxis + RX Bitewing)',
     price: '$24.000.-',
     oldPrice: 'Antes: $47.000',
     location: 'Sólo Pago Web | +15 años',
-    link: 'https://ff.healthatom.io/TReFqg',
+    link: 'https://ff.healthatom.io/be3WhX',
     badgeColor: 'bg-white/20 hover:bg-white/30 text-white',
-    bgColor: 'from-violet-600 via-purple-600 to-indigo-700',
+    bgColor: 'from-orange-600 via-amber-500 to-orange-500',
     priceColor: 'text-white font-black',
-    btnColor: 'text-purple-700 bg-white hover:bg-purple-50 font-black shadow-sm',
+    btnColor: 'text-orange-600 bg-white hover:bg-orange-50 font-black shadow-sm',
     trackingLabel: 'Promo Limpieza Dental 24k Sticky Bar'
   }
 ];
 
 // Cambiar a true para volver a activar la barra de promociones en el futuro
-const ENABLE_PROMO_BAR = false;
+const ENABLE_PROMO_BAR = true;
 
 export const Navbar = () => {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -361,7 +361,7 @@ export const Navbar = () => {
                       className={`inline-flex items-center ${PROMOS[promoIndex].badgeColor} px-2 py-0.5 rounded-full text-[9px] mr-1 text-white font-black border border-white/20 transition-all hover:scale-105 active:scale-95 cursor-pointer shadow-sm`}
                     >
                       <Megaphone className="w-2.5 h-2.5 mr-1 -rotate-12 shrink-0 animate-bounce" />
-                      <span className="inline sm:hidden">¡ÚLTIMO DÍA!</span>
+                      <span className="inline sm:hidden">¡HASTA 15 NOV!</span>
                       <span className="hidden sm:inline">{PROMOS[promoIndex].badgeText}</span>
                     </a>
                     <span className="flex items-center gap-1">

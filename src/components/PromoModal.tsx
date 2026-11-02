@@ -15,14 +15,14 @@ interface PromoModalProps {
 }
 
 // Cambiar a true para volver a activar el popup promocional de entrada
-const ENABLE_PROMO_MODAL = false;
+const ENABLE_PROMO_MODAL = true;
 
 export function PromoModal({
-  storageKey = "promo_limpieza_oct_2026_v1",
-  imageSrc = "/promociones-activas/PromocionLimpiezaOct.jpg",
-  link = "https://ff.healthatom.io/TReFqg",
-  title = "Promoción Limpieza Dental Octubre",
-  trackingLabel = "Popup Promo Limpieza Octubre"
+  storageKey = "promo_limpieza_nov_2026_v1",
+  imageSrc = "/promociones-activas/PromocionLimpiezaOct.png",
+  link = "https://ff.healthatom.io/be3WhX",
+  title = "Promoción Limpieza Dental",
+  trackingLabel = "Popup Promo Limpieza Noviembre"
 }: PromoModalProps) {
   if (!ENABLE_PROMO_MODAL) return null;
 
