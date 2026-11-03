@@ -90,7 +90,8 @@ const BOOKING_LINKS: Record<string, string> = {
   "patricia michele montalva del pozo": "https://ff.healthatom.io/8kqQqs",
   "caterina benapres cortes- vieira": "https://ff.healthatom.io/EbOKIl",
   "pauline henriksen perez": "https://ff.healthatom.io/tsbVD2",
-  "carola munoz poblete": "https://ff.healthatom.io/a4nAja"
+  "carola munoz poblete": "https://ff.healthatom.io/a4nAja",
+  "maria fernanda marticorena": "https://ff.healthatom.io/Dx7pvN"
 };
 
 export const AREAS = [
@@ -112,6 +113,7 @@ export const PROFESSIONALS: Professional[] = [
   { id: 6, name: "Dr. Juan Pérez", specialty: "Kinesiología", area: "Medicina General", sucursal: "Los Tribunales", description: "Rehabilitación física y deportiva." },
   { id: 8, name: "Dr. Miguel Ángel", specialty: "Biomagnetismo", area: "Terapias Complementarias", sucursal: "Los Tribunales", description: "Terapia de imanes para el equilibrio integral." },
   { id: 62, name: "Magdalena Sofía Dooner Sepúlveda", specialty: "Medicina", area: "Medicina General", sucursal: "Sucursal Vitacura (Avenida Vitacura #8620)", description: "Mi atención se centra en la escucha. Me doy el tiempo de conocer a cada persona y sus distintas preocupaciones de salud, más allá del motivo principal de consulta, para identificar otras necesidades en las que pueda ayudar.", education: "Médico Cirujano de la Universidad de los Andes.", image: "/img_profesionales/perfilMagdalena.jpg", ageGroup: "Adolescentes (12 a 17 años)., Adulto - Joven (18 a 29 años)., Adulto (30 a 59 años)., Tercera Edad (60 años en adelante)." },
+  { id: 63, name: "Dra. María Fernanda Marticorena", specialty: "Odontología General", area: "Salud Dental", sucursal: "Los Tribunales y Vitacura", description: "Cirujana Dentista enfocada en Odontología General. Brindo atención integral para jóvenes, adultos y adultos mayores.", education: "Cirujana Dentista de la Universidad de Valparaíso.", image: "/img_profesionales/perfilMaríaFernanda.png", ageGroup: "Adolescentes (12 a 17 años)., Adulto - Joven (18 a 29 años)., Adulto (30 a 59 años)., Tercera Edad (60 años en adelante).", bookingLink: "https://ff.healthatom.io/Dx7pvN" },
 ];
 
 export async function getProfessionals(): Promise<Professional[]> {
@@ -259,6 +261,8 @@ export async function getProfessionals(): Promise<Professional[]> {
             image = "/img_profesionales/perfilAlejandraYarmuch.jpg";
           } else if (lowerName.includes("magdalena") || lowerName.includes("dooner")) {
             image = "/img_profesionales/perfilMagdalena.jpg";
+          } else if (lowerName.includes("marticorena") || (lowerName.includes("fernanda") && lowerName.includes("maria"))) {
+            image = "/img_profesionales/perfilMaríaFernanda.png";
           }
         }
         

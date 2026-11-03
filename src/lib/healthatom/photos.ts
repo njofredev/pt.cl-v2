@@ -64,6 +64,9 @@ const KNOWN_PHOTO_MAP: Record<string, string> = {
   'andres horst hampel aljaro': '/img_profesionales/perfilAndresHampel.jpg',
   'andres hampel': '/img_profesionales/perfilAndresHampel.jpg',
   'isidora aspillaga': '/img_profesionales/perfilIsidoraAspillaga.png',
+  'maria fernanda marticorena': '/img_profesionales/perfilMaríaFernanda.png',
+  'maria fernanda marticorena ': '/img_profesionales/perfilMaríaFernanda.png',
+  'maria fernanda': '/img_profesionales/perfilMaríaFernanda.png',
 
   // Medicina y Especialidades (Medilink)
   'magdalena sofia dooner sepulveda': '/img_profesionales/perfilMagdalena.jpg',
