@@ -131,7 +131,7 @@ const PROMOS = [
 ];
 
 // Cambiar a true para volver a activar la barra de promociones en el futuro
-const ENABLE_PROMO_BAR = true;
+const ENABLE_PROMO_BAR = false;
 
 export const Navbar = () => {
   const [isScrolled, setIsScrolled] = useState(false);
