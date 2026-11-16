@@ -157,7 +157,15 @@ const SCHEDULE_DATA: Category[] = [
           { label: "Teleconsulta", link: "https://ff.healthatom.io/7c4geA" }
         ]
       },
-      { label: "Consulta Psiquiatría", info: "Control médico especializado", link: "https://ff.healthatom.io/zKcGdX" },
+      {
+        label: "Consulta Psiquiatría",
+        info: "Control médico especializado",
+        isMulti: true,
+        options: [
+          { label: "Presencial", link: "https://ff.healthatom.io/0yHBrH" },
+          { label: "Teleconsulta", link: "https://ff.healthatom.io/ERt6mO" }
+        ]
+      },
       { label: "Atención Fonoaudiología", info: "Lenguaje y deglución", link: "https://ff.healthatom.io/nTp5kE" },
       { label: "Consulta Psicopedagogía", info: "Dificultades de aprendizaje", link: "https://ff.healthatom.io/rIxNId" }
     ]

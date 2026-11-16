@@ -116,7 +116,7 @@ const SOCIAL_PHRASES = [
 const PROMOS = [
   {
     id: 'limpieza-dental-24k',
-    badgeText: '¡HASTA EL 15 DE NOVIEMBRE!',
+    badgeText: '¡HASTA EL 30 DE NOVIEMBRE!',
     title: 'Limpieza Dental (Evaluación + Profilaxis + RX Bitewing)',
     price: '$24.000.-',
     oldPrice: 'Antes: $47.000',
@@ -131,7 +131,7 @@ const PROMOS = [
 ];
 
 // Cambiar a true para volver a activar la barra de promociones en el futuro
-const ENABLE_PROMO_BAR = false;
+const ENABLE_PROMO_BAR = true;
 
 export const Navbar = () => {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -361,7 +361,7 @@ export const Navbar = () => {
                       className={`inline-flex items-center ${PROMOS[promoIndex].badgeColor} px-2 py-0.5 rounded-full text-[9px] mr-1 text-white font-black border border-white/20 transition-all hover:scale-105 active:scale-95 cursor-pointer shadow-sm`}
                     >
                       <Megaphone className="w-2.5 h-2.5 mr-1 -rotate-12 shrink-0 animate-bounce" />
-                      <span className="inline sm:hidden">¡HASTA 15 NOV!</span>
+                      <span className="inline sm:hidden">¡HASTA 30 NOV!</span>
                       <span className="hidden sm:inline">{PROMOS[promoIndex].badgeText}</span>
                     </a>
                     <span className="flex items-center gap-1">
